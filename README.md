@@ -310,18 +310,20 @@ yarn test:watch
 
 ### Scripts
 
-| Command                | What it does                                                                   |
-| ---------------------- | ------------------------------------------------------------------------------ |
-| `yarn storybook`       | Starts the Storybook dev server on port `6006`.                                |
-| `yarn build`           | Compiles TypeScript and builds the UMD bundle into `lib/`.                     |
-| `yarn start`           | Compiles TypeScript in watch mode.                                             |
-| `yarn test`            | Runs ESLint and all Jest tests (snapshot tests included).                      |
-| `yarn test:watch`      | Runs Jest in watch mode.                                                       |
-| `yarn test:loki`       | Builds the Storybook and runs the Loki visual regression tests (needs Docker). |
-| `yarn lint`            | Lints `src/` with ESLint.                                                      |
-| `yarn icons`           | Regenerates the icon components from the SVGs in `icons/`.                     |
-| `yarn build-storybook` | Builds a static Storybook into `storybook-static/`.                            |
-| `yarn site:start`      | Starts the Gatsby documentation site (run `yarn build` first).                 |
+| Command                  | What it does                                                                   |
+| ------------------------ | ------------------------------------------------------------------------------ |
+| `yarn storybook`         | Starts the Storybook dev server on port `6006`.                                |
+| `yarn build`             | Compiles TypeScript and builds the UMD bundle into `lib/`.                     |
+| `yarn start`             | Compiles TypeScript in watch mode.                                             |
+| `yarn test`              | Runs ESLint and all Jest tests (snapshot tests included).                      |
+| `yarn test:watch`        | Runs Jest in watch mode.                                                       |
+| `yarn test:loki`         | Builds the Storybook and runs the Loki visual regression tests (needs Docker). |
+| `yarn lint`              | Lints `src/` with ESLint.                                                      |
+| `yarn icons`             | Regenerates the icon components from the SVGs in `icons/`.                     |
+| `yarn phosphor:sync`     | Downloads and verifies a Phosphor release into `vendor/phosphor/`.             |
+| `yarn phosphor:generate` | Regenerates the Phosphor components in `src/phosphor/generated/`.              |
+| `yarn build-storybook`   | Builds a static Storybook into `storybook-static/`.                            |
+| `yarn site:start`        | Starts the Gatsby documentation site (run `yarn build` first).                 |
 
 ### Project structure
 
@@ -333,9 +335,11 @@ lemonade-ui/
 │   ├── components/     # One folder per component, with stories and tests
 │   ├── hooks/          # Shared React hooks
 │   ├── i18n/           # LocaleContext and locale strings (en-US, pt-BR)
+│   ├── phosphor/       # Phosphor icon components (@lemonade/ui/phosphor)
 │   ├── styles/         # Themes, color scales, global CSS, useStyles/useTheme
 │   └── util/           # Helpers
-├── tools/              # Icon generation scripts
+├── tools/              # Icon generation scripts (incl. tools/phosphor)
+├── vendor/phosphor/    # Vendored Phosphor SVGs, catalog and MIT license
 └── .loki/              # Visual regression reference images
 ```
 
