@@ -1,3 +1,5 @@
+import { Demo } from '../../../components/Demo'
+
 # Accordion
 
 An accordion is a clickable component that reveals or hide content associated with it. Allowing people to have control over the content by expanding it or deferring it for later lets them decide what to read and what to ignore.
@@ -9,4 +11,10 @@ Collapsing the page minimizes scrolling, and the headings serve as a mini-IA of 
 - Make sure to optimize your pages for printing. Accordions are often not well suited for printing documents and require people to print snippets of content at a time.
 - In tables, in situations where the list has only some expandable items, the items that do not use the accordion should have the same indentation as the others. When applied to cards, it is not necessary to maintain text alignment.
 
-**This component hasn't yet been implemented as a react component.**
+## Usage
+
+Group `AccordionItem`s inside an `Accordion`. Each item has a header button, with `aria-expanded` and `aria-controls`, inside a heading (`headingLevel`, 3 by default). Besides Tab, the arrow keys, Home and End move between the headers.
+
+<Demo src='pages/components/accordion/Accordion' />
+
+Items are uncontrolled by default (`defaultExpanded`). To control one, pass `expanded` and `onChange`.

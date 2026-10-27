@@ -10,7 +10,7 @@ import { Text } from '../Text'
 import { Tag } from '../Tag'
 import { Heading } from '../Heading'
 import { Status } from '../Status'
-import { Card, ClickableCard } from '../Card'
+import { Card, ClickableCard, ExpandableCard, ToggleCard } from '../Card'
 import { Cell, Grid } from '../Grid'
 
 const CardContent = () => (
@@ -136,4 +136,54 @@ export const Variants = (args) => {
 
 Variants.args = {
   selected: false,
+}
+
+export const Toggle = (args) => (
+  <VFlow vSpacing={0.5}>
+    <ToggleCard name='plan' value='basic' defaultChecked {...args}>
+      <VFlow vSpacing={0.25}>
+        <Heading level={4}>Basic plan</Heading>
+        <Text>Up to 3 projects and community support.</Text>
+      </VFlow>
+    </ToggleCard>
+    <ToggleCard name='plan' value='pro' {...args}>
+      <VFlow vSpacing={0.25}>
+        <HFlow hSpacing={0.5} alignItems='center'>
+          <Heading level={4}>Pro plan</Heading>
+          <Tag>Popular</Tag>
+        </HFlow>
+        <Text>Unlimited projects and priority support.</Text>
+      </VFlow>
+    </ToggleCard>
+  </VFlow>
+)
+
+Toggle.args = {
+  variant: 'outline',
+  invalid: false,
+  disabled: false,
+}
+
+export const Expandable = (args) => (
+  <VFlow vSpacing={0.5}>
+    <ExpandableCard title='Order #1024' defaultExpanded {...args}>
+      <VFlow vSpacing={0.5}>
+        <Text>3 items · delivered on October 21</Text>
+        <HFlow>
+          <Button size='small' onClick={action('Track order clicked')}>
+            Track order
+          </Button>
+        </HFlow>
+      </VFlow>
+    </ExpandableCard>
+    <ExpandableCard title='Order #1023' {...args}>
+      <Text>1 item · delivered on October 2</Text>
+    </ExpandableCard>
+  </VFlow>
+)
+
+Expandable.args = {
+  variant: 'outline',
+  invalid: false,
+  disabled: false,
 }

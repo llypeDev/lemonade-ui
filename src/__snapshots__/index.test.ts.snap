@@ -2,6 +2,8 @@
 
 exports[`should export components to global namespace 1`] = `
 Array [
+  "Accordion",
+  "AccordionItem",
   "ActionableToast",
   "ActionableToastList",
   "Alert",
@@ -15,6 +17,8 @@ Array [
   "YearControl",
   "Card",
   "ClickableCard",
+  "ExpandableCard",
+  "ToggleCard",
   "Combobox",
   "Checkbox",
   "Currency",
@@ -112,6 +116,9 @@ Array [
   "TextInput",
   "TextField",
   "TimeField",
+  "Toast",
+  "ToastProvider",
+  "useToast",
   "Tooltip",
   "VFlow",
   "LocaleContext",

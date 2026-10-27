@@ -1,3 +1,5 @@
 export { Card, CardProps } from './Card'
 export { ClickableCard, ClickableCardProps } from './ClickableCard'
+export { ExpandableCard, ExpandableCardProps } from './ExpandableCard'
+export { ToggleCard, ToggleCardProps } from './ToggleCard'
 export { CardVariant } from './cardVariants'

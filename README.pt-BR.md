@@ -358,17 +358,17 @@ Busque, visualize, copie e baixe todos os ícones no [explorador Phosphor](https
 
 ## 🧩 Componentes
 
-| Categoria             | Componentes                                                                                                                                                        |
-| --------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Ações**             | `Button` · `ButtonGroup` · `Dropdown` · `Link`                                                                                                                     |
-| **Formulários**       | `TextField` · `TextArea` · `MaskedTextField` · `Select` · `SelectInline` · `Combobox` · `Checkbox` · `Radio` · `Switch` · `FileUploader` · `FormControl` · `Input` |
-| **Data e hora**       | `Calendar` · `DateField` · `DateRangePicker` · `TimeField` · `MonthField` · `MonthPicker` · `MonthRangePicker` · `MonthPaginator`                                  |
-| **Feedback**          | `Alert` · `ActionableToast` · `Modal` · `Tooltip` · `Spinner` · `Progress` · `Status` · `Tag` · `InfoLabel`                                                        |
-| **Navegação**         | `Breadcrumb` · `Tabs` · `Paginator` · `Stepper`                                                                                                                    |
-| **Exibição de dados** | `Table` · `DataTable` · `PagedTable` · `Number` · `Currency` · `Highlight`                                                                                         |
-| **Ícones**            | `Icon` · `PhosphorIconProvider` · 1.512 ícones `Ph*` de `@lemonade/ui/phosphor`                                                                                    |
-| **Layout**            | `Grid` · `Cell` · `Flow` · `HFlow` · `VFlow` · `Card` · `Paper` · `StickyContainer` · `Portal` · `RootRef`                                                         |
-| **Tipografia**        | `Text` · `Heading` · `HeadingSection`                                                                                                                              |
+| Categoria             | Componentes                                                                                                                                                                  |
+| --------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Ações**             | `Button` · `ButtonGroup` · `Dropdown` · `Link`                                                                                                                               |
+| **Formulários**       | `TextField` · `TextArea` · `MaskedTextField` · `Select` · `SelectInline` · `Combobox` · `Checkbox` · `Radio` · `Switch` · `FileUploader` · `FormControl` · `Input`           |
+| **Data e hora**       | `Calendar` · `DateField` · `DateRangePicker` · `TimeField` · `MonthField` · `MonthPicker` · `MonthRangePicker` · `MonthPaginator`                                            |
+| **Feedback**          | `Alert` · `Toast` · `ActionableToast` · `Modal` · `Tooltip` · `Spinner` · `Progress` · `Status` · `Tag` · `InfoLabel`                                                        |
+| **Navegação**         | `Breadcrumb` · `Tabs` · `Paginator` · `Stepper`                                                                                                                              |
+| **Exibição de dados** | `Table` · `DataTable` · `PagedTable` · `Number` · `Currency` · `Highlight`                                                                                                   |
+| **Ícones**            | `Icon` · `PhosphorIconProvider` · 1.512 ícones `Ph*` de `@lemonade/ui/phosphor`                                                                                              |
+| **Layout**            | `Grid` · `Cell` · `Flow` · `HFlow` · `VFlow` · `Accordion` · `Card` · `ClickableCard` · `ToggleCard` · `ExpandableCard` · `Paper` · `StickyContainer` · `Portal` · `RootRef` |
+| **Tipografia**        | `Text` · `Heading` · `HeadingSection`                                                                                                                                        |
 
 Exemplos interativos e a API completa de cada componente estão no [Storybook](https://lemonade-ui.llypedev.com.br/storybook). As diretrizes de uso de cada um estão na [visão geral dos componentes](https://lemonade-ui.llypedev.com.br/pt/components/overview).
 
