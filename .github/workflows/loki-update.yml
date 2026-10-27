@@ -1,0 +1,32 @@
+name: Update Loki references
+
+on:
+  workflow_dispatch:
+
+jobs:
+  update:
+    name: update loki references
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+
+      - name: Set up node
+        uses: actions/setup-node@v3
+        with:
+          node-version: '16'
+          cache: 'yarn'
+
+      - name: yarn install
+        run: yarn install
+
+      - name: Build storybook
+        run: STORYBOOK_LOKI=true yarn build-storybook
+
+      - name: Update references
+        run: yarn loki update --reactUri file:./storybook-static
+
+      - name: Upload references
+        uses: actions/upload-artifact@v4
+        with:
+          name: loki-reference
+          path: .loki/reference
