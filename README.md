@@ -15,6 +15,7 @@ Accessible, themeable and fully typed React components for building consistent i
 [![Loki](https://github.com/llypeDev/lemonade-ui/actions/workflows/loki.yml/badge.svg)](https://github.com/llypeDev/lemonade-ui/actions/workflows/loki.yml)
 [![codecov](https://codecov.io/gh/llypeDev/lemonade-ui/branch/main/graph/badge.svg)](https://codecov.io/gh/llypeDev/lemonade-ui)
 [![License: MIT](https://img.shields.io/badge/license-MIT-5E7300?style=flat-square)](./LICENSE)
+[![Deploy](https://github.com/llypeDev/lemonade-ui/actions/workflows/pages.yml/badge.svg)](https://github.com/llypeDev/lemonade-ui/actions/workflows/pages.yml)
 
 ![React](https://img.shields.io/badge/React-%E2%89%A516.8-61DAFB?style=flat-square&logo=react&logoColor=black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-4.9-3178C6?style=flat-square&logo=typescript&logoColor=white)
@@ -22,6 +23,9 @@ Accessible, themeable and fully typed React components for building consistent i
 ![Storybook](https://img.shields.io/badge/Storybook-7.6-FF4785?style=flat-square&logo=storybook&logoColor=white)
 ![WCAG AA](https://img.shields.io/badge/a11y-WCAG%20AA-5E7300?style=flat-square)
 ![Phosphor Icons](https://img.shields.io/badge/icons-Phosphor-5E7300?style=flat-square)
+[![Site](https://img.shields.io/website?url=https%3A%2F%2Flemonade-ui.llypedev.com.br&style=flat-square&label=site&up_message=online&down_message=offline)](https://lemonade-ui.llypedev.com.br)
+
+🌐 **[lemonade-ui.llypedev.com.br](https://lemonade-ui.llypedev.com.br)**
 
 [**Documentation**](https://lemonade-ui.llypedev.com.br) ·
 [**Storybook**](https://lemonade-ui.llypedev.com.br/storybook) ·
@@ -37,6 +41,7 @@ Accessible, themeable and fully typed React components for building consistent i
 ## Table of contents
 
 - [Highlights](#-highlights)
+- [Live site](#-live-site)
 - [Installation](#-installation)
 - [Quick start](#-quick-start)
 - [Theming](#-theming)
@@ -79,6 +84,31 @@ Accessible, themeable and fully typed React components for building consistent i
     </td>
   </tr>
 </table>
+
+## 🌐 Live site
+
+The documentation and the Storybook are published at **[lemonade-ui.llypedev.com.br](https://lemonade-ui.llypedev.com.br)**, in English and Portuguese.
+
+<p align="center">
+  <a href="https://lemonade-ui.llypedev.com.br">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset=".github/assets/site-preview-dark.png" />
+      <img alt="Home page of the Lemonade documentation site" src=".github/assets/site-preview.png" width="100%" />
+    </picture>
+  </a>
+</p>
+
+| Page                 | Link                                                                                                                                             |
+| -------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Documentation        | [English](https://lemonade-ui.llypedev.com.br/en/) · [Português](https://lemonade-ui.llypedev.com.br/pt/)                                        |
+| Getting started      | [lemonade-ui.llypedev.com.br/getting-started](https://lemonade-ui.llypedev.com.br/getting-started)                                               |
+| Storybook            | [lemonade-ui.llypedev.com.br/storybook](https://lemonade-ui.llypedev.com.br/storybook)                                                           |
+| Theme                | [lemonade-ui.llypedev.com.br/usage/theme](https://lemonade-ui.llypedev.com.br/usage/theme)                                                       |
+| Internationalization | [lemonade-ui.llypedev.com.br/usage/i18n](https://lemonade-ui.llypedev.com.br/usage/i18n)                                                         |
+| Components overview  | [lemonade-ui.llypedev.com.br/components/overview](https://lemonade-ui.llypedev.com.br/components/overview)                                       |
+| Phosphor explorer    | [lemonade-ui.llypedev.com.br/design-guidelines/iconography/phosphor](https://lemonade-ui.llypedev.com.br/design-guidelines/iconography/phosphor) |
+
+The site is rebuilt and published to GitHub Pages on every push to `main` by the [Deploy site to GitHub Pages](https://github.com/llypeDev/lemonade-ui/actions/workflows/pages.yml) workflow.
 
 ## 📦 Installation
 
@@ -189,7 +219,7 @@ const App = () => (
 )
 ```
 
-Other scales you can override: `grayScale`, `successScale`, `dangerScale`, `alertScale`, `infoScale` and `highlightScale`.
+Other scales you can override: `grayScale`, `successScale`, `dangerScale`, `alertScale`, `infoScale` and `highlightScale`. Live examples are in the [Theme guide](https://lemonade-ui.llypedev.com.br/usage/theme).
 
 ### Styling your own components
 
@@ -229,7 +259,7 @@ const App = () => (
 )
 ```
 
-To support another language, create an object with the same shape as `LocaleConfiguration` and pass it to the provider. Read the current strings with the `useLocale()` hook.
+To support another language, create an object with the same shape as `LocaleConfiguration` and pass it to the provider. Read the current strings with the `useLocale()` hook. More in the [i18n guide](https://lemonade-ui.llypedev.com.br/usage/i18n).
 
 ## 💠 Icons
 
@@ -340,7 +370,7 @@ Search, preview, copy and download every icon in the [Phosphor explorer](https:/
 | **Layout**        | `Grid` · `Cell` · `Flow` · `HFlow` · `VFlow` · `Card` · `Paper` · `StickyContainer` · `Portal` · `RootRef`                                                         |
 | **Typography**    | `Text` · `Heading` · `HeadingSection`                                                                                                                              |
 
-Interactive examples and the full API of each component are in the [Storybook](https://lemonade-ui.llypedev.com.br/storybook). Usage guidelines are on [lemonade-ui.llypedev.com.br](https://lemonade-ui.llypedev.com.br).
+Interactive examples and the full API of each component are in the [Storybook](https://lemonade-ui.llypedev.com.br/storybook). Usage guidelines for each one are in the [components overview](https://lemonade-ui.llypedev.com.br/components/overview).
 
 <details>
 <summary><b>🍋 Brand board</b></summary>

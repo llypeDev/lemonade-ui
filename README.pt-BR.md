@@ -15,6 +15,7 @@ Componentes React acessíveis, personalizáveis por tema e totalmente tipados pa
 [![Loki](https://github.com/llypeDev/lemonade-ui/actions/workflows/loki.yml/badge.svg)](https://github.com/llypeDev/lemonade-ui/actions/workflows/loki.yml)
 [![codecov](https://codecov.io/gh/llypeDev/lemonade-ui/branch/main/graph/badge.svg)](https://codecov.io/gh/llypeDev/lemonade-ui)
 [![Licença: MIT](https://img.shields.io/badge/licen%C3%A7a-MIT-5E7300?style=flat-square)](./LICENSE)
+[![Deploy](https://github.com/llypeDev/lemonade-ui/actions/workflows/pages.yml/badge.svg)](https://github.com/llypeDev/lemonade-ui/actions/workflows/pages.yml)
 
 ![React](https://img.shields.io/badge/React-%E2%89%A516.8-61DAFB?style=flat-square&logo=react&logoColor=black)
 ![TypeScript](https://img.shields.io/badge/TypeScript-4.9-3178C6?style=flat-square&logo=typescript&logoColor=white)
@@ -22,10 +23,13 @@ Componentes React acessíveis, personalizáveis por tema e totalmente tipados pa
 ![Storybook](https://img.shields.io/badge/Storybook-7.6-FF4785?style=flat-square&logo=storybook&logoColor=white)
 ![WCAG AA](https://img.shields.io/badge/a11y-WCAG%20AA-5E7300?style=flat-square)
 ![Phosphor Icons](https://img.shields.io/badge/icons-Phosphor-5E7300?style=flat-square)
+[![Site](https://img.shields.io/website?url=https%3A%2F%2Flemonade-ui.llypedev.com.br&style=flat-square&label=site&up_message=online&down_message=offline)](https://lemonade-ui.llypedev.com.br)
 
-[**Documentação**](https://lemonade-ui.llypedev.com.br) ·
+🌐 **[lemonade-ui.llypedev.com.br](https://lemonade-ui.llypedev.com.br/pt/)**
+
+[**Documentação**](https://lemonade-ui.llypedev.com.br/pt/) ·
 [**Storybook**](https://lemonade-ui.llypedev.com.br/storybook) ·
-[**Primeiros passos**](https://lemonade-ui.llypedev.com.br/getting-started) ·
+[**Primeiros passos**](https://lemonade-ui.llypedev.com.br/pt/getting-started) ·
 [**Como contribuir**](./CONTRIBUTING.md)
 
 [English](./README.md) · **Português**
@@ -37,6 +41,7 @@ Componentes React acessíveis, personalizáveis por tema e totalmente tipados pa
 ## Sumário
 
 - [Destaques](#-destaques)
+- [Site no ar](#-site-no-ar)
 - [Instalação](#-instalação)
 - [Início rápido](#-início-rápido)
 - [Temas](#-temas)
@@ -79,6 +84,31 @@ Componentes React acessíveis, personalizáveis por tema e totalmente tipados pa
     </td>
   </tr>
 </table>
+
+## 🌐 Site no ar
+
+A documentação e o Storybook estão publicados em **[lemonade-ui.llypedev.com.br](https://lemonade-ui.llypedev.com.br/pt/)**, em português e inglês.
+
+<p align="center">
+  <a href="https://lemonade-ui.llypedev.com.br">
+    <picture>
+      <source media="(prefers-color-scheme: dark)" srcset=".github/assets/site-preview-dark.png" />
+      <img alt="Página inicial do site de documentação do Lemonade" src=".github/assets/site-preview.png" width="100%" />
+    </picture>
+  </a>
+</p>
+
+| Página                      | Link                                                                                                                                                   |
+| --------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| Documentação                | [Português](https://lemonade-ui.llypedev.com.br/pt/) · [English](https://lemonade-ui.llypedev.com.br/en/)                                              |
+| Primeiros passos            | [lemonade-ui.llypedev.com.br/pt/getting-started](https://lemonade-ui.llypedev.com.br/pt/getting-started)                                               |
+| Storybook                   | [lemonade-ui.llypedev.com.br/storybook](https://lemonade-ui.llypedev.com.br/storybook)                                                                 |
+| Tema                        | [lemonade-ui.llypedev.com.br/pt/usage/theme](https://lemonade-ui.llypedev.com.br/pt/usage/theme)                                                       |
+| Internacionalização         | [lemonade-ui.llypedev.com.br/pt/usage/i18n](https://lemonade-ui.llypedev.com.br/pt/usage/i18n)                                                         |
+| Visão geral dos componentes | [lemonade-ui.llypedev.com.br/pt/components/overview](https://lemonade-ui.llypedev.com.br/pt/components/overview)                                       |
+| Explorador Phosphor         | [lemonade-ui.llypedev.com.br/pt/design-guidelines/iconography/phosphor](https://lemonade-ui.llypedev.com.br/pt/design-guidelines/iconography/phosphor) |
+
+O site é gerado e publicado no GitHub Pages a cada push na `main` pelo workflow [Deploy site to GitHub Pages](https://github.com/llypeDev/lemonade-ui/actions/workflows/pages.yml).
 
 ## 📦 Instalação
 
@@ -189,7 +219,7 @@ const App = () => (
 )
 ```
 
-Outras escalas que podem ser substituídas: `grayScale`, `successScale`, `dangerScale`, `alertScale`, `infoScale` e `highlightScale`.
+Outras escalas que podem ser substituídas: `grayScale`, `successScale`, `dangerScale`, `alertScale`, `infoScale` e `highlightScale`. Veja exemplos ao vivo no [guia de temas](https://lemonade-ui.llypedev.com.br/pt/usage/theme).
 
 ### Estilizando seus próprios componentes
 
@@ -229,7 +259,7 @@ const App = () => (
 )
 ```
 
-Para outro idioma, crie um objeto com o mesmo formato de `LocaleConfiguration` e passe-o ao provider. Leia os textos atuais com a hook `useLocale()`.
+Para outro idioma, crie um objeto com o mesmo formato de `LocaleConfiguration` e passe-o ao provider. Leia os textos atuais com a hook `useLocale()`. Mais detalhes no [guia de i18n](https://lemonade-ui.llypedev.com.br/pt/usage/i18n).
 
 ## 💠 Ícones
 
@@ -340,7 +370,7 @@ Busque, visualize, copie e baixe todos os ícones no [explorador Phosphor](https
 | **Layout**            | `Grid` · `Cell` · `Flow` · `HFlow` · `VFlow` · `Card` · `Paper` · `StickyContainer` · `Portal` · `RootRef`                                                         |
 | **Tipografia**        | `Text` · `Heading` · `HeadingSection`                                                                                                                              |
 
-Exemplos interativos e a API completa de cada componente estão no [Storybook](https://lemonade-ui.llypedev.com.br/storybook). As diretrizes de uso estão em [lemonade-ui.llypedev.com.br](https://lemonade-ui.llypedev.com.br).
+Exemplos interativos e a API completa de cada componente estão no [Storybook](https://lemonade-ui.llypedev.com.br/storybook). As diretrizes de uso de cada um estão na [visão geral dos componentes](https://lemonade-ui.llypedev.com.br/pt/components/overview).
 
 <details>
 <summary><b>🍋 Brand board</b></summary>
