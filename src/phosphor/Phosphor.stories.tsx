@@ -1,15 +1,23 @@
 import React from 'react'
 
+import { Button } from '../components/Button'
 import { HFlow } from '../components/HFlow'
+import { Icon } from '../components/Icon'
 import { Text } from '../components/Text'
 import { VFlow } from '../components/VFlow'
 
 import { PhAirplane } from './generated/PhAirplane'
 import { PhBell } from './generated/PhBell'
+import { PhCheckCircle } from './generated/PhCheckCircle'
 import { PhHeart } from './generated/PhHeart'
 import { PhHouse } from './generated/PhHouse'
+import { PhInfo } from './generated/PhInfo'
 import { PhLightbulb } from './generated/PhLightbulb'
 import { PhMagnifyingGlass } from './generated/PhMagnifyingGlass'
+import { PhRocketLaunch } from './generated/PhRocketLaunch'
+import { PhTrash } from './generated/PhTrash'
+import { PhWarning } from './generated/PhWarning'
+import { PhXCircle } from './generated/PhXCircle'
 import { PhosphorIconProvider } from './PhosphorContext'
 import { PHOSPHOR_WEIGHTS, PhosphorWeight } from './types'
 
@@ -55,4 +63,46 @@ export const WithProvider = () => (
       ))}
     </HFlow>
   </PhosphorIconProvider>
+)
+
+export const WithIconComponent = () => (
+  <VFlow vSpacing={1}>
+    <Text color='secondary'>Passed to Icon, Phosphor icons get rem sizing and the theme text colors.</Text>
+    <HFlow alignItems='center' hSpacing={1.5}>
+      <Icon icon={PhRocketLaunch} size={2} fill='primary' />
+      <Icon icon={PhCheckCircle} size={2} fill='success' />
+      <Icon icon={PhInfo} size={2} fill='info' />
+      <Icon icon={PhWarning} size={2} fill='alert' />
+      <Icon icon={PhXCircle} size={2} fill='danger' />
+    </HFlow>
+  </VFlow>
+)
+
+export const Accessibility = () => (
+  <VFlow vSpacing={1.5}>
+    <VFlow vSpacing={0.25}>
+      <HFlow alignItems='center' hSpacing={0.5}>
+        <PhBell size={24} />
+        <Text>Notifications</Text>
+      </HFlow>
+      <Text color='secondary'>Decorative: the text already says it all, so the icon stays hidden (aria-hidden).</Text>
+    </VFlow>
+
+    <VFlow vSpacing={0.25}>
+      <HFlow alignItems='center' hSpacing={0.5}>
+        <PhWarning size={24} weight='fill' title='Warning' />
+        <Text>Your session expires in 5 minutes</Text>
+      </HFlow>
+      <Text color='secondary'>Meaningful on its own: give it a name with title (or aria-label).</Text>
+    </VFlow>
+
+    <VFlow vSpacing={0.25}>
+      <HFlow alignItems='center' hSpacing={0.5}>
+        <Button skin='ghost' size='small' aria-label='Delete file'>
+          <PhTrash size={20} />
+        </Button>
+      </HFlow>
+      <Text color='secondary'>Icon-only button: label the button and keep the icon decorative.</Text>
+    </VFlow>
+  </VFlow>
 )
