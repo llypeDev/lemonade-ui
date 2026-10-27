@@ -9,8 +9,9 @@
   "scripts": {
     "postinstall": "yarn upgrade @lemonade/ui",
     "start": "gatsby develop",
+    "prestart": "node ../tools/phosphor/site-data.js",
     "build": "gatsby build",
-    "prebuild": "yarn install"
+    "prebuild": "yarn install && node ../tools/phosphor/site-data.js"
   },
   "dependencies": {
     "@lemonade/ui": "file:../src",
