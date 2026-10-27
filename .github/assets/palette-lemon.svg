@@ -1,0 +1,36 @@
+<svg width='872' height='88' viewBox='0 0 872 88' role='img' xmlns='http://www.w3.org/2000/svg'>
+  <title>Lemonade lemon color scale</title>
+  <g font-family="'IBM Plex Sans', -apple-system, 'Segoe UI', Helvetica, Arial, sans-serif" text-anchor='middle'>
+    <rect x='0.5' y='0.5' width='79' height='87' rx='8' fill='#1C2200'/>
+    <text x='40' y='58' font-size='14' font-weight='700' fill='#F5FADB'>c10</text>
+    <text x='40' y='75' font-size='11' fill='#F5FADB' fill-opacity='0.85'>#1C2200</text>
+    <rect x='88.5' y='0.5' width='79' height='87' rx='8' fill='#2E3800'/>
+    <text x='128' y='58' font-size='14' font-weight='700' fill='#F5FADB'>c20</text>
+    <text x='128' y='75' font-size='11' fill='#F5FADB' fill-opacity='0.85'>#2E3800</text>
+    <rect x='176.5' y='0.5' width='79' height='87' rx='8' fill='#455400'/>
+    <text x='216' y='58' font-size='14' font-weight='700' fill='#F5FADB'>c30</text>
+    <text x='216' y='75' font-size='11' fill='#F5FADB' fill-opacity='0.85'>#455400</text>
+    <rect x='264.5' y='0.5' width='79' height='87' rx='8' fill='#5E7300'/>
+    <text x='304' y='58' font-size='14' font-weight='700' fill='#F5FADB'>c40</text>
+    <text x='304' y='75' font-size='11' fill='#F5FADB' fill-opacity='0.85'>#5E7300</text>
+    <text x='304' y='20' font-size='10' font-weight='700' letter-spacing='0.8' fill='#F5FADB'>PRIMARY</text>
+    <rect x='352.5' y='0.5' width='79' height='87' rx='8' fill='#7A9200'/>
+    <text x='392' y='58' font-size='14' font-weight='700' fill='#1C2200'>c50</text>
+    <text x='392' y='75' font-size='11' fill='#1C2200' fill-opacity='0.85'>#7A9200</text>
+    <rect x='440.5' y='0.5' width='79' height='87' rx='8' fill='#9BB800'/>
+    <text x='480' y='58' font-size='14' font-weight='700' fill='#1C2200'>c60</text>
+    <text x='480' y='75' font-size='11' fill='#1C2200' fill-opacity='0.85'>#9BB800</text>
+    <rect x='528.5' y='0.5' width='79' height='87' rx='8' fill='#C2DC4E'/>
+    <text x='568' y='58' font-size='14' font-weight='700' fill='#1C2200'>c70</text>
+    <text x='568' y='75' font-size='11' fill='#1C2200' fill-opacity='0.85'>#C2DC4E</text>
+    <rect x='616.5' y='0.5' width='79' height='87' rx='8' fill='#E2F0A0'/>
+    <text x='656' y='58' font-size='14' font-weight='700' fill='#1C2200'>c80</text>
+    <text x='656' y='75' font-size='11' fill='#1C2200' fill-opacity='0.85'>#E2F0A0</text>
+    <rect x='704.5' y='0.5' width='79' height='87' rx='8' fill='#F5FADB'/>
+    <text x='744' y='58' font-size='14' font-weight='700' fill='#1C2200'>c90</text>
+    <text x='744' y='75' font-size='11' fill='#1C2200' fill-opacity='0.85'>#F5FADB</text>
+    <rect x='792.5' y='0.5' width='79' height='87' rx='8' fill='#FFFFFF' stroke='#D3D4DD' stroke-width='1'/>
+    <text x='832' y='58' font-size='14' font-weight='700' fill='#1C2200'>c100</text>
+    <text x='832' y='75' font-size='11' fill='#1C2200' fill-opacity='0.85'>#FFFFFF</text>
+  </g>
+</svg>
