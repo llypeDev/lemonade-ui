@@ -250,6 +250,23 @@ import { Icon } from '@lemonade/ui'
 
 Browse the full icon set at [lemonade.dev](https://lemonade.dev).
 
+### Phosphor icons
+
+Lemonade also ships the complete [Phosphor](https://phosphoricons.com) family — 1,512 icons, each in six weights (`thin`, `light`, `regular`, `bold`, `fill`, `duotone`). Every icon is a component exported by `@lemonade/ui/phosphor` with the `Ph` prefix; import only what you use and bundlers drop the rest:
+
+```jsx
+import { Icon } from '@lemonade/ui'
+import { PhAirplane, PhHeart, PhosphorIconProvider } from '@lemonade/ui/phosphor'
+
+<PhAirplane />
+<PhHeart weight='fill' size={32} color='#5E7300' />
+<Icon icon={PhHeart} fill='primary' size={2} />
+
+<PhosphorIconProvider weight='duotone' size={24}>{/* defaults for every icon inside */}</PhosphorIconProvider>
+```
+
+Search, preview, copy and download them in the [Phosphor explorer](https://lemonade.dev/design-guidelines/iconography/phosphor). Phosphor Icons are MIT licensed — see [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md).
+
 ## 🧩 Components
 
 | Category          | Components                                                                                                                                                         |
