@@ -1,3 +1,5 @@
+import { Demo } from '../../../components/Demo'
+
 # Toast
 
 Use toast to show information that requires minimal user interaction. Show these event-driven messages by overlaying the message at the bottom left of the screen, as if it was emerging from the navigation sidebar. Toasts can close automatically after 5 seconds, or they may require manual close action.
@@ -10,4 +12,12 @@ Use toast to show information that requires minimal user interaction. Show these
 - Use links that allow users to respond to the flag's content.
 - Informative icons can be used to make the message clear.
 
-**This component hasn't yet been implemented as a react component.**
+## Usage
+
+Wrap your app once with `ToastProvider` and call `useToast().show()` anywhere inside it. Toasts appear at the bottom left of the screen, close after 5 seconds (`duration`, use `0` to keep them open) and stay open while hovered or focused. They are announced by screen readers through a polite live region.
+
+<Demo src='pages/components/toast/ToastProvider' />
+
+The `type` (`info`, `success`, `warning` or `danger`) sets the informative icon. Use `action` for a link that lets the user respond.
+
+<Demo src='pages/components/toast/ToastTypes' />

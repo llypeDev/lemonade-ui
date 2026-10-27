@@ -1,0 +1,140 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Accordion should render correctly 1`] = `
+.emotion-6 {
+  border-top: 1px solid #D3D4DD;
+}
+
+.emotion-5 {
+  border-bottom: 1px solid #D3D4DD;
+}
+
+.emotion-4 {
+  padding: 0 1rem 1rem 3rem;
+  color: #24252E;
+}
+
+.emotion-3 {
+  margin: 0;
+  font-size: inherit;
+}
+
+.emotion-2 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: #24252E;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 0.5rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 0;
+  border-radius: 2px;
+  background: transparent;
+  font-weight: bold;
+  text-align: left;
+  cursor: pointer;
+  -webkit-transition: background .2s;
+  transition: background .2s;
+}
+
+.emotion-2:not(:disabled):hover {
+  background: rgba(122,123,142,0.1);
+}
+
+.emotion-2:focus {
+  outline: none;
+  box-shadow: inset 0 0 0 2px #5E7300;
+}
+
+.emotion-2:disabled {
+  color: #AAAAB9;
+  cursor: not-allowed;
+}
+
+.emotion-1 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.emotion-0 {
+  fill: currentColor;
+  font-size: 1.5rem;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  -webkit-transition: -webkit-transform .2s;
+  -webkit-transition: transform .2s;
+  transition: transform .2s;
+  -webkit-transform: rotate(-90deg);
+  -ms-transform: rotate(-90deg);
+  transform: rotate(-90deg);
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .emotion-0 {
+    -webkit-transition: none;
+    transition: none;
+  }
+}
+
+<div>
+  <div
+    class="emotion-6"
+  >
+    <div
+      class="emotion-5"
+    >
+      <h3
+        class="emotion-3"
+      >
+        <button
+          aria-controls="expandable-content-abc"
+          aria-expanded="false"
+          class="emotion-2"
+          data-expandable-header="true"
+          id="expandable-header-abc"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="emotion-0"
+            height="1em"
+            role="img"
+            viewBox="0 0 24 24"
+            width="1em"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M16.294 8.294a1 1 0 111.414 1.414l-5 5a1 1 0 01-1.414 0l-5.001-5a1 1 0 011.414-1.415l4.294 4.294 4.293-4.293z"
+              fill-rule="evenodd"
+            />
+          </svg>
+          <span
+            class="emotion-1"
+          >
+            Title
+          </span>
+        </button>
+      </h3>
+      <div
+        aria-labelledby="expandable-header-abc"
+        class="emotion-4"
+        hidden=""
+        id="expandable-content-abc"
+        role="region"
+      >
+        Content
+      </div>
+    </div>
+  </div>
+</div>
+`;

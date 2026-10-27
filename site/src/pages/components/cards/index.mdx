@@ -1,3 +1,5 @@
+import { Demo } from '../../../components/Demo'
+
 # Cards
 
 A card is a UI design pattern that groups related information in a flexible-size container. A card is a container for a few short, related pieces of information. Cards don't have a style pattern for texts and included information.
@@ -41,3 +43,19 @@ A card is a UI design pattern that groups related information in a flexible-size
     </tr>
   </tbody>
 </table>
+
+## Usage
+
+Read-only cards use `Card`, and clickable cards use `ClickableCard`, which renders a `button`.
+
+<Demo src='pages/components/cards/Card' />
+
+`ToggleCard` renders a native checkbox, so `name`, `value`, `checked`, `defaultChecked` and `onChange` work just like in a [Checkbox](/components/checkbox). The whole card is the click area.
+
+<Demo src='pages/components/cards/ToggleCard' />
+
+`ExpandableCard` has the same behavior as the [Accordion](/components/accordion). Only the header expands or collapses it, so the content can hold its own buttons and links.
+
+<Demo src='pages/components/cards/ExpandableCard' />
+
+Every card accepts the `outline` (default), `float` and `plain` variants, as well as `invalid` and `disabled`.

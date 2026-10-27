@@ -1,3 +1,5 @@
+import { Demo } from '../../../components/Demo'
+
 # Toast
 
 Utilize _toasts_ para mostrar informações que requerem mínima interação do usuário. As mensagens desaparecem após 5 segundos ou podem ser fechadas manualmente e são apresentadas nos cantos inferiores da tela. As mensagens não podem atrapalhar o fluxo de trabalho do usuário. São comumente utilizadas para alertar sobre _status_ de tarefas.
@@ -9,4 +11,12 @@ Utilize _toasts_ para mostrar informações que requerem mínima interação do 
 - Podem ser incluídos links que redirecionam o usuário para próximos passos.
 - Utilize ícones para transmitir clareza adicional. Os ícones informativos devem ser posicionados à esquerda do título.
 
-**Este componente ainda não foi implementado como um componente em React.**
+## Uso
+
+Envolva a aplicação uma vez com o `ToastProvider` e chame `useToast().show()` em qualquer lugar dentro dele. Os _toasts_ aparecem no canto inferior esquerdo da tela, fecham após 5 segundos (`duration`; use `0` para mantê-los abertos) e continuam abertos enquanto estiverem com o mouse em cima ou com foco. Leitores de tela anunciam as mensagens por uma região _live_ educada (`aria-live="polite"`).
+
+<Demo src='pages/components/toast/ToastProvider' />
+
+O `type` (`info`, `success`, `warning` ou `danger`) define o ícone informativo. Use `action` para um link que permita ao usuário responder à mensagem.
+
+<Demo src='pages/components/toast/ToastTypes' />

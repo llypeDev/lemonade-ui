@@ -1,12 +1,14 @@
 export interface ZIndex {
   popper: number
   dropdown: number
+  toast: number
   tooltip: number
 }
 
 export const zIndex: ZIndex = {
   popper: 1200,
   dropdown: 1300,
+  toast: 1950,
   tooltip: 2000,
 }
 

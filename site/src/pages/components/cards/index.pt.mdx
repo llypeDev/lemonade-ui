@@ -1,3 +1,5 @@
+import { Demo } from '../../../components/Demo'
+
 # Cards
 
 Cards são componentes da interface usados para agrupar informações relacionadas dentro de um container/bloco. Os cards funcionam como um contentor para algumas informações curtas e relacionadas. Os cards não possuem uma configuração de estilos para o conteúdo que é apresentado neles.
@@ -42,3 +44,19 @@ Cards são componentes da interface usados para agrupar informações relacionad
     </tr>
   </tbody>
 </table>
+
+## Uso
+
+Cards de leitura usam o `Card`, e cards clicáveis usam o `ClickableCard`, que renderiza um `button`.
+
+<Demo src='pages/components/cards/Card' />
+
+O `ToggleCard` renderiza um checkbox nativo, então `name`, `value`, `checked`, `defaultChecked` e `onChange` funcionam como num [Checkbox](/components/checkbox). O card inteiro é a área de clique.
+
+<Demo src='pages/components/cards/ToggleCard' />
+
+O `ExpandableCard` tem o mesmo comportamento do [Accordion](/components/accordion). Só o cabeçalho expande ou recolhe o card, então o conteúdo pode ter seus próprios botões e links.
+
+<Demo src='pages/components/cards/ExpandableCard' />
+
+Todos os cards aceitam as variantes `outline` (padrão), `float` e `plain`, além de `invalid` e `disabled`.
