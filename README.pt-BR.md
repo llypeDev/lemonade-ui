@@ -21,6 +21,7 @@ Componentes React acessíveis, personalizáveis por tema e totalmente tipados pa
 ![Emotion](https://img.shields.io/badge/estilos-Emotion-D36AC2?style=flat-square)
 ![Storybook](https://img.shields.io/badge/Storybook-7.6-FF4785?style=flat-square&logo=storybook&logoColor=white)
 ![WCAG AA](https://img.shields.io/badge/a11y-WCAG%20AA-5E7300?style=flat-square)
+![Phosphor Icons](https://img.shields.io/badge/icons-Phosphor-5E7300?style=flat-square)
 
 [**Documentação**](https://lemonade-ui.llypedev.com.br) ·
 [**Storybook**](https://lemonade-ui.llypedev.com.br/storybook) ·
@@ -69,8 +70,8 @@ Componentes React acessíveis, personalizáveis por tema e totalmente tipados pa
       Os textos dos componentes vêm de um <code>LocaleContext</code>, com <code>en-US</code> e <code>pt-BR</code> incluídos.
     </td>
     <td width="33%" valign="top">
-      <b>💠 470 ícones</b><br />
-      Um conjunto completo de ícones SVG disponível por um único componente <code>&lt;Icon /&gt;</code>.
+      <b>💠 1.982 ícones</b><br />
+      470 ícones do sistema e a família Phosphor completa: 1.512 ícones em 6 pesos, importados um a um.
     </td>
     <td width="33%" valign="top">
       <b>🟦 TypeScript</b><br />
@@ -232,7 +233,17 @@ Para outro idioma, crie um objeto com o mesmo formato de `LocaleConfiguration` e
 
 ## 💠 Ícones
 
-Todos os ícones são renderizados pelo componente `Icon`. O nome é a forma camelCase do nome do arquivo SVG em [`icons/`](./icons) (por exemplo, `angle-down.svg` → `angleDown`):
+O Lemonade traz duas famílias de ícones que funcionam juntas:
+
+|                 | Ícones do sistema Lemonade                               | Ícones Phosphor                                                               |
+| --------------- | -------------------------------------------------------- | ----------------------------------------------------------------------------- |
+| **Quantidade**  | 470                                                      | 1.512, cada um em 6 pesos                                                     |
+| **Importação**  | `Icon` de `@lemonade/ui`                                 | Componentes `Ph*` de `@lemonade/ui/phosphor`                                  |
+| **Quando usar** | Ações centrais da interface (grid de 24px, traço de 2px) | Temas que o conjunto do sistema não cobre, ou quando precisar de outros pesos |
+
+### Ícones do sistema Lemonade
+
+Todos os ícones do sistema são renderizados pelo componente `Icon`. O nome é a forma camelCase do nome do arquivo SVG em [`icons/`](./icons) (por exemplo, `angle-down.svg` → `angleDown`):
 
 ```jsx
 import { Icon } from '@lemonade/ui'
@@ -243,29 +254,77 @@ import { Icon } from '@lemonade/ui'
 
 | Prop    | Descrição                                                                                                                                |
 | ------- | ---------------------------------------------------------------------------------------------------------------------------------------- |
-| `icon`  | Nome do ícone, ou qualquer componente React de SVG.                                                                                      |
+| `icon`  | Nome do ícone, ou qualquer componente React de SVG (inclusive os ícones Phosphor).                                                       |
 | `fill`  | Cor do tema: `normal`, `primary`, `secondary`, `disabled`, `danger`, `success`, `info`, `alert` ou `inherit`. O padrão é `currentColor`. |
 | `size`  | Tamanho em `rem`. O padrão é `1.5`.                                                                                                      |
 | `style` | Estilos extras do Emotion.                                                                                                               |
 
-Veja o conjunto completo de ícones em [lemonade-ui.llypedev.com.br](https://lemonade-ui.llypedev.com.br).
+Veja o conjunto completo em [lemonade-ui.llypedev.com.br](https://lemonade-ui.llypedev.com.br).
 
 ### Ícones Phosphor
 
-O Lemonade também inclui a família completa [Phosphor](https://phosphoricons.com) — 1.512 ícones, cada um em seis pesos (`thin`, `light`, `regular`, `bold`, `fill`, `duotone`). Cada ícone é um componente exportado por `@lemonade/ui/phosphor` com o prefixo `Ph`; importe apenas o que usar e os bundlers descartam o resto:
+<p align="center">
+  <picture>
+    <source media="(prefers-color-scheme: dark)" srcset=".github/assets/phosphor-weights-dark.svg" />
+    <img alt="Dez ícones Phosphor (fatia de laranja, coração, avião, sino, engrenagem, folha, foguete, estrela, carinha e raio) nos seis pesos: thin, light, regular, bold, fill e duotone" src=".github/assets/phosphor-weights.svg" width="100%" />
+  </picture>
+</p>
+
+A família completa [Phosphor](https://phosphoricons.com) (v2.1.1) fica no próprio repositório e é publicada junto com o pacote, então funciona offline e só muda quando a atualizamos de propósito.
+
+Cada ícone é um componente React chamado `Ph` + o nome do ícone em PascalCase (`arrow-circle-up` → `PhArrowCircleUp`). O prefixo evita conflito com os componentes do Lemonade: `PhLink` é o ícone, `Link` é o componente. Use imports nomeados, assim os bundlers incluem só os ícones que você usa:
 
 ```jsx
-import { Icon } from '@lemonade/ui'
-import { PhAirplane, PhHeart, PhosphorIconProvider } from '@lemonade/ui/phosphor'
+import { PhAirplane, PhHeart } from '@lemonade/ui/phosphor'
 
 <PhAirplane />
 <PhHeart weight='fill' size={32} color='#5E7300' />
-<Icon icon={PhHeart} fill='primary' size={2} />
-
-<PhosphorIconProvider weight='duotone' size={24}>{/* padrões para todos os ícones dentro */}</PhosphorIconProvider>
 ```
 
-Busque, visualize, copie e baixe os ícones no [explorador Phosphor](https://lemonade.dev/pt/design-guidelines/iconography/phosphor). Os ícones Phosphor têm licença MIT — veja o [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md).
+| Prop             | Tipo                                                              | Padrão         |
+| ---------------- | ----------------------------------------------------------------- | -------------- |
+| `weight`         | `'thin' \| 'light' \| 'regular' \| 'bold' \| 'fill' \| 'duotone'` | `'regular'`    |
+| `size`           | `number \| string`                                                | `'1em'`        |
+| `color`          | `string`                                                          | `currentColor` |
+| `mirrored`       | `boolean` (espelha o ícone, útil em RTL)                          | `false`        |
+| `duotoneColor`   | `string`                                                          | cor do ícone   |
+| `duotoneOpacity` | `number`                                                          | `0.2`          |
+| `title`          | `string` (nome acessível)                                         | —              |
+
+Qualquer outro atributo de SVG (`className`, `style`, `onClick`, `aria-*`…) é repassado ao `<svg>`, e as refs apontam para ele. Por padrão os ícones seguem o tamanho da fonte e a cor do texto ao redor, então se adaptam aos temas claro e escuro.
+
+**Padrões para uma seção inteira.** Envolva parte da interface com o `PhosphorIconProvider`. Os providers podem ser aninhados, e as props de um ícone sempre têm prioridade:
+
+```jsx
+import { PhBell, PhGear, PhHouse, PhosphorIconProvider } from '@lemonade/ui/phosphor'
+
+const BarraDeFerramentas = () => (
+  <PhosphorIconProvider weight='duotone' size={24}>
+    <PhHouse />
+    <PhBell />
+    <PhGear weight='bold' />
+  </PhosphorIconProvider>
+)
+```
+
+**Com o componente `Icon`.** Passe um ícone Phosphor para o `Icon` para ter o mesmo tamanho em `rem` e as cores do tema dos ícones do sistema:
+
+```jsx
+import { Icon } from '@lemonade/ui'
+import { PhRocketLaunch } from '@lemonade/ui/phosphor'
+
+const Exemplo = () => <Icon icon={PhRocketLaunch} size={2} fill='primary' />
+```
+
+**Acessibilidade.** Os ícones são decorativos por padrão (`aria-hidden`). Quando um ícone tem significado sozinho, como num botão só com ícone, dê um nome a ele com `title` ou `aria-label`, ou nomeie o botão:
+
+```jsx
+<PhTrash title='Excluir arquivo' />
+```
+
+**Misturando as famílias.** Evite colocar as duas famílias lado a lado no mesmo grupo de controles. Se precisar, use o peso `regular`, que é o mais próximo dos ícones do sistema.
+
+Busque, visualize, copie e baixe todos os ícones no [explorador Phosphor](https://lemonade-ui.llypedev.com.br/pt/design-guidelines/iconography/phosphor). Os ícones Phosphor têm licença MIT; veja o [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md).
 
 ## 🧩 Componentes
 
@@ -276,7 +335,8 @@ Busque, visualize, copie e baixe os ícones no [explorador Phosphor](https://lem
 | **Data e hora**       | `Calendar` · `DateField` · `DateRangePicker` · `TimeField` · `MonthField` · `MonthPicker` · `MonthRangePicker` · `MonthPaginator`                                  |
 | **Feedback**          | `Alert` · `ActionableToast` · `Modal` · `Tooltip` · `Spinner` · `Progress` · `Status` · `Tag` · `InfoLabel`                                                        |
 | **Navegação**         | `Breadcrumb` · `Tabs` · `Paginator` · `Stepper`                                                                                                                    |
-| **Exibição de dados** | `Table` · `DataTable` · `PagedTable` · `Number` · `Currency` · `Highlight` · `Icon`                                                                                |
+| **Exibição de dados** | `Table` · `DataTable` · `PagedTable` · `Number` · `Currency` · `Highlight`                                                                                         |
+| **Ícones**            | `Icon` · `PhosphorIconProvider` · 1.512 ícones `Ph*` de `@lemonade/ui/phosphor`                                                                                    |
 | **Layout**            | `Grid` · `Cell` · `Flow` · `HFlow` · `VFlow` · `Card` · `Paper` · `StickyContainer` · `Portal` · `RootRef`                                                         |
 | **Tipografia**        | `Text` · `Heading` · `HeadingSection`                                                                                                                              |
 
@@ -310,20 +370,22 @@ yarn test:watch
 
 ### Scripts
 
-| Comando                  | O que faz                                                                      |
-| ------------------------ | ------------------------------------------------------------------------------ |
-| `yarn storybook`         | Inicia o servidor de desenvolvimento do Storybook na porta `6006`.             |
-| `yarn build`             | Compila o TypeScript e gera o bundle UMD em `lib/`.                            |
-| `yarn start`             | Compila o TypeScript em modo watch.                                            |
-| `yarn test`              | Roda o ESLint e todos os testes do Jest (incluindo os de snapshot).            |
-| `yarn test:watch`        | Roda o Jest em modo watch.                                                     |
-| `yarn test:loki`         | Gera o Storybook e roda os testes de regressão visual do Loki (requer Docker). |
-| `yarn lint`              | Roda o ESLint em `src/`.                                                       |
-| `yarn icons`             | Regenera os componentes de ícone a partir dos SVGs em `icons/`.                |
-| `yarn phosphor:sync`     | Baixa e verifica uma versão do Phosphor em `vendor/phosphor/`.                 |
-| `yarn phosphor:generate` | Regenera os componentes Phosphor em `src/phosphor/generated/`.                 |
-| `yarn build-storybook`   | Gera um Storybook estático em `storybook-static/`.                             |
-| `yarn site:start`        | Inicia o site de documentação em Gatsby (rode `yarn build` antes).             |
+| Comando                   | O que faz                                                                         |
+| ------------------------- | --------------------------------------------------------------------------------- |
+| `yarn storybook`          | Inicia o servidor de desenvolvimento do Storybook na porta `6006`.                |
+| `yarn build`              | Compila o TypeScript e gera o bundle UMD em `lib/`.                               |
+| `yarn start`              | Compila o TypeScript em modo watch.                                               |
+| `yarn test`               | Roda o ESLint e todos os testes do Jest (incluindo os de snapshot).               |
+| `yarn test:watch`         | Roda o Jest em modo watch.                                                        |
+| `yarn test:loki`          | Gera o Storybook e roda os testes de regressão visual do Loki (requer Docker).    |
+| `yarn lint`               | Roda o ESLint em `src/`.                                                          |
+| `yarn icons`              | Regenera os componentes de ícone a partir dos SVGs em `icons/`.                   |
+| `yarn phosphor:sync`      | Baixa e verifica uma versão do Phosphor em `vendor/phosphor/`.                    |
+| `yarn phosphor:generate`  | Regenera os componentes Phosphor em `src/phosphor/generated/`.                    |
+| `yarn phosphor:check`     | Falha se os componentes Phosphor gerados estiverem desatualizados (roda no CI).   |
+| `yarn phosphor:site-data` | Gera os dados do explorador Phosphor (roda antes de `site:start` e `site:build`). |
+| `yarn build-storybook`    | Gera um Storybook estático em `storybook-static/`.                                |
+| `yarn site:start`         | Inicia o site de documentação em Gatsby (rode `yarn build` antes).                |
 
 ### Estrutura do projeto
 
