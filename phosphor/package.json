@@ -1,0 +1,9 @@
+{
+  "name": "@lemonade/ui/phosphor",
+  "private": true,
+  "description": "Phosphor Icons (MIT) for the Lemonade Design System. See ./LICENSE.",
+  "main": "../lib/phosphor/index.js",
+  "module": "../lib/esm/phosphor/index.js",
+  "types": "../lib/phosphor/index.d.ts",
+  "sideEffects": false
+}

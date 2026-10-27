@@ -17,7 +17,9 @@
   ],
   "files": [
     "lib",
-    "icons"
+    "icons",
+    "phosphor",
+    "THIRD_PARTY_NOTICES.md"
   ],
   "repository": {
     "url": "https://github.com/llypeDev/lemonade-ui"
@@ -32,7 +34,7 @@
   "scripts": {
     "start": "yarn clean && tsc --watch",
     "clean": "rm -rf lib",
-    "build": "yarn clean && tsc && webpack --mode=production",
+    "build": "yarn clean && tsc && tsc -p tsconfig.phosphor-esm.json && webpack --mode=production",
     "prepublishOnly": "yarn build",
     "test": "yarn lint && TZ=UTC jest",
     "test:loki": "STORYBOOK_LOKI=true storybook build && loki --requireReference --reactUri file:./storybook-static",
@@ -44,6 +46,10 @@
     "icons:clean": "rm -rf ./src/components/Icon/generated",
     "icons:svgr": "svgr --ext tsx --icon --template ./tools/IconTemplate.js --svgo-config svgo.config.json -d ./src/components/Icon/generated ./icons",
     "icons:index": "babel-node ./tools/generateIconsIndex.js",
+    "phosphor:sync": "node ./tools/phosphor/sync.js",
+    "phosphor:generate": "node ./tools/phosphor/generate.js",
+    "phosphor:check": "node ./tools/phosphor/generate.js --check",
+    "phosphor:site-data": "node ./tools/phosphor/site-data.js",
     "now-build": "yarn --cwd site install && yarn build && yarn site:export",
     "sonar": "sonar-scanner",
     "site:start": "yarn --cwd site start",
