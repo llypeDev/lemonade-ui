@@ -5,6 +5,9 @@ import { Button } from '../Button'
 import { Icon } from '../Icon'
 import { useLocale } from '../../i18n'
 
+/**
+ * @deprecated Use `ToastOptions` with `useToast` instead.
+ */
 export interface ActionableToastProps {
   id: number
   secondsVisible: number
@@ -17,6 +20,22 @@ export interface ActionableToastProps {
   removeToast(id: number): void
 }
 
+/**
+ * @deprecated Use `Toast`, `ToastProvider` and `useToast` instead: they follow the toast design (bottom left,
+ * informative icon, theme colors) and announce messages to screen readers.
+ *
+ * @example
+ * // Before
+ * const { toastMessages, showToast } = useToastMessages()
+ * <ActionableToastList data={toastMessages} />
+ * showToast({ title: 'Saved', message: 'Your changes were saved.', secondsVisible: 5 })
+ *
+ * // After: wrap the app once with ToastProvider, then anywhere inside it
+ * const toast = useToast()
+ * toast.show({ title: 'Saved', message: 'Your changes were saved.', duration: 5000 })
+ *
+ * @deprecatedSince 1.5.0
+ */
 export function ActionableToast(props: ActionableToastProps) {
   const {
     id,

@@ -363,7 +363,7 @@ Busque, visualize, copie e baixe todos os ícones no [explorador Phosphor](https
 | **Ações**             | `Button` · `ButtonGroup` · `Dropdown` · `Link`                                                                                                                               |
 | **Formulários**       | `TextField` · `TextArea` · `MaskedTextField` · `Select` · `SelectInline` · `Combobox` · `Checkbox` · `Radio` · `Switch` · `FileUploader` · `FormControl` · `Input`           |
 | **Data e hora**       | `Calendar` · `DateField` · `DateRangePicker` · `TimeField` · `MonthField` · `MonthPicker` · `MonthRangePicker` · `MonthPaginator`                                            |
-| **Feedback**          | `Alert` · `Toast` · `ActionableToast` · `Modal` · `Tooltip` · `Spinner` · `Progress` · `Status` · `Tag` · `InfoLabel`                                                        |
+| **Feedback**          | `Alert` · `Toast` · `ActionableToast` (obsoleto) · `Modal` · `Tooltip` · `Spinner` · `Progress` · `Status` · `Tag` · `InfoLabel`                                             |
 | **Navegação**         | `Breadcrumb` · `Tabs` · `Paginator` · `Stepper`                                                                                                                              |
 | **Exibição de dados** | `Table` · `DataTable` · `PagedTable` · `Number` · `Currency` · `Highlight`                                                                                                   |
 | **Ícones**            | `Icon` · `PhosphorIconProvider` · 1.512 ícones `Ph*` de `@lemonade/ui/phosphor`                                                                                              |

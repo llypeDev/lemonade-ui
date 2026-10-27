@@ -1,6 +1,9 @@
 import { Dispatch, SetStateAction, useState } from 'react'
 import { ActionableToastProps } from '../components/ActionableToast'
 
+/**
+ * @deprecated Use `ToastOptions` instead.
+ */
 export interface ToastMessagesInterface {
   secondsVisible?: number
   newToast?: boolean
@@ -11,6 +14,21 @@ export interface ToastMessagesInterface {
   onClose?: () => void
 }
 
+/**
+ * @deprecated Use `useToast` inside a `ToastProvider` instead.
+ *
+ * @example
+ * // Before
+ * const { toastMessages, showToast } = useToastMessages()
+ * <ActionableToastList data={toastMessages} />
+ * showToast({ title: 'Saved', message: 'Your changes were saved.', secondsVisible: 5 })
+ *
+ * // After: wrap the app once with ToastProvider, then anywhere inside it
+ * const toast = useToast()
+ * toast.show({ title: 'Saved', message: 'Your changes were saved.', duration: 5000 })
+ *
+ * @deprecatedSince 1.5.0
+ */
 export function useToastMessages(): {
   toastMessages: ActionableToastProps[]
   setToastMessages: Dispatch<SetStateAction<ActionableToastProps[]>>

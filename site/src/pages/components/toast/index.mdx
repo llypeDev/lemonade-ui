@@ -21,3 +21,15 @@ Wrap your app once with `ToastProvider` and call `useToast().show()` anywhere in
 The `type` (`info`, `success`, `warning` or `danger`) sets the informative icon. Use `action` for a link that lets the user respond.
 
 <Demo src='pages/components/toast/ToastTypes' />
+
+## Migrating from ActionableToast
+
+`ActionableToast`, `ActionableToastList` and `useToastMessages` are deprecated and will be removed in a future major version. They map to the new API like this:
+
+| Before                                                | After                                                                        |
+| ----------------------------------------------------- | ---------------------------------------------------------------------------- |
+| `useToastMessages()` + `<ActionableToastList data />` | `<ToastProvider>` around the app + `useToast()`                              |
+| `showToast(options)`                                  | `toast.show(options)`                                                        |
+| `secondsVisible` (seconds)                            | `duration` (milliseconds)                                                    |
+| `action` + `buttonLabel`                              | `action`: any element, such as a `Link` or a `Button` with its own `onClick` |
+| `newToast` (red dot)                                  | no equivalent: use `type` to set the icon and color                          |
