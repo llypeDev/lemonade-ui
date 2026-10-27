@@ -1,6 +1,6 @@
 <div align="center">
 
-<a href="https://lemonade.dev">
+<a href="https://lemonade-ui.llypedev.com.br">
   <picture>
     <source media="(prefers-color-scheme: dark)" srcset=".github/assets/logo-lemonade-dark.svg" />
     <img alt="Lemonade" src="site/static/image/logo-lemonade.svg" width="360" />
@@ -22,9 +22,9 @@ Componentes React acessíveis, personalizáveis por tema e totalmente tipados pa
 ![Storybook](https://img.shields.io/badge/Storybook-7.6-FF4785?style=flat-square&logo=storybook&logoColor=white)
 ![WCAG AA](https://img.shields.io/badge/a11y-WCAG%20AA-5E7300?style=flat-square)
 
-[**Documentação**](https://lemonade.dev) ·
-[**Storybook**](https://lemonade.dev/storybook) ·
-[**Primeiros passos**](https://lemonade.dev/getting-started) ·
+[**Documentação**](https://lemonade-ui.llypedev.com.br) ·
+[**Storybook**](https://lemonade-ui.llypedev.com.br/storybook) ·
+[**Primeiros passos**](https://lemonade-ui.llypedev.com.br/getting-started) ·
 [**Como contribuir**](./CONTRIBUTING.md)
 
 [English](./README.md) · **Português**
@@ -150,7 +150,7 @@ function FormularioCadastro() {
 }
 ```
 
-O `Button` aceita `kind` (`normal` · `primary` · `danger`), `skin` (`default` · `outline` · `ghost`) e `size` (`small` · `medium` · `large`). Todas as props de cada componente estão no [Storybook](https://lemonade.dev/storybook).
+O `Button` aceita `kind` (`normal` · `primary` · `danger`), `skin` (`default` · `outline` · `ghost`) e `size` (`small` · `medium` · `large`). Todas as props de cada componente estão no [Storybook](https://lemonade-ui.llypedev.com.br/storybook).
 
 ## 🎨 Temas
 
@@ -248,7 +248,7 @@ import { Icon } from '@lemonade/ui'
 | `size`  | Tamanho em `rem`. O padrão é `1.5`.                                                                                                      |
 | `style` | Estilos extras do Emotion.                                                                                                               |
 
-Veja o conjunto completo de ícones em [lemonade.dev](https://lemonade.dev).
+Veja o conjunto completo de ícones em [lemonade-ui.llypedev.com.br](https://lemonade-ui.llypedev.com.br).
 
 ### Ícones Phosphor
 
@@ -280,7 +280,7 @@ Busque, visualize, copie e baixe os ícones no [explorador Phosphor](https://lem
 | **Layout**            | `Grid` · `Cell` · `Flow` · `HFlow` · `VFlow` · `Card` · `Paper` · `StickyContainer` · `Portal` · `RootRef`                                                         |
 | **Tipografia**        | `Text` · `Heading` · `HeadingSection`                                                                                                                              |
 
-Exemplos interativos e a API completa de cada componente estão no [Storybook](https://lemonade.dev/storybook). As diretrizes de uso estão em [lemonade.dev](https://lemonade.dev).
+Exemplos interativos e a API completa de cada componente estão no [Storybook](https://lemonade-ui.llypedev.com.br/storybook). As diretrizes de uso estão em [lemonade-ui.llypedev.com.br](https://lemonade-ui.llypedev.com.br).
 
 <details>
 <summary><b>🍋 Brand board</b></summary>
@@ -330,7 +330,7 @@ yarn test:watch
 ```
 lemonade-ui/
 ├── icons/              # SVGs de origem do conjunto de ícones
-├── site/               # Site de documentação em Gatsby (lemonade.dev)
+├── site/               # Site de documentação em Gatsby (lemonade-ui.llypedev.com.br)
 ├── src/
 │   ├── components/     # Uma pasta por componente, com stories e testes
 │   ├── hooks/          # Hooks React compartilhados

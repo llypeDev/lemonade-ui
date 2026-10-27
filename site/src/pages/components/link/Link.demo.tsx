@@ -3,7 +3,7 @@ import React from 'react'
 
 function LinkDemo() {
   return (
-    <Link href='https://lemonade.dev' target='_blank'>
+    <Link href='https://lemonade-ui.llypedev.com.br' target='_blank'>
       Lemonade
     </Link>
   )
