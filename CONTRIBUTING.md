@@ -125,6 +125,8 @@ Use `yarn site:start` to start the Gatsby development server of the documentatio
 
 The documentation uses the local built version of Lemonade (from the `lib/` folder), so make sure to run `yarn build` every time you want the changes from the Lemonade components take effect on the Gatsby site generation.
 
+Every push to `main` deploys the site and the Storybook (at `/storybook`) to GitHub Pages at https://lemonade-ui.llypedev.com.br through the _Deploy site to GitHub Pages_ workflow (`.github/workflows/pages.yml`), which runs `yarn build` and `yarn site:export`. It can also be started by hand from the Actions tab.
+
 ### Releasing a new version
 
 First you need to login via `yarn login` and make sure that you have permission to publish the `@lemonade/ui` package.
