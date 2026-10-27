@@ -1,0 +1,11 @@
+{
+  "extends": "./tsconfig.json",
+  "compilerOptions": {
+    "module": "es2015",
+    "rootDir": "src",
+    "outDir": "lib/esm",
+    "declaration": false
+  },
+  "include": ["src/phosphor/**/*"],
+  "exclude": ["node_modules", "**/*.test.ts*", "**/__tests__", "**/*.stories.tsx"]
+}

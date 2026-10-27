@@ -250,6 +250,23 @@ import { Icon } from '@lemonade/ui'
 
 Veja o conjunto completo de ícones em [lemonade.dev](https://lemonade.dev).
 
+### Ícones Phosphor
+
+O Lemonade também inclui a família completa [Phosphor](https://phosphoricons.com) — 1.512 ícones, cada um em seis pesos (`thin`, `light`, `regular`, `bold`, `fill`, `duotone`). Cada ícone é um componente exportado por `@lemonade/ui/phosphor` com o prefixo `Ph`; importe apenas o que usar e os bundlers descartam o resto:
+
+```jsx
+import { Icon } from '@lemonade/ui'
+import { PhAirplane, PhHeart, PhosphorIconProvider } from '@lemonade/ui/phosphor'
+
+<PhAirplane />
+<PhHeart weight='fill' size={32} color='#5E7300' />
+<Icon icon={PhHeart} fill='primary' size={2} />
+
+<PhosphorIconProvider weight='duotone' size={24}>{/* padrões para todos os ícones dentro */}</PhosphorIconProvider>
+```
+
+Busque, visualize, copie e baixe os ícones no [explorador Phosphor](https://lemonade.dev/pt/design-guidelines/iconography/phosphor). Os ícones Phosphor têm licença MIT — veja o [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md).
+
 ## 🧩 Componentes
 
 | Categoria             | Componentes                                                                                                                                                        |
@@ -293,18 +310,20 @@ yarn test:watch
 
 ### Scripts
 
-| Comando                | O que faz                                                                      |
-| ---------------------- | ------------------------------------------------------------------------------ |
-| `yarn storybook`       | Inicia o servidor de desenvolvimento do Storybook na porta `6006`.             |
-| `yarn build`           | Compila o TypeScript e gera o bundle UMD em `lib/`.                            |
-| `yarn start`           | Compila o TypeScript em modo watch.                                            |
-| `yarn test`            | Roda o ESLint e todos os testes do Jest (incluindo os de snapshot).            |
-| `yarn test:watch`      | Roda o Jest em modo watch.                                                     |
-| `yarn test:loki`       | Gera o Storybook e roda os testes de regressão visual do Loki (requer Docker). |
-| `yarn lint`            | Roda o ESLint em `src/`.                                                       |
-| `yarn icons`           | Regenera os componentes de ícone a partir dos SVGs em `icons/`.                |
-| `yarn build-storybook` | Gera um Storybook estático em `storybook-static/`.                             |
-| `yarn site:start`      | Inicia o site de documentação em Gatsby (rode `yarn build` antes).             |
+| Comando                  | O que faz                                                                      |
+| ------------------------ | ------------------------------------------------------------------------------ |
+| `yarn storybook`         | Inicia o servidor de desenvolvimento do Storybook na porta `6006`.             |
+| `yarn build`             | Compila o TypeScript e gera o bundle UMD em `lib/`.                            |
+| `yarn start`             | Compila o TypeScript em modo watch.                                            |
+| `yarn test`              | Roda o ESLint e todos os testes do Jest (incluindo os de snapshot).            |
+| `yarn test:watch`        | Roda o Jest em modo watch.                                                     |
+| `yarn test:loki`         | Gera o Storybook e roda os testes de regressão visual do Loki (requer Docker). |
+| `yarn lint`              | Roda o ESLint em `src/`.                                                       |
+| `yarn icons`             | Regenera os componentes de ícone a partir dos SVGs em `icons/`.                |
+| `yarn phosphor:sync`     | Baixa e verifica uma versão do Phosphor em `vendor/phosphor/`.                 |
+| `yarn phosphor:generate` | Regenera os componentes Phosphor em `src/phosphor/generated/`.                 |
+| `yarn build-storybook`   | Gera um Storybook estático em `storybook-static/`.                             |
+| `yarn site:start`        | Inicia o site de documentação em Gatsby (rode `yarn build` antes).             |
 
 ### Estrutura do projeto
 
@@ -316,9 +335,11 @@ lemonade-ui/
 │   ├── components/     # Uma pasta por componente, com stories e testes
 │   ├── hooks/          # Hooks React compartilhados
 │   ├── i18n/           # LocaleContext e textos dos locales (en-US, pt-BR)
+│   ├── phosphor/       # Componentes dos ícones Phosphor (@lemonade/ui/phosphor)
 │   ├── styles/         # Temas, escalas de cor, CSS global, useStyles/useTheme
 │   └── util/           # Funções auxiliares
-├── tools/              # Scripts de geração dos ícones
+├── tools/              # Scripts de geração dos ícones (inclui tools/phosphor)
+├── vendor/phosphor/    # SVGs, catálogo e licença MIT do Phosphor versionados
 └── .loki/              # Imagens de referência da regressão visual
 ```
 

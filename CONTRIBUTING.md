@@ -102,6 +102,17 @@ The icon components are generated from the `icons` source folder. We use `svgr` 
 
 To do so, use the `yarn icons` command.
 
+### Phosphor icons
+
+The [Phosphor](https://phosphoricons.com) icon family (MIT) is vendored in `vendor/phosphor` and exposed as React components through `@lemonade/ui/phosphor` (sources in `src/phosphor`, one generated component per icon with all six weights).
+
+- `yarn phosphor:sync [--version x.y.z]` downloads `@phosphor-icons/core` from npm, verifies its integrity and refreshes `vendor/phosphor` (SVGs, `catalog.json`, `LICENSE`, `VERSION.json`).
+- `yarn phosphor:generate` regenerates `src/phosphor/generated` from the vendored SVGs. Never edit those files by hand.
+- `yarn phosphor:check` fails if the generated components are out of date (it runs in CI).
+- `yarn phosphor:site-data` builds the data used by the explorer at `/design-guidelines/iconography/phosphor`. It runs automatically before `yarn site:start` and `yarn site:build`, and its output is git ignored.
+
+Keep Phosphor out of the main `@lemonade/ui` entry point and the `IconMap`: importing all icons would add ~4 MB to every consumer bundle. The `build` script also emits an ES module copy (`lib/esm/phosphor`) so bundlers can tree-shake unused icons.
+
 ### Updating loki
 
 Loki takes a screenshot of every storybook stories and places the resulting PNG file on the `.loki` folder, that must be git commited.

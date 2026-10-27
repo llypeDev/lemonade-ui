@@ -1,0 +1,6 @@
+# Generated or vendored files — regenerate them instead of formatting by hand
+lib
+src/phosphor/generated
+vendor
+site/static/phosphor
+site/src/generated

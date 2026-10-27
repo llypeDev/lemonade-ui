@@ -1,0 +1,121 @@
+import { PhosphorExplorer, PhosphorRecipes } from '../../../components/phosphor'
+import { TabLinks } from '../../../components/TabLinks'
+
+# Iconography
+
+<TabLinks
+  items={[
+    { title: 'Usage', href: '/design-guidelines/iconography' },
+    { title: 'Library', href: '/design-guidelines/iconography/library' },
+    { title: 'Phosphor', href: '/design-guidelines/iconography/phosphor' },
+  ]}
+/>
+
+Besides its own system icons, Lemonade ships the complete [Phosphor](https://phosphoricons.com) icon family: more
+than 1,500 icons, each one available in six weights — **thin**, **light**, **regular**, **bold**, **fill** and
+**duotone**. They are vendored in this repository and published with `@lemonade/ui`, so they work offline and never
+change unless we update them on purpose.
+
+Search by name, tag or category, pick a weight, size and color, then click an icon to copy its code or download it as
+SVG or PNG. Your settings are kept in the URL, so you can share a link to exactly what you are seeing.
+
+<PhosphorExplorer />
+
+## Using Phosphor icons in code
+
+Every icon is a React component exported by `@lemonade/ui/phosphor`, prefixed with `Ph` to avoid name clashes with
+Lemonade components (`PhLink` is the icon, `Link` is the component). Use named imports: bundlers only include the
+icons you actually use.
+
+```jsx
+import { PhAirplane, PhHeart } from '@lemonade/ui/phosphor'
+
+const Example = () => (
+  <>
+    <PhAirplane />
+    <PhHeart weight='fill' size={32} color='#5E7300' />
+  </>
+)
+```
+
+### Props
+
+| Prop             | Type                                                             | Default        |
+| ---------------- | ---------------------------------------------------------------- | -------------- |
+| `weight`         | `'thin' \| 'light' \| 'regular' \| 'bold' \| 'fill' \| 'duotone'` | `'regular'`    |
+| `size`           | `number \| string`                                               | `'1em'`        |
+| `color`          | `string`                                                         | `currentColor` |
+| `mirrored`       | `boolean`                                                        | `false`        |
+| `duotoneColor`   | `string`                                                         | icon color     |
+| `duotoneOpacity` | `number`                                                         | `0.2`          |
+| `title`          | `string`                                                         | —              |
+
+Any other SVG attribute (`className`, `style`, `onClick`, `aria-*`…) is forwarded to the `<svg>` element, and refs
+point to it as well. By default icons follow the surrounding font size and text color, so they adapt to the light and
+dark themes automatically.
+
+### Defaults for a whole section
+
+Wrap a part of the interface with `PhosphorIconProvider` to change the defaults of every icon inside it. Providers
+can be nested and props on a single icon always win.
+
+```jsx
+import { PhBell, PhGear, PhHouse, PhosphorIconProvider } from '@lemonade/ui/phosphor'
+
+const Toolbar = () => (
+  <PhosphorIconProvider weight='duotone' size={24}>
+    <PhHouse />
+    <PhBell />
+    <PhGear weight='bold' />
+  </PhosphorIconProvider>
+)
+```
+
+### With the Lemonade `Icon` component
+
+Phosphor icons can be passed to `Icon`, so they get the same sizing (in `rem`) and theme colors as the system icons.
+
+```jsx
+import { Icon } from '@lemonade/ui'
+import { PhRocketLaunch } from '@lemonade/ui/phosphor'
+
+const Example = () => <Icon icon={PhRocketLaunch} size={2} fill='primary' />
+```
+
+### Accessibility
+
+Icons are decorative by default (`aria-hidden`). When an icon carries meaning on its own — for example in an icon-only
+button — give it an accessible name with `title` or `aria-label`, or label the button instead.
+
+```jsx
+<PhTrash title='Delete file' />
+```
+
+## Recipes
+
+Icons are plain SVG, so anything SVG and CSS can do also works here.
+
+<PhosphorRecipes />
+
+## Phosphor or Lemonade system icons?
+
+- Use the **Lemonade system icons** (`<Icon icon='…' />`) for core interface actions, keeping the 24px grid and 2px
+  stroke described in [Usage](/design-guidelines/iconography).
+- Use **Phosphor** when you need a subject the system set does not cover, or when you need the extra weights.
+- Avoid mixing both families side by side in the same group of controls; if you do, prefer the `regular` weight,
+  which is the closest to the system icons.
+
+## Updating Phosphor
+
+Maintainers can update the vendored version with two commands, then review and commit the result:
+
+```shell
+yarn phosphor:sync --version 2.1.1   # downloads and verifies @phosphor-icons/core
+yarn phosphor:generate               # regenerates src/phosphor/generated
+```
+
+## License
+
+Phosphor Icons are created by the [Phosphor Icons](https://github.com/phosphor-icons) team and distributed under the
+MIT License. A copy of the license ships with the icons in `@lemonade/ui/phosphor/LICENSE` and in
+`vendor/phosphor/LICENSE`; see also `THIRD_PARTY_NOTICES.md` in the repository.

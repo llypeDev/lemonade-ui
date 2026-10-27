@@ -7,7 +7,8 @@ import { Omit } from '../../util/types'
 import { IconMap, Icons } from './generated/types'
 
 export type IconColor = TextColor | 'none'
-export type IconImage = Icons | React.ComponentType<React.SVGProps<SVGSVGElement>>
+// `ref` is omitted so ref-forwarding icon components (e.g. Phosphor icons from `@lemonade/ui/phosphor`) are accepted.
+export type IconImage = Icons | React.ComponentType<Omit<React.SVGProps<SVGSVGElement>, 'ref'>>
 
 export interface IconProps extends Omit<React.SVGAttributes<SVGElement>, 'style'> {
   icon: IconImage
