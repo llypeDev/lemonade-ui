@@ -265,7 +265,7 @@ import { PhAirplane, PhHeart, PhosphorIconProvider } from '@lemonade/ui/phosphor
 <PhosphorIconProvider weight='duotone' size={24}>{/* padrões para todos os ícones dentro */}</PhosphorIconProvider>
 ```
 
-Busque, visualize, copie e baixe os ícones no [explorador Phosphor](https://lemonade.dev/pt/design-guidelines/iconography/phosphor). Os ícones Phosphor têm licença MIT — veja o [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md).
+Busque, visualize, copie e baixe os ícones no [explorador Phosphor](https://lemonade-ui.llypedev.com.br/pt/design-guidelines/iconography/phosphor). Os ícones Phosphor têm licença MIT — veja o [THIRD_PARTY_NOTICES.md](./THIRD_PARTY_NOTICES.md).
 
 ## 🧩 Componentes
 
