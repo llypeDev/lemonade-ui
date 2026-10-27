@@ -76,6 +76,6 @@ export default [
     title: 'menu-storybook',
     icon: 'list',
     target: '_blank',
-    href: 'https://lemonade.dev/storybook',
+    href: 'https://lemonade-ui.llypedev.com.br/storybook',
   },
 ]

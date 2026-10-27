@@ -19,8 +19,8 @@ export function AppFooter() {
           </Cell>
           <Cell>
             <HFlow>
-              <Link href='https://lemonade.dev' target='_blank' style={{ display: 'inline-block' }}>
-                lemonade.dev
+              <Link href='https://lemonade-ui.llypedev.com.br' target='_blank' style={{ display: 'inline-block' }}>
+                lemonade-ui.llypedev.com.br
               </Link>
               <Link
                 href='https://github.com/llypeDev/lemonade-ui'

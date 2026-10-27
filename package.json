@@ -4,7 +4,7 @@
   "description": "React implementation of the Lemonade Design System.",
   "main": "lib/index.js",
   "types": "lib/index.d.ts",
-  "homepage": "https://lemonade.dev",
+  "homepage": "https://lemonade-ui.llypedev.com.br",
   "engines": {
     "node": ">=16"
   },

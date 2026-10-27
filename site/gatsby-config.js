@@ -1,6 +1,6 @@
 module.exports = {
   siteMetadata: {
-    siteUrl: 'https://lemonade.dev',
+    siteUrl: 'https://lemonade-ui.llypedev.com.br',
   },
   plugins: [
     'gatsby-plugin-typescript',
