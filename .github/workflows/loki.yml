@@ -27,11 +27,10 @@ jobs:
       - name: loki test
         run: yarn test:loki
 
-      - name: argos upload
+      - name: Upload visual diffs
         if: failure()
-        env:
-          ARGOS_TOKEN: ${{ secrets.ARGOS_TOKEN }}
-          ARGOS_BRANCH: ${{ github.head_ref || github.ref }}
-          ARGOS_COMMIT: ${{ github.sha }}
-        run: |
-          yarn argos upload .loki/difference
+        uses: actions/upload-artifact@v4
+        with:
+          name: loki-difference
+          path: .loki/difference
+          if-no-files-found: ignore

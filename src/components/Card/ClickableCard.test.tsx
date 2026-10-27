@@ -84,7 +84,7 @@ describe('states', () => {
         </ClickableCard>
       )
       const card = getByTestId('clickable-card-selected')
-      expect(getComputedStyle(card).borderColor).toBe('#5E7300')
+      expect(getComputedStyle(card).borderColor).toBe('#5e7300')
       expect(getComputedStyle(card).background).toBe('rgb(245, 250, 219)')
     }
   )
