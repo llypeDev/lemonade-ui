@@ -1,0 +1,189 @@
+import FocusTrap from 'focus-trap-react'
+import React, { Ref, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { ExternalStyles, Theme, useStyles } from '../../styles'
+import { zIndexLevel } from '../../styles/theme/zIndex'
+import { Portal } from '../Portal'
+import { FadeTransition } from '../Transition/FadeTransition'
+import { ModalContextValue, ModalContextProvider, ModalSectionsState } from '../../hooks/useModalContext'
+import { ModalBackdrop } from './ModalBackdrop'
+import { ModalContainer, ModalContainerProps } from './ModalContainer'
+
+export type ModalSize = 'small' | 'medium' | 'large' | 'auto'
+export type ModalDepthLevel = 1 | 2 | 3 | 4 | 5
+export type ModalScroll = 'body' | 'full'
+
+export interface ModalProps extends ModalContainerProps {
+  open: boolean
+  size?: ModalSize
+  children?: React.ReactNode
+  containerRef?: Ref<HTMLDivElement>
+  onClose?(): void
+
+  /**
+   * Determine the container for scrolling the dialog
+   * @default 'body'
+   */
+  scroll?: ModalScroll
+
+  /**
+   * Allows you to customize the depth of the container and the backdrop of the modal
+   * @default 1 - the lowest possible value
+   */
+  depthLevel?: ModalDepthLevel
+
+  /**
+   * Allows you to remove the document's overflow property when a modal is closed
+   * @default true
+   */
+  manageOverflow?: boolean
+
+  /**
+   * Specify whether the `onClose` prop should called when backdrop is clicked.
+   * @default true
+   */
+  closeOnBackdropClick?: boolean
+
+  /**
+   * Styles applied to the element that wraps the modal (responsible for positioning, centering and
+   * spacing). Useful, for example, to make the modal occupy the whole screen on mobile.
+   */
+  wrapperStyle?: ExternalStyles
+
+  /**
+   * Styles applied to the modal's backdrop.
+   */
+  backdropStyle?: ExternalStyles
+}
+
+export function Modal(props: ModalProps) {
+  const {
+    open,
+    size,
+    closeOnBackdropClick,
+    children,
+    containerRef,
+    style,
+    onClose,
+    scroll = 'body',
+    depthLevel,
+    manageOverflow,
+    wrapperStyle,
+    backdropStyle,
+    ...rest
+  } = props
+
+  const { classes, css } = useStyles(createStyles, depthLevel, scroll)
+  const bodyRef = useRef()
+  const modalRef = useRef<HTMLDivElement>(null)
+
+  const [sectionsState, setSectionsState] = useState<ModalSectionsState>({
+    hasHeader: false,
+    hasLeftSidebar: false,
+    hasRightSidebar: false,
+  })
+
+  const setSectionState = useCallback(
+    (key: keyof ModalSectionsState, isPresent: boolean) => setSectionsState((prev) => ({ ...prev, [key]: isPresent })),
+    []
+  )
+
+  const modalContextValue: ModalContextValue = useMemo(
+    () => ({
+      ...sectionsState,
+      scroll,
+      bodyRef,
+      setSectionState,
+      onClose,
+    }),
+    [scroll, sectionsState, setSectionState, onClose]
+  )
+
+  // Kill body scroll when opened
+  useEffect(() => {
+    if (manageOverflow) {
+      if (open) {
+        document.body.classList.add(classes.bodyWhenOpened)
+      } else {
+        document.body.classList.remove(classes.bodyWhenOpened)
+      }
+      return () => document.body.classList.remove(classes.bodyWhenOpened)
+    }
+  }, [open, classes.bodyWhenOpened, manageOverflow])
+
+  useEffect(() => {
+    // Attach "Escape" to close modal
+    const handleKeyDown = (e: KeyboardEvent) => {
+      if (e.key === 'Escape') {
+        onClose?.()
+      }
+    }
+
+    if (open) {
+      document.addEventListener('keydown', handleKeyDown)
+    } else {
+      document.removeEventListener('keydown', handleKeyDown)
+    }
+    return () => document.removeEventListener('keydown', handleKeyDown)
+  }, [open, onClose])
+
+  return (
+    <ModalContextProvider value={modalContextValue}>
+      <FadeTransition in={open}>
+        {({ className }) => (
+          <>
+            {open && (
+              <Portal>
+                <FocusTrap focusTrapOptions={{ fallbackFocus: () => modalRef.current }}>
+                  <div className={className}>
+                    <div className={css(classes.modal, wrapperStyle)} ref={modalRef}>
+                      <ModalContainer ref={containerRef} style={css(classes[size], style)} {...rest}>
+                        {children}
+                      </ModalContainer>
+                    </div>
+
+                    <ModalBackdrop
+                      depthLevel={depthLevel}
+                      style={backdropStyle}
+                      onClick={closeOnBackdropClick ? onClose : undefined}
+                    />
+                  </div>
+                </FocusTrap>
+              </Portal>
+            )}
+          </>
+        )}
+      </FadeTransition>
+    </ModalContextProvider>
+  )
+}
+
+Modal.defaultProps = {
+  size: 'large',
+  scroll: 'body',
+  closeOnBackdropClick: true,
+  depthLevel: 1,
+  manageOverflow: true,
+} as Partial<ModalProps>
+
+const createStyles = (theme: Theme, depthLevel: number) => ({
+  modal: {
+    position: 'fixed',
+    left: '0',
+    top: '0',
+    width: '100%',
+    height: '100vh',
+    pointerEvents: 'none',
+    zIndex: zIndexLevel[depthLevel].modalContainer,
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center',
+    padding: '2rem',
+  } as React.CSSProperties,
+  bodyWhenOpened: {
+    overflow: 'hidden',
+  },
+  large: { width: 900 },
+  medium: { width: 720 },
+  small: { width: 520 },
+  auto: { maxWidth: '100%' },
+})

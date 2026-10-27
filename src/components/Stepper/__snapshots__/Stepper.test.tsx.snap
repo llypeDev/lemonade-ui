@@ -1,0 +1,40 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`should accept "style" prop 1`] = `
+.emotion-0 {
+  display: grid;
+  -webkit-align-items: flex-start;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
+  grid-template-columns: repeat(0,1fr);
+  color: red;
+}
+
+<div>
+  <div
+    class="emotion-0"
+  >
+    Stepper content
+  </div>
+</div>
+`;
+
+exports[`should render correctly 1`] = `
+.emotion-0 {
+  display: grid;
+  -webkit-align-items: flex-start;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
+  grid-template-columns: repeat(0,1fr);
+}
+
+<div>
+  <div
+    class="emotion-0"
+  >
+    Stepper content
+  </div>
+</div>
+`;

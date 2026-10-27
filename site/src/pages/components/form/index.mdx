@@ -1,0 +1,19 @@
+import { Demo } from '../../../components/Demo'
+
+# Form
+
+Forms are used for submitting data. Every input must be displayed with a label.
+
+## Best practices
+
+- When possible, data validation must occur before the user submits the form.
+- Use placeholders to assist entry of numeric fields. Placeholders are visible until the user starts typing.
+- Use mask input that helps the user identify the input pattern.
+- Required fields must be marked with a red asterisk after the label.
+
+## Example
+
+The following example doesn't use any library to manage the form state. In practice, you may (but don't need to) use a third party library to manage form state, like [`react-use-form-state`](https://github.com/wsmd/react-use-form-state), [`react-final-form`](https://github.com/final-form/react-final-form), [`formik`](https://github.com/jaredpalmer/formik) etc.
+
+<Demo src='pages/components/form/Form' />
+

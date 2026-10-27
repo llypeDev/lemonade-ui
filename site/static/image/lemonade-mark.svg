@@ -1,0 +1,16 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<svg width='64' height='64' viewBox='0 0 64 64' role='img' xmlns='http://www.w3.org/2000/svg'>
+  <title>Lemonade</title>
+  <circle cx='32' cy='32' r='28' fill='#5E7300'/>
+  <g stroke='#FFFFFF' stroke-width='5.32' stroke-linecap='round'>
+    <path d='M38.72 32L54.12 32'/>
+    <path d='M36.75 36.75L47.64 47.64'/>
+    <path d='M32 38.72L32 54.12'/>
+    <path d='M27.25 36.75L16.36 47.64'/>
+    <path d='M25.28 32L9.88 32'/>
+    <path d='M27.25 27.25L16.36 16.36'/>
+    <path d='M32 25.28L32 9.88'/>
+    <path d='M36.75 27.25L47.64 16.36'/>
+  </g>
+  <circle cx='32' cy='32' r='4.76' fill='#C2DC4E'/>
+</svg>

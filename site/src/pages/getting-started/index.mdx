@@ -1,0 +1,46 @@
+# Getting Started
+
+## Installation
+
+Lemonade is open source and available as an [npm package](https://www.npmjs.com/package/@lemonade/ui).
+
+To install and save it in your `package.json`, run in your terminal:
+
+```shell
+# with npm
+npm install @lemonade/ui --save
+
+# with yarn
+yarn add @lemonade/ui
+```
+
+The documentation is available at [lemonade.dev](https://lemonade.dev), the component stories at
+[lemonade.dev/storybook](https://lemonade.dev/storybook) and the source code at
+[github.com/llypeDev/lemonade](https://github.com/llypeDev/lemonade).
+
+### Font family: IBM Plex Sans
+
+Lemonade was designed to use [IBM Plex Sans](https://fonts.google.com/specimen/IBM+Plex+Sans) as default font family, using the _regular_ and _bold_ styles from it.
+
+You can install it in your app in numerous ways. For example:
+
+```html
+<link href="https://fonts.googleapis.com/css?family=IBM+Plex+Sans:400,400i,700,700i" rel="stylesheet" />
+```
+
+## Usage
+
+Here's a quick demonstration of the library usage:
+
+```jsx
+import React from 'react'
+import ReactDOM from 'react-dom'
+import { Button } from '@lemonade/ui'
+
+const App = () => {
+  return <Button kind='primary'>Hello World</Button>
+}
+
+ReactDOM.render(<App />, document.querySelector('#root'))
+```
+

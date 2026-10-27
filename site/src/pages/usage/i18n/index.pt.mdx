@@ -1,0 +1,22 @@
+import { Demo } from '../../../components/Demo'
+
+# Internacionalização (i18n)
+
+Os componentes do Lemonade usam por padrão a linguagem do browser para determinar o _locale_.
+
+É possível customizar os textos usados pelos componentes usando `LocaleContext.Provider` e acessá-los através da _hook_ `useLocale`.
+
+A _hook_ `useLocale` retorna um mapa de palavras usadas internamente por alguns componentes do Lemonade, como o Calendar, Paginator etc.
+
+<Demo src='pages/usage/i18n/LocaleProvider' />
+
+## _Locales_ disponíveis
+
+Os textos de cada _locale_ são exportados a partir de `@lemonade/ui/i18n/locales`, um módulo por _locale_:
+
+```js
+import enUS from '@lemonade/ui/i18n/locales/en-US'
+import ptBR from '@lemonade/ui/i18n/locales/pt-BR'
+```
+
+Sinta-se livre para abrir um _pull request_ caso seu _locale_ não esteja presente.

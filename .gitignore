@@ -1,0 +1,14 @@
+.DS_Store
+node_modules
+coverage
+npm-debug.log
+yarn-error.log
+.scannerwork
+lib
+storybook-static
+.cache
+.idea
+.npmrc
+
+# Gatsby files
+site/public
