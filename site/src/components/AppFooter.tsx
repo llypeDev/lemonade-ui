@@ -23,7 +23,7 @@ export function AppFooter() {
                 lemonade.dev
               </Link>
               <Link
-                href='https://github.com/llypeDev/lemonade'
+                href='https://github.com/llypeDev/lemonade-ui'
                 target='_blank'
                 style={{ display: 'inline-block' }}
               >

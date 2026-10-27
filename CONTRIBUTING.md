@@ -68,8 +68,8 @@ If the right component does not exist:
 - [Gatsby](https://www.gatsbyjs.org/) to generate the site documentation (see the `site/` folder)
 - [Prettier](https://prettier.io/) for code formatting
 - [Eslint](https://eslint.org/) for code linting
-- [GitHub Actions](https://github.com/llypeDev/lemonade/actions) for continuous integration
-- [Codecov](https://codecov.io/gh/llypeDev/lemonade) for code coverage analysis
+- [GitHub Actions](https://github.com/llypeDev/lemonade-ui/actions) for continuous integration
+- [Codecov](https://codecov.io/gh/llypeDev/lemonade-ui) for code coverage analysis
 - [svgr](https://github.com/gregberge/svgr) for generating the icon components
 
 ## Quick start

@@ -2,8 +2,8 @@
 
 React implementation of the **Lemonade Design System**.
 
-![Build Status](https://github.com/llypeDev/lemonade/actions/workflows/yarn.yml/badge.svg)
-[![codecov](https://codecov.io/gh/llypeDev/lemonade/branch/main/graph/badge.svg)](https://codecov.io/gh/llypeDev/lemonade)
+![Build Status](https://github.com/llypeDev/lemonade-ui/actions/workflows/yarn.yml/badge.svg)
+[![codecov](https://codecov.io/gh/llypeDev/lemonade-ui/branch/main/graph/badge.svg)](https://codecov.io/gh/llypeDev/lemonade-ui)
 
 https://lemonade.dev
 

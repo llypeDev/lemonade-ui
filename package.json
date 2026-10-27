@@ -20,10 +20,10 @@
     "icons"
   ],
   "repository": {
-    "url": "https://github.com/llypeDev/lemonade"
+    "url": "https://github.com/llypeDev/lemonade-ui"
   },
   "bugs": {
-    "url": "https://github.com/llypeDev/lemonade/issues"
+    "url": "https://github.com/llypeDev/lemonade-ui/issues"
   },
   "sideEffects": false,
   "publishConfig": {
