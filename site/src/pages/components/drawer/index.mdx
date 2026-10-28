@@ -1,0 +1,27 @@
+import { Demo } from '../../../components/Demo'
+
+# Drawer
+
+Drawers are panels that slide in from an edge of the screen over the page. Use them for secondary content that relates to the page, such as filters, details of an item or navigation, without taking the user to another page.
+
+## Best practices
+
+- Use drawers for content the user consults or edits while keeping the page in context. For decisions that need full attention, use a [Modal](/components/modal).
+- Give the drawer a short title that describes its content.
+- Put the actions in the `footer`, with the main action on the right.
+- Prefer the right edge for details and filters, and the left edge for navigation.
+- Don't open a drawer from another drawer.
+
+## Usage
+
+The drawer is controlled by `open` and asks to close with `onClose`, called by the close button, the `Escape` key and a click on the backdrop (disable it with `closeOnBackdropClick={false}`).
+
+<Demo src='pages/components/drawer/Drawer' />
+
+`placement` sets the edge: `left`, `right` (default), `top` or `bottom`. `size` sets the width of side drawers (`25rem` by default) and the height of top and bottom ones. It never goes beyond the screen.
+
+<Demo src='pages/components/drawer/DrawerPlacement' />
+
+## Accessibility
+
+The drawer is a modal dialog named by its `title` (without a title, give it an `aria-label`). When it opens, the focus moves to the drawer and stays inside it while it is open, and returns to the element that opened it when it closes. The page behind it does not scroll.

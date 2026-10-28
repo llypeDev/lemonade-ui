@@ -1,0 +1,255 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Drawer should render correctly 1`] = `
+@keyframes animation-0 {
+  from {
+    -webkit-transform: translateX(100%);
+    -ms-transform: translateX(100%);
+    transform: translateX(100%);
+  }
+
+  to {
+    -webkit-transform: none;
+    -ms-transform: none;
+    transform: none;
+  }
+}
+
+.emotion-4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: flex-start;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  gap: 0.5rem;
+  padding: 1rem 1rem 0.5rem 1.5rem;
+}
+
+.emotion-1 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  padding-top: 0.25rem;
+}
+
+.emotion-5 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 0.5rem 1.5rem 1.5rem;
+}
+
+.emotion-6 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  gap: 1rem;
+  padding: 1rem 1.5rem;
+  border-top: 1px solid #D3D4DD;
+}
+
+.emotion-9 {
+  overflow: hidden;
+}
+
+.emotion-7 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: #24252E;
+  position: fixed;
+  z-index: 1100;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  box-sizing: border-box;
+  background: #FFFFFF;
+  border-color: #D3D4DD;
+  border-style: solid;
+  border-width: 0;
+  box-shadow: 0 8px 10px -5px rgba(0,0,0,0.2),0 6px 30px 5px rgba(0,0,0,0.12),0 16px 24px 2px rgba(0,0,0,0.14);
+  outline: none;
+  -webkit-animation: animation-0 .2s ease-out;
+  animation: animation-0 .2s ease-out;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  max-width: 100vw;
+  border-left-width: 1px;
+  width: 25rem;
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .emotion-7 {
+    -webkit-animation: none;
+    animation: none;
+  }
+}
+
+.emotion-0 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 1.25rem;
+  line-height: 1.5;
+  color: #24252E;
+  font-weight: bold;
+  font-weight: bold;
+}
+
+.emotion-3 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5rem;
+  color: #24252E;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #24252E;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  font-size: 0.875rem;
+  padding: calc(0.25rem - 1px) calc(0.5rem - 1px);
+}
+
+.emotion-3 > span {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.emotion-3:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
+}
+
+.emotion-3:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-3:not(:disabled):hover {
+  background-color: rgba(58,58,71,0.1);
+}
+
+.emotion-2 {
+  fill: currentColor;
+  font-size: 1.5rem;
+}
+
+.emotion-8 {
+  position: fixed;
+  z-index: 1050;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  right: 0;
+  background: rgba(211,212,221,0.7);
+}
+
+<body
+  class="emotion-9"
+>
+  <div />
+  <div>
+    <div
+      aria-labelledby="drawer-title-abc"
+      aria-modal="true"
+      class="emotion-7"
+      role="dialog"
+      tabindex="-1"
+    >
+      <div
+        class="emotion-4"
+      >
+        <div
+          class="emotion-1"
+        >
+          <h2
+            class="emotion-0"
+            id="drawer-title-abc"
+          >
+            Filters
+          </h2>
+        </div>
+        <button
+          aria-label="Close"
+          class="emotion-3"
+          title="Close"
+          type="button"
+        >
+          <span>
+            <svg
+              aria-hidden="true"
+              class="emotion-2"
+              height="1em"
+              role="img"
+              viewBox="0 0 24 24"
+              width="1em"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M8.071 6.657l4.243 4.242 4.242-4.242c.464-.48.935-.48 1.415 0s.48.95 0 1.414l-4.243 4.243 4.243 4.242c.471.472.471.943 0 1.415-.472.471-.943.471-1.415 0l-4.242-4.243L8.07 17.97c-.46.482-.932.482-1.414 0-.482-.483-.482-.954 0-1.415l4.242-4.242L6.657 8.07c-.472-.47-.472-.942 0-1.414s.943-.472 1.414 0v.001z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </button>
+      </div>
+      <div
+        class="emotion-5"
+      >
+        Content
+      </div>
+      <div
+        class="emotion-6"
+      >
+        <button>
+          Apply
+        </button>
+      </div>
+    </div>
+    <div
+      class="emotion-8"
+      data-testid="backdrop"
+    />
+  </div>
+</body>
+`;

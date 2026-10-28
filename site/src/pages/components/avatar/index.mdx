@@ -1,0 +1,22 @@
+import { Demo } from '../../../components/Demo'
+
+# Avatar
+
+Avatars represent a person with their picture, their initials or a generic user icon. Use them in lists of people, comments, headers and anywhere the user needs to recognize who is involved.
+
+## Best practices
+
+- Prefer real pictures: they are recognized faster than initials.
+- Always give the `name`, which is used for the initials and read by screen readers.
+- Keep the same size for avatars shown side by side.
+- Pair the avatar with the name in text when there is space: the picture alone may not be enough to identify someone.
+
+## Usage
+
+`src` sets the picture. When it is missing or fails to load, the avatar shows the initials of `name` (first letter of the first and last words), and without a name, a generic user icon. Use `size` (`small`, `medium` or `large`) to fit the context.
+
+<Demo src='pages/components/avatar/Avatar' />
+
+## Accessibility
+
+With a `name`, the avatar is an image named after the person. Without one it is decorative and hidden from screen readers, so use it this way only when the name is already written next to it.

@@ -1,0 +1,50 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Popover should render correctly 1`] = `
+.emotion-0 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: #24252E;
+  z-index: 1200;
+  box-sizing: border-box;
+  max-width: calc(100vw - 2rem);
+  padding: 1rem;
+  border: 1px solid #D3D4DD;
+  border-radius: 2px;
+  background: #FFFFFF;
+  box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2),0 1px 10px 0 rgba(0,0,0,0.12),0 4px 5px 0 rgba(0,0,0,0.14);
+  outline: none;
+}
+
+<div>
+  <button
+    aria-controls="popover-abc"
+    aria-expanded="true"
+    aria-haspopup="dialog"
+  >
+    Filters
+  </button>
+  <button>
+    Outside
+  </button>
+  <div
+    aria-label="Filters"
+    class="emotion-0"
+    data-popper-escaped="true"
+    data-popper-placement="bottom-start"
+    data-popper-reference-hidden="true"
+    id="popover-abc"
+    role="dialog"
+    style="position: absolute; left: 0px; top: 0px; transform: translate(0px, 4px);"
+    tabindex="-1"
+  >
+    <input
+      aria-label="Name"
+    />
+    <button>
+      Apply
+    </button>
+  </div>
+</div>
+`;

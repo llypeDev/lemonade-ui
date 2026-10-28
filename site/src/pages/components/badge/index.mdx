@@ -1,0 +1,26 @@
+import { Demo } from '../../../components/Demo'
+
+# Badge
+
+Badges are small counts or dots on the corner of an element, used to call attention to something new, such as unread notifications or pending items.
+
+## Best practices
+
+- Use badges for counts that change and need attention. For fixed categories or statuses, use [Tag](/components/tag).
+- Keep numbers short: counts above `max` (99 by default) show as `99+`.
+- Use a dot when the amount does not matter, only that there is something new.
+- Use `danger` for what needs action and the other types to match the meaning of the count.
+
+## Usage
+
+Wrap the element that receives the badge, usually an icon button. The badge is hidden when `count` is 0, unless `showZero` is set.
+
+<Demo src='pages/components/badge/Badge' />
+
+`type` sets the color. Without children, the badge is shown inline, like a counter next to a label. Use `overlap='circular'` on round elements such as an [Avatar](/components/avatar).
+
+<Demo src='pages/components/badge/BadgeVariants' />
+
+## Accessibility
+
+The badge is hidden from screen readers by default, because a number alone has no meaning. Put the count in the name of the element it decorates, such as `aria-label='Notifications, 3 unread'`, or give the badge a `label`, which is read instead of the number or the dot.

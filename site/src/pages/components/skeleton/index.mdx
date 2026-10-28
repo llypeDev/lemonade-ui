@@ -1,0 +1,26 @@
+import { Demo } from '../../../components/Demo'
+
+# Skeleton
+
+Skeletons are placeholders with the shape of the content that is still loading. They show the layout of the page right away, so the wait feels shorter and the content does not jump when it arrives.
+
+## Best practices
+
+- Match the shape and size of the real content: text lines, pictures and avatars.
+- Use skeletons for content that takes a moment to load, such as cards, lists and profiles. For actions the user triggered, such as saving, prefer the [Button](/components/button) loading state.
+- Don't show skeletons for content that loads instantly: the flash is more distracting than the wait.
+- If loading fails, replace the skeleton with an error message.
+
+## Usage
+
+`variant` sets the shape: `text` follows the font size of its container, `rectangle` and `circle` take a `width` and a `height` (a circle uses the width when the height is missing). Use `lines` for paragraphs: the last line is shorter.
+
+<Demo src='pages/components/skeleton/Skeleton' />
+
+Compose skeletons with the same layout as the content and swap them when it loads.
+
+<Demo src='pages/components/skeleton/SkeletonLoading' />
+
+## Accessibility
+
+Skeletons are hidden from screen readers. Mark the loading region with `aria-busy` while it loads, and announce long loads with a message. The shimmer animation stops when the user prefers reduced motion, and can be turned off with `animated={false}`.

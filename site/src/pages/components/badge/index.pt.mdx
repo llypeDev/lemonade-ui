@@ -1,0 +1,26 @@
+import { Demo } from '../../../components/Demo'
+
+# Badge
+
+_Badges_ são pequenos contadores ou pontos no canto de um elemento, usados para chamar atenção para algo novo, como notificações não lidas ou itens pendentes.
+
+## Boas práticas
+
+- Use _badges_ para contagens que mudam e pedem atenção. Para categorias ou _status_ fixos, use a [Tag](/components/tag).
+- Mantenha os números curtos: contagens acima de `max` (99 por padrão) aparecem como `99+`.
+- Use um ponto quando a quantidade não importa, apenas que há algo novo.
+- Use `danger` para o que precisa de ação e os demais tipos de acordo com o significado da contagem.
+
+## Uso
+
+Envolva o elemento que recebe o _badge_, normalmente um botão de ícone. O _badge_ fica oculto quando `count` é 0, a não ser que `showZero` esteja ativo.
+
+<Demo src='pages/components/badge/Badge' />
+
+O `type` define a cor. Sem filhos, o _badge_ aparece em linha, como um contador ao lado de um rótulo. Use `overlap='circular'` em elementos redondos, como o [Avatar](/components/avatar).
+
+<Demo src='pages/components/badge/BadgeVariants' />
+
+## Acessibilidade
+
+Por padrão, o _badge_ fica oculto dos leitores de tela, porque um número sozinho não tem significado. Coloque a contagem no nome do elemento que ele decora, como `aria-label='Notificações, 3 não lidas'`, ou informe um `label` no _badge_, que é lido no lugar do número ou do ponto.
