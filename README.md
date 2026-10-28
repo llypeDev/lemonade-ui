@@ -358,17 +358,19 @@ Search, preview, copy and download every icon in the [Phosphor explorer](https:/
 
 ## 🧩 Components
 
-| Category          | Components                                                                                                                                                                   |
-| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Actions**       | `Button` · `ButtonGroup` · `Dropdown` · `Link`                                                                                                                               |
-| **Forms**         | `TextField` · `TextArea` · `MaskedTextField` · `Select` · `SelectInline` · `Combobox` · `Checkbox` · `Radio` · `Switch` · `FileUploader` · `FormControl` · `Input`           |
-| **Date and time** | `Calendar` · `DateField` · `DateRangePicker` · `TimeField` · `MonthField` · `MonthPicker` · `MonthRangePicker` · `MonthPaginator`                                            |
-| **Feedback**      | `Alert` · `Toast` · `ActionableToast` (deprecated) · `Modal` · `Tooltip` · `Spinner` · `Progress` · `Status` · `Tag` · `InfoLabel`                                           |
-| **Navigation**    | `Breadcrumb` · `Tabs` · `Paginator` · `Stepper`                                                                                                                              |
-| **Data display**  | `Table` · `DataTable` · `PagedTable` · `Number` · `Currency` · `Highlight`                                                                                                   |
-| **Icons**         | `Icon` · `PhosphorIconProvider` · 1,512 `Ph*` icons from `@lemonade/ui/phosphor`                                                                                             |
-| **Layout**        | `Grid` · `Cell` · `Flow` · `HFlow` · `VFlow` · `Accordion` · `Card` · `ClickableCard` · `ToggleCard` · `ExpandableCard` · `Paper` · `StickyContainer` · `Portal` · `RootRef` |
-| **Typography**    | `Text` · `Heading` · `HeadingSection`                                                                                                                                        |
+| Category          | Components                                                                                                                                                                                             |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Actions**       | `Button` · `ButtonGroup` · `Dropdown` · `Link`                                                                                                                                                         |
+| **Forms**         | `TextField` · `TextArea` · `MaskedTextField` · `Select` (deprecated) · `SelectInline` · `Combobox` · `Checkbox` · `Radio` · `Switch` · `FileUploader` · `FormControl` · `Input`                        |
+| **Date and time** | `Calendar` · `DateField` · `DateRangePicker` · `TimeField` · `MonthField` · `MonthPicker` · `MonthRangePicker` · `MonthPaginator`                                                                      |
+| **Feedback**      | `Alert` · `Toast` · `ActionableToast` (deprecated) · `Modal` · `Drawer` · `Popover` · `Tooltip` · `Spinner` · `Skeleton` · `Progress` · `Status` · `Tag` · `Badge` · `InfoLabel`                       |
+| **Navigation**    | `Breadcrumb` · `Tabs` · `Paginator` · `Stepper`                                                                                                                                                        |
+| **Data display**  | `Table` · `DataTable` · `PagedTable` · `Avatar` · `Number` · `Currency` · `Highlight`                                                                                                                  |
+| **Icons**         | `Icon` · `PhosphorIconProvider` · 1,512 `Ph*` icons from `@lemonade/ui/phosphor`                                                                                                                       |
+| **Layout**        | `Grid` · `Cell` · `Flow` · `HFlow` (deprecated) · `VFlow` (deprecated) · `Accordion` · `Card` · `ClickableCard` · `ToggleCard` · `ExpandableCard` · `Paper` · `StickyContainer` · `Portal` · `RootRef` |
+| **Typography**    | `Text` · `Heading` · `HeadingSection`                                                                                                                                                                  |
+
+Charts (`Chart`, `BarChart`, `PieChart` and their parts) come from a separate entry point, `@lemonade/ui/lib/components/Chart`, so apps that don't draw charts don't load their dependencies. Components marked as deprecated still work; their documentation points to the replacement.
 
 Interactive examples and the full API of each component are in the [Storybook](https://lemonade-ui.llypedev.com.br/storybook). Usage guidelines for each one are in the [components overview](https://lemonade-ui.llypedev.com.br/components/overview).
 

@@ -1,0 +1,22 @@
+import { Demo } from '../../../components/Demo'
+
+# Popover
+
+Popovers are floating panels attached to an element, with interactive content such as filters, short forms or extra details. They open on click and close when the user is done.
+
+## Best practices
+
+- Use popovers for small, related tasks that don't need a page of their own. For a list of actions use [Dropdown](/components/dropdown), and for plain text on hover use [Tooltip](/components/tooltip).
+- Keep the content short. If it needs scrolling or many fields, use a [Drawer](/components/drawer) or a [Modal](/components/modal).
+- Give the popover a title, so it is clear what it is about.
+- Don't open a popover from another popover.
+
+## Usage
+
+Like `Dropdown`, the popover is attached to `anchorRef` and controlled by `open`. It asks to close with `onClose` when `Escape` is pressed, when the focus leaves it and on a click outside it and the anchor. `placement` sets the side (`bottom-start` by default).
+
+<Demo src='pages/components/popover/Popover' />
+
+## Accessibility
+
+The popover is a dialog: name it with `aria-labelledby` pointing to its title, or with `aria-label`. The anchor receives `aria-haspopup`, `aria-expanded` and `aria-controls`. When it opens, the focus moves to the first focusable element inside it (turn it off with `autoFocus={false}`), and `Escape` gives the focus back to the anchor.

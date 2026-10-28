@@ -1,0 +1,22 @@
+import { Demo } from '../../../components/Demo'
+
+# Popover
+
+O _popover_ é um painel flutuante preso a um elemento, com conteúdo interativo, como filtros, formulários curtos ou detalhes extras. Ele abre com um clique e fecha quando o usuário termina.
+
+## Boas práticas
+
+- Use _popovers_ para tarefas pequenas e relacionadas que não precisam de uma página própria. Para uma lista de ações, use o [Dropdown](/components/dropdown), e para texto simples ao passar o mouse, o [Tooltip](/components/tooltip).
+- Mantenha o conteúdo curto. Se ele precisar de rolagem ou de muitos campos, use um [Drawer](/components/drawer) ou um [Modal](/components/modal).
+- Dê um título ao _popover_, para deixar claro do que se trata.
+- Não abra um _popover_ a partir de outro _popover_.
+
+## Uso
+
+Assim como o `Dropdown`, o _popover_ fica preso ao `anchorRef` e é controlado por `open`. Ele pede para fechar com `onClose` quando a tecla `Esc` é pressionada, quando o foco sai dele e com um clique fora dele e da âncora. O `placement` define o lado (`bottom-start` por padrão).
+
+<Demo src='pages/components/popover/Popover' />
+
+## Acessibilidade
+
+O _popover_ é um diálogo: dê um nome a ele com `aria-labelledby` apontando para o título, ou com `aria-label`. A âncora recebe `aria-haspopup`, `aria-expanded` e `aria-controls`. Ao abrir, o foco vai para o primeiro elemento focável dentro dele (desative com `autoFocus={false}`), e a tecla `Esc` devolve o foco para a âncora.

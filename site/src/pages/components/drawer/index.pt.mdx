@@ -1,0 +1,27 @@
+import { Demo } from '../../../components/Demo'
+
+# Drawer
+
+O _drawer_ é um painel que desliza de uma borda da tela por cima da página. Use para conteúdos secundários relacionados à página, como filtros, detalhes de um item ou navegação, sem levar o usuário para outra página.
+
+## Boas práticas
+
+- Use _drawers_ para conteúdos que o usuário consulta ou edita sem perder o contexto da página. Para decisões que exigem atenção total, use um [Modal](/components/modal).
+- Dê ao _drawer_ um título curto que descreva o conteúdo.
+- Coloque as ações no `footer`, com a ação principal à direita.
+- Prefira a borda direita para detalhes e filtros, e a borda esquerda para navegação.
+- Não abra um _drawer_ a partir de outro _drawer_.
+
+## Uso
+
+O _drawer_ é controlado por `open` e pede para fechar com `onClose`, chamado pelo botão de fechar, pela tecla `Esc` e por um clique no fundo (desative com `closeOnBackdropClick={false}`).
+
+<Demo src='pages/components/drawer/Drawer' />
+
+O `placement` define a borda: `left`, `right` (padrão), `top` ou `bottom`. O `size` define a largura dos _drawers_ laterais (`25rem` por padrão) e a altura dos de cima e de baixo. Ele nunca passa do tamanho da tela.
+
+<Demo src='pages/components/drawer/DrawerPlacement' />
+
+## Acessibilidade
+
+O _drawer_ é um diálogo modal nomeado pelo `title` (sem título, informe um `aria-label`). Ao abrir, o foco vai para o _drawer_ e fica dentro dele enquanto estiver aberto, e volta para o elemento que o abriu quando ele fecha. A página por trás não rola.

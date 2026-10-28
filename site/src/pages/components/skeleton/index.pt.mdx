@@ -1,0 +1,26 @@
+import { Demo } from '../../../components/Demo'
+
+# Skeleton
+
+O _skeleton_ é um espaço reservado com o formato do conteúdo que ainda está carregando. Ele mostra o _layout_ da página na hora, de modo que a espera parece menor e o conteúdo não pula quando chega.
+
+## Boas práticas
+
+- Siga o formato e o tamanho do conteúdo real: linhas de texto, imagens e _avatares_.
+- Use _skeletons_ em conteúdos que levam um tempo para carregar, como _cards_, listas e perfis. Para ações disparadas pelo usuário, como salvar, prefira o estado de carregamento do [Button](/components/button).
+- Não mostre _skeletons_ para conteúdos que carregam instantaneamente: a piscada distrai mais do que a espera.
+- Se o carregamento falhar, troque o _skeleton_ por uma mensagem de erro.
+
+## Uso
+
+O `variant` define o formato: `text` acompanha o tamanho da fonte do contêiner, e `rectangle` e `circle` recebem `width` e `height` (o círculo usa a largura quando não há altura). Use `lines` para parágrafos: a última linha é mais curta.
+
+<Demo src='pages/components/skeleton/Skeleton' />
+
+Monte os _skeletons_ com o mesmo _layout_ do conteúdo e troque-os quando ele carregar.
+
+<Demo src='pages/components/skeleton/SkeletonLoading' />
+
+## Acessibilidade
+
+Os _skeletons_ ficam ocultos dos leitores de tela. Marque a região com `aria-busy` enquanto ela carrega e anuncie carregamentos longos com uma mensagem. A animação de brilho para quando o usuário prefere menos movimento e pode ser desligada com `animated={false}`.

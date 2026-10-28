@@ -1,0 +1,22 @@
+import { Demo } from '../../../components/Demo'
+
+# Avatar
+
+O _avatar_ representa uma pessoa pela foto, pelas iniciais ou por um ícone genérico de usuário. Use em listas de pessoas, comentários, cabeçalhos e em qualquer lugar em que o usuário precise reconhecer quem está envolvido.
+
+## Boas práticas
+
+- Prefira fotos reais: elas são reconhecidas mais rápido do que iniciais.
+- Sempre informe o `name`, que gera as iniciais e é lido pelos leitores de tela.
+- Mantenha o mesmo tamanho para _avatares_ exibidos lado a lado.
+- Quando houver espaço, mostre o nome em texto junto do _avatar_: só a foto pode não bastar para identificar alguém.
+
+## Uso
+
+O `src` define a foto. Quando ela não existe ou não carrega, o _avatar_ mostra as iniciais do `name` (primeira letra da primeira e da última palavra) e, sem nome, um ícone genérico de usuário. Use `size` (`small`, `medium` ou `large`) para se adequar ao contexto.
+
+<Demo src='pages/components/avatar/Avatar' />
+
+## Acessibilidade
+
+Com `name`, o _avatar_ é uma imagem com o nome da pessoa. Sem ele, é decorativo e fica oculto dos leitores de tela; use assim apenas quando o nome já estiver escrito ao lado.
