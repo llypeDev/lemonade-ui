@@ -1,0 +1,26 @@
+import { Demo } from '../../../components/Demo'
+
+# App header
+
+O app header é a barra no topo da aplicação. Ele reúne o logo, o conteúdo útil em todas as páginas, como a busca, e as ações do usuário, como as notificações e o menu do usuário.
+
+## Boas práticas
+
+- Use o mesmo cabeçalho em todas as páginas, para o usuário sempre encontrar o logo e as ações principais no mesmo lugar.
+- Coloque poucas ações nele: só as que o usuário precisa em qualquer página. As ações de uma página ficam na própria página.
+- Dê nome aos botões só com ícone com `aria-label` e acompanhe-os de um [Tooltip](/components/tooltip).
+- Em telas pequenas, esconda o [Side nav](/components/side-nav) e abra-o pelo botão de menu, dentro de um [Drawer](/components/drawer).
+
+## Uso
+
+O `AppHeader` recebe o `logo`, as `actions` à direita e, como _children_, o conteúdo do meio. Use `position='sticky'` para mantê-lo no topo enquanto a página rola.
+
+<Demo src='pages/components/app-header/AppHeader' />
+
+O `onMenuClick` adiciona um botão de menu antes do logo. Por padrão, ele só aparece abaixo do _breakpoint_ `md`; use `menuButton='always'` para mostrá-lo em todas as telas. Informe se a navegação está aberta com `menuOpen` e qual elemento o botão abre com `menuControls`:
+
+<Demo src='pages/components/app-header/AppHeaderNavigation' />
+
+## Acessibilidade
+
+O cabeçalho é um elemento `header`, o _landmark_ banner da página. O botão de menu se chama "Abrir menu" ou "Fechar menu" (dos textos do _locale_) e tem `aria-expanded` e `aria-controls`. Coloque um [Skip link](/components/skip-link) antes do cabeçalho, para quem usa o teclado pular direto para o conteúdo.

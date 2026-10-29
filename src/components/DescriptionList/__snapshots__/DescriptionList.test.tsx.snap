@@ -1,0 +1,207 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`DescriptionList should render a vertical divided list correctly 1`] = `
+.emotion-0 {
+  font-weight: bold;
+  color: #24252E;
+}
+
+.emotion-1 {
+  margin: 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  color: #24252E;
+}
+
+.emotion-9 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: #24252E;
+  display: grid;
+  grid-template-columns: repeat(3,minmax(0,1fr));
+  -webkit-column-gap: 2rem;
+  column-gap: 2rem;
+  row-gap: 0;
+  margin: 0;
+}
+
+@media (max-width:960px) {
+  .emotion-9 {
+    grid-template-columns: 1fr;
+    row-gap: 0;
+  }
+}
+
+.emotion-2 {
+  display: grid;
+  grid-template-columns: 1fr;
+  -webkit-column-gap: 1rem;
+  column-gap: 1rem;
+  row-gap: 0.125rem;
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  min-width: 0;
+  padding: 0.75rem 0;
+  border-bottom: 1px solid #D3D4DD;
+}
+
+@media (max-width:960px) {
+  .emotion-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+<div>
+  <dl
+    class="emotion-9"
+  >
+    <div
+      class="emotion-2"
+    >
+      <dt
+        class="emotion-0"
+      >
+        Name
+      </dt>
+      <dd
+        class="emotion-1"
+      >
+        Ana Souza
+      </dd>
+    </div>
+    <div
+      class="emotion-2"
+    >
+      <dt
+        class="emotion-0"
+      >
+        Email
+      </dt>
+      <dd
+        class="emotion-1"
+      >
+        ana@example.com
+      </dd>
+    </div>
+    <div
+      class="emotion-2"
+    >
+      <dt
+        class="emotion-0"
+      >
+        Role
+      </dt>
+      <dd
+        class="emotion-1"
+      >
+        Product designer
+      </dd>
+    </div>
+  </dl>
+</div>
+`;
+
+exports[`DescriptionList should render correctly 1`] = `
+.emotion-9 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: #24252E;
+  display: grid;
+  grid-template-columns: 1fr;
+  -webkit-column-gap: 2rem;
+  column-gap: 2rem;
+  row-gap: 0.5rem;
+  margin: 0;
+}
+
+@media (max-width:960px) {
+  .emotion-9 {
+    grid-template-columns: 1fr;
+    row-gap: 1rem;
+  }
+}
+
+.emotion-2 {
+  display: grid;
+  grid-template-columns: 12rem 1fr;
+  -webkit-column-gap: 1rem;
+  column-gap: 1rem;
+  row-gap: 0.125rem;
+  -webkit-align-items: baseline;
+  -webkit-box-align: baseline;
+  -ms-flex-align: baseline;
+  align-items: baseline;
+  min-width: 0;
+}
+
+@media (max-width:960px) {
+  .emotion-2 {
+    grid-template-columns: 1fr;
+  }
+}
+
+.emotion-0 {
+  font-weight: bold;
+  color: #24252E;
+}
+
+.emotion-1 {
+  margin: 0;
+  min-width: 0;
+  overflow-wrap: anywhere;
+  color: #24252E;
+}
+
+<div>
+  <dl
+    class="emotion-9"
+  >
+    <div
+      class="emotion-2"
+    >
+      <dt
+        class="emotion-0"
+      >
+        Name
+      </dt>
+      <dd
+        class="emotion-1"
+      >
+        Ana Souza
+      </dd>
+    </div>
+    <div
+      class="emotion-2"
+    >
+      <dt
+        class="emotion-0"
+      >
+        Email
+      </dt>
+      <dd
+        class="emotion-1"
+      >
+        ana@example.com
+      </dd>
+    </div>
+    <div
+      class="emotion-2"
+    >
+      <dt
+        class="emotion-0"
+      >
+        Role
+      </dt>
+      <dd
+        class="emotion-1"
+      >
+        Product designer
+      </dd>
+    </div>
+  </dl>
+</div>
+`;

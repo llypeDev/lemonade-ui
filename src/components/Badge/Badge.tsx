@@ -2,6 +2,7 @@ import React, { CSSProperties } from 'react'
 
 import { ExternalStyles, Theme, useStyles } from '../../styles'
 import { Omit } from '../../util'
+import { VisuallyHidden } from '../VisuallyHidden'
 
 export type BadgeType = 'danger' | 'info' | 'success' | 'alert' | 'normal'
 
@@ -92,7 +93,7 @@ export function Badge(props: BadgeProps) {
       {...(standalone ? rest : {})}
     >
       {!dot && <span aria-hidden={label ? 'true' : undefined}>{content}</span>}
-      {label && <span className={classes.visuallyHidden}>{label}</span>}
+      {label && <VisuallyHidden>{label}</VisuallyHidden>}
     </span>
   )
 
@@ -171,16 +172,5 @@ const createStyles = (theme: Theme) => ({
   alert: {
     background: theme.pallete.status.alert.main,
     color: theme.pallete.status.alert.onColor,
-  } as CSSProperties,
-  visuallyHidden: {
-    position: 'absolute',
-    width: 1,
-    height: 1,
-    padding: 0,
-    margin: -1,
-    overflow: 'hidden',
-    clip: 'rect(0, 0, 0, 0)',
-    whiteSpace: 'nowrap',
-    border: 0,
   } as CSSProperties,
 })

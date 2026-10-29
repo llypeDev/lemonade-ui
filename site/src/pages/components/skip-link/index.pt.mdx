@@ -1,0 +1,31 @@
+import { Demo } from '../../../components/Demo'
+
+# Skip link
+
+O skip link permite que quem usa o teclado ou um leitor de tela pule o cabeçalho e a navegação e vá direto para o conteúdo da página. Ele fica escondido até receber o foco.
+
+## Boas práticas
+
+- Faça dele o primeiro elemento focável da página, antes do [App header](/components/app-header).
+- Aponte-o para o elemento `main` da página, ou para o começo do conteúdo.
+- Use um skip link por página. Páginas longas, com muitas seções, ficam melhor com títulos e _landmarks_.
+
+## Uso
+
+O `SkipLink` recebe o `target`, o id do elemento para onde ele pula, que por padrão é `main`. O texto é "Pular para o conteúdo principal" (dos textos do _locale_); passe _children_ para trocá-lo.
+
+<Demo src='pages/components/skip-link/SkipLink' />
+
+```jsx
+const Page = () => (
+  <>
+    <SkipLink />
+    <AppHeader logo={<Logo />} />
+    <main id='main'>...</main>
+  </>
+)
+```
+
+## Acessibilidade
+
+Quando recebe o foco, o link aparece no canto superior esquerdo da tela. No clique, ele move o foco para o destino e adiciona `tabindex="-1"` aos elementos que não recebem foco, como o `main`, para o próximo Tab começar dali. Ele não muda o _hash_ da URL, então também funciona com roteadores que usam o _hash_.

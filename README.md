@@ -57,7 +57,7 @@ Accessible, themeable and fully typed React components for building consistent i
 <table>
   <tr>
     <td width="33%" valign="top">
-      <b>🧩 70 components</b><br />
+      <b>🧩 76 components</b><br />
       Buttons, forms, date pickers, tables, modals, drawers, popovers, toasts, a side menu and layout primitives ready to use.
     </td>
     <td width="33%" valign="top">
@@ -358,17 +358,17 @@ Search, preview, copy and download every icon in the [Phosphor explorer](https:/
 
 ## 🧩 Components
 
-| Category          | Components                                                                                                                                                                                                         |
-| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Actions**       | `Button` · `ButtonGroup` · `SegmentedControl` · `Dropdown` · `Link`                                                                                                                                                |
-| **Forms**         | `TextField` · `TextArea` · `MaskedTextField` · `PasswordField` · `NumberField` · `Select` (deprecated) · `SelectInline` · `Combobox` · `Checkbox` · `Radio` · `Switch` · `FileUploader` · `FormControl` · `Input`  |
-| **Date and time** | `Calendar` · `DateField` · `DateRangePicker` · `TimeField` · `MonthField` · `MonthPicker` · `MonthRangePicker` · `MonthPaginator`                                                                                  |
-| **Feedback**      | `Alert` · `Toast` · `ActionableToast` (deprecated) · `Modal` · `Drawer` · `Popover` · `Tooltip` · `Spinner` · `Skeleton` · `EmptyState` · `Progress` · `Status` · `Tag` · `Badge` · `InfoLabel`                    |
-| **Navigation**    | `SideNav` · `SideNavGroup` · `SideNavItem` · `Breadcrumb` · `Tabs` · `Paginator` · `Stepper`                                                                                                                       |
-| **Data display**  | `Table` · `DataTable` · `PagedTable` · `Avatar` · `Number` · `Currency` · `Highlight`                                                                                                                              |
-| **Icons**         | `Icon` · `PhosphorIconProvider` · 1,512 `Ph*` icons from `@lemonade/ui/phosphor`                                                                                                                                   |
-| **Layout**        | `Grid` · `Cell` · `Flow` · `HFlow` (deprecated) · `VFlow` (deprecated) · `Accordion` · `Card` · `ClickableCard` · `ToggleCard` · `ExpandableCard` · `Paper` · `Divider` · `StickyContainer` · `Portal` · `RootRef` |
-| **Typography**    | `Text` · `Heading` · `HeadingSection`                                                                                                                                                                              |
+| Category          | Components                                                                                                                                                                                                                   |
+| ----------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Actions**       | `Button` · `ButtonGroup` · `CopyButton` · `SegmentedControl` · `Dropdown` · `Link`                                                                                                                                           |
+| **Forms**         | `TextField` · `TextArea` · `MaskedTextField` · `PasswordField` · `NumberField` · `Slider` · `Select` (deprecated) · `SelectInline` · `Combobox` · `Checkbox` · `Radio` · `Switch` · `FileUploader` · `FormControl` · `Input` |
+| **Date and time** | `Calendar` · `DateField` · `DateRangePicker` · `TimeField` · `MonthField` · `MonthPicker` · `MonthRangePicker` · `MonthPaginator`                                                                                            |
+| **Feedback**      | `Alert` · `Toast` · `ActionableToast` (deprecated) · `Modal` · `Drawer` · `Popover` · `Tooltip` · `Spinner` · `Skeleton` · `EmptyState` · `Progress` · `Status` · `Tag` · `Badge` · `InfoLabel`                              |
+| **Navigation**    | `AppHeader` · `SideNav` · `SideNavGroup` · `SideNavItem` · `Breadcrumb` · `Tabs` · `Paginator` · `Stepper` · `SkipLink`                                                                                                      |
+| **Data display**  | `Table` · `DataTable` · `PagedTable` · `DescriptionList` · `Avatar` · `Number` · `Currency` · `Highlight`                                                                                                                    |
+| **Icons**         | `Icon` · `PhosphorIconProvider` · 1,512 `Ph*` icons from `@lemonade/ui/phosphor`                                                                                                                                             |
+| **Layout**        | `Grid` · `Cell` · `Flow` · `HFlow` (deprecated) · `VFlow` (deprecated) · `Accordion` · `Card` · `ClickableCard` · `ToggleCard` · `ExpandableCard` · `Paper` · `Divider` · `StickyContainer` · `Portal` · `RootRef`           |
+| **Typography**    | `Text` · `Heading` · `HeadingSection` · `VisuallyHidden`                                                                                                                                                                     |
 
 Charts (`Chart`, `BarChart`, `PieChart` and their parts) come from a separate entry point, `@lemonade/ui/lib/components/Chart`, so apps that don't draw charts don't load their dependencies. Components marked as deprecated still work; their documentation points to the replacement.
 
@@ -380,6 +380,12 @@ Components added since version 1.4.0, each with live demos and accessibility not
 
 | Component                                  | What it is for                                                                           | Docs                                                                     |
 | ------------------------------------------ | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| `AppHeader`                                | Bar on the top of the app with the logo, the actions and a menu button for small screens | [Docs](https://lemonade-ui.llypedev.com.br/components/app-header)        |
+| `Slider`                                   | Picks a number or a range by dragging thumbs, also with the keyboard                     | [Docs](https://lemonade-ui.llypedev.com.br/components/slider)            |
+| `DescriptionList`                          | Pairs of terms and descriptions, such as the details of a record                         | [Docs](https://lemonade-ui.llypedev.com.br/components/description-list)  |
+| `CopyButton`                               | Copies a text to the clipboard and confirms it, also to screen readers                   | [Docs](https://lemonade-ui.llypedev.com.br/components/copy-button)       |
+| `SkipLink`                                 | Hidden link that lets keyboard users jump straight to the content                        | [Docs](https://lemonade-ui.llypedev.com.br/components/skip-link)         |
+| `VisuallyHidden`                           | Text read by screen readers that does not show on the screen                             | [Docs](https://lemonade-ui.llypedev.com.br/components/visually-hidden)   |
 | `SideNav` · `SideNavGroup` · `SideNavItem` | Fixed side menu with the main navigation, with groups that expand                        | [Docs](https://lemonade-ui.llypedev.com.br/components/side-nav)          |
 | `SegmentedControl`                         | Exclusive options side by side, to switch between views of the same content              | [Docs](https://lemonade-ui.llypedev.com.br/components/segmented-control) |
 | `EmptyState`                               | Message for an empty list or a search without results, with a way forward                | [Docs](https://lemonade-ui.llypedev.com.br/components/empty-state)       |

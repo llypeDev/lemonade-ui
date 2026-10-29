@@ -1,0 +1,23 @@
+import { Demo } from '../../../components/Demo'
+
+# Copy button
+
+O copy button copia um texto para a área de transferência, como um comando, um link, um código ou uma chave, e confirma a cópia com um ícone de check por um instante.
+
+## Boas práticas
+
+- Use-o ao lado de textos que o usuário precisa colar em outro lugar, principalmente os longos ou difíceis de digitar.
+- Diga o que é copiado no rótulo, como "Copiar link". Use o botão só com ícone ao lado do próprio texto.
+- Copie exatamente o que está na tela, sem espaços ou formatação a mais.
+
+## Uso
+
+O `CopyButton` recebe o `text` a copiar, ou uma função que o retorna no clique, e as mesmas _props_ do `Button`, como `skin`, `kind` e `size`. Sem _children_, ele mostra só o ícone, com "Copiar" como nome e _tooltip_. O `onCopy` e o `onError` contam como a cópia terminou, e o `timeout` define quanto tempo o ícone de check fica na tela.
+
+<Demo src='pages/components/copy-button/CopyButton' />
+
+Onde a Clipboard API não existe, como em páginas servidas por HTTP sem TLS, o botão usa o comando de copiar do navegador.
+
+## Acessibilidade
+
+Depois de copiar, o botão anuncia "Copiado" (ou "Não foi possível copiar") aos leitores de tela numa mensagem de status. Os textos vêm do _locale_; troque a confirmação com `copiedLabel`. O botão mantém a largura quando o rótulo muda.

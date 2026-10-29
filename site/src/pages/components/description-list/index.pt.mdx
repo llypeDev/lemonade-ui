@@ -1,0 +1,28 @@
+import { Demo } from '../../../components/Demo'
+
+# Description list
+
+A description list mostra pares de termos e descrições, como os detalhes de um registro, um resumo antes de uma confirmação ou as propriedades de um item.
+
+## Boas práticas
+
+- Use-a para ler informações, não para editá-las: para editar, use um [Form](/components/form).
+- Mantenha os termos curtos e na mesma ordem em todos os registros do mesmo tipo.
+- Mostre um traço ou um texto curto, como "Não informado", para valores vazios, em vez de esconder o termo.
+- Para muitos registros lado a lado, use uma [Table](/components/table).
+
+## Uso
+
+A `DescriptionList` recebe os `items`, cada um com um `term` e uma `description`, que podem ser qualquer elemento, como um [Link](/components/link) ou uma [Tag](/components/tag). O _layout_ padrão, `horizontal`, coloca cada termo à esquerda; o `termWidth` define a largura dessa coluna e o `divided` desenha uma linha entre os itens.
+
+<Demo src='pages/components/description-list/DescriptionList' />
+
+O _layout_ `vertical` coloca cada termo acima da descrição, em quantas `columns` você precisar:
+
+<Demo src='pages/components/description-list/DescriptionListColumns' />
+
+Abaixo do _breakpoint_ `md`, os dois _layouts_ viram uma coluna só.
+
+## Acessibilidade
+
+A lista é um elemento `dl`, com um `dt` e um `dd` para cada item, então os leitores de tela dizem quantos itens existem e qual descrição pertence a cada termo.
