@@ -62,7 +62,7 @@ export const Interactive = () => {
   return (
     <Flow direction='vertical'>
       <ProfileCard loading={loading} />
-      <Button size='small' onClick={() => setLoading(true)} disabled={loading}>
+      <Button size='small' onClick={() => setLoading(true)} disabled={loading} style={{ justifySelf: 'start' }}>
         Load again
       </Button>
     </Flow>

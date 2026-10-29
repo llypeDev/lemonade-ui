@@ -112,6 +112,9 @@ const createStyles = (theme: Theme) => ({
   wrapper: {
     position: 'relative',
     display: 'inline-flex',
+    // Keeps the badge on the corner of its child when a grid or a flex column would stretch the wrapper
+    width: 'fit-content',
+    maxWidth: '100%',
     verticalAlign: 'middle',
     flexShrink: 0,
   } as CSSProperties,

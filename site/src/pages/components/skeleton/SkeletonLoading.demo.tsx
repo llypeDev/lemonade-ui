@@ -37,7 +37,7 @@ function SkeletonLoadingDemo() {
           )}
         </div>
       </Flow>
-      <Button size='small' onClick={() => setLoading(true)} disabled={loading}>
+      <Button size='small' onClick={() => setLoading(true)} disabled={loading} style={{ justifySelf: 'start' }}>
         Load again
       </Button>
     </Flow>

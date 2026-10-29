@@ -104,6 +104,8 @@ const createStyles = (theme: Theme) => ({
     display: 'flex',
     flexWrap: 'wrap',
     justifyContent: 'center',
+    // Keeps a link vertically centered with the buttons next to it
+    alignItems: 'center',
     gap: '1rem',
     marginTop: '1.5rem',
   } as CSSProperties,

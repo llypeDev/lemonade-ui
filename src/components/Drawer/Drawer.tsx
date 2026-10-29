@@ -157,7 +157,7 @@ export function Drawer(props: DrawerProps) {
               <div className={classes.header}>
                 <div className={classes.title}>
                   {title && (
-                    <Heading id={titleId} level={2} fontWeight='bold'>
+                    <Heading id={titleId} level={2} fontWeight='bold' style={classes.heading}>
                       {title}
                     </Heading>
                   )}
@@ -233,7 +233,10 @@ const createStyles = (theme: Theme, placement: DrawerPlacement, depthLevel: numb
   } as CSSProperties,
   title: {
     flex: 1,
-    paddingTop: '0.25rem',
+  } as CSSProperties,
+  heading: {
+    // As tall as the close button, so a one line title is centered with it
+    lineHeight: '2rem',
   } as CSSProperties,
   body: {
     flex: 1,
@@ -244,6 +247,7 @@ const createStyles = (theme: Theme, placement: DrawerPlacement, depthLevel: numb
   footer: {
     display: 'flex',
     justifyContent: 'flex-end',
+    alignItems: 'center',
     gap: '1rem',
     padding: '1rem 1.5rem',
     borderTop: `1px solid ${theme.pallete.divider}`,
