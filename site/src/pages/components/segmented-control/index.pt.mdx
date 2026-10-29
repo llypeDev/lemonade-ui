@@ -1,0 +1,26 @@
+import { Demo } from '../../../components/Demo'
+
+# Segmented control
+
+O _segmented control_ é um conjunto de opções exclusivas lado a lado, em que uma está sempre selecionada. Use para alternar entre visualizações do mesmo conteúdo, como períodos de um relatório ou as visões de lista e calendário. Ele implementa o padrão [Content Switch](/components/content-switch).
+
+## Boas práticas
+
+- Use de duas a cinco opções curtas. Para mais opções, ou opções que não são visualizações do mesmo conteúdo, use [Tabs](/components/tabs) ou um grupo de [Radio button](/components/radio-button).
+- Mantenha sempre uma opção selecionada.
+- Use rótulos de tamanho parecido, escritos como substantivos, como "Dia", "Semana" e "Mês".
+- Trocar a opção muda o conteúdo na hora: não use o _segmented control_ dentro de um formulário que ainda precisa ser enviado.
+
+## Uso
+
+O `options` lista os valores e os rótulos. O componente funciona de forma não controlada com `defaultValue` (por padrão, a primeira opção habilitada) ou controlada com `value` e `onChange`.
+
+<Demo src='pages/components/segmented-control/SegmentedControl' />
+
+As opções podem ter `icon` e ficar `disabled`. Use `size='small'` em áreas densas e `block` para ocupar toda a largura do contêiner.
+
+<Demo src='pages/components/segmented-control/SegmentedControlVariants' />
+
+## Acessibilidade
+
+O componente é um grupo de rádios: dê um nome a ele com `aria-label` ou `aria-labelledby`. O Tab leva o foco para a opção selecionada e as setas do teclado mudam a seleção, como em qualquer grupo de _radio buttons_. Com `name`, o valor também é enviado junto com formulários.

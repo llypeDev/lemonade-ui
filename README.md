@@ -57,8 +57,8 @@ Accessible, themeable and fully typed React components for building consistent i
 <table>
   <tr>
     <td width="33%" valign="top">
-      <b>🧩 60+ components</b><br />
-      Buttons, forms, date pickers, tables, modals, drawers, popovers, toasts, tabs and layout primitives ready to use.
+      <b>🧩 70 components</b><br />
+      Buttons, forms, date pickers, tables, modals, drawers, popovers, toasts, a side menu and layout primitives ready to use.
     </td>
     <td width="33%" valign="top">
       <b>♿ Accessible</b><br />
@@ -358,17 +358,17 @@ Search, preview, copy and download every icon in the [Phosphor explorer](https:/
 
 ## 🧩 Components
 
-| Category          | Components                                                                                                                                                                                             |
-| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
-| **Actions**       | `Button` · `ButtonGroup` · `Dropdown` · `Link`                                                                                                                                                         |
-| **Forms**         | `TextField` · `TextArea` · `MaskedTextField` · `Select` (deprecated) · `SelectInline` · `Combobox` · `Checkbox` · `Radio` · `Switch` · `FileUploader` · `FormControl` · `Input`                        |
-| **Date and time** | `Calendar` · `DateField` · `DateRangePicker` · `TimeField` · `MonthField` · `MonthPicker` · `MonthRangePicker` · `MonthPaginator`                                                                      |
-| **Feedback**      | `Alert` · `Toast` · `ActionableToast` (deprecated) · `Modal` · `Drawer` · `Popover` · `Tooltip` · `Spinner` · `Skeleton` · `Progress` · `Status` · `Tag` · `Badge` · `InfoLabel`                       |
-| **Navigation**    | `Breadcrumb` · `Tabs` · `Paginator` · `Stepper`                                                                                                                                                        |
-| **Data display**  | `Table` · `DataTable` · `PagedTable` · `Avatar` · `Number` · `Currency` · `Highlight`                                                                                                                  |
-| **Icons**         | `Icon` · `PhosphorIconProvider` · 1,512 `Ph*` icons from `@lemonade/ui/phosphor`                                                                                                                       |
-| **Layout**        | `Grid` · `Cell` · `Flow` · `HFlow` (deprecated) · `VFlow` (deprecated) · `Accordion` · `Card` · `ClickableCard` · `ToggleCard` · `ExpandableCard` · `Paper` · `StickyContainer` · `Portal` · `RootRef` |
-| **Typography**    | `Text` · `Heading` · `HeadingSection`                                                                                                                                                                  |
+| Category          | Components                                                                                                                                                                                                         |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **Actions**       | `Button` · `ButtonGroup` · `SegmentedControl` · `Dropdown` · `Link`                                                                                                                                                |
+| **Forms**         | `TextField` · `TextArea` · `MaskedTextField` · `PasswordField` · `NumberField` · `Select` (deprecated) · `SelectInline` · `Combobox` · `Checkbox` · `Radio` · `Switch` · `FileUploader` · `FormControl` · `Input`  |
+| **Date and time** | `Calendar` · `DateField` · `DateRangePicker` · `TimeField` · `MonthField` · `MonthPicker` · `MonthRangePicker` · `MonthPaginator`                                                                                  |
+| **Feedback**      | `Alert` · `Toast` · `ActionableToast` (deprecated) · `Modal` · `Drawer` · `Popover` · `Tooltip` · `Spinner` · `Skeleton` · `EmptyState` · `Progress` · `Status` · `Tag` · `Badge` · `InfoLabel`                    |
+| **Navigation**    | `SideNav` · `SideNavGroup` · `SideNavItem` · `Breadcrumb` · `Tabs` · `Paginator` · `Stepper`                                                                                                                       |
+| **Data display**  | `Table` · `DataTable` · `PagedTable` · `Avatar` · `Number` · `Currency` · `Highlight`                                                                                                                              |
+| **Icons**         | `Icon` · `PhosphorIconProvider` · 1,512 `Ph*` icons from `@lemonade/ui/phosphor`                                                                                                                                   |
+| **Layout**        | `Grid` · `Cell` · `Flow` · `HFlow` (deprecated) · `VFlow` (deprecated) · `Accordion` · `Card` · `ClickableCard` · `ToggleCard` · `ExpandableCard` · `Paper` · `Divider` · `StickyContainer` · `Portal` · `RootRef` |
+| **Typography**    | `Text` · `Heading` · `HeadingSection`                                                                                                                                                                              |
 
 Charts (`Chart`, `BarChart`, `PieChart` and their parts) come from a separate entry point, `@lemonade/ui/lib/components/Chart`, so apps that don't draw charts don't load their dependencies. Components marked as deprecated still work; their documentation points to the replacement.
 
@@ -378,16 +378,22 @@ Interactive examples and the full API of each component are in the [Storybook](h
 
 Components added since version 1.4.0, each with live demos and accessibility notes on the site:
 
-| Component                              | What it is for                                                                           | Docs                                                             |
-| -------------------------------------- | ---------------------------------------------------------------------------------------- | ---------------------------------------------------------------- |
-| `Popover`                              | Floating panel attached to a button, for filters, short forms or details                 | [Docs](https://lemonade-ui.llypedev.com.br/components/popover)   |
-| `Drawer`                               | Panel that slides in from an edge of the screen, for filters, details or navigation      | [Docs](https://lemonade-ui.llypedev.com.br/components/drawer)    |
-| `Avatar`                               | A person as a picture, initials or a generic icon                                        | [Docs](https://lemonade-ui.llypedev.com.br/components/avatar)    |
-| `Badge`                                | Count or dot on the corner of an element, such as unread notifications                   | [Docs](https://lemonade-ui.llypedev.com.br/components/badge)     |
-| `Skeleton`                             | Placeholder with the shape of content that is still loading                              | [Docs](https://lemonade-ui.llypedev.com.br/components/skeleton)  |
-| `Toast` · `ToastProvider` · `useToast` | Messages at the bottom left that close by themselves and are announced by screen readers | [Docs](https://lemonade-ui.llypedev.com.br/components/toast)     |
-| `Accordion`                            | Sections that expand and collapse, with keyboard navigation                              | [Docs](https://lemonade-ui.llypedev.com.br/components/accordion) |
-| `ToggleCard` · `ExpandableCard`        | Cards that work as a checkbox or expand to show more                                     | [Docs](https://lemonade-ui.llypedev.com.br/components/cards)     |
+| Component                                  | What it is for                                                                           | Docs                                                                     |
+| ------------------------------------------ | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| `SideNav` · `SideNavGroup` · `SideNavItem` | Fixed side menu with the main navigation, with groups that expand                        | [Docs](https://lemonade-ui.llypedev.com.br/components/side-nav)          |
+| `SegmentedControl`                         | Exclusive options side by side, to switch between views of the same content              | [Docs](https://lemonade-ui.llypedev.com.br/components/segmented-control) |
+| `EmptyState`                               | Message for an empty list or a search without results, with a way forward                | [Docs](https://lemonade-ui.llypedev.com.br/components/empty-state)       |
+| `PasswordField`                            | Password field with an accessible button to show and hide it                             | [Docs](https://lemonade-ui.llypedev.com.br/components/password-field)    |
+| `NumberField`                              | Number field with buttons and arrow keys to add and remove steps                         | [Docs](https://lemonade-ui.llypedev.com.br/components/number-field)      |
+| `Divider`                                  | Line that separates groups of content, with an optional label                            | [Docs](https://lemonade-ui.llypedev.com.br/components/divider)           |
+| `Popover`                                  | Floating panel attached to a button, for filters, short forms or details                 | [Docs](https://lemonade-ui.llypedev.com.br/components/popover)           |
+| `Drawer`                                   | Panel that slides in from an edge of the screen, for filters, details or navigation      | [Docs](https://lemonade-ui.llypedev.com.br/components/drawer)            |
+| `Avatar`                                   | A person as a picture, initials or a generic icon                                        | [Docs](https://lemonade-ui.llypedev.com.br/components/avatar)            |
+| `Badge`                                    | Count or dot on the corner of an element, such as unread notifications                   | [Docs](https://lemonade-ui.llypedev.com.br/components/badge)             |
+| `Skeleton`                                 | Placeholder with the shape of content that is still loading                              | [Docs](https://lemonade-ui.llypedev.com.br/components/skeleton)          |
+| `Toast` · `ToastProvider` · `useToast`     | Messages at the bottom left that close by themselves and are announced by screen readers | [Docs](https://lemonade-ui.llypedev.com.br/components/toast)             |
+| `Accordion`                                | Sections that expand and collapse, with keyboard navigation                              | [Docs](https://lemonade-ui.llypedev.com.br/components/accordion)         |
+| `ToggleCard` · `ExpandableCard`            | Cards that work as a checkbox or expand to show more                                     | [Docs](https://lemonade-ui.llypedev.com.br/components/cards)             |
 
 <details>
 <summary><b>🍋 Brand board</b></summary>

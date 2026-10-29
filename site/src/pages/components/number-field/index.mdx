@@ -1,0 +1,23 @@
+import { Demo } from '../../../components/Demo'
+
+# Number field
+
+Number fields are for numbers that the user adjusts in small steps, such as quantities, with buttons to add and remove one step.
+
+## Best practices
+
+- Use number fields for small numbers that change step by step. For codes, phone numbers or documents, which are not quantities, use a [Text field](/components/text-field) or a `MaskedTextField`.
+- Set `min` and `max` when there are limits, so the buttons stop at them.
+- Say the unit in the label, such as "Weight (kg)".
+
+## Usage
+
+`value` is a number, or `null` when the field is empty, and `onChange` receives the new number while the user types. `min`, `max` and `step` (`1` by default) limit it. A number out of the limits is brought back to them when the field loses the focus.
+
+<Demo src='pages/components/number-field/NumberField' />
+
+The field accepts both `.` and `,` as the decimal separator and shows the one of the user's locale.
+
+## Accessibility
+
+The input has the `spinbutton` role, with its value and limits. The arrow keys add or remove one step, `PageUp` and `PageDown` ten steps, and `Home` and `End` go to the limits. The buttons, named "Increase" and "Decrease", are out of the tab order because the keyboard already does the same.

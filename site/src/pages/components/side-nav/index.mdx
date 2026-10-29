@@ -1,0 +1,34 @@
+import { Demo } from '../../../components/Demo'
+
+# Side nav
+
+The side nav is the fixed side menu with the main navigation of the application. It sits outside the page grid, as the [Grid](/design-guidelines/grid) guidelines describe, and groups related pages in sections that expand and collapse.
+
+## Best practices
+
+- Use the side nav for the main sections of the application, and keep the number of top-level items small.
+- Give every top-level item an icon, and keep the labels short.
+- Use at most two levels: deeper pages belong to the page itself, with [Tabs](/components/tabs) or a [Breadcrumb](/components/breadcrumb).
+- Mark the current page with `active`. Its group opens by itself.
+
+## Usage
+
+`SideNav` holds `SideNavItem` links and `SideNavGroup` sections. Items take `href`, `icon`, `active` and `extra`, for content at the end such as a [Badge](/components/badge). Groups take a `title` and an `icon`, and can be controlled with `expanded` and `onChange`.
+
+<Demo src='pages/components/side-nav/SideNav' />
+
+To use the link of your router, pass it in `component`. The props the item does not use, such as `to`, go to it:
+
+```jsx
+import { Link } from 'react-router-dom'
+
+const OrdersItem = () => (
+  <SideNavItem component={Link} to='/orders' icon='shoppingCartOutline' active>
+    Orders
+  </SideNavItem>
+)
+```
+
+## Accessibility
+
+The side nav is a `nav` landmark: name it with `aria-label`, such as "Main". The active item has `aria-current="page"`. Group headers are buttons with `aria-expanded` that control their list of items.

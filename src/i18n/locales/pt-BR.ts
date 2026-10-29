@@ -29,6 +29,13 @@ const locale: LocaleConfiguration = {
     close: 'Fechar',
     show: 'Mostrar meses',
   },
+  numberField: {
+    increase: 'Aumentar',
+    decrease: 'Diminuir',
+  },
+  passwordField: {
+    show: 'Mostrar senha',
+  },
   paginator: {
     of: 'de',
     previousPage: 'Página anterior',

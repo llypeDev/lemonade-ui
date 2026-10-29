@@ -1,0 +1,26 @@
+import { Demo } from '../../../components/Demo'
+
+# Empty state
+
+O _empty state_ (estado vazio) é a mensagem para lugares que ainda não têm conteúdo: uma lista vazia, uma busca sem resultados ou o primeiro uso de uma funcionalidade. Ele explica o que aconteceu e oferece um próximo passo, em vez de deixar uma área em branco.
+
+## Boas práticas
+
+- Diga no título o que está faltando, como "Nenhum pedido encontrado", e na descrição o motivo ou o que fazer.
+- Ofereça uma ação sempre que possível: limpar os filtros, criar o primeiro item ou saber mais.
+- Em buscas, mantenha os termos no campo para o usuário ajustá-los, como recomendam as diretrizes de [Search](/components/search).
+- Use um texto curto e amigável. Deixe erros, como uma requisição que falhou, para um [Alert](/components/alert).
+
+## Uso
+
+O `title` é obrigatório. `description`, `icon` (ou uma ilustração em `image`) e `actions` são opcionais.
+
+<Demo src='pages/components/empty-state/EmptyState' />
+
+No primeiro uso, combine uma ação principal com um link para saber mais.
+
+<Demo src='pages/components/empty-state/EmptyStateFirstUse' />
+
+## Acessibilidade
+
+O título é um _heading_, de nível 3 por padrão. Use `headingLevel` para encaixá-lo na estrutura da página. O ícone é decorativo e fica oculto dos leitores de tela.

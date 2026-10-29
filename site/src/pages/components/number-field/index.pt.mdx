@@ -1,0 +1,23 @@
+import { Demo } from '../../../components/Demo'
+
+# Number field
+
+O campo numérico serve para números que o usuário ajusta em pequenos passos, como quantidades, com botões para somar e subtrair um passo.
+
+## Boas práticas
+
+- Use o campo numérico para números pequenos que mudam passo a passo. Para códigos, telefones ou documentos, que não são quantidades, use um [Text field](/components/text-field) ou um `MaskedTextField`.
+- Informe `min` e `max` quando houver limites, para os botões pararem neles.
+- Diga a unidade no rótulo, como "Peso (kg)".
+
+## Uso
+
+O `value` é um número, ou `null` quando o campo está vazio, e o `onChange` recebe o novo número enquanto o usuário digita. `min`, `max` e `step` (`1` por padrão) definem os limites. Um número fora dos limites volta para eles quando o campo perde o foco.
+
+<Demo src='pages/components/number-field/NumberField' />
+
+O campo aceita tanto `.` quanto `,` como separador decimal e mostra o do _locale_ do usuário.
+
+## Acessibilidade
+
+O campo tem o papel `spinbutton`, com o valor e os limites. As setas do teclado somam ou subtraem um passo, `PageUp` e `PageDown` dez passos, e `Home` e `End` vão para os limites. Os botões, chamados "Aumentar" e "Diminuir", ficam fora da ordem do Tab, porque o teclado já faz o mesmo.

@@ -1,0 +1,26 @@
+import { Demo } from '../../../components/Demo'
+
+# Segmented control
+
+Segmented controls are sets of exclusive options shown side by side, where one is always selected. Use them to switch between views of the same content, such as periods of a report or list and calendar views. They implement the [Content Switch](/components/content-switch) pattern.
+
+## Best practices
+
+- Use two to five short options. For more options, or options that are not views of the same content, use [Tabs](/components/tabs) or a [Radio button](/components/radio-button) group.
+- Keep one option selected at all times.
+- Use labels of similar length, written as nouns, such as "Day", "Week" and "Month".
+- Switching an option changes the content right away: don't use a segmented control inside a form that still has to be submitted.
+
+## Usage
+
+`options` lists the values and labels. The control is uncontrolled with `defaultValue` (the first enabled option by default) or controlled with `value` and `onChange`.
+
+<Demo src='pages/components/segmented-control/SegmentedControl' />
+
+Options can have an `icon` and be `disabled`. Use `size='small'` in dense areas and `block` to fill the width of the container.
+
+<Demo src='pages/components/segmented-control/SegmentedControlVariants' />
+
+## Accessibility
+
+The control is a radio group: name it with `aria-label` or `aria-labelledby`. Tab moves the focus to the selected option and the arrow keys move the selection, as in any group of radio buttons. With a `name`, the value is also sent with forms.

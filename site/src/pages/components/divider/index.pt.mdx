@@ -1,0 +1,26 @@
+import { Demo } from '../../../components/Demo'
+
+# Divider
+
+O _divider_ é uma linha que separa grupos de conteúdo, como seções de um formulário, itens de uma lista ou botões de uma barra de ferramentas.
+
+## Boas práticas
+
+- Use _dividers_ só quando o espaçamento sozinho não deixa os grupos claros: linhas demais deixam a página pesada.
+- Use um rótulo, como "ou", para separar duas ações alternativas.
+- Use um _divider_ vertical entre botões relacionados colocados lado a lado.
+- Dentro de menus, use o `DropdownDivider`.
+
+## Uso
+
+O _divider_ horizontal é um elemento `hr`. O `label` escreve um texto curto no meio da linha, e o `spacing` define o espaço em volta dela, em rem (`1` por padrão).
+
+<Demo src='pages/components/divider/Divider' />
+
+Com `orientation='vertical'`, o _divider_ ocupa a altura da linha em que está. Coloque-o dentro de um `Flow` horizontal.
+
+<Demo src='pages/components/divider/DividerVertical' />
+
+## Acessibilidade
+
+Os _dividers_ têm o papel `separator`, então os leitores de tela anunciam a mudança de grupo. Um _divider_ com rótulo de texto também é nomeado por ele.

@@ -1,0 +1,339 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SideNav should render correctly 1`] = `
+.emotion-10 {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.emotion-18 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: #24252E;
+  box-sizing: border-box;
+  height: 100%;
+  overflow-y: auto;
+  padding: 0.5rem 0;
+  background: #FFFFFF;
+  border-right: 1px solid #D3D4DD;
+  width: 16rem;
+}
+
+.emotion-2 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: #24252E;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  min-height: 2.5rem;
+  margin: 0;
+  padding: 0.5rem 1rem 0.5rem 1rem;
+  border: none;
+  background: transparent;
+  text-align: left;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.emotion-2:hover {
+  background: #F0F0F5;
+}
+
+.emotion-2:focus {
+  outline: none;
+  box-shadow: inset 0 0 0 2px #5E7300;
+}
+
+.emotion-1 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  min-width: 0;
+}
+
+.emotion-0 {
+  fill: currentColor;
+  font-size: 1.5rem;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.emotion-4 {
+  fill: currentColor;
+  font-size: 1rem;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  -webkit-transition: -webkit-transform .2s;
+  -webkit-transition: transform .2s;
+  transition: transform .2s;
+  -webkit-transform: rotate(180deg);
+  -ms-transform: rotate(180deg);
+  transform: rotate(180deg);
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .emotion-4 {
+    -webkit-transition: none;
+    transition: none;
+  }
+}
+
+.emotion-9 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: #24252E;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  min-height: 2.5rem;
+  margin: 0;
+  padding: 0.5rem 1rem 0.5rem 3.25rem;
+  border: none;
+  background: transparent;
+  text-align: left;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.emotion-9:hover {
+  background: #F0F0F5;
+}
+
+.emotion-9:focus {
+  outline: none;
+  box-shadow: inset 0 0 0 2px #5E7300;
+}
+
+.emotion-7 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: #24252E;
+  box-sizing: border-box;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 0.75rem;
+  width: 100%;
+  min-height: 2.5rem;
+  margin: 0;
+  padding: 0.5rem 1rem 0.5rem 3.25rem;
+  border: none;
+  background: transparent;
+  text-align: left;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  cursor: pointer;
+  font-weight: bold;
+  color: #5E7300;
+  background: #F5FADB;
+  box-shadow: inset 4px 0 0 #5E7300;
+}
+
+.emotion-7:hover {
+  background: #F0F0F5;
+}
+
+.emotion-7:focus {
+  outline: none;
+  box-shadow: inset 0 0 0 2px #5E7300;
+}
+
+.emotion-7:hover {
+  background: #F5FADB;
+}
+
+.emotion-12 {
+  fill: currentColor;
+  font-size: 1rem;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  -webkit-transition: -webkit-transform .2s;
+  -webkit-transition: transform .2s;
+  transition: transform .2s;
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .emotion-12 {
+    -webkit-transition: none;
+    transition: none;
+  }
+}
+
+<div>
+  <nav
+    aria-label="Main"
+    class="emotion-18"
+  >
+    <ul
+      class="emotion-10"
+    >
+      <li>
+        <a
+          class="emotion-2"
+          href="/home"
+        >
+          <svg
+            aria-hidden="true"
+            class="emotion-0"
+            height="1em"
+            role="img"
+            viewBox="0 0 24 24"
+            width="1em"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M11.993 2c.492 0 .938.167 1.338.502l8.322 6.743c.328.349.414.726.258 1.132-.156.407-.465.61-.927.612L20 11v9c0 1.333-.667 2-2 2h-2c-1.333-.01-2-.676-2-2v-6h-4v5.986c0 1.324-.667 1.99-2 2H6c-1.333.01-2-.653-2-1.986l-.004-9-1.028-.011c-.483 0-.786-.204-.911-.612-.125-.407-.043-.786.246-1.136l8.352-6.739c.4-.335.847-.502 1.338-.502zM6 9v11h2v-6c0-1.333.667-2 2-2h4c1.333 0 2 .667 2 2v6h1.998V9L12 4.419 6 9z"
+              fill-rule="evenodd"
+            />
+          </svg>
+          <span
+            class="emotion-1"
+          >
+            Home
+          </span>
+        </a>
+      </li>
+      <li>
+        <button
+          aria-controls="expandable-content-abc"
+          aria-expanded="true"
+          class="emotion-2"
+          id="expandable-header-abc"
+          type="button"
+        >
+          <span
+            class="emotion-1"
+          >
+            Reports
+          </span>
+          <svg
+            aria-hidden="true"
+            class="emotion-4"
+            height="1em"
+            role="img"
+            viewBox="0 0 24 24"
+            width="1em"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M16.294 8.294a1 1 0 111.414 1.414l-5 5a1 1 0 01-1.414 0l-5.001-5a1 1 0 011.414-1.415l4.294 4.294 4.293-4.293z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </button>
+        <ul
+          aria-labelledby="expandable-header-abc"
+          class="emotion-10"
+          id="expandable-content-abc"
+        >
+          <li>
+            <a
+              aria-current="page"
+              class="emotion-7"
+              href="/reports/sales"
+            >
+              <span
+                class="emotion-1"
+              >
+                Sales
+              </span>
+            </a>
+          </li>
+          <li>
+            <a
+              class="emotion-9"
+              href="/reports/stock"
+            >
+              <span
+                class="emotion-1"
+              >
+                Stock
+              </span>
+            </a>
+          </li>
+        </ul>
+      </li>
+      <li>
+        <button
+          aria-controls="expandable-content-abc"
+          aria-expanded="false"
+          class="emotion-2"
+          id="expandable-header-abc"
+          type="button"
+        >
+          <span
+            class="emotion-1"
+          >
+            Settings
+          </span>
+          <svg
+            aria-hidden="true"
+            class="emotion-12"
+            height="1em"
+            role="img"
+            viewBox="0 0 24 24"
+            width="1em"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M16.294 8.294a1 1 0 111.414 1.414l-5 5a1 1 0 01-1.414 0l-5.001-5a1 1 0 011.414-1.415l4.294 4.294 4.293-4.293z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </button>
+        <ul
+          aria-labelledby="expandable-header-abc"
+          class="emotion-10"
+          hidden=""
+          id="expandable-content-abc"
+        >
+          <li>
+            <a
+              class="emotion-9"
+              href="/settings/users"
+            >
+              <span
+                class="emotion-1"
+              >
+                Users
+              </span>
+            </a>
+          </li>
+        </ul>
+      </li>
+    </ul>
+  </nav>
+</div>
+`;
