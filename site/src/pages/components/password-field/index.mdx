@@ -1,0 +1,22 @@
+import { Demo } from '../../../components/Demo'
+
+# Password field
+
+Password fields hide what is typed and have a button that shows it, so the user can check the password before sending it.
+
+## Best practices
+
+- Let the user show the password: it reduces typing errors, mainly on mobile.
+- Tell the password rules before the user types, not only in the error message.
+- Use `autoComplete='new-password'` on sign-up and password change forms, so password managers suggest a strong password. The default, `current-password`, fits sign-in forms.
+- Don't block pasting: it gets in the way of password managers.
+
+## Usage
+
+`PasswordField` takes the same props as `TextField`, such as `label`, `error` and `required`. `defaultVisible` starts with the password visible and `onVisibleChange` tells when the user shows or hides it.
+
+<Demo src='pages/components/password-field/PasswordField' />
+
+## Accessibility
+
+The toggle is a button named "Show password" (from the locale strings) with `aria-pressed`, so screen readers announce whether the password is visible. Unlike other field icons, it is in the tab order.

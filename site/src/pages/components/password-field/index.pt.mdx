@@ -1,0 +1,22 @@
+import { Demo } from '../../../components/Demo'
+
+# Password field
+
+O campo de senha esconde o que é digitado e tem um botão que mostra o texto, para o usuário conferir a senha antes de enviá-la.
+
+## Boas práticas
+
+- Deixe o usuário mostrar a senha: isso reduz erros de digitação, principalmente no celular.
+- Informe as regras da senha antes de o usuário digitar, e não só na mensagem de erro.
+- Use `autoComplete='new-password'` em formulários de cadastro e de troca de senha, para os gerenciadores de senha sugerirem uma senha forte. O padrão, `current-password`, serve para formulários de login.
+- Não bloqueie a ação de colar: ela atrapalha os gerenciadores de senha.
+
+## Uso
+
+O `PasswordField` recebe as mesmas _props_ do `TextField`, como `label`, `error` e `required`. O `defaultVisible` começa com a senha visível e o `onVisibleChange` avisa quando o usuário mostra ou esconde a senha.
+
+<Demo src='pages/components/password-field/PasswordField' />
+
+## Acessibilidade
+
+O botão se chama "Mostrar senha" (dos textos do _locale_) e usa `aria-pressed`, então os leitores de tela anunciam se a senha está visível. Diferente dos outros ícones de campo, ele entra na ordem do Tab.

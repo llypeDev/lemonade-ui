@@ -1,0 +1,21 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Divider should render correctly 1`] = `
+.emotion-0 {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  margin: 0;
+  border: none;
+  background: #D3D4DD;
+  height: 1px;
+  width: 100%;
+  margin: 1rem 0;
+}
+
+<div>
+  <hr
+    class="emotion-0"
+  />
+</div>
+`;

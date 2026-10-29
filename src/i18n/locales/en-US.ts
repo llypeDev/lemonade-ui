@@ -27,6 +27,13 @@ const locale = {
     close: 'Close',
     show: 'Show months',
   },
+  numberField: {
+    increase: 'Increase',
+    decrease: 'Decrease',
+  },
+  passwordField: {
+    show: 'Show password',
+  },
   paginator: {
     of: 'of',
     previousPage: 'Previous page',

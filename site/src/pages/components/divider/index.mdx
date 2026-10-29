@@ -1,0 +1,26 @@
+import { Demo } from '../../../components/Demo'
+
+# Divider
+
+Dividers are lines that separate groups of content, such as sections of a form, items of a list or buttons of a toolbar.
+
+## Best practices
+
+- Use dividers only when spacing alone does not make the groups clear: too many lines make the page heavy.
+- Use a label, such as "or", to separate two alternative actions.
+- Use a vertical divider between related buttons placed side by side.
+- Inside menus, use `DropdownDivider` instead.
+
+## Usage
+
+A horizontal divider is an `hr` element. `label` writes a short text in the middle of the line, and `spacing` sets the space around it in rem (`1` by default).
+
+<Demo src='pages/components/divider/Divider' />
+
+With `orientation='vertical'`, the divider stretches to the height of its row. Place it inside a horizontal `Flow`.
+
+<Demo src='pages/components/divider/DividerVertical' />
+
+## Accessibility
+
+Dividers have the `separator` role, so screen readers announce the change of group. A divider with a text label is also named by it.

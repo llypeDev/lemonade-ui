@@ -1,0 +1,26 @@
+import { Demo } from '../../../components/Demo'
+
+# Empty state
+
+Empty states are messages for places that have no content yet: an empty list, a search without results or the first use of a feature. They explain what happened and offer a way forward, instead of leaving a blank area.
+
+## Best practices
+
+- Say what is missing in the title, such as "No orders found", and why or what to do in the description.
+- Offer an action whenever possible: clear the filters, create the first item or learn more.
+- For searches, keep the search terms in the field so the user can adjust them, as the [Search](/components/search) guidelines recommend.
+- Use a friendly and short text. Leave errors, such as a failed request, to an [Alert](/components/alert).
+
+## Usage
+
+`title` is required. `description`, `icon` (or an `image` illustration) and `actions` are optional.
+
+<Demo src='pages/components/empty-state/EmptyState' />
+
+For a first use, combine a primary action with a link to learn more.
+
+<Demo src='pages/components/empty-state/EmptyStateFirstUse' />
+
+## Accessibility
+
+The title is a heading, level 3 by default. Use `headingLevel` to fit the outline of the page. The icon is decorative and hidden from screen readers.

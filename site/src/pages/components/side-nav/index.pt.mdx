@@ -1,0 +1,34 @@
+import { Demo } from '../../../components/Demo'
+
+# Side nav
+
+O _side nav_ é o menu lateral fixo com a navegação principal da aplicação. Ele fica fora do _grid_ da página, como descrevem as diretrizes de [Grid](/design-guidelines/grid), e agrupa páginas relacionadas em seções que expandem e recolhem.
+
+## Boas práticas
+
+- Use o _side nav_ para as seções principais da aplicação e mantenha poucos itens no primeiro nível.
+- Dê um ícone a todo item do primeiro nível e mantenha os rótulos curtos.
+- Use no máximo dois níveis: páginas mais profundas ficam na própria página, com [Tabs](/components/tabs) ou [Breadcrumb](/components/breadcrumb).
+- Marque a página atual com `active`. O grupo dela abre sozinho.
+
+## Uso
+
+O `SideNav` recebe links `SideNavItem` e seções `SideNavGroup`. Os itens recebem `href`, `icon`, `active` e `extra`, para um conteúdo no final, como um [Badge](/components/badge). Os grupos recebem `title` e `icon`, e podem ser controlados com `expanded` e `onChange`.
+
+<Demo src='pages/components/side-nav/SideNav' />
+
+Para usar o link do seu roteador, passe-o em `component`. As _props_ que o item não usa, como `to`, vão para ele:
+
+```jsx
+import { Link } from 'react-router-dom'
+
+const OrdersItem = () => (
+  <SideNavItem component={Link} to='/orders' icon='shoppingCartOutline' active>
+    Pedidos
+  </SideNavItem>
+)
+```
+
+## Acessibilidade
+
+O _side nav_ é um _landmark_ `nav`: dê um nome a ele com `aria-label`, como "Principal". O item ativo tem `aria-current="page"`. Os cabeçalhos dos grupos são botões com `aria-expanded` que controlam a lista de itens.
