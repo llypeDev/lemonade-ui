@@ -80,8 +80,8 @@ const createStyles = (theme: Theme) => ({
     color: theme.pallete.text.main,
   } as CSSProperties,
   icon: {
-    // Aligns the 1.5rem icon with the first line of text
-    marginTop: '-0.125rem',
+    // With the body padding below, centers the 1.5rem icon on the first line of text
+    marginTop: 0,
   } as CSSProperties,
   body: {
     minWidth: 0,
@@ -96,6 +96,7 @@ const createStyles = (theme: Theme) => ({
   } as CSSProperties,
   close: {
     padding: 0,
-    marginTop: '-0.125rem',
+    // Centers the button on the first line of text
+    marginTop: '-0.0625rem',
   } as CSSProperties,
 })
