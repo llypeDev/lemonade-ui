@@ -1,0 +1,28 @@
+import { Demo } from '../../../components/Demo'
+
+# Slider
+
+The slider picks a number, or a range of numbers, by dragging a thumb along a track. Use it when the position in the range matters more than the exact value, such as a price filter, a volume or a discount.
+
+## Best practices
+
+- Show the current value, and the limits when they are not obvious, so the user does not have to guess.
+- Use a [Number field](/components/number-field) when the user needs to type an exact value, or the range is too large for the steps to fit the track.
+- Pick a `step` that makes sense for the value, such as 10 for prices in the hundreds.
+- For costly work, such as a new search, use `onChangeEnd`, which runs when the user releases the thumb.
+
+## Usage
+
+`Slider` takes `min`, `max` and `step`, a `label`, and the value in `defaultValue` or, controlled, in `value` and `onChange`. `formatValue` writes the value on the screen and for screen readers, and `showLimits` shows the minimum and the maximum below the track.
+
+<Demo src='pages/components/slider/Slider' />
+
+Pass a pair as the value, such as `[200, 800]`, for a range with two thumbs. The thumbs never cross, and a click on the track moves the closest one:
+
+<Demo src='pages/components/slider/SliderRange' />
+
+With `name`, the slider sends its value with a form; a range sends two values with that name. `error` shows a message below the track.
+
+## Accessibility
+
+Each thumb has the `slider` role, with its value, minimum and maximum, and takes the focus. The arrow keys move it by one step, Page Up and Page Down by a tenth of the range, and Home and End to the limits. The thumbs of a range are named after the label, followed by "Minimum" and "Maximum" (from the locale strings, or from `thumbLabels`). Without a visible label, name the slider with `aria-label`.

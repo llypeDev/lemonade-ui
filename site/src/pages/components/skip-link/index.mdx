@@ -1,0 +1,31 @@
+import { Demo } from '../../../components/Demo'
+
+# Skip link
+
+The skip link lets keyboard and screen reader users jump over the header and the navigation, straight to the content of the page. It stays hidden until it gets focus.
+
+## Best practices
+
+- Make it the first focusable element of the page, before the [App header](/components/app-header).
+- Point it to the `main` element of the page, or to the start of the content.
+- Use one skip link per page. Long pages with many sections are better served by headings and landmarks.
+
+## Usage
+
+`SkipLink` takes the `target`, the id of the element it skips to, which is `main` by default. Its text is "Skip to main content" (from the locale strings); pass children to change it.
+
+<Demo src='pages/components/skip-link/SkipLink' />
+
+```jsx
+const Page = () => (
+  <>
+    <SkipLink />
+    <AppHeader logo={<Logo />} />
+    <main id='main'>...</main>
+  </>
+)
+```
+
+## Accessibility
+
+When the link gets focus, it shows up on the top left of the screen. On click, it moves the focus to the target, adding `tabindex="-1"` to elements that do not take the focus, such as `main`, so the next Tab starts from there. It does not change the URL hash, so it also works with routers that use the hash.

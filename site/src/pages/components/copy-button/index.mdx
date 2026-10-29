@@ -1,0 +1,23 @@
+import { Demo } from '../../../components/Demo'
+
+# Copy button
+
+The copy button copies a text to the clipboard, such as a command, a link, a code or a key, and confirms it with a check icon for a moment.
+
+## Best practices
+
+- Use it next to texts the user needs to paste somewhere else, mainly long or hard to type ones.
+- Say what is copied in the label, such as "Copy link". Use the icon-only button next to the text itself.
+- Copy exactly what is shown, without extra spaces or formatting.
+
+## Usage
+
+`CopyButton` takes the `text` to copy, or a function that returns it when the button is clicked, and the same props as `Button`, such as `skin`, `kind` and `size`. Without children, it shows only the icon, with "Copy" as its name and tooltip. `onCopy` and `onError` tell how the copy went, and `timeout` sets how long the check icon stays.
+
+<Demo src='pages/components/copy-button/CopyButton' />
+
+Where the Clipboard API is missing, such as on pages served over plain HTTP, the button falls back to the browser copy command.
+
+## Accessibility
+
+After copying, the button announces "Copied" (or "Could not copy") to screen readers in a status message. The labels come from the locale strings; change the confirmation with `copiedLabel`. The button keeps its width when its label changes.

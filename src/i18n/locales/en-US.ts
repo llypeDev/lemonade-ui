@@ -2,11 +2,20 @@ const locale = {
   alert: {
     close: 'Close',
   },
+  appHeader: {
+    openMenu: 'Open menu',
+    closeMenu: 'Close menu',
+  },
   calendar: {
     nextMonth: 'Next month',
     previousMonth: 'Previous month',
     nextYear: 'Next year',
     previousYear: 'Previous year',
+  },
+  copyButton: {
+    copy: 'Copy',
+    copied: 'Copied',
+    failed: 'Could not copy',
   },
   dateInput: {
     placeholder: 'mm/dd/yyyy',
@@ -48,6 +57,13 @@ const locale = {
     emptyItem: 'No results were found',
     loadingItem: 'Loading...',
     removeItem: 'Remove',
+  },
+  skipLink: {
+    label: 'Skip to main content',
+  },
+  slider: {
+    minimum: 'Minimum',
+    maximum: 'Maximum',
   },
   combobox: {
     showOptions: 'Show options',

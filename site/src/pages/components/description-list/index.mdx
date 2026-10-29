@@ -1,0 +1,28 @@
+import { Demo } from '../../../components/Demo'
+
+# Description list
+
+The description list shows pairs of terms and descriptions, such as the details of a record, a summary before a confirmation or the properties of an item.
+
+## Best practices
+
+- Use it to read information, not to edit it: for editing, use a [Form](/components/form).
+- Keep the terms short and in the same order on every record of the same kind.
+- Show a dash or a short text, such as "Not informed", for empty values, instead of hiding the term.
+- For many records side by side, use a [Table](/components/table).
+
+## Usage
+
+`DescriptionList` takes the `items`, each with a `term` and a `description`, which can be any element, such as a [Link](/components/link) or a [Tag](/components/tag). The default `horizontal` layout puts each term on the left; `termWidth` sets the width of that column, and `divided` draws a line between the items.
+
+<Demo src='pages/components/description-list/DescriptionList' />
+
+The `vertical` layout puts each term above its description, in as many `columns` as you need:
+
+<Demo src='pages/components/description-list/DescriptionListColumns' />
+
+Below the `md` breakpoint, both layouts turn into a single column.
+
+## Accessibility
+
+The list is a `dl` element, with a `dt` and a `dd` for each item, so screen readers tell the user how many items there are and which description belongs to each term.

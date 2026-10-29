@@ -1,0 +1,26 @@
+import { Demo } from '../../../components/Demo'
+
+# App header
+
+The app header is the bar on the top of the application. It holds the logo, the content that helps across pages, such as the search, and the actions of the user, such as notifications and the user menu.
+
+## Best practices
+
+- Keep the same header on every page, so the user always finds the logo and the main actions in the same place.
+- Put few actions in it: the ones the user needs on any page. Page actions belong to the page.
+- Name icon-only buttons with `aria-label` and give them a [Tooltip](/components/tooltip).
+- On small screens, hide the [Side nav](/components/side-nav) and open it from the menu button, in a [Drawer](/components/drawer).
+
+## Usage
+
+`AppHeader` takes the `logo`, the `actions` on the right and, as children, the content in the middle. Use `position='sticky'` to keep it on the top as the page scrolls.
+
+<Demo src='pages/components/app-header/AppHeader' />
+
+`onMenuClick` adds a menu button before the logo. By default it shows only below the `md` breakpoint; use `menuButton='always'` to show it on every screen. Tell the header whether the navigation is open with `menuOpen`, and which element it opens with `menuControls`:
+
+<Demo src='pages/components/app-header/AppHeaderNavigation' />
+
+## Accessibility
+
+The header is a `header` element, the banner landmark of the page. The menu button is named "Open menu" or "Close menu" (from the locale strings) and has `aria-expanded` and `aria-controls`. Add a [Skip link](/components/skip-link) before the header, so keyboard users can jump to the content.

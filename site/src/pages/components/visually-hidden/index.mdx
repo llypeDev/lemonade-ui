@@ -1,0 +1,32 @@
+import { Demo } from '../../../components/Demo'
+
+# Visually hidden
+
+Visually hidden content is read by screen readers but not shown on the screen. Use it to name icon-only controls, or to give screen reader users the context a sighted user gets from the layout.
+
+## Best practices
+
+- Hide only text that adds context. Everyone should get the same information, in the way that fits them.
+- Prefer a visible label when there is room for it: it helps everyone.
+- Don't hide focusable elements with it, except for a [Skip link](/components/skip-link), which shows up on focus.
+- Unlike `display: none` and `hidden`, which hide content from everyone, visually hidden content stays in the accessibility tree.
+
+## Usage
+
+`VisuallyHidden` renders a `span` by default; use `component` for other elements, such as a heading. Other props, such as `id` and `role`, go to the element.
+
+<Demo src='pages/components/visually-hidden/VisuallyHidden' />
+
+To hide an element of your own, such as a `label`, spread `visuallyHiddenStyle` in its style:
+
+```jsx
+import { visuallyHiddenStyle } from '@lemonade/ui'
+
+const createStyles = () => ({
+  label: { ...visuallyHiddenStyle },
+})
+```
+
+## Accessibility
+
+The content is clipped to a 1 pixel box, outside the flow of the page, so screen readers and search engines read it while the layout stays as it is. The [Badge](/components/badge) and the [Copy button](/components/copy-button) use it for their labels and messages.

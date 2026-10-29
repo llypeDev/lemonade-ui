@@ -4,11 +4,20 @@ const locale: LocaleConfiguration = {
   alert: {
     close: 'Fechar',
   },
+  appHeader: {
+    openMenu: 'Abrir menu',
+    closeMenu: 'Fechar menu',
+  },
   calendar: {
     nextMonth: 'Próximo mês',
     previousMonth: 'Mês anterior',
     nextYear: 'Próximo ano',
     previousYear: 'Ano anterior',
+  },
+  copyButton: {
+    copy: 'Copiar',
+    copied: 'Copiado',
+    failed: 'Não foi possível copiar',
   },
   dateInput: {
     placeholder: 'dd/mm/aaaa',
@@ -50,6 +59,13 @@ const locale: LocaleConfiguration = {
     emptyItem: 'Nenhum resultado encontrado',
     loadingItem: 'Carregando...',
     removeItem: 'Remover',
+  },
+  skipLink: {
+    label: 'Pular para o conteúdo principal',
+  },
+  slider: {
+    minimum: 'Mínimo',
+    maximum: 'Máximo',
   },
   combobox: {
     showOptions: 'Mostrar opções',

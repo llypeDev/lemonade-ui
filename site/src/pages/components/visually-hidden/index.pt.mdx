@@ -1,0 +1,32 @@
+import { Demo } from '../../../components/Demo'
+
+# Visually hidden
+
+O conteúdo visualmente escondido é lido pelos leitores de tela, mas não aparece na tela. Use-o para dar nome a controles só com ícone, ou para dar a quem usa leitor de tela o contexto que quem enxerga tira do _layout_.
+
+## Boas práticas
+
+- Esconda só textos que acrescentam contexto. Todos devem receber a mesma informação, do jeito que serve para cada um.
+- Prefira um rótulo visível quando houver espaço: ele ajuda todo mundo.
+- Não esconda elementos focáveis com ele, exceto um [Skip link](/components/skip-link), que aparece no foco.
+- Diferente do `display: none` e do `hidden`, que escondem o conteúdo de todos, o conteúdo visualmente escondido continua na árvore de acessibilidade.
+
+## Uso
+
+O `VisuallyHidden` renderiza um `span` por padrão; use `component` para outros elementos, como um título. As outras _props_, como `id` e `role`, vão para o elemento.
+
+<Demo src='pages/components/visually-hidden/VisuallyHidden' />
+
+Para esconder um elemento seu, como um `label`, espalhe o `visuallyHiddenStyle` no estilo dele:
+
+```jsx
+import { visuallyHiddenStyle } from '@lemonade/ui'
+
+const createStyles = () => ({
+  label: { ...visuallyHiddenStyle },
+})
+```
+
+## Acessibilidade
+
+O conteúdo é recortado numa caixa de 1 pixel, fora do fluxo da página, então leitores de tela e buscadores o leem enquanto o _layout_ continua igual. O [Badge](/components/badge) e o [Copy button](/components/copy-button) o usam nos rótulos e nas mensagens.

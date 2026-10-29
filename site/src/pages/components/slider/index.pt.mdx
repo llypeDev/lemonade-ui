@@ -1,0 +1,28 @@
+import { Demo } from '../../../components/Demo'
+
+# Slider
+
+O slider escolhe um número, ou um intervalo de números, arrastando um controle ao longo de uma trilha. Use-o quando a posição no intervalo importa mais que o valor exato, como num filtro de preço, no volume ou num desconto.
+
+## Boas práticas
+
+- Mostre o valor atual, e os limites quando não forem óbvios, para o usuário não precisar adivinhar.
+- Use um [Number field](/components/number-field) quando o usuário precisar digitar um valor exato, ou quando o intervalo for grande demais para os passos caberem na trilha.
+- Escolha um `step` que faça sentido para o valor, como 10 para preços na casa das centenas.
+- Para trabalhos custosos, como uma nova busca, use o `onChangeEnd`, que roda quando o usuário solta o controle.
+
+## Uso
+
+O `Slider` recebe `min`, `max` e `step`, um `label` e o valor em `defaultValue` ou, controlado, em `value` e `onChange`. O `formatValue` escreve o valor na tela e para os leitores de tela, e o `showLimits` mostra o mínimo e o máximo abaixo da trilha.
+
+<Demo src='pages/components/slider/Slider' />
+
+Passe um par como valor, como `[200, 800]`, para um intervalo com dois controles. Os controles nunca se cruzam, e um clique na trilha move o mais próximo:
+
+<Demo src='pages/components/slider/SliderRange' />
+
+Com `name`, o slider envia o valor junto com um formulário; um intervalo envia dois valores com esse nome. O `error` mostra uma mensagem abaixo da trilha.
+
+## Acessibilidade
+
+Cada controle tem o _role_ `slider`, com o valor, o mínimo e o máximo, e recebe o foco. As setas movem um passo, Page Up e Page Down movem um décimo do intervalo, e Home e End vão até os limites. Os controles de um intervalo levam o nome do rótulo seguido de "Mínimo" e "Máximo" (dos textos do _locale_, ou do `thumbLabels`). Sem rótulo visível, dê nome ao slider com `aria-label`.

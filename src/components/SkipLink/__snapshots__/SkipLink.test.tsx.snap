@@ -1,0 +1,51 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`SkipLink should render correctly 1`] = `
+.emotion-0 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+  font-family: "IBM Plex Sans",sans-serif;
+}
+
+.emotion-0:focus {
+  position: fixed;
+  top: 1rem;
+  left: 1rem;
+  z-index: 2000;
+  width: auto;
+  height: auto;
+  margin: 0;
+  padding: 0.75rem 1rem;
+  overflow: visible;
+  -webkit-clip: auto;
+  clip: auto;
+  white-space: normal;
+  font-size: 0.8125rem;
+  font-weight: bold;
+  line-height: 1.5;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  color: #FFFFFF;
+  background: #5E7300;
+  border-radius: 4px;
+  box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2),0 1px 10px 0 rgba(0,0,0,0.12),0 4px 5px 0 rgba(0,0,0,0.14),0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+  outline: none;
+}
+
+<div>
+  <a
+    class="emotion-0"
+    href="#main"
+  >
+    Skip to main content
+  </a>
+</div>
+`;
