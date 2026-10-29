@@ -57,8 +57,8 @@ Componentes React acessíveis, personalizáveis por tema e totalmente tipados pa
 <table>
   <tr>
     <td width="33%" valign="top">
-      <b>🧩 Mais de 50 componentes</b><br />
-      Botões, formulários, seletores de data, tabelas, modais, toasts, abas e primitivas de layout.
+      <b>🧩 Mais de 60 componentes</b><br />
+      Botões, formulários, seletores de data, tabelas, modais, drawers, popovers, toasts, abas e primitivas de layout.
     </td>
     <td width="33%" valign="top">
       <b>♿ Acessível</b><br />
@@ -373,6 +373,21 @@ Busque, visualize, copie e baixe todos os ícones no [explorador Phosphor](https
 Os gráficos (`Chart`, `BarChart`, `PieChart` e suas partes) vêm de uma entrada separada, `@lemonade/ui/lib/components/Chart`, para que aplicações que não desenham gráficos não carreguem as dependências deles. Os componentes marcados como obsoletos continuam funcionando, e a documentação deles indica o substituto.
 
 Exemplos interativos e a API completa de cada componente estão no [Storybook](https://lemonade-ui.llypedev.com.br/storybook). As diretrizes de uso de cada um estão na [visão geral dos componentes](https://lemonade-ui.llypedev.com.br/pt/components/overview).
+
+### ✨ Novidades
+
+Componentes adicionados desde a versão 1.4.0, cada um com demos interativas e notas de acessibilidade no site:
+
+| Componente                             | Para que serve                                                                                   | Documentação                                                                |
+| -------------------------------------- | ------------------------------------------------------------------------------------------------ | --------------------------------------------------------------------------- |
+| `Popover`                              | Painel flutuante preso a um botão, para filtros, formulários curtos ou detalhes                  | [Documentação](https://lemonade-ui.llypedev.com.br/pt/components/popover)   |
+| `Drawer`                               | Painel que desliza de uma borda da tela, para filtros, detalhes ou navegação                     | [Documentação](https://lemonade-ui.llypedev.com.br/pt/components/drawer)    |
+| `Avatar`                               | Uma pessoa representada por foto, iniciais ou ícone genérico                                     | [Documentação](https://lemonade-ui.llypedev.com.br/pt/components/avatar)    |
+| `Badge`                                | Contador ou ponto no canto de um elemento, como notificações não lidas                           | [Documentação](https://lemonade-ui.llypedev.com.br/pt/components/badge)     |
+| `Skeleton`                             | Espaço reservado com o formato do conteúdo que ainda está carregando                             | [Documentação](https://lemonade-ui.llypedev.com.br/pt/components/skeleton)  |
+| `Toast` · `ToastProvider` · `useToast` | Mensagens no canto inferior esquerdo que fecham sozinhas e são anunciadas pelos leitores de tela | [Documentação](https://lemonade-ui.llypedev.com.br/pt/components/toast)     |
+| `Accordion`                            | Seções que expandem e recolhem, com navegação por teclado                                        | [Documentação](https://lemonade-ui.llypedev.com.br/pt/components/accordion) |
+| `ToggleCard` · `ExpandableCard`        | Cards que funcionam como checkbox ou que expandem para mostrar mais                              | [Documentação](https://lemonade-ui.llypedev.com.br/pt/components/cards)     |
 
 <details>
 <summary><b>🍋 Brand board</b></summary>
