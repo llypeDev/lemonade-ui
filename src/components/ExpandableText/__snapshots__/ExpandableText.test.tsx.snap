@@ -1,0 +1,62 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ExpandableText should render correctly 1`] = `
+.emotion-2 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: #24252E;
+  min-width: 0;
+}
+
+.emotion-1 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: #5E7300;
+  font-weight: bold;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  display: inline-block;
+  margin-top: 0.25rem;
+  padding: 0;
+  border: 0;
+  background: none;
+  cursor: pointer;
+  outline: none;
+  border-radius: 2px;
+}
+
+.emotion-1:focus-visible {
+  box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
+.emotion-0 {
+  overflow-wrap: anywhere;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+<div>
+  <div
+    class="emotion-2"
+  >
+    <div
+      class="emotion-0"
+      id="expandable-text-abc"
+    >
+      Lemonade is a design system with React components, a Storybook and a documentation site.
+    </div>
+    <button
+      aria-controls="expandable-text-abc"
+      aria-expanded="false"
+      class="emotion-1"
+      type="button"
+    >
+      Show more
+    </button>
+  </div>
+</div>
+`;

@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Meter
+
+The meter shows an amount within a known range, such as storage use, a quota or the seats of a plan.
+
+## Best practices
+
+- Say what is measured in the label, and the value with its unit, such as "7.2 GB of 10 GB".
+- Use colors to warn before the limit, with `low`, `high` and `optimum`, and say it in text too when it matters.
+- For the progress of a task, use a [Progress circle](/components/progress-circle).
+
+## Usage
+
+`Meter` takes a `value`, a `min` and a `max`, a `label` and a `formatValue` for the value text. With `low`, `high` and `optimum`, as in the HTML `meter` element, the bar is green in the range of the optimum, orange in the next one and red in the farthest; without them, it has the primary color.
+
+<Demo src='pages/components/meter/Meter' />
+
+## Accessibility
+
+The bar has the `meter` role, named by the label, with the value as text, so screen readers read "Storage, 7.2 GB of 10 GB". Without a visible label, name it with `aria-label`.

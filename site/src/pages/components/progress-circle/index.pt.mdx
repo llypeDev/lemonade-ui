@@ -1,0 +1,25 @@
+import { Demo } from '../../../components/Demo'
+
+# Progress circle
+
+O progress circle mostra quanto uma tarefa já andou, como um _upload_ ou as etapas de um perfil, ou gira enquanto o usuário espera algo de duração desconhecida.
+
+## Boas práticas
+
+- Mostre o valor quando a tarefa leva mais que alguns segundos, para o usuário saber quanto esperar.
+- Use o círculo girando só quando não for possível saber o progresso.
+- Para uma quantidade dentro de uma faixa, como o uso de armazenamento, use um [Meter](/components/meter).
+
+## Uso
+
+O `ProgressCircle` recebe um `value` e um `max` (100 por padrão). Círculos médios e grandes mostram a porcentagem no meio; `showValue={false}` a esconde. O `type` muda a cor.
+
+<Demo src='pages/components/progress-circle/ProgressCircle' />
+
+Sem `value`, o círculo gira:
+
+<Demo src='pages/components/progress-circle/ProgressCircleIndeterminate' />
+
+## Acessibilidade
+
+O círculo tem o _role_ `progressbar` com o valor e a porcentagem em texto. Dê nome a ele com `aria-label` ou `aria-labelledby`; um círculo girando se chama "Carregando" por padrão (dos textos do _locale_).

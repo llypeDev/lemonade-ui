@@ -1,0 +1,24 @@
+import { Demo } from '../../../components/Demo'
+
+# Chip
+
+O chip é uma opção compacta que liga e desliga, como um filtro de uma lista. Diferente da [Tag](/components/tag), que rotula um conteúdo, o chip é um controle.
+
+## Boas práticas
+
+- Use chips para filtros que o usuário combina, como os status de um pedido.
+- Mantenha os rótulos curtos e mostre quantos itens cada filtro deixa com `count`.
+- Para escolher uma única entre poucas opções, use um [Segmented control](/components/segmented-control).
+- Mostre o resultado filtrado na hora, sem botão de aplicar.
+
+## Uso
+
+Coloque os chips num `ChipGroup`, que guarda o `value` dos chips selecionados. Cada chip recebe um `value`, um `icon` e um `count`. Um chip selecionado mostra um check no lugar do ícone.
+
+<Demo src='pages/components/chip/Chip' />
+
+Fora de um grupo, o chip funciona sozinho com `selected` e `onSelectedChange`, ou `defaultSelected`.
+
+## Acessibilidade
+
+O grupo tem o _role_ `group`; dê nome a ele com `aria-label`. Cada chip é um botão com `aria-pressed`, então os leitores de tela anunciam se ele está ligado, e o ícone de check mostra o estado sem depender da cor.

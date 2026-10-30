@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Meter
+
+O meter mostra uma quantidade dentro de uma faixa conhecida, como o uso de armazenamento, uma cota ou as vagas de um plano.
+
+## Boas práticas
+
+- Diga no rótulo o que é medido, e o valor com a unidade, como "7,2 GB de 10 GB".
+- Use as cores para avisar antes do limite, com `low`, `high` e `optimum`, e diga também em texto quando isso importar.
+- Para o progresso de uma tarefa, use um [Progress circle](/components/progress-circle).
+
+## Uso
+
+O `Meter` recebe um `value`, um `min` e um `max`, um `label` e um `formatValue` para o texto do valor. Com `low`, `high` e `optimum`, como no elemento `meter` do HTML, a barra fica verde na faixa do valor ideal, laranja na faixa seguinte e vermelha na mais distante; sem eles, ela tem a cor primária.
+
+<Demo src='pages/components/meter/Meter' />
+
+## Acessibilidade
+
+A barra tem o _role_ `meter`, com o rótulo como nome e o valor em texto, então os leitores de tela leem "Armazenamento, 7,2 GB de 10 GB". Sem rótulo visível, dê nome a ela com `aria-label`.

@@ -1,0 +1,25 @@
+import { Demo } from '../../../components/Demo'
+
+# Code block
+
+O code block mostra um código como ele é, como um comando, uma configuração ou a resposta de uma API, com um botão que o copia.
+
+## Boas práticas
+
+- Use-o para códigos que o usuário lê ou copia. Para um trecho curto dentro de uma frase, use o elemento `code`.
+- Dê um `title` ao bloco, como o nome de um arquivo ou da requisição, quando houver mais de um na página.
+- Mantenha o código completo, para o texto copiado funcionar como está.
+
+## Uso
+
+O `CodeBlock` recebe o `code` como texto e, se quiser, uma `language` ou um `title` para o cabeçalho. O `showLineNumbers` numera as linhas, o `maxHeight` faz códigos longos rolarem e o `copyable={false}` esconde o botão de copiar. O bloco não colore a sintaxe.
+
+<Demo src='pages/components/code-block/CodeBlock' />
+
+Por padrão, linhas longas rolam para o lado; com `wrap`, elas quebram:
+
+<Demo src='pages/components/code-block/CodeBlockWrap' />
+
+## Acessibilidade
+
+O código é um elemento `pre` que recebe o foco, para quem usa o teclado rolar com as setas. Ele leva o nome do título, da linguagem ou "Código" (dos textos do _locale_). O botão de copiar é um [Copy button](/components/copy-button), que anuncia "Copiado". Os números das linhas não são copiados com o código.

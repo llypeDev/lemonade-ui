@@ -1,0 +1,25 @@
+import { Demo } from '../../../components/Demo'
+
+# Code block
+
+The code block shows code as it is, such as a command, a configuration or a response of an API, with a button that copies it.
+
+## Best practices
+
+- Use it for code the user reads or copies. For a short piece inside a sentence, use the `code` element.
+- Name the block with a `title`, such as the name of a file or the request, when there is more than one on the page.
+- Keep the code complete, so the copied text works as it is.
+
+## Usage
+
+`CodeBlock` takes the `code` as text and, optionally, a `language` or a `title` for the header. `showLineNumbers` numbers the lines, `maxHeight` makes long code scroll, and `copyable={false}` hides the copy button. The block does not color the syntax.
+
+<Demo src='pages/components/code-block/CodeBlock' />
+
+Long lines scroll sideways by default; with `wrap`, they break:
+
+<Demo src='pages/components/code-block/CodeBlockWrap' />
+
+## Accessibility
+
+The code is a `pre` element that takes the focus, so keyboard users can scroll it with the arrow keys. It is named by the title, the language or "Code" (from the locale strings). The copy button is a [Copy button](/components/copy-button), which announces "Copied". The line numbers are not copied with the code.

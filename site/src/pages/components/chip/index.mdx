@@ -1,0 +1,24 @@
+import { Demo } from '../../../components/Demo'
+
+# Chip
+
+The chip is a compact option that turns on and off, such as a filter of a list. Unlike a [Tag](/components/tag), which labels content, a chip is a control.
+
+## Best practices
+
+- Use chips for filters the user combines, such as order statuses.
+- Keep the labels short, and show how many items each filter leaves with `count`.
+- For a single choice between a few options, use a [Segmented control](/components/segmented-control).
+- Show the filtered result right away, without an apply button.
+
+## Usage
+
+Put the chips in a `ChipGroup`, which keeps the `value` of the selected chips. Each chip takes a `value`, an `icon` and a `count`. A selected chip shows a check instead of its icon.
+
+<Demo src='pages/components/chip/Chip' />
+
+Outside a group, a chip works on its own with `selected` and `onSelectedChange`, or `defaultSelected`.
+
+## Accessibility
+
+The group has the `group` role; name it with `aria-label`. Each chip is a button with `aria-pressed`, so screen readers announce whether it is on, and the check icon shows the state without relying on color.
