@@ -1,0 +1,61 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Toolbar should render correctly 1`] = `
+.emotion-0 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: row;
+  -ms-flex-direction: row;
+  flex-direction: row;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 0.25rem;
+}
+
+<div>
+  <button>
+    Before
+  </button>
+  <div
+    aria-label="Formatting"
+    class="emotion-0"
+    role="toolbar"
+  >
+    <button
+      data-toolbar-item=""
+      tabindex="0"
+    >
+      Bold
+    </button>
+    <button
+      data-toolbar-item=""
+      tabindex="-1"
+    >
+      Italic
+    </button>
+    <button
+      disabled=""
+    >
+      Underline
+    </button>
+    <input
+      aria-label="Font size"
+      data-toolbar-item=""
+      tabindex="-1"
+    />
+    <button
+      data-toolbar-item=""
+      tabindex="-1"
+    >
+      Link
+    </button>
+  </div>
+</div>
+`;

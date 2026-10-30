@@ -1,0 +1,280 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Timeline should render correctly 1`] = `
+.emotion-21 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: #24252E;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.emotion-6 {
+  position: relative;
+  display: grid;
+  grid-template-columns: 2rem 1fr;
+  -webkit-column-gap: 1rem;
+  column-gap: 1rem;
+  padding-bottom: 1.5rem;
+}
+
+.emotion-6:last-child {
+  padding-bottom: 0;
+}
+
+.emotion-6:not(:last-child)::before {
+  content: "";
+  position: absolute;
+  left: calc(1rem - 1px);
+  top: 1rem;
+  bottom: -1rem;
+  width: 2px;
+  background: #D3D4DD;
+}
+
+.emotion-5 {
+  min-width: 0;
+}
+
+.emotion-4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-column-gap: 0.5rem;
+  column-gap: 0.5rem;
+  min-height: 2rem;
+}
+
+.emotion-2 {
+  font-weight: bold;
+}
+
+.emotion-3 {
+  color: #696979;
+  white-space: nowrap;
+}
+
+.emotion-12 {
+  color: #24252E;
+  overflow-wrap: anywhere;
+}
+
+.emotion-1 {
+  position: relative;
+  z-index: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  color: #696979;
+  background: #F0F0F5;
+}
+
+.emotion-8 {
+  position: relative;
+  z-index: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  color: #217B00;
+  background: #E1F6DF;
+  background: transparent;
+}
+
+.emotion-7 {
+  color: #217B00;
+  background: #E1F6DF;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.emotion-16 {
+  position: relative;
+  z-index: 1;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 50%;
+  color: #696979;
+  background: #F0F0F5;
+  background: transparent;
+}
+
+.emotion-15 {
+  color: #696979;
+  background: #F0F0F5;
+  width: 0.75rem;
+  height: 0.75rem;
+  border-radius: 50%;
+  background: currentColor;
+}
+
+.emotion-0 {
+  fill: currentColor;
+  font-size: 1rem;
+}
+
+<div>
+  <ol
+    aria-label="Order history"
+    class="emotion-21"
+  >
+    <li
+      class="emotion-6"
+    >
+      <span
+        aria-hidden="true"
+        class="emotion-1"
+      >
+        <svg
+          aria-hidden="true"
+          class="emotion-0"
+          height="1em"
+          role="img"
+          viewBox="0 0 24 24"
+          width="1em"
+        >
+          <path
+            d="M9.02 20a2 2 0 11-4 0 2 2 0 014 0zM21.025 20a2 2 0 11-4 0 2 2 0 014 0z"
+          />
+          <path
+            clip-rule="evenodd"
+            d="M2.004 2.996a1 1 0 011-1h1.94a1 1 0 01.976.778l.504 2.223h14.58a1 1 0 01.934 1.357l-2.68 7a1 1 0 01-.934.643H7.234a1 1 0 01-.975-.776L4.65 6.218l-.504-2.222H3.004a1 1 0 01-1-1zm4.877 4l1.149 5h9.606l1.914-5H6.881z"
+            fill-rule="evenodd"
+          />
+          <path
+            clip-rule="evenodd"
+            d="M8.316 12.415l1.633 1.154L8.937 15h10.067a1 1 0 110 2H7.006a1 1 0 01-.817-1.577l2.127-3.008z"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </span>
+      <div
+        class="emotion-5"
+      >
+        <div
+          class="emotion-4"
+        >
+          <span
+            class="emotion-2"
+          >
+            Order placed
+          </span>
+          <time
+            class="emotion-3"
+            datetime="2026-10-12T09:41"
+          >
+            Oct 12, 9:41 AM
+          </time>
+        </div>
+      </div>
+    </li>
+    <li
+      class="emotion-6"
+    >
+      <span
+        aria-hidden="true"
+        class="emotion-8"
+      >
+        <span
+          class="emotion-7"
+        />
+      </span>
+      <div
+        class="emotion-5"
+      >
+        <div
+          class="emotion-4"
+        >
+          <span
+            class="emotion-2"
+          >
+            Payment approved
+          </span>
+          <time
+            class="emotion-3"
+          >
+            Oct 12, 9:43 AM
+          </time>
+        </div>
+        <div
+          class="emotion-12"
+        >
+          Credit card
+        </div>
+      </div>
+    </li>
+    <li
+      class="emotion-6"
+    >
+      <span
+        aria-hidden="true"
+        class="emotion-16"
+      >
+        <span
+          class="emotion-15"
+        />
+      </span>
+      <div
+        class="emotion-5"
+      >
+        <div
+          class="emotion-4"
+        >
+          <span
+            class="emotion-2"
+          >
+            Waiting for pickup
+          </span>
+        </div>
+      </div>
+    </li>
+  </ol>
+</div>
+`;

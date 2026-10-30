@@ -1,0 +1,26 @@
+import { Demo } from '../../../components/Demo'
+
+# Timeline
+
+The timeline shows events in order of time, such as the status history of an order or the activity on a record.
+
+## Best practices
+
+- Keep one order, newest or oldest first, in the whole application.
+- Write the title as what happened, such as "Payment approved", and leave the details to the description.
+- Use the same time format in every item, and relative times, such as "2 hours ago", only for recent events.
+- Don't rely on color alone: say in the title when something went wrong.
+
+## Usage
+
+`Timeline` takes the `items`, each with a `title` and, optionally, a `description`, a `time` with its `dateTime`, an `icon` and a `type`, which colors the marker.
+
+<Demo src='pages/components/timeline/Timeline' />
+
+Without an icon, the marker is a dot:
+
+<Demo src='pages/components/timeline/TimelineDots' />
+
+## Accessibility
+
+The timeline is an ordered list, so screen readers tell how many events there are. Name it with `aria-label`. The time is a `time` element with the `datetime` attribute, and the markers are hidden from screen readers.

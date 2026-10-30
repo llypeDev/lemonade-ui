@@ -1,0 +1,22 @@
+import { Demo } from '../../../components/Demo'
+
+# Stat
+
+The stat highlights a number, such as a metric of a dashboard, with its label and how much it changed from a previous period.
+
+## Best practices
+
+- Show few stats at a time, the ones the user acts on.
+- Round the numbers: "R$ 12.4k" reads faster than "R$ 12,431.87". Leave the exact value to a detail page.
+- Say what the change compares to, such as "vs last month".
+- For numbers that are better when lower, such as costs or errors, use `lowerIsBetter`.
+
+## Usage
+
+`Stat` takes a `label`, a `value`, already formatted, and, optionally, a `change` in percent, a `description` and an `icon`. An increase shows in green with an up arrow and a decrease in red with a down arrow, or the other way around with `lowerIsBetter`. `formatChange` changes how the change is written.
+
+<Demo src='pages/components/stat/Stat' />
+
+## Accessibility
+
+The arrows are hidden from screen readers, which read the direction as text instead, such as "Up 12.5%" ("Alta de" and "Queda de" in Portuguese, from the locale strings), so the change does not rely on color.

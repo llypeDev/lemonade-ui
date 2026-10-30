@@ -1,0 +1,25 @@
+import { Demo } from '../../../components/Demo'
+
+# Toolbar
+
+A toolbar agrupa controles que agem sobre o mesmo conteúdo, como os botões de formatação de um editor ou as ações em massa de uma tabela.
+
+## Boas práticas
+
+- Agrupe controles relacionados e separe os grupos com um [Divider](/components/divider) vertical.
+- Dê aos botões só com ícone um [Tooltip](/components/tooltip) e um `aria-label`.
+- Use um [Toggle button](/components/toggle-button) para opções que ligam e desligam.
+
+## Uso
+
+A `Toolbar` recebe quaisquer controles como _children_. Dê nome a ela com `aria-label`. Use `orientation='vertical'` para uma toolbar ao lado do conteúdo.
+
+<Demo src='pages/components/toolbar/Toolbar' />
+
+Ela também serve para as ações sobre as linhas selecionadas de uma tabela:
+
+<Demo src='pages/components/toolbar/ToolbarBulk' />
+
+## Acessibilidade
+
+A toolbar tem o _role_ `toolbar` e é uma única parada da tecla Tab. Dentro dela, as setas passam de um controle para o outro, voltando ao início no fim, e Home e End vão para o primeiro e o último. Controles desabilitados são pulados. Num campo de texto, as setas continuam movendo o cursor.

@@ -14,6 +14,10 @@ const locale: LocaleConfiguration = {
     nextYear: 'Próximo ano',
     previousYear: 'Ano anterior',
   },
+  confirmDialog: {
+    confirm: 'Confirmar',
+    cancel: 'Cancelar',
+  },
   copyButton: {
     copy: 'Copiar',
     copied: 'Copiado',
@@ -66,6 +70,11 @@ const locale: LocaleConfiguration = {
   slider: {
     minimum: 'Mínimo',
     maximum: 'Máximo',
+  },
+  stat: {
+    increase: 'Alta de',
+    decrease: 'Queda de',
+    noChange: 'Sem variação',
   },
   combobox: {
     showOptions: 'Mostrar opções',

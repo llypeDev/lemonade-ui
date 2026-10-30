@@ -1,0 +1,25 @@
+import { Demo } from '../../../components/Demo'
+
+# Toolbar
+
+The toolbar groups controls that act on the same content, such as the formatting buttons of an editor or the bulk actions of a table.
+
+## Best practices
+
+- Group related controls and separate the groups with a vertical [Divider](/components/divider).
+- Give icon-only buttons a [Tooltip](/components/tooltip) and an `aria-label`.
+- Use a [Toggle button](/components/toggle-button) for options that turn on and off.
+
+## Usage
+
+`Toolbar` takes any controls as children. Name it with `aria-label`. Use `orientation='vertical'` for a toolbar on the side of the content.
+
+<Demo src='pages/components/toolbar/Toolbar' />
+
+It also fits the actions for the selected rows of a table:
+
+<Demo src='pages/components/toolbar/ToolbarBulk' />
+
+## Accessibility
+
+The toolbar has the `toolbar` role and is a single stop of the Tab key. Inside it, the arrow keys move between the controls, wrapping at the ends, and Home and End go to the first and the last one. Disabled controls are skipped. In a text field, the arrow keys keep moving the caret.

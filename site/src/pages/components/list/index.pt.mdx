@@ -1,0 +1,25 @@
+import { Demo } from '../../../components/Demo'
+
+# List
+
+A list mostra itens um abaixo do outro, como pessoas, arquivos ou notificações, com imagem, descrição e ações. Ela é mais leve que uma [Table](/components/table) e se adapta bem a telas pequenas.
+
+## Boas práticas
+
+- Use uma lista quando cada item é lido por inteiro; use uma tabela quando o usuário compara valores entre itens.
+- Mantenha o título curto e coloque os detalhes na descrição.
+- Coloque no máximo duas ações num item; mais ações vão para um [Dropdown](/components/dropdown).
+
+## Uso
+
+A `List` reúne `ListItem`s. Cada item recebe um `title` e, se quiser, uma `description`, uma `media`, como um [Avatar](/components/avatar) ou um ícone, e um `extra` no final, como uma [Tag](/components/tag) ou botões. O `divided` (ligado por padrão) desenha linhas entre os itens, e o `bordered`, uma caixa em volta da lista.
+
+<Demo src='pages/components/list/List' />
+
+Com `href`, `onClick` ou `component`, como o `Link` do seu roteador, o item inteiro vira um link ou um botão. O conteúdo do `extra` continua clicável por conta própria:
+
+<Demo src='pages/components/list/ListLinks' />
+
+## Acessibilidade
+
+A lista é um elemento `ul`; dê nome a ela com `aria-label`. Um item interativo é um link ou botão de verdade, com o título e a descrição como nome. Dê nome aos botões só com ícone do `extra` com `aria-label`.

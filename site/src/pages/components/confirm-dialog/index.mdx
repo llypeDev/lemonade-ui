@@ -1,0 +1,26 @@
+import { Demo } from '../../../components/Demo'
+
+# Confirm dialog
+
+The confirm dialog asks the user to confirm an action before it happens, such as deleting a record or publishing a change.
+
+## Best practices
+
+- Use it for actions that are hard to undo. For actions that can be undone, prefer doing them at once and offering "Undo" in a [Toast](/components/toast).
+- Ask a question in the title, such as "Delete this order?", and say what happens in the description.
+- Name the confirm button after the action, such as "Delete order", not "Yes" or "OK".
+- Use `kind='danger'` for actions that destroy data.
+
+## Usage
+
+`useConfirm` returns a `confirm` function that opens the dialog and resolves to `true` when the user confirms, or `false` when they cancel. Place a `ConfirmDialogProvider` once, near the root of the application. With `onConfirm`, the dialog waits for the work, such as a request: the button shows a spinner, and the dialog stays open if the promise rejects.
+
+<Demo src='pages/components/confirm-dialog/ConfirmDialog' />
+
+`ConfirmDialog` is also a component of its own, controlled with `open`, `onConfirm` and `onCancel`. It takes an `icon` and children, such as a checkbox, below the description:
+
+<Demo src='pages/components/confirm-dialog/ConfirmDialogComponent' />
+
+## Accessibility
+
+The dialog has the `alertdialog` role, named by its title and described by its description. When it opens, the focus goes to the cancel button, so pressing Enter by mistake does not run the action; use `initialFocus='confirm'` for safe actions. The `Escape` key and a click on the backdrop cancel. While the confirmation is pending, the dialog cannot be closed. The default labels, "Confirm" and "Cancel", come from the locale strings.
