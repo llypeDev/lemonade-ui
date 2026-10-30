@@ -12,6 +12,10 @@ const locale = {
     nextYear: 'Next year',
     previousYear: 'Previous year',
   },
+  confirmDialog: {
+    confirm: 'Confirm',
+    cancel: 'Cancel',
+  },
   copyButton: {
     copy: 'Copy',
     copied: 'Copied',
@@ -64,6 +68,11 @@ const locale = {
   slider: {
     minimum: 'Minimum',
     maximum: 'Maximum',
+  },
+  stat: {
+    increase: 'Up',
+    decrease: 'Down',
+    noChange: 'No change',
   },
   combobox: {
     showOptions: 'Show options',

@@ -1,0 +1,26 @@
+import { Demo } from '../../../components/Demo'
+
+# Pin input
+
+The pin input is a field for short codes, such as a verification code sent by SMS or email, shown as one box per character.
+
+## Best practices
+
+- Say where the code was sent, such as the end of the phone number, in the label.
+- Check the code as soon as it is complete with `onComplete`, without a submit button.
+- Offer a way to send a new code, and say how long the code is valid.
+- Don't split the code into several fields of your own: the pin input already accepts a pasted code and the autofill of phones.
+
+## Usage
+
+`PinInput` takes a `length` (6 by default), a `label`, and the code in `defaultValue` or, controlled, in `value` and `onChange`. `type='alphanumeric'` accepts letters, and `mask` hides the characters, like a password.
+
+<Demo src='pages/components/pin-input/PinInput' />
+
+<Demo src='pages/components/pin-input/PinInputTypes' />
+
+Pasting a code replaces the one in the field, and spaces and dashes are removed, so "123-456" becomes "123456".
+
+## Accessibility
+
+Underneath the boxes there is a single input, named by the label, with `autocomplete="one-time-code"`, so phones offer the code from the message, and `inputmode="numeric"`, which opens the number keyboard. The boxes are hidden from screen readers, which read the input as a regular field. The error is linked to the field with `aria-describedby`.

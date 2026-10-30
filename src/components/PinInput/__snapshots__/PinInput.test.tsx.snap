@@ -1,0 +1,153 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`PinInput should render correctly 1`] = `
+.emotion-6 {
+  position: relative;
+  display: inline-grid;
+  grid-template-columns: repeat(4,2.5rem);
+  gap: 0.5rem;
+  max-width: 100%;
+}
+
+.emotion-1 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: transparent;
+  caret-color: transparent;
+  font-size: 16px;
+  opacity: 0;
+  cursor: text;
+}
+
+.emotion-1:disabled {
+  cursor: not-allowed;
+}
+
+.emotion-2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  box-sizing: border-box;
+  height: 3rem;
+  border: 1px solid #8F8FA2;
+  border-radius: 2px;
+  background: #FFFFFF;
+  color: #24252E;
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 1.25rem;
+  font-weight: bold;
+  font-variant-numeric: tabular-nums;
+  -webkit-transition: box-shadow .2s;
+  transition: box-shadow .2s;
+  pointer-events: none;
+}
+
+.emotion-9 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.emotion-8 {
+  display: inline-block;
+  margin-bottom: 0rem;
+  margin-top: 0rem;
+}
+
+.emotion-8:first-of-type {
+  margin-top: 0;
+}
+
+.emotion-8:last-of-type {
+  margin-bottom: 0;
+}
+
+.emotion-8:empty {
+  display: none;
+}
+
+.emotion-0 {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 0.25rem;
+  line-height: 20px;
+}
+
+<div>
+  <div
+    class="emotion-9"
+  >
+    <div
+      class="emotion-8"
+    >
+      <div
+        class="emotion-7"
+      >
+        <label
+          class="emotion-0"
+          for="pin-input-abc"
+        >
+          Verification code
+        </label>
+        <div
+          class="emotion-6"
+        >
+          <input
+            autocapitalize="off"
+            autocomplete="one-time-code"
+            autocorrect="off"
+            class="emotion-1"
+            id="pin-input-abc"
+            inputmode="numeric"
+            pattern="[0-9]*"
+            spellcheck="false"
+            type="text"
+            value="12"
+          />
+          <div
+            aria-hidden="true"
+            class="emotion-2"
+          >
+            1
+          </div>
+          <div
+            aria-hidden="true"
+            class="emotion-2"
+          >
+            2
+          </div>
+          <div
+            aria-hidden="true"
+            class="emotion-2"
+          />
+          <div
+            aria-hidden="true"
+            class="emotion-2"
+          />
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

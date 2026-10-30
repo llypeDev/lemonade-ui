@@ -1,0 +1,26 @@
+import { Demo } from '../../../components/Demo'
+
+# Confirm dialog
+
+O confirm dialog pede que o usuário confirme uma ação antes de ela acontecer, como excluir um registro ou publicar uma alteração.
+
+## Boas práticas
+
+- Use-o para ações difíceis de desfazer. Para ações que podem ser desfeitas, prefira executá-las na hora e oferecer "Desfazer" num [Toast](/components/toast).
+- Faça uma pergunta no título, como "Excluir este pedido?", e diga o que acontece na descrição.
+- Dê ao botão de confirmação o nome da ação, como "Excluir pedido", e não "Sim" ou "OK".
+- Use `kind='danger'` para ações que apagam dados.
+
+## Uso
+
+O `useConfirm` retorna uma função `confirm` que abre o diálogo e resolve com `true` quando o usuário confirma, ou `false` quando cancela. Coloque um `ConfirmDialogProvider` uma vez, perto da raiz da aplicação. Com `onConfirm`, o diálogo espera o trabalho terminar, como uma requisição: o botão mostra um _spinner_, e o diálogo continua aberto se a _promise_ falhar.
+
+<Demo src='pages/components/confirm-dialog/ConfirmDialog' />
+
+O `ConfirmDialog` também é um componente próprio, controlado por `open`, `onConfirm` e `onCancel`. Ele recebe um `icon` e _children_, como um checkbox, abaixo da descrição:
+
+<Demo src='pages/components/confirm-dialog/ConfirmDialogComponent' />
+
+## Acessibilidade
+
+O diálogo tem o _role_ `alertdialog`, com o título como nome e a descrição como descrição. Ao abrir, o foco vai para o botão de cancelar, para que um Enter por engano não execute a ação; use `initialFocus='confirm'` para ações seguras. A tecla `Escape` e um clique no fundo cancelam. Enquanto a confirmação está em andamento, o diálogo não fecha. Os textos padrão, "Confirmar" e "Cancelar", vêm do _locale_.

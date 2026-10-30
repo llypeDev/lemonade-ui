@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Toggle button
+
+The toggle button turns an option on and off, such as bold in a text editor, a filter or a favorite.
+
+## Best practices
+
+- Keep the same label in both states: "Bold", not "Turn bold on" and "Turn bold off".
+- For options that are only on or off in a form, prefer a [Switch](/components/switch) or a [Checkbox](/components/checkbox).
+- For a choice between a few options, use a [Segmented control](/components/segmented-control).
+
+## Usage
+
+`ToggleButton` takes the props of `Button`, such as `skin` and `size`, plus `defaultPressed`, or `pressed` and `onPressedChange` for a controlled button. When pressed, it gets the primary color.
+
+<Demo src='pages/components/toggle-button/ToggleButton' />
+
+## Accessibility
+
+The button has `aria-pressed`, so screen readers announce whether it is on. Name icon-only buttons with `aria-label`. In a group of buttons, place them in a [Toolbar](/components/toolbar) to move between them with the arrow keys.

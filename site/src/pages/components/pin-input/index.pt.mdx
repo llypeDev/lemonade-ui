@@ -1,0 +1,26 @@
+import { Demo } from '../../../components/Demo'
+
+# Pin input
+
+O pin input é um campo para códigos curtos, como um código de verificação enviado por SMS ou e-mail, mostrado com uma caixa por caractere.
+
+## Boas práticas
+
+- Diga no rótulo para onde o código foi enviado, como o final do número de telefone.
+- Confira o código assim que ele estiver completo, com `onComplete`, sem botão de enviar.
+- Ofereça um jeito de enviar um novo código e diga por quanto tempo o código vale.
+- Não divida o código em vários campos seus: o pin input já aceita um código colado e o preenchimento automático dos celulares.
+
+## Uso
+
+O `PinInput` recebe um `length` (6 por padrão), um `label` e o código em `defaultValue` ou, controlado, em `value` e `onChange`. O `type='alphanumeric'` aceita letras, e o `mask` esconde os caracteres, como uma senha.
+
+<Demo src='pages/components/pin-input/PinInput' />
+
+<Demo src='pages/components/pin-input/PinInputTypes' />
+
+Colar um código substitui o que está no campo, e espaços e traços são removidos, então "123-456" vira "123456".
+
+## Acessibilidade
+
+Por baixo das caixas há um único campo, com o rótulo como nome, `autocomplete="one-time-code"`, para os celulares oferecerem o código da mensagem, e `inputmode="numeric"`, que abre o teclado numérico. As caixas ficam escondidas dos leitores de tela, que leem o campo como um campo comum. O erro é ligado ao campo com `aria-describedby`.

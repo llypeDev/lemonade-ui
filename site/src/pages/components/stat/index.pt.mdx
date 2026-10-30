@@ -1,0 +1,22 @@
+import { Demo } from '../../../components/Demo'
+
+# Stat
+
+O stat destaca um número, como uma métrica de um dashboard, com seu rótulo e quanto ele mudou em relação a um período anterior.
+
+## Boas práticas
+
+- Mostre poucos stats de cada vez: os que levam o usuário a agir.
+- Arredonde os números: "R$ 12,4 mil" se lê mais rápido que "R$ 12.431,87". Deixe o valor exato para uma página de detalhes.
+- Diga com o que a variação é comparada, como "vs mês passado".
+- Para números que são melhores quando menores, como custos ou erros, use `lowerIsBetter`.
+
+## Uso
+
+O `Stat` recebe um `label`, um `value` já formatado e, se quiser, uma `change` em porcentagem, uma `description` e um `icon`. Uma alta aparece em verde com seta para cima, e uma queda em vermelho com seta para baixo, ou o contrário com `lowerIsBetter`. O `formatChange` muda como a variação é escrita.
+
+<Demo src='pages/components/stat/Stat' />
+
+## Acessibilidade
+
+As setas ficam escondidas dos leitores de tela, que leem a direção como texto, como "Alta de 12,5%" ("Up" e "Down" em inglês, dos textos do _locale_), então a variação não depende da cor.

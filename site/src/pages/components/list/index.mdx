@@ -1,0 +1,25 @@
+import { Demo } from '../../../components/Demo'
+
+# List
+
+The list shows items one below the other, such as people, files or notifications, with a picture, a description and actions. It is lighter than a [Table](/components/table) and fits small screens.
+
+## Best practices
+
+- Use a list when each item is read as a whole; use a table when the user compares values across items.
+- Keep the title short and put the details in the description.
+- Put at most two actions in an item; more actions go in a [Dropdown](/components/dropdown).
+
+## Usage
+
+`List` holds `ListItem`s. Each item takes a `title` and, optionally, a `description`, a `media`, such as an [Avatar](/components/avatar) or an icon, and an `extra` at the end, such as a [Tag](/components/tag) or buttons. `divided` (on by default) draws lines between the items, and `bordered` a box around the list.
+
+<Demo src='pages/components/list/List' />
+
+With `href`, `onClick` or `component`, such as the `Link` of your router, the whole item becomes a link or a button. The `extra` content stays clickable on its own:
+
+<Demo src='pages/components/list/ListLinks' />
+
+## Accessibility
+
+The list is a `ul` element; name it with `aria-label`. An interactive item is a real link or button, with the title and the description as its name. Name icon-only buttons in `extra` with `aria-label`.

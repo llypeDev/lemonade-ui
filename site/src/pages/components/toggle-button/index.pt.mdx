@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Toggle button
+
+O toggle button liga e desliga uma opção, como o negrito num editor de texto, um filtro ou um favorito.
+
+## Boas práticas
+
+- Mantenha o mesmo rótulo nos dois estados: "Negrito", e não "Ligar negrito" e "Desligar negrito".
+- Para opções que só ligam ou desligam num formulário, prefira um [Switch](/components/switch) ou um [Checkbox](/components/checkbox).
+- Para escolher entre poucas opções, use um [Segmented control](/components/segmented-control).
+
+## Uso
+
+O `ToggleButton` recebe as _props_ do `Button`, como `skin` e `size`, mais o `defaultPressed`, ou `pressed` e `onPressedChange` para um botão controlado. Pressionado, ele ganha a cor primária.
+
+<Demo src='pages/components/toggle-button/ToggleButton' />
+
+## Acessibilidade
+
+O botão tem `aria-pressed`, então os leitores de tela anunciam se ele está ligado. Dê nome aos botões só com ícone com `aria-label`. Num grupo de botões, coloque-os numa [Toolbar](/components/toolbar) para passar de um para o outro com as setas.

@@ -1,0 +1,310 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ConfirmDialog should render correctly 1`] = `
+.emotion-11 {
+  max-height: 80vh;
+  border: 1px solid #D3D4DD;
+  box-shadow: 0 8px 10px -5px rgba(0,0,0,0.2),0 6px 30px 5px rgba(0,0,0,0.12),0 16px 24px 2px rgba(0,0,0,0.14);
+  border-radius: 4px;
+  background-color: #FFFFFF;
+  min-width: min(520px,100%);
+  pointer-events: auto;
+  overflow: hidden;
+  display: grid;
+  grid-template-rows: 1fr;
+  width: 520px;
+  max-width: 100%;
+}
+
+.emotion-2 {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(min-content,max-content);
+  gap: 0.5rem;
+  -webkit-align-items: flex-start;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  justify-items: stretch;
+  width: 100%;
+  grid-template-columns: 1fr auto;
+  padding: 1.5rem 1rem 1rem 2rem;
+  z-index: 1;
+  background-color: #FFFFFF;
+  border-bottom: none;
+  grid-row: 1;
+  grid-column: 1 / -1;
+}
+
+.emotion-1 {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(min-content,max-content);
+  gap: 1rem;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  justify-items: stretch;
+}
+
+.emotion-0 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 1.5rem;
+  line-height: 1.5;
+  color: #24252E;
+  font-weight: bold;
+  color: #24252E;
+  font-weight: bold;
+}
+
+.emotion-4 {
+  display: grid;
+  grid-auto-flow: row;
+  grid-auto-rows: minmax(min-content,max-content);
+  gap: 1rem;
+  justify-items: stretch;
+}
+
+.emotion-3 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: #24252E;
+}
+
+.emotion-8 {
+  display: grid;
+  grid-auto-flow: column;
+  grid-auto-columns: minmax(min-content,max-content);
+  gap: 1rem;
+  -webkit-box-pack: end;
+  -webkit-justify-content: flex-end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
+  justify-items: stretch;
+}
+
+.emotion-6 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5rem;
+  color: #24252E;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #FFFFFF;
+  border: 1px solid #696979;
+  border-radius: 4px;
+  color: #24252E;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  font-size: 0.875rem;
+  padding: calc(0.75rem - 1px) 1rem;
+  min-width: 9rem;
+}
+
+.emotion-6 > span {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.emotion-6:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
+}
+
+.emotion-6:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
+.emotion-6:not(:disabled):hover {
+  background-color: #F0F0F5;
+}
+
+.emotion-7 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5rem;
+  color: #24252E;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #FFFFFF;
+  border: 1px solid #696979;
+  border-radius: 4px;
+  color: #24252E;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background-color: #D01E29;
+  color: #FFFFFF;
+  border: 1px solid #D01E29;
+  font-size: 0.875rem;
+  padding: calc(0.75rem - 1px) 1rem;
+  min-width: 9rem;
+}
+
+.emotion-7 > span {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.emotion-7:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
+}
+
+.emotion-7:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
+.emotion-7:not(:disabled):hover {
+  background-color: #F0F0F5;
+}
+
+.emotion-7:not(:disabled):hover {
+  background-color: #A4151E;
+}
+
+.emotion-7:focus {
+  box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #D01E29;
+}
+
+.emotion-10 {
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  grid-template-rows: auto 1fr auto;
+  height: 100%;
+  min-height: 0;
+}
+
+.emotion-5 {
+  padding: 1rem 2rem 2rem 2rem;
+  overflow: auto;
+  grid-column: 2;
+  grid-row: 2;
+  padding-top: 0;
+}
+
+.emotion-9 {
+  background-color: #F0F0F5;
+  padding: 1rem;
+  border-bottom-left-radius: 4px;
+  border-bottom-right-radius: 4px;
+  height: 5rem;
+  width: 100%;
+  border-top: 1px solid #D3D4DD;
+  grid-column: 1 / -1;
+  grid-row: 3;
+}
+
+<div
+  aria-describedby="confirm-dialog-description-abc"
+  aria-labelledby="confirm-dialog-title-abc"
+  aria-modal="true"
+  class="emotion-11"
+  role="alertdialog"
+>
+  <div
+    class="emotion-10"
+  >
+    <div
+      class="emotion-2"
+      data-testid="modal-header"
+    >
+      <div
+        class="emotion-1"
+      >
+        <h1
+          class="emotion-0"
+          id="confirm-dialog-title-abc"
+        >
+          Delete this order?
+        </h1>
+      </div>
+    </div>
+    <div
+      class="emotion-5"
+    >
+      <div
+        class="emotion-4"
+      >
+        <p
+          class="emotion-3"
+          id="confirm-dialog-description-abc"
+        >
+          The order and its history will be deleted for good.
+        </p>
+      </div>
+    </div>
+    <div
+      class="emotion-9"
+    >
+      <div
+        class="emotion-8"
+      >
+        <button
+          class="emotion-6"
+          type="button"
+        >
+          <span>
+            Cancel
+          </span>
+        </button>
+        <button
+          class="emotion-7"
+          type="button"
+        >
+          <span>
+            Delete order
+          </span>
+        </button>
+      </div>
+    </div>
+  </div>
+</div>
+`;

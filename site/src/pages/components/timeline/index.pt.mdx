@@ -1,0 +1,26 @@
+import { Demo } from '../../../components/Demo'
+
+# Timeline
+
+A timeline mostra eventos em ordem de tempo, como o histórico de status de um pedido ou as atividades de um registro.
+
+## Boas práticas
+
+- Mantenha uma única ordem, do mais novo ou do mais antigo, em toda a aplicação.
+- Escreva no título o que aconteceu, como "Pagamento aprovado", e deixe os detalhes para a descrição.
+- Use o mesmo formato de data em todos os itens, e tempos relativos, como "há 2 horas", só para eventos recentes.
+- Não dependa só da cor: diga no título quando algo deu errado.
+
+## Uso
+
+A `Timeline` recebe os `items`, cada um com um `title` e, se quiser, uma `description`, um `time` com seu `dateTime`, um `icon` e um `type`, que dá a cor do marcador.
+
+<Demo src='pages/components/timeline/Timeline' />
+
+Sem ícone, o marcador é um ponto:
+
+<Demo src='pages/components/timeline/TimelineDots' />
+
+## Acessibilidade
+
+A timeline é uma lista ordenada, então os leitores de tela dizem quantos eventos existem. Dê nome a ela com `aria-label`. A data é um elemento `time` com o atributo `datetime`, e os marcadores ficam escondidos dos leitores de tela.
