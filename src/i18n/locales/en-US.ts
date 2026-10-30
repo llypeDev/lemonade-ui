@@ -6,6 +6,12 @@ const locale = {
     openMenu: 'Open menu',
     closeMenu: 'Close menu',
   },
+  avatarGroup: {
+    more: '{count} more',
+  },
+  banner: {
+    close: 'Close announcement',
+  },
   calendar: {
     nextMonth: 'Next month',
     previousMonth: 'Previous month',
@@ -14,6 +20,14 @@ const locale = {
   },
   codeBlock: {
     label: 'Code',
+  },
+  commandPalette: {
+    label: 'Command palette',
+    placeholder: 'Search pages and actions',
+    empty: 'No results found',
+    navigate: 'to navigate',
+    select: 'to select',
+    close: 'to close',
   },
   confirmDialog: {
     confirm: 'Confirm',
@@ -30,6 +44,11 @@ const locale = {
   expandableText: {
     more: 'Show more',
     less: 'Show less',
+  },
+  inlineEdit: {
+    edit: 'Edit',
+    save: 'Save',
+    cancel: 'Cancel',
   },
   monthInput: {
     placeholder: 'mm/yyyy',

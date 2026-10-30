@@ -1,0 +1,129 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`InlineEdit should render correctly 1`] = `
+.emotion-4 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: #24252E;
+  min-width: 0;
+}
+
+.emotion-3 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 0.5rem;
+  max-width: 100%;
+  box-sizing: border-box;
+  min-height: 2rem;
+  margin: 0;
+  padding: calc(0.25rem - 1px) calc(0.5rem - 1px);
+  margin-left: calc(-0.5rem + 1px);
+  border: 1px solid transparent;
+  border-radius: 2px;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+  cursor: text;
+  outline: none;
+}
+
+.emotion-3:hover {
+  background: #F0F0F5;
+  border-color: #D3D4DD;
+}
+
+.emotion-3:hover svg,
+.emotion-3:focus svg {
+  opacity: 1;
+}
+
+.emotion-3:focus {
+  box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
+.emotion-0 {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.emotion-1 {
+  fill: currentColor;
+  font-size: 1rem;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  opacity: 0;
+  color: #696979;
+  -webkit-transition: opacity .2s;
+  transition: opacity .2s;
+}
+
+@media (hover:none) {
+  .emotion-1 {
+    opacity: 1;
+  }
+}
+
+.emotion-2 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+<div>
+  <div
+    class="emotion-4"
+  >
+    <button
+      class="emotion-3"
+      type="button"
+    >
+      <span
+        class="emotion-0"
+      >
+        Lemonade website
+      </span>
+      <svg
+        aria-hidden="true"
+        class="emotion-1"
+        height="1em"
+        role="img"
+        viewBox="0 0 24 24"
+        width="1em"
+      >
+        <path
+          clip-rule="evenodd"
+          d="M17.005 2.755c.948-.94 1.89-.94 2.828-.001 1.407 1.409-.002-.004 1.408 1.408.94.94.94 1.883-.003 2.825l-2.83 2.83-4.232-4.233 2.829-2.83zm1.411 1.41L17.001 5.58l1.411 1.41 1.415-1.413-1.411-1.411v-.001zM12.929 6.81l4.233 4.233L7.088 21.117l-3.841.784a1.163 1.163 0 01-.89-.195c-.266-.186-.37-.516-.312-.993l.81-3.828L12.93 6.81h-.001zm0 2.84l-7.95 7.952-.71 2.12 2.12-.71 7.952-7.95-1.411-1.411-.001-.001z"
+          fill-rule="evenodd"
+        />
+      </svg>
+      <span
+        class="emotion-2"
+      >
+        , 
+        Edit
+         
+        Project name
+      </span>
+    </button>
+  </div>
+  <button>
+    Elsewhere
+  </button>
+</div>
+`;

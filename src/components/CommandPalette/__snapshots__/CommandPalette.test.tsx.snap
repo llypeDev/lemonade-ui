@@ -1,0 +1,483 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`CommandPalette should render correctly 1`] = `
+@keyframes animation-0 {
+  from {
+    opacity: 0;
+    -webkit-transform: translateY(-0.5rem);
+    -ms-transform: translateY(-0.5rem);
+    transform: translateY(-0.5rem);
+  }
+
+  to {
+    opacity: 1;
+    -webkit-transform: none;
+    -ms-transform: none;
+    transform: none;
+  }
+}
+
+.emotion-33 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: #24252E;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  width: 100%;
+  max-width: 40rem;
+  max-height: 70vh;
+  overflow: hidden;
+  background: #FFFFFF;
+  border: 1px solid #D3D4DD;
+  border-radius: 4px;
+  box-shadow: 0 8px 10px -5px rgba(0,0,0,0.2),0 6px 30px 5px rgba(0,0,0,0.12),0 16px 24px 2px rgba(0,0,0,0.14);
+  pointer-events: auto;
+  -webkit-animation: animation-0 .15s ease-out;
+  animation: animation-0 .15s ease-out;
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .emotion-33 {
+    -webkit-animation: none;
+    animation: none;
+  }
+}
+
+.emotion-2 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 0 1rem;
+  border-bottom: 1px solid #D3D4DD;
+}
+
+.emotion-1 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  min-width: 0;
+  height: 3.5rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: #24252E;
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 1rem;
+}
+
+.emotion-1::-webkit-input-placeholder {
+  color: #696979;
+}
+
+.emotion-1::-moz-placeholder {
+  color: #696979;
+}
+
+.emotion-1:-ms-input-placeholder {
+  color: #696979;
+}
+
+.emotion-1::placeholder {
+  color: #696979;
+}
+
+.emotion-26 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  min-height: 0;
+  overflow-y: auto;
+  padding: 0.5rem;
+}
+
+.emotion-3 {
+  padding: 0.5rem 0.5rem 0.25rem;
+  color: #696979;
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  -webkit-letter-spacing: 0.04em;
+  -moz-letter-spacing: 0.04em;
+  -ms-letter-spacing: 0.04em;
+  letter-spacing: 0.04em;
+}
+
+.emotion-11 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 2.5rem;
+  padding: 0.375rem 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.emotion-6 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  min-width: 0;
+}
+
+.emotion-5 {
+  font-weight: bold;
+}
+
+.emotion-9 {
+  color: #696979;
+}
+
+.emotion-32 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  gap: 1rem;
+  padding: 0.5rem 1rem;
+  border-top: 1px solid #D3D4DD;
+  background: #F0F0F5;
+  color: #696979;
+  font-size: 0.75rem;
+}
+
+.emotion-7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 0.75rem;
+  min-height: 2.5rem;
+  padding: 0.375rem 0.5rem;
+  border-radius: 4px;
+  cursor: pointer;
+  background: #F5FADB;
+  color: #2E3800;
+  box-shadow: inset 3px 0 0 #5E7300;
+}
+
+.emotion-0 {
+  fill: currentColor;
+  font-size: 1.25rem;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  color: #696979;
+}
+
+.emotion-4 {
+  fill: currentColor;
+  font-size: 1.25rem;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+}
+
+.emotion-15 {
+  display: inline-block;
+  box-sizing: border-box;
+  min-width: 1.5rem;
+  padding: 0 0.375rem;
+  font-family: 'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace;
+  font-size: 0.75rem;
+  font-weight: normal;
+  line-height: 1.25rem;
+  text-align: center;
+  white-space: nowrap;
+  color: #24252E;
+  background: #F0F0F5;
+  border: 1px solid #AAAAB9;
+  border-bottom-width: 2px;
+  border-radius: 4px;
+}
+
+.emotion-18 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 0.25rem;
+  font-family: "IBM Plex Sans",sans-serif;
+  white-space: nowrap;
+}
+
+.emotion-16 {
+  color: #696979;
+  font-size: 0.75rem;
+}
+
+<div
+  aria-label="Command palette"
+  aria-modal="true"
+  class="emotion-33"
+  role="dialog"
+>
+  <div
+    class="emotion-2"
+  >
+    <svg
+      aria-hidden="true"
+      class="emotion-0"
+      height="1em"
+      role="img"
+      viewBox="0 0 24 24"
+      width="1em"
+    >
+      <path
+        clip-rule="evenodd"
+        d="M14.605 13.194l7 6.998a1 1 0 01-1.414 1.414h-.001l-6.997-7a7 7 0 111.412-1.412zM9 14A5 5 0 109 4a5 5 0 000 10z"
+        fill-rule="evenodd"
+      />
+    </svg>
+    <input
+      aria-activedescendant="command-palette-abc-orders"
+      aria-autocomplete="list"
+      aria-controls="command-palette-abc-listbox"
+      aria-expanded="true"
+      aria-label="Search pages and actions"
+      autocomplete="off"
+      class="emotion-1"
+      placeholder="Search pages and actions"
+      role="combobox"
+      spellcheck="false"
+      value=""
+    />
+  </div>
+  <div
+    class="emotion-26"
+    id="command-palette-abc-listbox"
+    role="listbox"
+  >
+    <div
+      aria-labelledby="command-palette-abc-group-Pages"
+      role="group"
+    >
+      <div
+        class="emotion-3"
+        id="command-palette-abc-group-Pages"
+        role="presentation"
+      >
+        Pages
+      </div>
+      <div
+        aria-selected="true"
+        class="emotion-7"
+        id="command-palette-abc-orders"
+        role="option"
+      >
+        <svg
+          aria-hidden="true"
+          class="emotion-4"
+          height="1em"
+          role="img"
+          viewBox="0 0 24 24"
+          width="1em"
+        >
+          <path
+            d="M9.02 20a2 2 0 11-4 0 2 2 0 014 0zM21.025 20a2 2 0 11-4 0 2 2 0 014 0z"
+          />
+          <path
+            clip-rule="evenodd"
+            d="M2.004 2.996a1 1 0 011-1h1.94a1 1 0 01.976.778l.504 2.223h14.58a1 1 0 01.934 1.357l-2.68 7a1 1 0 01-.934.643H7.234a1 1 0 01-.975-.776L4.65 6.218l-.504-2.222H3.004a1 1 0 01-1-1zm4.877 4l1.149 5h9.606l1.914-5H6.881z"
+            fill-rule="evenodd"
+          />
+          <path
+            clip-rule="evenodd"
+            d="M8.316 12.415l1.633 1.154L8.937 15h10.067a1 1 0 110 2H7.006a1 1 0 01-.817-1.577l2.127-3.008z"
+            fill-rule="evenodd"
+          />
+        </svg>
+        <span
+          class="emotion-6"
+        >
+          <span
+            class="emotion-5"
+          >
+            Orders
+          </span>
+        </span>
+      </div>
+      <div
+        aria-selected="false"
+        class="emotion-11"
+        id="command-palette-abc-customers"
+        role="option"
+      >
+        <span
+          class="emotion-6"
+        >
+          <span
+            class="emotion-5"
+          >
+            Customers
+          </span>
+          <span
+            class="emotion-9"
+          >
+            People who bought
+          </span>
+        </span>
+      </div>
+    </div>
+    <div
+      aria-labelledby="command-palette-abc-group-Actions"
+      role="group"
+    >
+      <div
+        class="emotion-3"
+        id="command-palette-abc-group-Actions"
+        role="presentation"
+      >
+        Actions
+      </div>
+      <div
+        aria-selected="false"
+        class="emotion-11"
+        id="command-palette-abc-new-order"
+        role="option"
+      >
+        <span
+          class="emotion-6"
+        >
+          <span
+            class="emotion-5"
+          >
+            New order
+          </span>
+        </span>
+        <kbd
+          aria-hidden="true"
+          class="emotion-18"
+        >
+          <kbd
+            class="emotion-15"
+          >
+            Ctrl
+          </kbd>
+          <span
+            class="emotion-16"
+          >
+            +
+          </span>
+          <kbd
+            class="emotion-15"
+          >
+            N
+          </kbd>
+        </kbd>
+      </div>
+      <div
+        aria-selected="false"
+        class="emotion-11"
+        id="command-palette-abc-theme"
+        role="option"
+      >
+        <span
+          class="emotion-6"
+        >
+          <span
+            class="emotion-5"
+          >
+            Switch theme
+          </span>
+        </span>
+      </div>
+      <div
+        aria-selected="false"
+        class="emotion-11"
+        id="command-palette-abc-export"
+        role="option"
+      >
+        <span
+          class="emotion-6"
+        >
+          <span
+            class="emotion-5"
+          >
+            Exportação
+          </span>
+        </span>
+      </div>
+    </div>
+  </div>
+  <div
+    class="emotion-27"
+    role="status"
+  />
+  <div
+    aria-hidden="true"
+    class="emotion-32"
+  >
+    <span>
+      <kbd
+        class="emotion-15"
+      >
+        ↑
+      </kbd>
+       
+      <kbd
+        class="emotion-15"
+      >
+        ↓
+      </kbd>
+       
+      to navigate
+    </span>
+    <span>
+      <kbd
+        class="emotion-15"
+      >
+        Enter
+      </kbd>
+       
+      to select
+    </span>
+    <span>
+      <kbd
+        class="emotion-15"
+      >
+        Esc
+      </kbd>
+       
+      to close
+    </span>
+  </div>
+</div>
+`;

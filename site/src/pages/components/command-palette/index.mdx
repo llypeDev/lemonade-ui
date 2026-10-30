@@ -1,0 +1,22 @@
+import { Demo } from '../../../components/Demo'
+
+# Command palette
+
+The command palette is a search box that finds the pages and actions of the application and runs them. Users open it with Ctrl + K, or ⌘ + K on Mac.
+
+## Best practices
+
+- Offer it as a shortcut, never as the only way to reach a page or an action.
+- Name commands as the user would search for them, and add synonyms in `keywords`.
+- Group the commands, such as "Pages" and "Actions", and show their shortcuts, so users learn them.
+- Show a button to open it too, so mouse and touch users find it.
+
+## Usage
+
+`CommandPalette` is controlled with `open` and `onOpenChange`. It takes the `items`, each with an `id`, a `label`, an `onSelect` and, optionally, a `description`, an `icon`, a `group`, a `shortcut` and `keywords`. The search ignores case and accents. `hotkey={false}` turns off the Ctrl + K shortcut.
+
+<Demo src='pages/components/command-palette/CommandPalette' />
+
+## Accessibility
+
+The palette is a modal dialog that traps the focus. The search box is a combobox that controls a listbox of options, grouped by `group`: the up and down arrows move through the options, Enter runs the active one and Escape closes. The active option is announced through `aria-activedescendant`, and "No results found" is announced when nothing matches. The texts come from the locale strings.

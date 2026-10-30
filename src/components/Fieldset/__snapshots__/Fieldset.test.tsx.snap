@@ -1,0 +1,71 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Fieldset should render correctly 1`] = `
+.emotion-4 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: #24252E;
+  min-width: 0;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.emotion-1 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #24252E;
+  font-weight: bold;
+  padding: 0;
+  margin-bottom: 0.25rem;
+}
+
+.emotion-0 {
+  color: #D01E29;
+  margin-left: 0.25rem;
+}
+
+.emotion-2 {
+  color: #696979;
+}
+
+.emotion-3 {
+  display: grid;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+<div>
+  <fieldset
+    aria-describedby="fieldset-description-abc"
+    class="emotion-4"
+  >
+    <legend
+      class="emotion-1"
+    >
+      Shipping address
+      <span
+        class="emotion-0"
+        title="Required field"
+      >
+        *
+      </span>
+    </legend>
+    <div
+      class="emotion-2"
+      id="fieldset-description-abc"
+    >
+      Where we deliver the order.
+    </div>
+    <div
+      class="emotion-3"
+    >
+      <input
+        aria-label="Street"
+      />
+    </div>
+  </fieldset>
+</div>
+`;

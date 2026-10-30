@@ -1,0 +1,126 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`AvatarGroup should render correctly 1`] = `
+.emotion-3 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  vertical-align: middle;
+  padding-left: 0.5rem;
+}
+
+.emotion-2 {
+  margin-left: -0.5rem;
+  box-shadow: 0 0 0 2px #FFFFFF;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  box-sizing: border-box;
+  width: 2.5rem;
+  height: 2.5rem;
+  border-radius: 50%;
+  background: #F0F0F5;
+  color: #24252E;
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.875rem;
+  font-weight: bold;
+  line-height: 1;
+  cursor: default;
+}
+
+.emotion-0 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  overflow: hidden;
+  border-radius: 50%;
+  background: #F5FADB;
+  color: #2E3800;
+  font-family: "IBM Plex Sans",sans-serif;
+  font-weight: bold;
+  line-height: 1;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  vertical-align: middle;
+  width: 2.5rem;
+  height: 2.5rem;
+  font-size: 0.875rem;
+  margin-left: -0.5rem;
+  box-shadow: 0 0 0 2px #FFFFFF;
+}
+
+<div>
+  <div
+    aria-label="Team"
+    class="emotion-3"
+    role="group"
+  >
+    <span
+      aria-label="Ana Souza"
+      class="emotion-0"
+      role="img"
+    >
+      <span
+        aria-hidden="true"
+      >
+        AS
+      </span>
+    </span>
+    <span
+      aria-label="Bruno Lima"
+      class="emotion-0"
+      role="img"
+    >
+      <span
+        aria-hidden="true"
+      >
+        BL
+      </span>
+    </span>
+    <span
+      aria-label="4 more: Carla Dias, Diego Rocha, Elisa Melo, Fábio Cruz"
+      class="emotion-2"
+      role="img"
+      title="Carla Dias, Diego Rocha, Elisa Melo, Fábio Cruz"
+    >
+      <span
+        aria-hidden="true"
+      >
+        +
+        4
+      </span>
+    </span>
+  </div>
+</div>
+`;

@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Loading overlay
+
+The loading overlay covers part of the page while it loads, such as a table after a new search or a form while it saves, keeping its layout.
+
+## Best practices
+
+- Use it when the content is already on the page and loads again. For content that loads the first time, use a [Skeleton](/components/skeleton).
+- Cover only the part that loads, not the whole page.
+- Say what is loading in the `label` when it takes more than a moment.
+
+## Usage
+
+`LoadingOverlay` wraps the content and covers it while `loading` is true, with a spinning [Progress circle](/components/progress-circle) and an optional `label` below it.
+
+<Demo src='pages/components/loading-overlay/LoadingOverlay' />
+
+## Accessibility
+
+While loading, the content has `aria-busy` and the `inert` attribute, so it leaves the tab order and cannot be clicked. A status message announces the label, or "Loading" (from the locale strings), to screen readers.

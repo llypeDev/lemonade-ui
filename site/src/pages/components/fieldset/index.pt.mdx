@@ -1,0 +1,23 @@
+import { Demo } from '../../../components/Demo'
+
+# Fieldset
+
+O fieldset agrupa campos relacionados de um formulário, como um endereço ou um conjunto de checkboxes, sob uma legenda que os nomeia.
+
+## Boas práticas
+
+- Agrupe campos que só fazem sentido juntos, como as partes de um endereço ou as opções de uma pergunta.
+- Escreva a legenda como o título do grupo, ou como a pergunta que as opções respondem.
+- Coloque em `error` os erros sobre o grupo como um todo, como "Escolha pelo menos um dia"; os erros de um campo ficam no próprio campo.
+
+## Uso
+
+O `Fieldset` recebe uma `legend`, uma `description`, um `error` e os campos como _children_. O `required` marca a legenda, e o `disabled` desabilita todos os campos dentro dele.
+
+<Demo src='pages/components/fieldset/Fieldset' />
+
+<Demo src='pages/components/fieldset/FieldsetError' />
+
+## Acessibilidade
+
+O grupo é um elemento `fieldset` com uma `legend`, então os leitores de tela leem a legenda antes dos campos do grupo. A descrição e o erro descrevem o grupo com `aria-describedby`, e o erro é anunciado quando aparece.

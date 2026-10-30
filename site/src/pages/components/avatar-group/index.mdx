@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Avatar group
+
+The avatar group shows the [Avatars](/components/avatar) of a group of people overlapping, such as the members of a project, with a "+N" for the ones that do not fit.
+
+## Best practices
+
+- Show few avatars, usually up to four, and let the "+N" sum up the rest.
+- Link the group to the full list of people when the user may need it.
+- Use the same size for every avatar of the group.
+
+## Usage
+
+`AvatarGroup` takes the avatars as children, a `max` (4 by default) and a `size`, given to every avatar. The "+N" takes one of the places, so it never stands for a single person.
+
+<Demo src='pages/components/avatar-group/AvatarGroup' />
+
+## Accessibility
+
+The group has the `group` role; name it with `aria-label`, such as "Project members". Each avatar is named by its person, and the "+N" by the names it sums up, such as "3 more: Diego Rocha, Elisa Melo, Fábio Cruz" (from the locale strings), which also show as its tooltip.

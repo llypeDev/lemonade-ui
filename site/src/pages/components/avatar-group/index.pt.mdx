@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Avatar group
+
+O avatar group mostra os [Avatars](/components/avatar) de um grupo de pessoas sobrepostos, como os membros de um projeto, com um "+N" para os que não cabem.
+
+## Boas práticas
+
+- Mostre poucos avatares, normalmente até quatro, e deixe o "+N" resumir o resto.
+- Ligue o grupo à lista completa de pessoas quando o usuário puder precisar dela.
+- Use o mesmo tamanho para todos os avatares do grupo.
+
+## Uso
+
+O `AvatarGroup` recebe os avatares como _children_, um `max` (4 por padrão) e um `size`, aplicado a todos os avatares. O "+N" ocupa um dos lugares, então nunca representa uma única pessoa.
+
+<Demo src='pages/components/avatar-group/AvatarGroup' />
+
+## Acessibilidade
+
+O grupo tem o _role_ `group`; dê nome a ele com `aria-label`, como "Membros do projeto". Cada avatar leva o nome da pessoa, e o "+N" leva os nomes que resume, como "mais 3: Diego Rocha, Elisa Melo, Fábio Cruz" (dos textos do _locale_), que também aparecem como _tooltip_.
