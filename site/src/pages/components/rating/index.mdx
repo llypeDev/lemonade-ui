@@ -1,0 +1,25 @@
+import { Demo } from '../../../components/Demo'
+
+# Rating
+
+The rating shows or takes a rating with stars, such as the reviews of a product or a satisfaction survey.
+
+## Best practices
+
+- Ask a clear question next to the stars, such as "How was your delivery?".
+- Show the number and how many reviews next to a read-only rating, such as "4.5 (1,204 reviews)".
+- Use five stars, unless the product already uses another scale.
+
+## Usage
+
+`Rating` takes the rating in `defaultValue` or, controlled, in `value` and `onChange`. `allowClear` lets the user remove the rating by picking the same star again, `max` changes the number of stars and `size` their size. With `name`, the rating is sent with a form.
+
+<Demo src='pages/components/rating/Rating' />
+
+With `readOnly`, the rating only shows the value, which can have decimals:
+
+<Demo src='pages/components/rating/RatingReadOnly' />
+
+## Accessibility
+
+The rating is a group of radio buttons, named with `aria-label` or `aria-labelledby`, with one radio for each star, such as "3 stars": the arrow keys change the rating. A read-only rating is an image named by its value, such as "4.5 of 5 stars". The labels come from the locale strings.

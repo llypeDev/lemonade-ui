@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Kbd
+
+The kbd shows a key or a keyboard shortcut, such as Ctrl + K, in a text, a tooltip or a menu.
+
+## Best practices
+
+- Write the keys as they appear on the keyboard, such as "Ctrl", "Shift" and "Enter".
+- On Mac, show the Mac keys, such as "⌘" for Command.
+- Mention shortcuts as a help, never as the only way to do something.
+
+## Usage
+
+`Kbd` shows its children as a key. For a shortcut, pass the `keys`, such as `['Ctrl', 'K']`; they are joined by the `separator`, "+" by default.
+
+<Demo src='pages/components/kbd/Kbd' />
+
+## Accessibility
+
+The key is a `kbd` element. A shortcut is a `kbd` with a `kbd` for each key, as the HTML specification suggests, so screen readers that support it read the keys as keys.

@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Tree view
+
+The tree view shows nested items that expand and collapse, such as folders, categories or the parts of an organization.
+
+## Best practices
+
+- Use it when the hierarchy matters to the user. For two levels of navigation, a [Side nav](/components/side-nav) is simpler.
+- Keep the labels short and give folders and files different icons.
+- Open the path to the selected item, so the user sees where it is.
+
+## Usage
+
+`TreeView` takes the `items`, each with an `id`, a `label`, and optionally an `icon`, `children` and `disabled`. The expanded nodes are in `expanded` and `onExpandedChange` (or `defaultExpanded`), and the selected one in `selected` and `onSelectedChange` (or `defaultSelected`). A click on a node selects it and, if it has children, expands or collapses it.
+
+<Demo src='pages/components/tree-view/TreeView' />
+
+## Accessibility
+
+The tree follows the ARIA tree pattern. It is a single stop of the Tab key; inside it, the up and down arrows move between the visible nodes, the right arrow expands a node or goes to its first child, and the left arrow collapses it or goes to its parent. Home and End go to the first and the last node, Enter and Space select, and typing a letter goes to the next node that starts with it. Each node has its level, position and state, and is named by its own label. Name the tree with `aria-label`.

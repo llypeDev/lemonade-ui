@@ -12,6 +12,9 @@ const locale = {
     nextYear: 'Next year',
     previousYear: 'Previous year',
   },
+  codeBlock: {
+    label: 'Code',
+  },
   confirmDialog: {
     confirm: 'Confirm',
     cancel: 'Cancel',
@@ -23,6 +26,10 @@ const locale = {
   },
   dateInput: {
     placeholder: 'mm/dd/yyyy',
+  },
+  expandableText: {
+    more: 'Show more',
+    less: 'Show less',
   },
   monthInput: {
     placeholder: 'mm/yyyy',
@@ -52,6 +59,14 @@ const locale = {
     previousPage: 'Previous page',
     nextPage: 'Next page',
     currentPage: 'Current page',
+  },
+  progressCircle: {
+    loading: 'Loading',
+  },
+  rating: {
+    star: 'star',
+    stars: 'stars',
+    of: 'of',
   },
   dateRangeField: {
     separator: 'until',

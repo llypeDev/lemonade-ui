@@ -1,0 +1,370 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TreeView should render correctly 1`] = `
+.emotion-25 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: #24252E;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.emotion-14 {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.emotion-8 {
+  outline: none;
+}
+
+.emotion-8:focus > div {
+  box-shadow: inset 0 0 0 2px #5E7300;
+}
+
+.emotion-4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2rem;
+  padding-right: 0.5rem;
+  border-radius: 4px;
+  color: #24252E;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.emotion-4:hover {
+  background: #F0F0F5;
+}
+
+.emotion-1 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  width: 1rem;
+}
+
+.emotion-3 {
+  min-width: 0;
+  overflow-wrap: anywhere;
+}
+
+.emotion-7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2rem;
+  padding-right: 0.5rem;
+  border-radius: 4px;
+  color: #24252E;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  background: #F5FADB;
+  color: #455400;
+  font-weight: bold;
+}
+
+.emotion-7:hover {
+  background: #F0F0F5;
+}
+
+.emotion-7:hover {
+  background: #F5FADB;
+}
+
+.emotion-23 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 0.5rem;
+  min-height: 2rem;
+  padding-right: 0.5rem;
+  border-radius: 4px;
+  color: #24252E;
+  cursor: pointer;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  color: #AAAAB9;
+  cursor: not-allowed;
+}
+
+.emotion-23:hover {
+  background: #F0F0F5;
+}
+
+.emotion-0 {
+  fill: currentColor;
+  font-size: 1rem;
+  -webkit-transition: -webkit-transform .2s;
+  -webkit-transition: transform .2s;
+  transition: transform .2s;
+  -webkit-transform: rotate(90deg);
+  -ms-transform: rotate(90deg);
+  transform: rotate(90deg);
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .emotion-0 {
+    -webkit-transition: none;
+    transition: none;
+  }
+}
+
+.emotion-2 {
+  fill: currentColor;
+  font-size: 1.25rem;
+}
+
+.emotion-9 {
+  fill: currentColor;
+  font-size: 1rem;
+  -webkit-transition: -webkit-transform .2s;
+  -webkit-transition: transform .2s;
+  transition: transform .2s;
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .emotion-9 {
+    -webkit-transition: none;
+    transition: none;
+  }
+}
+
+<div>
+  <ul
+    aria-label="Files"
+    class="emotion-25"
+    role="tree"
+  >
+    <li
+      aria-expanded="true"
+      aria-labelledby="tree-abc-docs-label"
+      aria-level="1"
+      aria-posinset="1"
+      aria-selected="false"
+      aria-setsize="3"
+      class="emotion-8"
+      data-id="docs"
+      role="treeitem"
+      tabindex="-1"
+    >
+      <div
+        class="emotion-4"
+        style="padding-left: 0.5rem;"
+      >
+        <span
+          class="emotion-1"
+        >
+          <svg
+            aria-hidden="true"
+            class="emotion-0"
+            height="1em"
+            role="img"
+            viewBox="0 0 24 24"
+            width="1em"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M8.294 7.707a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5.001a1 1 0 01-1.415-1.414L12.587 12 8.294 7.707z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+        <svg
+          aria-hidden="true"
+          class="emotion-2"
+          height="1em"
+          role="img"
+          viewBox="0 0 24 24"
+          width="1em"
+        >
+          <path
+            d="M4 22c-2 0-2-2-2-2V4c0-2 2-2 2-2h4.706c.294 0 .47.118.559.177L12 4h8c2 0 2 2 2 2v14s0 2-2 2H4zm0-2h16V6h-8c-.053 0-.205-.08-.414-.208C10.75 5.281 9 4 9 4H4v16z"
+          />
+        </svg>
+        <span
+          class="emotion-3"
+          id="tree-abc-docs-label"
+        >
+          Documents
+        </span>
+      </div>
+      <ul
+        class="emotion-14"
+        role="group"
+      >
+        <li
+          aria-labelledby="tree-abc-contract-label"
+          aria-level="2"
+          aria-posinset="1"
+          aria-selected="true"
+          aria-setsize="2"
+          class="emotion-8"
+          data-id="contract"
+          role="treeitem"
+          tabindex="0"
+        >
+          <div
+            class="emotion-7"
+            style="padding-left: 2rem;"
+          >
+            <span
+              class="emotion-1"
+            />
+            <span
+              class="emotion-3"
+              id="tree-abc-contract-label"
+            >
+              Contract.pdf
+            </span>
+          </div>
+        </li>
+        <li
+          aria-expanded="false"
+          aria-labelledby="tree-abc-invoices-label"
+          aria-level="2"
+          aria-posinset="2"
+          aria-selected="false"
+          aria-setsize="2"
+          class="emotion-8"
+          data-id="invoices"
+          role="treeitem"
+          tabindex="-1"
+        >
+          <div
+            class="emotion-4"
+            style="padding-left: 2rem;"
+          >
+            <span
+              class="emotion-1"
+            >
+              <svg
+                aria-hidden="true"
+                class="emotion-9"
+                height="1em"
+                role="img"
+                viewBox="0 0 24 24"
+                width="1em"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M8.294 7.707a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5.001a1 1 0 01-1.415-1.414L12.587 12 8.294 7.707z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </span>
+            <span
+              class="emotion-3"
+              id="tree-abc-invoices-label"
+            >
+              Invoices
+            </span>
+          </div>
+        </li>
+      </ul>
+    </li>
+    <li
+      aria-expanded="false"
+      aria-labelledby="tree-abc-photos-label"
+      aria-level="1"
+      aria-posinset="2"
+      aria-selected="false"
+      aria-setsize="3"
+      class="emotion-8"
+      data-id="photos"
+      role="treeitem"
+      tabindex="-1"
+    >
+      <div
+        class="emotion-4"
+        style="padding-left: 0.5rem;"
+      >
+        <span
+          class="emotion-1"
+        >
+          <svg
+            aria-hidden="true"
+            class="emotion-9"
+            height="1em"
+            role="img"
+            viewBox="0 0 24 24"
+            width="1em"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M8.294 7.707a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5.001a1 1 0 01-1.415-1.414L12.587 12 8.294 7.707z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+        <span
+          class="emotion-3"
+          id="tree-abc-photos-label"
+        >
+          Photos
+        </span>
+      </div>
+    </li>
+    <li
+      aria-disabled="true"
+      aria-labelledby="tree-abc-notes-label"
+      aria-level="1"
+      aria-posinset="3"
+      aria-selected="false"
+      aria-setsize="3"
+      class="emotion-8"
+      data-id="notes"
+      role="treeitem"
+      tabindex="-1"
+    >
+      <div
+        class="emotion-23"
+        style="padding-left: 0.5rem;"
+      >
+        <span
+          class="emotion-1"
+        />
+        <span
+          class="emotion-3"
+          id="tree-abc-notes-label"
+        >
+          Notes.txt
+        </span>
+      </div>
+    </li>
+  </ul>
+</div>
+`;

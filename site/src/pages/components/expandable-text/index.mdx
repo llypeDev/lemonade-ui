@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Expandable text
+
+The expandable text cuts a long text after a few lines, with a button that shows the rest, such as a description, a review or a comment.
+
+## Best practices
+
+- Cut texts the user may skip, such as reviews in a list. Don't hide information the user needs to decide.
+- Show enough lines to give the idea of the text, usually three.
+- Keep the text short when you can: cutting is not a reason to write more.
+
+## Usage
+
+`ExpandableText` takes the text as children and the number of `lines` shown while collapsed. The button only shows up when the text does not fit. `defaultExpanded`, or `expanded` and `onExpandedChange`, control the state, and `moreLabel` and `lessLabel` change the button.
+
+<Demo src='pages/components/expandable-text/ExpandableText' />
+
+## Accessibility
+
+The button has `aria-expanded` and `aria-controls`, and its labels, "Show more" and "Show less", come from the locale strings. The cut text stays in the page, so screen readers read it whole.

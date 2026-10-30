@@ -1,0 +1,25 @@
+import { Demo } from '../../../components/Demo'
+
+# Rating
+
+O rating mostra ou recebe uma avaliação com estrelas, como as avaliações de um produto ou uma pesquisa de satisfação.
+
+## Boas práticas
+
+- Faça uma pergunta clara ao lado das estrelas, como "Como foi a sua entrega?".
+- Mostre a nota e quantas avaliações existem ao lado de um rating só de leitura, como "4,5 (1.204 avaliações)".
+- Use cinco estrelas, a não ser que o produto já use outra escala.
+
+## Uso
+
+O `Rating` recebe a nota em `defaultValue` ou, controlado, em `value` e `onChange`. O `allowClear` deixa o usuário remover a nota escolhendo a mesma estrela de novo, o `max` muda o número de estrelas e o `size`, o tamanho. Com `name`, a nota é enviada junto com um formulário.
+
+<Demo src='pages/components/rating/Rating' />
+
+Com `readOnly`, o rating só mostra a nota, que pode ter casas decimais:
+
+<Demo src='pages/components/rating/RatingReadOnly' />
+
+## Acessibilidade
+
+O rating é um grupo de _radio buttons_, com nome dado por `aria-label` ou `aria-labelledby`, e um _radio_ para cada estrela, como "3 estrelas": as setas mudam a nota. Um rating só de leitura é uma imagem com a nota como nome, como "4,5 de 5 estrelas". Os textos vêm do _locale_.

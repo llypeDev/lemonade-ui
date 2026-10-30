@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Expandable text
+
+O expandable text corta um texto longo depois de algumas linhas, com um botão que mostra o resto, como uma descrição, uma avaliação ou um comentário.
+
+## Boas práticas
+
+- Corte textos que o usuário pode pular, como avaliações numa lista. Não esconda informações de que o usuário precisa para decidir.
+- Mostre linhas suficientes para dar a ideia do texto, normalmente três.
+- Quando der, mantenha o texto curto: cortar não é motivo para escrever mais.
+
+## Uso
+
+O `ExpandableText` recebe o texto como _children_ e o número de `lines` mostradas enquanto recolhido. O botão só aparece quando o texto não cabe. O `defaultExpanded`, ou `expanded` e `onExpandedChange`, controlam o estado, e o `moreLabel` e o `lessLabel` mudam o botão.
+
+<Demo src='pages/components/expandable-text/ExpandableText' />
+
+## Acessibilidade
+
+O botão tem `aria-expanded` e `aria-controls`, e os textos dele, "Ver mais" e "Ver menos", vêm do _locale_. O texto cortado continua na página, então os leitores de tela o leem inteiro.

@@ -14,6 +14,9 @@ const locale: LocaleConfiguration = {
     nextYear: 'Próximo ano',
     previousYear: 'Ano anterior',
   },
+  codeBlock: {
+    label: 'Código',
+  },
   confirmDialog: {
     confirm: 'Confirmar',
     cancel: 'Cancelar',
@@ -25,6 +28,10 @@ const locale: LocaleConfiguration = {
   },
   dateInput: {
     placeholder: 'dd/mm/aaaa',
+  },
+  expandableText: {
+    more: 'Ver mais',
+    less: 'Ver menos',
   },
   monthInput: {
     placeholder: 'mm/aaaa',
@@ -54,6 +61,14 @@ const locale: LocaleConfiguration = {
     previousPage: 'Página anterior',
     nextPage: 'Próxima página',
     currentPage: 'Página atual',
+  },
+  progressCircle: {
+    loading: 'Carregando',
+  },
+  rating: {
+    star: 'estrela',
+    stars: 'estrelas',
+    of: 'de',
   },
   dateRangeField: {
     separator: 'até',

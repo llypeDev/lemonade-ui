@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Kbd
+
+O kbd mostra uma tecla ou um atalho de teclado, como Ctrl + K, num texto, num _tooltip_ ou num menu.
+
+## Boas práticas
+
+- Escreva as teclas como aparecem no teclado, como "Ctrl", "Shift" e "Enter".
+- No Mac, mostre as teclas do Mac, como "⌘" para Command.
+- Cite atalhos como ajuda, nunca como o único jeito de fazer algo.
+
+## Uso
+
+O `Kbd` mostra os _children_ como uma tecla. Para um atalho, passe as `keys`, como `['Ctrl', 'K']`; elas são unidas pelo `separator`, "+" por padrão.
+
+<Demo src='pages/components/kbd/Kbd' />
+
+## Acessibilidade
+
+A tecla é um elemento `kbd`. Um atalho é um `kbd` com um `kbd` para cada tecla, como a especificação do HTML sugere, então os leitores de tela que têm suporte leem as teclas como teclas.

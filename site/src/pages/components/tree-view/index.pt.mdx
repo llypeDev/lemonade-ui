@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Tree view
+
+A tree view mostra itens aninhados que expandem e recolhem, como pastas, categorias ou as áreas de uma organização.
+
+## Boas práticas
+
+- Use-a quando a hierarquia importa para o usuário. Para dois níveis de navegação, um [Side nav](/components/side-nav) é mais simples.
+- Mantenha os rótulos curtos e dê ícones diferentes para pastas e arquivos.
+- Abra o caminho até o item selecionado, para o usuário ver onde ele está.
+
+## Uso
+
+A `TreeView` recebe os `items`, cada um com um `id`, um `label` e, se quiser, um `icon`, `children` e `disabled`. Os nós expandidos ficam em `expanded` e `onExpandedChange` (ou `defaultExpanded`), e o selecionado em `selected` e `onSelectedChange` (ou `defaultSelected`). Um clique num nó o seleciona e, se ele tiver filhos, expande ou recolhe.
+
+<Demo src='pages/components/tree-view/TreeView' />
+
+## Acessibilidade
+
+A árvore segue o padrão de _tree_ do ARIA. Ela é uma única parada da tecla Tab; dentro dela, as setas para cima e para baixo passam pelos nós visíveis, a seta para a direita expande um nó ou vai para o primeiro filho, e a seta para a esquerda recolhe ou vai para o pai. Home e End vão para o primeiro e o último nó, Enter e Espaço selecionam, e digitar uma letra leva ao próximo nó que começa com ela. Cada nó tem nível, posição e estado, e leva o nome do próprio rótulo. Dê nome à árvore com `aria-label`.

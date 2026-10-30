@@ -1,0 +1,25 @@
+import { Demo } from '../../../components/Demo'
+
+# Progress circle
+
+The progress circle shows how far a task has gone, such as an upload or the steps of a profile, or spins while the user waits for something of unknown length.
+
+## Best practices
+
+- Show the value when the task takes more than a few seconds, so the user knows how long to wait.
+- Use the spinning circle only when you cannot know the progress.
+- For an amount within a range, such as storage use, use a [Meter](/components/meter).
+
+## Usage
+
+`ProgressCircle` takes a `value` and a `max` (100 by default). Medium and large circles show the percentage in the middle; `showValue={false}` hides it. `type` changes the color.
+
+<Demo src='pages/components/progress-circle/ProgressCircle' />
+
+Without a `value`, the circle spins:
+
+<Demo src='pages/components/progress-circle/ProgressCircleIndeterminate' />
+
+## Accessibility
+
+The circle has the `progressbar` role with its value and the percentage as text. Name it with `aria-label` or `aria-labelledby`; a spinning circle is named "Loading" by default (from the locale strings).
