@@ -57,7 +57,7 @@ Accessible, themeable and fully typed React components for building consistent i
 <table>
   <tr>
     <td width="33%" valign="top">
-      <b>🧩 93 components</b><br />
+      <b>🧩 99 components</b><br />
       Buttons, forms, date pickers, tables, modals, drawers, popovers, toasts, a side menu and layout primitives ready to use.
     </td>
     <td width="33%" valign="top">
@@ -358,17 +358,17 @@ Search, preview, copy and download every icon in the [Phosphor explorer](https:/
 
 ## 🧩 Components
 
-| Category          | Components                                                                                                                                                                                                                                                                  |
-| ----------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **Actions**       | `Button` · `ButtonGroup` · `CopyButton` · `ToggleButton` · `Toolbar` · `SegmentedControl` · `Dropdown` · `Link`                                                                                                                                                             |
-| **Forms**         | `TextField` · `TextArea` · `MaskedTextField` · `PasswordField` · `PinInput` · `NumberField` · `Slider` · `Rating` · `Chip` · `ChipGroup` · `Select` (deprecated) · `SelectInline` · `Combobox` · `Checkbox` · `Radio` · `Switch` · `FileUploader` · `FormControl` · `Input` |
-| **Date and time** | `Calendar` · `DateField` · `DateRangePicker` · `TimeField` · `MonthField` · `MonthPicker` · `MonthRangePicker` · `MonthPaginator`                                                                                                                                           |
-| **Feedback**      | `Alert` · `Toast` · `ActionableToast` (deprecated) · `Modal` · `ConfirmDialog` · `Drawer` · `Popover` · `Tooltip` · `Spinner` · `ProgressCircle` · `Meter` · `Skeleton` · `EmptyState` · `Progress` · `Status` · `Tag` · `Badge` · `InfoLabel`                              |
-| **Navigation**    | `AppHeader` · `SideNav` · `SideNavGroup` · `SideNavItem` · `Breadcrumb` · `Tabs` · `Paginator` · `Stepper` · `SkipLink`                                                                                                                                                     |
-| **Data display**  | `Table` · `DataTable` · `PagedTable` · `DescriptionList` · `List` · `ListItem` · `Timeline` · `Stat` · `TreeView` · `CodeBlock` · `Avatar` · `Number` · `Currency` · `Highlight`                                                                                            |
-| **Icons**         | `Icon` · `PhosphorIconProvider` · 1,512 `Ph*` icons from `@lemonade/ui/phosphor`                                                                                                                                                                                            |
-| **Layout**        | `Grid` · `Cell` · `Flow` · `HFlow` (deprecated) · `VFlow` (deprecated) · `Accordion` · `Card` · `ClickableCard` · `ToggleCard` · `ExpandableCard` · `Paper` · `Divider` · `StickyContainer` · `Portal` · `RootRef`                                                          |
-| **Typography**    | `Text` · `Heading` · `HeadingSection` · `VisuallyHidden` · `Kbd` · `ExpandableText`                                                                                                                                                                                         |
+| Category          | Components                                                                                                                                                                                                                                                                                              |
+| ----------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| **Actions**       | `Button` · `ButtonGroup` · `CopyButton` · `ToggleButton` · `Toolbar` · `SegmentedControl` · `Dropdown` · `Link`                                                                                                                                                                                         |
+| **Forms**         | `TextField` · `TextArea` · `InlineEdit` · `MaskedTextField` · `PasswordField` · `PinInput` · `NumberField` · `Slider` · `Rating` · `Chip` · `ChipGroup` · `Select` (deprecated) · `SelectInline` · `Combobox` · `Checkbox` · `Radio` · `Switch` · `FileUploader` · `FormControl` · `Fieldset` · `Input` |
+| **Date and time** | `Calendar` · `DateField` · `DateRangePicker` · `TimeField` · `MonthField` · `MonthPicker` · `MonthRangePicker` · `MonthPaginator`                                                                                                                                                                       |
+| **Feedback**      | `Alert` · `Banner` · `Toast` · `ActionableToast` (deprecated) · `Modal` · `ConfirmDialog` · `Drawer` · `Popover` · `Tooltip` · `Spinner` · `ProgressCircle` · `Meter` · `Skeleton` · `LoadingOverlay` · `EmptyState` · `Progress` · `Status` · `Tag` · `Badge` · `InfoLabel`                            |
+| **Navigation**    | `AppHeader` · `CommandPalette` · `SideNav` · `SideNavGroup` · `SideNavItem` · `Breadcrumb` · `Tabs` · `Paginator` · `Stepper` · `SkipLink`                                                                                                                                                              |
+| **Data display**  | `Table` · `DataTable` · `PagedTable` · `DescriptionList` · `List` · `ListItem` · `Timeline` · `Stat` · `TreeView` · `CodeBlock` · `Avatar` · `AvatarGroup` · `Number` · `Currency` · `Highlight`                                                                                                        |
+| **Icons**         | `Icon` · `PhosphorIconProvider` · 1,512 `Ph*` icons from `@lemonade/ui/phosphor`                                                                                                                                                                                                                        |
+| **Layout**        | `Grid` · `Cell` · `Flow` · `HFlow` (deprecated) · `VFlow` (deprecated) · `Accordion` · `Card` · `ClickableCard` · `ToggleCard` · `ExpandableCard` · `Paper` · `Divider` · `StickyContainer` · `Portal` · `RootRef`                                                                                      |
+| **Typography**    | `Text` · `Heading` · `HeadingSection` · `VisuallyHidden` · `Kbd` · `ExpandableText`                                                                                                                                                                                                                     |
 
 Charts (`Chart`, `BarChart`, `PieChart` and their parts) come from a separate entry point, `@lemonade/ui/lib/components/Chart`, so apps that don't draw charts don't load their dependencies. Components marked as deprecated still work; their documentation points to the replacement.
 
@@ -380,6 +380,12 @@ Components added since version 1.4.0, each with live demos and accessibility not
 
 | Component                                  | What it is for                                                                           | Docs                                                                     |
 | ------------------------------------------ | ---------------------------------------------------------------------------------------- | ------------------------------------------------------------------------ |
+| `CommandPalette`                           | Search box that finds and runs pages and actions, opened with Ctrl + K                   | [Docs](https://lemonade-ui.llypedev.com.br/components/command-palette)   |
+| `Banner`                                   | Announcement across the top of the page about the whole application                      | [Docs](https://lemonade-ui.llypedev.com.br/components/banner)            |
+| `InlineEdit`                               | Text that turns into a field to change it in place, with validation                      | [Docs](https://lemonade-ui.llypedev.com.br/components/inline-edit)       |
+| `AvatarGroup`                              | Overlapping avatars of a group of people, with a "+N" for the rest                       | [Docs](https://lemonade-ui.llypedev.com.br/components/avatar-group)      |
+| `Fieldset`                                 | Group of related fields with a legend, a description and an error                        | [Docs](https://lemonade-ui.llypedev.com.br/components/fieldset)          |
+| `LoadingOverlay`                           | Covers part of the page while it loads, keeping its layout                               | [Docs](https://lemonade-ui.llypedev.com.br/components/loading-overlay)   |
 | `CodeBlock` · `Kbd`                        | Code with a copy button, and keys and shortcuts such as Ctrl + K                         | [Docs](https://lemonade-ui.llypedev.com.br/components/code-block)        |
 | `Chip` · `ChipGroup`                       | Filters that turn on and off, with a check and a count                                   | [Docs](https://lemonade-ui.llypedev.com.br/components/chip)              |
 | `TreeView`                                 | Nested items that expand and collapse, with the keyboard of the ARIA tree                | [Docs](https://lemonade-ui.llypedev.com.br/components/tree-view)         |

@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Inline edit
+
+The inline edit shows a text that turns into a field when clicked, to change it in place, such as the name of a project, a file or a column.
+
+## Best practices
+
+- Use it for short texts the user changes now and then, without the weight of a form.
+- Keep the text where it is when it turns into a field, so the page does not jump.
+- Validate the text before saving and say what is wrong, keeping the field open.
+
+## Usage
+
+`InlineEdit` takes a `label`, the text in `defaultValue` or, controlled, in `value`, and `onSave`, which gets the new text. While a promise returned by `onSave` is pending, the field waits; if it rejects, the field stays open. `validate` returns a message to keep the field open, and `placeholder` shows when there is no text. `defaultEditing` starts with the field open, such as right after the user creates the item.
+
+<Demo src='pages/components/inline-edit/InlineEdit' />
+
+## Accessibility
+
+The text is a button named by the text and the label, such as "Lemonade website, Edit Project name". The field is named by the `label`: Enter or the check button saves, Escape or the cancel button goes back, and leaving the field saves. After saving or canceling, the focus goes back to the text.

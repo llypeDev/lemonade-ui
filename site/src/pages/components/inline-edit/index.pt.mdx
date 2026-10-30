@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Inline edit
+
+O inline edit mostra um texto que vira um campo quando clicado, para alterá-lo no próprio lugar, como o nome de um projeto, de um arquivo ou de uma coluna.
+
+## Boas práticas
+
+- Use-o para textos curtos que o usuário muda de vez em quando, sem o peso de um formulário.
+- Mantenha o texto no mesmo lugar quando ele vira campo, para a página não pular.
+- Valide o texto antes de salvar e diga o que está errado, mantendo o campo aberto.
+
+## Uso
+
+O `InlineEdit` recebe um `label`, o texto em `defaultValue` ou, controlado, em `value`, e o `onSave`, que recebe o novo texto. Enquanto uma _promise_ retornada pelo `onSave` está pendente, o campo espera; se ela falhar, o campo continua aberto. O `validate` retorna uma mensagem para manter o campo aberto, e o `placeholder` aparece quando não há texto. O `defaultEditing` começa com o campo aberto, como logo depois de o usuário criar o item.
+
+<Demo src='pages/components/inline-edit/InlineEdit' />
+
+## Acessibilidade
+
+O texto é um botão que leva o nome do texto e do rótulo, como "Lemonade website, Editar Nome do projeto". O campo leva o nome do `label`: Enter ou o botão de check salvam, Escape ou o botão de cancelar voltam, e sair do campo salva. Depois de salvar ou cancelar, o foco volta para o texto.

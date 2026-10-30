@@ -1,0 +1,26 @@
+import { Demo } from '../../../components/Demo'
+
+# Banner
+
+The banner is an announcement across the top of the page about the whole application, such as a maintenance, a plan about to expire or a failed payment.
+
+## Best practices
+
+- Use it for messages about the whole application. For a message about part of the page, use an [Alert](/components/alert); for a short confirmation, a [Toast](/components/toast).
+- Show one banner at a time, above the [App header](/components/app-header).
+- Say what happened in the title and what to do in the text, with an action when there is one.
+- Let the user close banners that are only informative.
+
+## Usage
+
+`Banner` takes a `type` (`info`, `success`, `alert` or `danger`), a `title`, the text as children and `actions`, such as a button or a link.
+
+<Demo src='pages/components/banner/Banner' />
+
+With `onClose`, the banner shows a close button:
+
+<Demo src='pages/components/banner/BannerClosable' />
+
+## Accessibility
+
+The close button is named "Close announcement" (from the locale strings). A banner that is on the page when it loads needs no role. If it shows up later, such as after an action, pass `role='status'`, or `role='alert'` for an urgent message, so screen readers announce it.

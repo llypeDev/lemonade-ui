@@ -1,0 +1,23 @@
+import { Demo } from '../../../components/Demo'
+
+# Fieldset
+
+The fieldset groups related fields of a form, such as an address or a set of checkboxes, under a legend that names them.
+
+## Best practices
+
+- Group fields that only make sense together, such as the parts of an address or the options of a question.
+- Write the legend as the title of the group, or as the question its options answer.
+- Put errors about the group as a whole, such as "Pick at least one day", in `error`; errors of a single field stay in the field.
+
+## Usage
+
+`Fieldset` takes a `legend`, a `description`, an `error` and the fields as children. `required` marks the legend, and `disabled` disables every field inside it.
+
+<Demo src='pages/components/fieldset/Fieldset' />
+
+<Demo src='pages/components/fieldset/FieldsetError' />
+
+## Accessibility
+
+The group is a `fieldset` element with a `legend`, so screen readers read the legend before the fields of the group. The description and the error describe the group with `aria-describedby`, and the error is announced when it shows up.

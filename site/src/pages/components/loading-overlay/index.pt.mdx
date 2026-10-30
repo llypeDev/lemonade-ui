@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Loading overlay
+
+O loading overlay cobre uma parte da página enquanto ela carrega, como uma tabela depois de uma nova busca ou um formulário enquanto salva, mantendo o _layout_.
+
+## Boas práticas
+
+- Use-o quando o conteúdo já está na página e carrega de novo. Para conteúdo que carrega pela primeira vez, use um [Skeleton](/components/skeleton).
+- Cubra só a parte que carrega, não a página inteira.
+- Diga o que está carregando no `label` quando demorar mais que um instante.
+
+## Uso
+
+O `LoadingOverlay` envolve o conteúdo e o cobre enquanto `loading` for verdadeiro, com um [Progress circle](/components/progress-circle) girando e um `label` opcional abaixo dele.
+
+<Demo src='pages/components/loading-overlay/LoadingOverlay' />
+
+## Acessibilidade
+
+Enquanto carrega, o conteúdo tem `aria-busy` e o atributo `inert`, então sai da ordem do Tab e não pode ser clicado. Uma mensagem de status anuncia o rótulo, ou "Carregando" (dos textos do _locale_), aos leitores de tela.

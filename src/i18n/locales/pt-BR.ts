@@ -8,6 +8,12 @@ const locale: LocaleConfiguration = {
     openMenu: 'Abrir menu',
     closeMenu: 'Fechar menu',
   },
+  avatarGroup: {
+    more: 'mais {count}',
+  },
+  banner: {
+    close: 'Fechar aviso',
+  },
   calendar: {
     nextMonth: 'Próximo mês',
     previousMonth: 'Mês anterior',
@@ -16,6 +22,14 @@ const locale: LocaleConfiguration = {
   },
   codeBlock: {
     label: 'Código',
+  },
+  commandPalette: {
+    label: 'Paleta de comandos',
+    placeholder: 'Buscar páginas e ações',
+    empty: 'Nenhum resultado encontrado',
+    navigate: 'para navegar',
+    select: 'para selecionar',
+    close: 'para fechar',
   },
   confirmDialog: {
     confirm: 'Confirmar',
@@ -32,6 +46,11 @@ const locale: LocaleConfiguration = {
   expandableText: {
     more: 'Ver mais',
     less: 'Ver menos',
+  },
+  inlineEdit: {
+    edit: 'Editar',
+    save: 'Salvar',
+    cancel: 'Cancelar',
   },
   monthInput: {
     placeholder: 'mm/aaaa',
