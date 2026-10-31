@@ -1,9 +1,11 @@
-import React, { CSSProperties, useLayoutEffect, useRef } from 'react'
+import React, { CSSProperties, useLayoutEffect, useMemo, useRef, useState } from 'react'
 
 import { useLocale } from '../../../i18n'
-import { ExternalStyles, Theme, useCss, useStyles } from '../../../styles'
+import { ExternalStyles, focusBoxShadow, Theme, useCss, useStyles } from '../../../styles'
+import { randomStr } from '../../../util/string'
 import { Button } from '../../Button'
 import { Checkbox } from '../../Checkbox'
+import { Icon } from '../../Icon'
 import { VisuallyHidden } from '../../VisuallyHidden'
 import { SortDirection } from '../SortableLabel/SortableLabel'
 import { Table, TableHead, TableHeader, TableHeaderProps, TableProps, TableRow } from '../Table'
@@ -58,15 +60,50 @@ export interface DataTableProps<T = any> extends TableProps {
    * are selected, with the number of selected rows and a button to clear the selection.
    */
   bulkActions?(selectedRows: T[], selectedIds: DataTableRowId[]): React.ReactNode
+
+  /**
+   * Keeps the header at the top while the rows scroll. Put the table in a container with a height and
+   * `overflow: auto`.
+   */
+  stickyHeader?: boolean
+
+  /**
+   * Details of a row, shown below it. With it, a button at the start of each row shows and hides them.
+   */
+  renderExpanded?(row: T): React.ReactNode
+
+  /**
+   * Ids of the rows with their details shown, for controlled rows
+   */
+  expandedRows?: ReadonlyArray<DataTableRowId>
+
+  /**
+   * Ids of the rows that start with their details shown
+   * @default []
+   */
+  defaultExpandedRows?: ReadonlyArray<DataTableRowId>
+
+  /**
+   * Called with the ids of the rows with their details shown when the user shows or hides details
+   */
+  onExpandedRowsChange?(expandedRows: DataTableRowId[]): void
+
+  /**
+   * Names of the columns that are not shown, such as the ones the user hid with a `DataTableColumnsMenu`
+   */
+  hiddenColumns?: ReadonlyArray<string>
 }
 
 export interface DataTableRenderProps extends DataTableProps {
   getHeaderProps(column: TableColumnConfig | string): TableHeaderProps
   getColumn(columnName: string): TableColumnConfig
   isRowSelected(row: any): boolean
+  isRowExpanded(row: any): boolean
+  getDetailsId(row: any): string
 }
 
 const selectionColumnName = '__selection'
+const expandColumnName = '__expand'
 
 const defaultGetRowId = (row: any): DataTableRowId => row.id
 
@@ -74,9 +111,35 @@ const fill = (text: string, values: Record<string, string | number>) =>
   text.replace(/\{(\w+)\}/g, (match, name) => (name in values ? String(values[name]) : match))
 
 export function DataTable<T = any>(props: DataTableProps<T>) {
-  const { rows, selectedRows, onSelectedRowsChange, getRowId = defaultGetRowId, getRowLabel, bulkActions } = props
+  const {
+    rows,
+    selectedRows,
+    onSelectedRowsChange,
+    getRowId = defaultGetRowId,
+    getRowLabel,
+    bulkActions,
+    renderExpanded,
+    expandedRows,
+    defaultExpandedRows = [],
+    onExpandedRowsChange,
+    hiddenColumns,
+  } = props
   const { css } = useCss()
   const { classes } = useStyles(createStyles)
+  const tableId = useMemo(() => `data-table-${randomStr()}`, [])
+  const [internalExpanded, setInternalExpanded] = useState<ReadonlyArray<DataTableRowId>>(defaultExpandedRows)
+  const expanded = expandedRows ?? internalExpanded
+  const isRowExpanded = (row: T) => !!renderExpanded && expanded.includes(getRowId(row))
+  const getDetailsId = (row: T) => `${tableId}-details-${String(getRowId(row)).replace(/[^\w-]/g, '_')}`
+
+  const toggleExpanded = (row: T) => {
+    const id = getRowId(row)
+    const next = expanded.includes(id) ? expanded.filter((other) => other !== id) : [...expanded, id]
+    if (expandedRows === undefined) {
+      setInternalExpanded(next)
+    }
+    onExpandedRowsChange && onExpandedRowsChange(next)
+  }
   const locale = useLocale()
   const selectAllRef = useRef<HTMLInputElement>(null)
   // Whether the focus is in the bar of bulk actions, which goes away when nothing is selected
@@ -133,7 +196,38 @@ export function DataTable<T = any>(props: DataTableProps<T>) {
     ),
   }
 
-  const columns = selectable ? [selectionColumn, ...props.columns] : props.columns
+  const expandColumn: TableColumnConfig<T> = {
+    name: expandColumnName,
+    style: classes.expandColumn,
+    render: (row) => {
+      const open = isRowExpanded(row)
+      return (
+        <button
+          type='button'
+          className={classes.expandButton}
+          aria-expanded={open}
+          aria-controls={open ? getDetailsId(row) : undefined}
+          aria-label={fill(open ? locale.dataTable.collapse : locale.dataTable.expand, { row: rowLabel(row) })}
+          onClick={(e) => {
+            // Showing the details does not trigger onRowClick
+            e.stopPropagation()
+            toggleExpanded(row)
+          }}
+        >
+          <Icon icon='angleRight' size={1.25} style={open ? classes.chevronOpen : classes.chevron} />
+        </button>
+      )
+    },
+  }
+
+  const visibleColumns = hiddenColumns
+    ? props.columns.filter((col) => !hiddenColumns.includes(col.name))
+    : props.columns
+  const columns = [
+    ...(selectable ? [selectionColumn] : []),
+    ...(renderExpanded ? [expandColumn] : []),
+    ...visibleColumns,
+  ]
 
   const getColumn = (columnName: string): TableColumnConfig => {
     return columns.find((col) => col.name === columnName)
@@ -235,6 +329,8 @@ export function DataTable<T = any>(props: DataTableProps<T>) {
         getHeaderProps,
         getColumn,
         isRowSelected,
+        isRowExpanded,
+        getDetailsId,
       })}
     </>
   )
@@ -266,18 +362,35 @@ export function DataTableDefault(props: DataTableRenderProps) {
     getRowLabel,
     bulkActions,
     isRowSelected,
+    stickyHeader,
+    renderExpanded,
+    expandedRows,
+    defaultExpandedRows,
+    onExpandedRowsChange,
+    hiddenColumns,
+    isRowExpanded,
+    getDetailsId,
     ...rest
   } = props
+  const { css } = useCss()
+  const { classes } = useStyles(createStyles)
 
   return (
     <Table {...rest}>
       <TableHead>
         <TableRow>
-          {columns.map((col) => (
-            <TableHeader key={col.name} {...getHeaderProps(col)}>
-              {col.header}
-            </TableHeader>
-          ))}
+          {columns.map((col) => {
+            const headerProps = getHeaderProps(col)
+            return (
+              <TableHeader
+                key={col.name}
+                {...headerProps}
+                style={stickyHeader ? css(headerProps.style, classes.sticky) : headerProps.style}
+              >
+                {col.header}
+              </TableHeader>
+            )
+          })}
         </TableRow>
       </TableHead>
       <TableFilledBody
@@ -286,6 +399,9 @@ export function DataTableDefault(props: DataTableRenderProps) {
         loading={loading}
         onRowClick={onRowClick}
         isRowSelected={isRowSelected}
+        renderExpanded={renderExpanded}
+        isRowExpanded={isRowExpanded}
+        getDetailsId={getDetailsId}
       />
     </Table>
   )
@@ -316,6 +432,53 @@ const createStyles = (theme: Theme) => ({
   } as CSSProperties,
   checkbox: {
     display: 'inline-flex',
+  } as CSSProperties,
+  expandColumn: {
+    width: '1%',
+    paddingRight: 0,
+    lineHeight: 0,
+  } as CSSProperties,
+  expandButton: {
+    display: 'inline-flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    width: '1.75rem',
+    height: '1.75rem',
+    margin: 0,
+    padding: 0,
+    border: 0,
+    borderRadius: theme.radius.button,
+    background: 'transparent',
+    color: theme.pallete.text.main,
+    cursor: 'pointer',
+    outline: 'none',
+    '&:hover': {
+      background: theme.pallete.surface.background,
+    },
+    '&:focus': {
+      boxShadow: focusBoxShadow(theme),
+    },
+  } as CSSProperties,
+  chevron: {
+    transition: 'transform .2s',
+    '@media (prefers-reduced-motion: reduce)': {
+      transition: 'none',
+    },
+  } as CSSProperties,
+  chevronOpen: {
+    transform: 'rotate(90deg)',
+    transition: 'transform .2s',
+    '@media (prefers-reduced-motion: reduce)': {
+      transition: 'none',
+    },
+  } as CSSProperties,
+  sticky: {
+    position: 'sticky',
+    top: 0,
+    zIndex: 1,
+    background: theme.pallete.surface.main,
+    // The border of a collapsed table does not stick, so a shadow draws the line under the header
+    boxShadow: `inset 0 -1px 0 ${theme.pallete.divider}`,
   } as CSSProperties,
   bar: {
     display: 'flex',

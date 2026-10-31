@@ -1,0 +1,24 @@
+import { Demo } from '../../../components/Demo'
+
+# Wizard
+
+O wizard divide um formulário longo em etapas, como um cadastro ou um pedido. Ele mostra as etapas acima do conteúdo, confere cada etapa antes de avançar e tem botões para voltar e avançar.
+
+## Boas práticas
+
+- Use-o quando um formulário é longo e suas partes seguem uma ordem; um formulário curto cabe em uma página.
+- Mantenha poucas etapas, com títulos curtos, e deixe o usuário voltar sem perder o que digitou.
+- Mostre os erros de uma etapa na própria etapa, junto aos campos.
+- Deixe o usuário revisar tudo antes do último botão, e dê a esse botão o nome do que ele faz, como "Criar conta".
+
+## Uso
+
+O `Wizard` recebe as `steps`, cada uma com `id`, `title`, seu `content` e um `validate` opcional, que retorna `false` para ficar na etapa. Uma promise mantém o botão de avançar ocupado até ser resolvida. O `onFinish` roda na última etapa; o `finishLabel` troca o texto do seu botão. O wizard guarda a própria etapa, ou segue `step` e `onStepChange`.
+
+Só a etapa atual fica na página, então guarde os valores do formulário fora das etapas, como na demonstração.
+
+<Demo src='pages/components/wizard/Wizard' />
+
+## Acessibilidade
+
+O conteúdo é uma região com o nome da etapa, como "Etapa 2 de 3 Plano". Quando a etapa muda, o foco vai para o título dela, e os leitores de tela dizem onde o usuário está. Os botões dizem "Voltar", "Avançar" e "Concluir" por padrão, dos textos de locale.

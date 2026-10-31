@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Hover card
+
+The hover card shows a preview when the pointer rests on an element or the keyboard focuses it, such as a person's profile on their name or a summary of the page a link goes to.
+
+## Best practices
+
+- Use it only to add information; everything in the card must also be reachable by following the element, since touch and keyboard users may never see it.
+- Keep the content short and without actions; for content with buttons, use a `Popover` or a `Toggletip`.
+- For a short label of an icon, use a `Tooltip` instead.
+
+## Usage
+
+`HoverCard` wraps one element, usually a `Link`, and takes the preview in `content`. The card shows after `openDelay`, 500 ms by default, and hides `closeDelay` after the pointer leaves, 300 ms by default, so the pointer can move into the card. `placement` chooses where the card opens.
+
+<Demo src='pages/components/hover-card/HoverCard' />
+
+## Accessibility
+
+The card also shows when the element gets the keyboard focus, and the element is described by the card while it is open. Escape hides the card. Since the card has no focusable content, the focus stays on the element.

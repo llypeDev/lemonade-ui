@@ -23,6 +23,14 @@ Com `selectedRows` e `onSelectedRowsChange`, um checkbox no início de cada linh
 
 Cada checkbox recebe o nome da sua linha, como "Selecionar Maria Machado", com o `getRowLabel`; sem ele, o nome é o número da linha. O número de linhas selecionadas é anunciado quando muda, e clicar em um checkbox não chama o `onRowClick`.
 
+## Detalhes, colunas e cabeçalho fixo
+
+O `renderExpanded` adiciona um botão no início de cada linha que mostra os detalhes dela logo abaixo, como os itens de um pedido. A tabela guarda quais linhas estão abertas, ou segue `expandedRows` e `onExpandedRowsChange`; o `defaultExpandedRows` abre algumas no início. O `hiddenColumns` esconde colunas pelo `name`, e o `DataTableColumnsMenu` é um menu que deixa o usuário escolhê-las. O `stickyHeader` mantém o cabeçalho no topo enquanto a tabela rola dentro de um contêiner com altura fixa.
+
+<Demo src='pages/components/table/DetailsTable' />
+
+Cada botão de detalhes informa se a sua linha está aberta e tem o nome da linha, como "Mostrar detalhes de pedido #1042", com o `getRowLabel`. Clicar nele não chama o `onRowClick`. O menu de colunas não deixa o usuário esconder a última coluna visível.
+
 ## Tabela paginada
 
 Uma Tabela de dados que inclui um componente de paginação no rodapé.

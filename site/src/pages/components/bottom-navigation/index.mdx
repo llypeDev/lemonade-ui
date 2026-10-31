@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Bottom navigation
+
+The bottom navigation is a bar at the bottom of the screen with the main destinations of an application on small screens, such as Home, Orders and Profile.
+
+## Best practices
+
+- Use it for three to five destinations of the same importance; put the others in a "More" item.
+- Give every item an icon and a short label; icons alone are hard to understand.
+- Use it only on small screens. On larger screens, show the same destinations in a `SideNav` or an `AppHeader`.
+
+## Usage
+
+`BottomNavigation` takes the `items`, each with an `id`, a `label`, an `icon` and an optional `badge` with a number. An item with `href` is a link, and `component` renders it with the link of your router; otherwise, it is a button with `onClick`. `active` is the `id` of the current destination. The bar is fixed to the bottom of the screen by default; `fixed={false}` keeps it in the flow of the page, as in the demo.
+
+<Demo src='pages/components/bottom-navigation/BottomNavigation' />
+
+## Accessibility
+
+The bar is a navigation landmark named "Main" by default, from the locale strings, and the current item is marked as the current page. The number of a badge is read after the label, such as "Orders, 3". The bar leaves room for the home indicator of phones.

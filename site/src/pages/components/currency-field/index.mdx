@@ -1,0 +1,23 @@
+import { Demo } from '../../../components/Demo'
+
+# Currency field
+
+The currency field is a text field for an amount of money, such as a price or a payment. The digits fill the amount from the cents, as in banking apps: typing 1, 2, 3 and 4 shows R\$ 12,34.
+
+## Best practices
+
+- Use it for amounts of money; for other numbers, such as quantities, use a `NumberField`.
+- Say in the label what the amount is, such as "Price" or "Amount to transfer".
+- Tell the user the limits in the help text when there are a minimum and a maximum.
+
+## Usage
+
+`CurrencyField` takes the props of a `TextField`. Its `value` is a number, such as `12.34`, or `null` when the field is empty, and `onChange` receives the new number. `currency`, `decimalSeparator`, `thousandsSeparator` and `decimals` choose how the amount is written, and are `R$`, `,`, `.` and `2` by default. With `allowNegative`, the `-` and `+` keys change the sign. `min` and `max` correct the amount when the field loses the focus.
+
+<Demo src='pages/components/currency-field/CurrencyField' />
+
+`formatCurrency(value)` writes an amount as the field shows it, such as in a table of prices.
+
+## Accessibility
+
+The field opens the numeric keyboard on phones. The caret stays at the end of the amount, so each digit pushes the others to the left. Screen readers read the amount with the currency, as written in the field.

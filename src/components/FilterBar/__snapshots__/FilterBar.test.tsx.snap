@@ -1,0 +1,556 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`FilterBar should render correctly 1`] = `
+.emotion-23 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: #24252E;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.emotion-14 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.emotion-4 {
+  -webkit-flex: 1 1 14rem;
+  -ms-flex: 1 1 14rem;
+  flex: 1 1 14rem;
+  max-width: 22rem;
+}
+
+.emotion-12 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.emotion-13 {
+  color: #696979;
+  white-space: nowrap;
+}
+
+.emotion-7 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 0.375rem;
+}
+
+.emotion-5 {
+  min-width: 1.125rem;
+  padding: 0 0.25rem;
+  box-sizing: border-box;
+  border-radius: 0.5625rem;
+  background: #5E7300;
+  color: #FFFFFF;
+  font-size: 0.75rem;
+  line-height: 1.125rem;
+  text-align: center;
+}
+
+.emotion-17 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 0.25rem;
+  min-height: 1.75rem;
+  box-sizing: border-box;
+  padding: 0 0.25rem 0 0.75rem;
+  border: 1px solid #E2F0A0;
+  border-radius: 0.875rem;
+  background: #F5FADB;
+  color: #455400;
+  font-weight: bold;
+}
+
+.emotion-16 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  width: 1.375rem;
+  height: 1.375rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  outline: none;
+}
+
+.emotion-16:hover {
+  background: #E2F0A0;
+}
+
+.emotion-16:focus {
+  box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
+.emotion-3 {
+  position: relative;
+}
+
+.emotion-3 input {
+  padding-left: 2.5rem;
+}
+
+.emotion-2 {
+  position: absolute;
+  background-color: transparent;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  padding: 0.25rem;
+  width: 2.5rem;
+  top: 1px;
+  bottom: 1px;
+  left: 1px;
+}
+
+.emotion-0 {
+  background-color: #FFFFFF;
+  border: solid 1px #8F8FA2;
+  border-radius: 2px;
+  color: #24252E;
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1rem;
+  margin: 0;
+  padding: calc(0.5rem - 1px) 0.5rem;
+  width: 100%;
+  -webkit-transition-property: box-shadow;
+  transition-property: box-shadow;
+  -webkit-transition-duration: .2s;
+  transition-duration: .2s;
+}
+
+.emotion-0[type="search"]::-webkit-search-decoration {
+  display: none;
+}
+
+.emotion-0[type="search"]::-webkit-search-cancel-button {
+  display: none;
+}
+
+.emotion-0[type="search"]::-webkit-search-results-button {
+  display: none;
+}
+
+.emotion-0[type="search"]::-webkit-search-results-decoration {
+  display: none;
+}
+
+.emotion-0:required {
+  box-shadow: none;
+}
+
+.emotion-0::-webkit-input-placeholder {
+  color: #696979;
+}
+
+.emotion-0::-moz-placeholder {
+  color: #696979;
+}
+
+.emotion-0:-ms-input-placeholder {
+  color: #696979;
+}
+
+.emotion-0::placeholder {
+  color: #696979;
+}
+
+.emotion-0:disabled {
+  border-color: #D3D4DD;
+  background-color: #F0F0F5;
+}
+
+.emotion-0:not(:disabled):hover {
+  border-color: #7A7B8E;
+}
+
+.emotion-0:not(:disabled):focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
+.emotion-0:not(:disabled):active {
+  border-color: #5E7300;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.09);
+}
+
+.emotion-1 {
+  fill: currentColor;
+  font-size: 1.5rem;
+  border-radius: inherit;
+}
+
+.emotion-1:focus {
+  box-shadow: none;
+}
+
+.emotion-8 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5rem;
+  color: #24252E;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid #696979;
+  border-radius: 4px;
+  color: #24252E;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  font-size: 0.875rem;
+  padding: calc(0.25rem - 1px) calc(0.5rem - 1px);
+}
+
+.emotion-8 > span {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.emotion-8:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
+}
+
+.emotion-8:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
+.emotion-8:not(:disabled):hover {
+  background-color: rgba(122,123,142,0.16);
+}
+
+.emotion-15 {
+  fill: currentColor;
+  font-size: 1rem;
+}
+
+.emotion-6 {
+  fill: currentColor;
+  font-size: 1rem;
+  -webkit-transition: -webkit-transform .2s;
+  -webkit-transition: transform .2s;
+  transition: transform .2s;
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .emotion-6 {
+    -webkit-transition: none;
+    transition: none;
+  }
+}
+
+.emotion-21 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5rem;
+  color: #24252E;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #24252E;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  font-size: 0.875rem;
+  padding: calc(0.25rem - 1px) calc(0.5rem - 1px);
+}
+
+.emotion-21 > span {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.emotion-21:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
+}
+
+.emotion-21:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-21:not(:disabled):hover {
+  background-color: rgba(58,58,71,0.1);
+}
+
+<div>
+  <div
+    class="emotion-23"
+  >
+    <div
+      class="emotion-14"
+    >
+      <div
+        class="emotion-4"
+        role="search"
+      >
+        <div
+          class="emotion-3"
+        >
+          <input
+            aria-label="Search"
+            class="emotion-0"
+            placeholder="Search orders"
+            type="text"
+            value=""
+          />
+          <span
+            class="emotion-2"
+          >
+            <svg
+              aria-hidden="true"
+              class="emotion-1"
+              height="1em"
+              role="img"
+              viewBox="0 0 24 24"
+              width="1em"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M14.605 13.194l7 6.998a1 1 0 01-1.414 1.414h-.001l-6.997-7a7 7 0 111.412-1.412zM9 14A5 5 0 109 4a5 5 0 000 10z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+      <button
+        aria-expanded="false"
+        aria-haspopup="dialog"
+        class="emotion-8"
+        type="button"
+      >
+        <span>
+          <span
+            class="emotion-7"
+          >
+            Status
+            <span
+              class="emotion-5"
+            >
+              1
+            </span>
+            <svg
+              aria-hidden="true"
+              class="emotion-6"
+              height="1em"
+              role="img"
+              viewBox="0 0 24 24"
+              width="1em"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M16.294 8.294a1 1 0 111.414 1.414l-5 5a1 1 0 01-1.414 0l-5.001-5a1 1 0 011.414-1.415l4.294 4.294 4.293-4.293z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </span>
+      </button>
+      <button
+        aria-expanded="false"
+        aria-haspopup="dialog"
+        class="emotion-8"
+        type="button"
+      >
+        <span>
+          <span
+            class="emotion-7"
+          >
+            Date
+            <svg
+              aria-hidden="true"
+              class="emotion-6"
+              height="1em"
+              role="img"
+              viewBox="0 0 24 24"
+              width="1em"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M16.294 8.294a1 1 0 111.414 1.414l-5 5a1 1 0 01-1.414 0l-5.001-5a1 1 0 011.414-1.415l4.294 4.294 4.293-4.293z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </span>
+      </button>
+      <span
+        class="emotion-12"
+      />
+      <span
+        class="emotion-13"
+        role="status"
+      >
+        54 results
+      </span>
+      <button>
+        Export
+      </button>
+    </div>
+    <div
+      aria-label="Active filters"
+      class="emotion-14"
+      role="group"
+    >
+      <span
+        class="emotion-17"
+      >
+        Status: Paid
+        <button
+          aria-label="Remove filter Status: Paid"
+          class="emotion-16"
+          title="Remove filter Status: Paid"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="emotion-15"
+            height="1em"
+            role="img"
+            viewBox="0 0 24 24"
+            width="1em"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M8.071 6.657l4.243 4.242 4.242-4.242c.464-.48.935-.48 1.415 0s.48.95 0 1.414l-4.243 4.243 4.243 4.242c.471.472.471.943 0 1.415-.472.471-.943.471-1.415 0l-4.242-4.243L8.07 17.97c-.46.482-.932.482-1.414 0-.482-.483-.482-.954 0-1.415l4.242-4.242L6.657 8.07c-.472-.47-.472-.942 0-1.414s.943-.472 1.414 0v.001z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </button>
+      </span>
+      <span
+        class="emotion-17"
+      >
+        Date: Today
+        <button
+          aria-label="Remove filter Date: Today"
+          class="emotion-16"
+          title="Remove filter Date: Today"
+          type="button"
+        >
+          <svg
+            aria-hidden="true"
+            class="emotion-15"
+            height="1em"
+            role="img"
+            viewBox="0 0 24 24"
+            width="1em"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M8.071 6.657l4.243 4.242 4.242-4.242c.464-.48.935-.48 1.415 0s.48.95 0 1.414l-4.243 4.243 4.243 4.242c.471.472.471.943 0 1.415-.472.471-.943.471-1.415 0l-4.242-4.243L8.07 17.97c-.46.482-.932.482-1.414 0-.482-.483-.482-.954 0-1.415l4.242-4.242L6.657 8.07c-.472-.47-.472-.942 0-1.414s.943-.472 1.414 0v.001z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </button>
+      </span>
+      <button
+        class="emotion-21"
+        type="button"
+      >
+        <span>
+          Clear filters
+        </span>
+      </button>
+    </div>
+  </div>
+</div>
+`;

@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Bottom navigation
+
+O bottom navigation é uma barra no rodapé da tela com os destinos principais de uma aplicação em telas pequenas, como Início, Pedidos e Perfil.
+
+## Boas práticas
+
+- Use-o para três a cinco destinos de mesma importância; coloque os outros em um item "Mais".
+- Dê a cada item um ícone e um rótulo curto; ícones sozinhos são difíceis de entender.
+- Use-o só em telas pequenas. Em telas maiores, mostre os mesmos destinos em um `SideNav` ou um `AppHeader`.
+
+## Uso
+
+O `BottomNavigation` recebe os `items`, cada um com `id`, `label`, `icon` e um `badge` opcional com um número. Um item com `href` é um link, e `component` o renderiza com o link do seu roteador; sem ele, é um botão com `onClick`. O `active` é o `id` do destino atual. A barra fica fixa no rodapé da tela por padrão; `fixed={false}` a mantém no fluxo da página, como na demonstração.
+
+<Demo src='pages/components/bottom-navigation/BottomNavigation' />
+
+## Acessibilidade
+
+A barra é um landmark de navegação com o nome "Principal" por padrão, dos textos de locale, e o item atual é marcado como a página atual. O número de um badge é lido depois do rótulo, como "Pedidos, 3". A barra deixa espaço para o indicador de início dos celulares.

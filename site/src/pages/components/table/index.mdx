@@ -23,6 +23,14 @@ With `selectedRows` and `onSelectedRowsChange`, a checkbox at the start of each 
 
 Each checkbox is named after its row, such as "Select Maria Machado", with `getRowLabel`; without it, the name is the row number. The number of selected rows is announced as it changes, and clicking a checkbox does not call `onRowClick`.
 
+## Details, columns and sticky header
+
+`renderExpanded` adds a button at the start of each row that shows its details below it, such as the items of an order. The table keeps which rows are open, or follows `expandedRows` and `onExpandedRowsChange`; `defaultExpandedRows` opens some at first. `hiddenColumns` leaves out columns by their `name`, and `DataTableColumnsMenu` is a menu that lets the user choose them. `stickyHeader` keeps the header at the top while the table scrolls inside a container with a fixed height.
+
+<Demo src='pages/components/table/DetailsTable' />
+
+Each details button tells whether its row is open and is named after the row, such as "Show details of order #1042", with `getRowLabel`. Clicking it does not call `onRowClick`. The columns menu does not let the user hide the last visible column.
+
 ## Paged table
 
 A DataTable that includes a pagination component on the footer.

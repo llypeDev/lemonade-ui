@@ -1,0 +1,33 @@
+import { Demo } from '../../../components/Demo'
+
+# Hooks
+
+Lemonade exports a few hooks for common needs of the screens built with its components. They are imported from `@lemonade/ui`, like the components.
+
+## useDisclosure
+
+Keeps whether something is open, such as a modal, a drawer or a popover. It returns `open`, `setOpen` and the functions `onOpen`, `onClose` and `onToggle`, which stay the same between renders. It takes the initial state, `false` by default.
+
+<Demo src='pages/usage/hooks/UseDisclosure' />
+
+## useDebounce
+
+Returns a value only after it stops changing for some time, 300 ms by default, such as the text of a search field. Use it so a search runs when the user pauses, instead of on every key.
+
+<Demo src='pages/usage/hooks/UseDebounce' />
+
+## useLocalStorage
+
+Keeps a value in the `localStorage` of the browser, such as a preference of the user, so it survives reloads. It works like `useState`, with a key and an initial value, and returns a third function that removes the value. The value is saved as JSON and follows changes made in other tabs. When the storage is blocked or full, the value still works for the current page.
+
+<Demo src='pages/usage/hooks/UseLocalStorage' />
+
+## useHotkeys
+
+Runs a function when the user presses a keyboard shortcut, such as `mod+k` or `?`. It takes one shortcut or a list of them. The modifiers are `ctrl`, `alt`, `shift`, `meta` and `mod`, which is ⌘ on Apple devices and Ctrl elsewhere; named keys include `esc`, `enter`, `space`, `up` and `delete`.
+
+By default, shortcuts do not run while the focus is in a text field, where the user types those keys; `enableOnFormFields` changes that. `enabled` turns a shortcut off, `target` limits it to part of the page, and `preventDefault: false` keeps the action of the browser.
+
+<Demo src='pages/usage/hooks/UseHotkeys' />
+
+Shortcuts should not be the only way to do something. List them where the user can find them, such as with the `Kbd` component, and avoid single keys that screen readers use, unless the user can turn them off.

@@ -1,6 +1,7 @@
 import React, { CSSProperties } from 'react'
-import { DropzoneOptions, useDropzone } from 'react-dropzone'
+import { DropzoneOptions, FileRejection, useDropzone } from 'react-dropzone'
 
+import { useLocale } from '../../i18n'
 import { focusBoxShadow, Theme, useStyles } from '../../styles'
 import { format } from '../../util/byte'
 import { HFlow } from '../HFlow'
@@ -10,7 +11,17 @@ import { Text } from '../Text'
 
 export interface FileUploaderProps extends DropzoneOptions {
   file?: FileProps
+
+  /**
+   * @default "Click or drag files here to upload", from the locale strings
+   */
   text?: string
+
+  /**
+   * Lists the files that were not added, such as too large ones, with the reason
+   * @default true
+   */
+  showRejections?: boolean
 }
 
 export interface FileProps {
@@ -21,9 +32,25 @@ export interface FileProps {
 }
 
 export function FileUploader(props: FileUploaderProps) {
-  const { file, text, ...rest } = props
+  const { file, text, showRejections = true, ...rest } = props
   const { classes, css } = useStyles(createStyles)
-  const { getRootProps, getInputProps, isDragActive, isDragAccept } = useDropzone(rest)
+  const locale = useLocale()
+  const { getRootProps, getInputProps, isDragActive, isDragAccept, fileRejections } = useDropzone(rest)
+
+  // Says why each file was not added, in the words of the locale strings
+  const reasonOf = (rejection: FileRejection) => {
+    const codes = rejection.errors.map((error) => error.code)
+    if (codes.includes('file-too-large') && props.maxSize) {
+      return locale.fileUploader.tooLarge.replace('{size}', format(props.maxSize, 0))
+    }
+    if (codes.includes('file-invalid-type')) {
+      return locale.fileUploader.wrongType
+    }
+    if (codes.includes('too-many-files')) {
+      return locale.fileUploader.tooMany
+    }
+    return rejection.errors.map((error) => error.message).join('. ')
+  }
 
   return (
     <>
@@ -35,13 +62,25 @@ export function FileUploader(props: FileUploaderProps) {
             <HFlow justifyContent='center' alignItems='center' hSpacing={0.5}>
               <Icon fill={props.disabled ? 'disabled' : 'secondary'} icon='upload' />
               <Text color={props.disabled ? 'disabled' : 'secondary'} fontSize={0.875} fontWeight='bold'>
-                {text}
+                {text ?? locale.fileUploader.text}
               </Text>
             </HFlow>
           </div>
         </div>
       </div>
       {file && <FileDetails file={file} />}
+      {showRejections && fileRejections.length > 0 && (
+        <ul role='alert' className={classes.rejections}>
+          {fileRejections.map((rejection, index) => (
+            <li key={`${rejection.file.name}-${index}`}>
+              <Icon icon='exclamationTriangleOutline' size={1} style={classes.rejectionIcon} />
+              <span>
+                <strong>{rejection.file.name}</strong> · {locale.fileUploader.rejected}: {reasonOf(rejection)}
+              </span>
+            </li>
+          ))}
+        </ul>
+      )}
     </>
   )
 }
@@ -168,6 +207,23 @@ export const createStyles = (theme: Theme) => ({
     flexGrow: 1,
     marginLeft: '1rem',
   },
+  rejections: {
+    listStyle: 'none',
+    margin: '0.5rem 0 0',
+    padding: 0,
+    color: theme.pallete.status.danger.main,
+    '& li': {
+      display: 'flex',
+      alignItems: 'flex-start',
+      gap: '0.5rem',
+      padding: '0.25rem 0',
+      overflowWrap: 'anywhere',
+    },
+  } as CSSProperties,
+  rejectionIcon: {
+    flexShrink: 0,
+    marginTop: '0.125rem',
+  } as CSSProperties,
   fileName: {
     wordBreak: 'break-all',
     marginRight: 10,
