@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Toggletip
+
+The toggletip is a small button, usually beside a label, that shows an explanation when clicked, such as what a field means.
+
+## Best practices
+
+- Use it instead of a `Tooltip` when the explanation has links or buttons, or when it must work on touch screens.
+- Keep the explanation short; for longer help, link to a page.
+- Do not hide what the user needs to finish a task; show it on the page instead.
+
+## Usage
+
+`Toggletip` takes the explanation as its children. `label` names the button, such as "About billing cycles", `icon` changes its icon, and `placement` chooses the side where the explanation shows.
+
+<Demo src='pages/components/toggletip/Toggletip' />
+
+## Accessibility
+
+The button is named by `label`, "More information" by default, from the locale strings, and tells whether the explanation is open. The explanation is a dialog: the focus moves to its first link or into it, Escape closes it and gives the focus back to the button, and a click outside or moving the focus away also closes it.

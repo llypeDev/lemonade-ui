@@ -1,0 +1,106 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Toggletip should render correctly when open 1`] = `
+.emotion-1 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  vertical-align: middle;
+  width: 1.5rem;
+  height: 1.5rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: #696979;
+  cursor: pointer;
+  outline: none;
+  -webkit-transition: color .2s,background .2s;
+  transition: color .2s,background .2s;
+}
+
+.emotion-1:hover,
+.emotion-1[aria-expanded="true"] {
+  color: #5E7300;
+  background: #F0F0F5;
+}
+
+.emotion-1:focus {
+  box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
+.emotion-0 {
+  fill: currentColor;
+  font-size: 1.25rem;
+}
+
+.emotion-2 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: #24252E;
+  z-index: 1200;
+  box-sizing: border-box;
+  max-width: calc(100vw - 2rem);
+  padding: 1rem;
+  border: 1px solid #D3D4DD;
+  border-radius: 2px;
+  background: #FFFFFF;
+  box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2),0 1px 10px 0 rgba(0,0,0,0.12),0 4px 5px 0 rgba(0,0,0,0.14);
+  outline: none;
+  max-width: min(18rem,calc(100vw - 2rem));
+  padding: 0.75rem 1rem;
+}
+
+<div>
+  <button
+    aria-controls="popover-abc"
+    aria-expanded="true"
+    aria-haspopup="dialog"
+    aria-label="About the plans"
+    class="emotion-1"
+    type="button"
+  >
+    <svg
+      aria-hidden="true"
+      class="emotion-0"
+      height="1em"
+      role="img"
+      viewBox="0 0 24 24"
+      width="1em"
+    >
+      <path
+        d="M22 12c0-5.522-4.477-10-10-10S2 6.478 2 12c0 5.523 4.477 10 10 10s10-4.477 10-10zm-2 0a8 8 0 11-16.001 0A8 8 0 0120 12zm-6.5-4.5a1.5 1.5 0 10-3 0 1.5 1.5 0 003 0zM11 17.125c-.002.583.33.875.998.875.668 0 1.002-.292 1.002-.875v-5.25c0-.583-.335-.875-1.004-.875s-1.001.292-.996.875v5.25z"
+      />
+    </svg>
+  </button>
+  <div
+    aria-label="About the plans"
+    class="emotion-2"
+    data-popper-escaped="true"
+    data-popper-placement="top"
+    data-popper-reference-hidden="true"
+    id="popover-abc"
+    role="dialog"
+    style="position: absolute; left: 0px; top: 0px; bottom: 0px; transform: translate(0px, -4px);"
+    tabindex="-1"
+  >
+    Plans can be changed at any time. 
+    <a
+      href="/plans"
+    >
+      Compare plans
+    </a>
+  </div>
+</div>
+`;

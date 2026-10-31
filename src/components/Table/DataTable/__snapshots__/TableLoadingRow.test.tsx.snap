@@ -78,7 +78,7 @@ exports[`should render correctly 1`] = `
             <span
               class="emotion-0"
             />
-            Carregando resultados
+            Loading results
           </div>
         </td>
       </tr>

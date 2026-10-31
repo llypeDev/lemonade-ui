@@ -21,7 +21,7 @@ exports[`should render correctly 1`] = `
           class="emotion-0"
           colspan="3"
         >
-          Nenhum registro encontrado
+          No results found
         </td>
       </tr>
     </tbody>

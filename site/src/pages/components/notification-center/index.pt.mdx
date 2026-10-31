@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Notification center
+
+O notification center é um sino com o número de notificações não lidas que abre um painel com as mais recentes, geralmente no cabeçalho de uma aplicação.
+
+## Boas práticas
+
+- Notifique só o que o usuário precisa saber ou fazer, com um título curto dizendo o que aconteceu.
+- Leve cada notificação ao que ela se refere, como o pedido ou o comentário.
+- Mostre as notificações mais recentes e leve a uma página com todas no `footer`.
+
+## Uso
+
+O `NotificationCenter` recebe as `notifications`, cada uma com `id`, `title`, `date` e, opcionalmente, `description`, `icon`, `href` e `read`. O `onNotificationClick` é chamado quando o usuário abre uma, que deve então ser marcada como lida, e o `onMarkAllRead` mostra um botão "Marcar todas como lidas". O `title` muda o título do painel, e o `placement` escolhe onde ele abre.
+
+<Demo src='pages/components/notification-center/NotificationCenter' />
+
+## Acessibilidade
+
+O sino tem o nome com o número de não lidas, como "Notificações, 2 não lidas". O painel é um diálogo com o nome do seu título; cada notificação não lida começa com "Não lida" para os leitores de tela, e a data é um tempo relativo, como "há 5 minutos". Escape fecha o painel e devolve o foco ao sino.

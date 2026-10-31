@@ -109,6 +109,11 @@ export function useRovingTabIndex(options: RovingTabIndexOptions) {
     }
 
     const handleKeyDown = (event: KeyboardEvent) => {
+      // A nested list, such as a submenu, already handled the key
+      if (event.defaultPrevented) {
+        return
+      }
+
       if ([...nextKeys, ...prevKeys, ...firstKeys, ...lastKeys].includes(event.key)) {
         const items = getItems(rootRef.current)
         const targetIndex = getTargetIndex(items, event.key)

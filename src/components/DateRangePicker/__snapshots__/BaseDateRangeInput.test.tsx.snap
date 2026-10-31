@@ -288,7 +288,7 @@ exports[`BaseDateRangeInput customization should allow a custom string in range 
                   autocomplete="off"
                   class="emotion-0"
                   name="startDate"
-                  placeholder="mm/dd/yyyy"
+                  placeholder="dd/mm/yyyy"
                   type="text"
                   value=""
                 />
@@ -323,7 +323,7 @@ exports[`BaseDateRangeInput customization should allow a custom string in range 
                   autocomplete="off"
                   class="emotion-0"
                   name="endDate"
-                  placeholder="mm/dd/yyyy"
+                  placeholder="dd/mm/yyyy"
                   type="text"
                   value=""
                 />
@@ -649,7 +649,7 @@ exports[`BaseDateRangeInput customization should allow enUS placeholder customiz
                   autocomplete="off"
                   class="emotion-0"
                   name="startDate"
-                  placeholder="mm/dd/yyyy"
+                  placeholder="dd/mm/yyyy"
                   type="text"
                   value=""
                 />
@@ -684,7 +684,7 @@ exports[`BaseDateRangeInput customization should allow enUS placeholder customiz
                   autocomplete="off"
                   class="emotion-0"
                   name="endDate"
-                  placeholder="mm/dd/yyyy"
+                  placeholder="dd/mm/yyyy"
                   type="text"
                   value=""
                 />
@@ -1010,7 +1010,7 @@ exports[`BaseDateRangeInput customization should allow enUs i18n in range separa
                   autocomplete="off"
                   class="emotion-0"
                   name="startDate"
-                  placeholder="mm/dd/yyyy"
+                  placeholder="dd/mm/yyyy"
                   type="text"
                   value=""
                 />
@@ -1045,7 +1045,7 @@ exports[`BaseDateRangeInput customization should allow enUs i18n in range separa
                   autocomplete="off"
                   class="emotion-0"
                   name="endDate"
-                  placeholder="mm/dd/yyyy"
+                  placeholder="dd/mm/yyyy"
                   type="text"
                   value=""
                 />
@@ -2093,7 +2093,7 @@ exports[`BaseDateRangeInput render should render correctly 1`] = `
                   autocomplete="off"
                   class="emotion-0"
                   name="startDate"
-                  placeholder="mm/dd/yyyy"
+                  placeholder="dd/mm/yyyy"
                   type="text"
                   value=""
                 />
@@ -2128,7 +2128,7 @@ exports[`BaseDateRangeInput render should render correctly 1`] = `
                   autocomplete="off"
                   class="emotion-0"
                   name="endDate"
-                  placeholder="mm/dd/yyyy"
+                  placeholder="dd/mm/yyyy"
                   type="text"
                   value=""
                 />
@@ -2459,7 +2459,7 @@ exports[`BaseDateRangeInput render should render correctly when disabled 1`] = `
                   class="emotion-0"
                   disabled=""
                   name="startDate"
-                  placeholder="mm/dd/yyyy"
+                  placeholder="dd/mm/yyyy"
                   type="text"
                   value=""
                 />
@@ -2495,7 +2495,7 @@ exports[`BaseDateRangeInput render should render correctly when disabled 1`] = `
                   class="emotion-0"
                   disabled=""
                   name="endDate"
-                  placeholder="mm/dd/yyyy"
+                  placeholder="dd/mm/yyyy"
                   type="text"
                   value=""
                 />
@@ -2834,7 +2834,7 @@ exports[`BaseDateRangeInput render should render correctly when invalid 1`] = `
                   autocomplete="off"
                   class="emotion-0"
                   name="startDate"
-                  placeholder="mm/dd/yyyy"
+                  placeholder="dd/mm/yyyy"
                   type="text"
                   value=""
                 />
@@ -2869,7 +2869,7 @@ exports[`BaseDateRangeInput render should render correctly when invalid 1`] = `
                   autocomplete="off"
                   class="emotion-0"
                   name="endDate"
-                  placeholder="mm/dd/yyyy"
+                  placeholder="dd/mm/yyyy"
                   type="text"
                   value=""
                 />

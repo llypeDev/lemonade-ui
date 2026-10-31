@@ -11,6 +11,9 @@ const locale: LocaleConfiguration = {
   avatarGroup: {
     more: 'mais {count}',
   },
+  backToTop: {
+    label: 'Voltar ao topo',
+  },
   banner: {
     close: 'Fechar aviso',
   },
@@ -20,8 +23,22 @@ const locale: LocaleConfiguration = {
     nextYear: 'Próximo ano',
     previousYear: 'Ano anterior',
   },
+  carousel: {
+    previous: 'Slide anterior',
+    next: 'Próximo slide',
+    pause: 'Pausar a troca de slides',
+    play: 'Iniciar a troca de slides',
+    slide: '{current} de {total}',
+    goTo: 'Mostrar o slide {current} de {total}',
+  },
   codeBlock: {
     label: 'Código',
+  },
+  colorField: {
+    swatches: 'Cores',
+    hex: 'Código hexadecimal',
+    picker: 'Escolher outra cor',
+    invalid: 'Informe uma cor como #RRGGBB, por exemplo #5E7300',
   },
   commandPalette: {
     label: 'Paleta de comandos',
@@ -41,6 +58,8 @@ const locale: LocaleConfiguration = {
     failed: 'Não foi possível copiar',
   },
   dataTable: {
+    empty: 'Nenhum registro encontrado',
+    loading: 'Carregando resultados',
     selectAll: 'Selecionar todas as linhas',
     selectRow: 'Selecionar {row}',
     row: 'linha {index}',
@@ -94,6 +113,13 @@ const locale: LocaleConfiguration = {
     close: 'Fechar',
     show: 'Mostrar meses',
   },
+  notificationCenter: {
+    label: 'Notificações',
+    unread: '{count} não lidas',
+    unreadItem: 'Não lida',
+    markAllRead: 'Marcar todas como lidas',
+    empty: 'Nenhuma notificação',
+  },
   numberField: {
     increase: 'Aumentar',
     decrease: 'Diminuir',
@@ -143,6 +169,9 @@ const locale: LocaleConfiguration = {
     dropped: '{item} solto na posição {position} de {total}.',
     cancelled: 'Movimento cancelado. {item} voltou para a posição {position} de {total}.',
   },
+  splitButton: {
+    more: 'Mais opções',
+  },
   splitter: {
     resize: 'Redimensionar painéis',
   },
@@ -160,6 +189,9 @@ const locale: LocaleConfiguration = {
     invalid: 'inválido',
     added: '{tag} adicionado.',
     removed: '{tag} removido.',
+  },
+  toggletip: {
+    label: 'Mais informações',
   },
   transferList: {
     available: 'Disponíveis',

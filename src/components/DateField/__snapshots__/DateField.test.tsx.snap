@@ -214,7 +214,7 @@ exports[`DateField should render correctly 1`] = `
             <input
               autocomplete="off"
               class="emotion-0"
-              placeholder="mm/dd/yyyy"
+              placeholder="dd/mm/yyyy"
               type="text"
               value=""
             />
@@ -467,7 +467,7 @@ exports[`DateField should render correctly when disabled 1`] = `
               autocomplete="off"
               class="emotion-0"
               disabled=""
-              placeholder="mm/dd/yyyy"
+              placeholder="dd/mm/yyyy"
               type="text"
               value=""
             />
@@ -862,7 +862,7 @@ exports[`DateField should render correctly when opened 1`] = `
             <input
               autocomplete="off"
               class="emotion-0"
-              placeholder="mm/dd/yyyy"
+              placeholder="dd/mm/yyyy"
               type="text"
               value=""
             />

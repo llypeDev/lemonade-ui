@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Split button
+
+O split button mostra uma ação principal com um botão ao lado que abre ações relacionadas, como "Salvar" com "Salvar como rascunho" e "Salvar e fechar".
+
+## Boas práticas
+
+- Use-o quando uma ação é a mais comum e as outras são variações dela.
+- Mantenha a ação principal à esquerda, com um verbo curto, e poucas ações no menu.
+- Não o use para ações sem relação entre si; nesse caso, use um `Dropdown` ou botões separados.
+
+## Uso
+
+O `SplitButton` recebe a ação principal como filho e `onClick`, e as ações relacionadas em `menu`, como `DropdownItem`s. Ele recebe `kind`, `skin`, `size`, `disabled` e `loading` como um `Button`. O `menuLabel` dá nome ao botão que abre o menu, e o `menuPlacement` escolhe onde o menu abre.
+
+<Demo src='pages/components/split-button/SplitButton' />
+
+## Acessibilidade
+
+Os dois botões formam um grupo. O botão que abre o menu tem o nome "Mais opções" por padrão, dos textos de locale, e informa se o menu está aberto. O menu segue o padrão ARIA de menu, e escolher uma ação o fecha.

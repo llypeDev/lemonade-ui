@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Carousel
+
+The carousel shows slides one at a time, with buttons to go back and forth, such as featured products or the steps of a welcome screen.
+
+## Best practices
+
+- Prefer showing the content side by side when it fits: users often miss the slides they do not see.
+- Keep few slides, each with one message and at most one action.
+- Avoid changing slides by themselves; when you do, give each slide enough time to be read.
+
+## Usage
+
+`Carousel` takes the slides as its children and a `label` that says what it shows. `autoPlay` changes the slides by themselves every `interval` milliseconds, 6000 by default. `loop={false}` stops at the first and the last slides. The slide shown can be controlled with `index` and `onIndexChange`, and `defaultIndex` sets where an uncontrolled carousel starts. On touch screens, a swipe changes the slide.
+
+<Demo src='pages/components/carousel/Carousel' />
+
+## Accessibility
+
+The carousel follows the ARIA carousel pattern. It is a region named by `label`, and each slide is a group named by its position, such as "2 of 3"; the hidden slides are out of the keyboard order and of screen readers. With `autoPlay`, a button pauses and starts the slides, and comes first for the keyboard. The slides also pause while the pointer or the focus is on the carousel, and start paused when the user prefers reduced motion. Changes made by the user are announced, and changes made by the timer are not.

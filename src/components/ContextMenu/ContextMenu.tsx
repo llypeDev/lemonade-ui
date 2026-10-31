@@ -3,7 +3,7 @@ import React, { CSSProperties, useCallback, useEffect, useMemo, useRef, useState
 import { usePopper } from 'react-popper'
 
 import { ExternalStyles, Theme, useStyles } from '../../styles'
-import { DropdownMenu } from '../Dropdown/DropdownMenu'
+import { DropdownMenu, menuItemSelector } from '../Dropdown/DropdownMenu'
 import { Portal } from '../Portal'
 import { RootRef } from '../RootRef'
 
@@ -181,7 +181,7 @@ export function ContextMenu(props: ContextMenuProps) {
   // Moves the focus to the first item when the menu opens
   useEffect(() => {
     if (menuRef) {
-      const first = menuRef.querySelector<HTMLElement>('[role="menuitem"]:not([aria-disabled="true"])')
+      const first = menuRef.querySelector<HTMLElement>(menuItemSelector)
       ;(first ?? menuRef).focus({ preventScroll: true })
     }
   }, [menuRef])

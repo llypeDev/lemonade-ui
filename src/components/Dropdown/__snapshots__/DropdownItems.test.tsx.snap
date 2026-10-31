@@ -1,0 +1,295 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Dropdown items should render correctly 1`] = `
+.emotion-19 {
+  list-style: none;
+  margin: 0;
+  padding: calc(0.5rem - 1px) 0;
+  white-space: nowrap;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.09);
+  border: 1px solid #D3D4DD;
+  border-radius: 2px;
+  display: inline-block;
+  width: auto;
+  min-width: 150px;
+  background: #FFFFFF;
+}
+
+.emotion-16 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: #24252E;
+  margin: 0;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  cursor: pointer;
+  padding: calc(0.5rem - 2px) 1rem;
+  font-weight: bold;
+  outline: none;
+  -webkit-transition: all .2s ease;
+  transition: all .2s ease;
+  display: block;
+}
+
+.emotion-16:hover {
+  background: #F0F0F5;
+}
+
+.emotion-16:focus {
+  box-shadow: inset 0 0 0 2px #5E7300;
+  border-radius: 4px;
+}
+
+.emotion-1 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  width: 1.25rem;
+}
+
+.emotion-2 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.emotion-7 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  color: #24252E;
+  margin: 0;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  cursor: pointer;
+  padding: calc(0.5rem - 2px) 1rem;
+  font-weight: bold;
+  outline: none;
+  -webkit-transition: all .2s ease;
+  transition: all .2s ease;
+  display: block;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.emotion-7:hover {
+  background: #F0F0F5;
+}
+
+.emotion-7:focus {
+  box-shadow: inset 0 0 0 2px #5E7300;
+  border-radius: 4px;
+}
+
+.emotion-0 {
+  fill: currentColor;
+  font-size: 1.25rem;
+}
+
+.emotion-3 {
+  display: inline-block;
+  box-sizing: border-box;
+  min-width: 1.5rem;
+  padding: 0 0.375rem;
+  font-family: 'SFMono-Regular',Consolas,'Liberation Mono',Menlo,monospace;
+  font-size: 0.75rem;
+  font-weight: normal;
+  line-height: 1.25rem;
+  text-align: center;
+  white-space: nowrap;
+  color: #24252E;
+  background: #F0F0F5;
+  border: 1px solid #AAAAB9;
+  border-bottom-width: 2px;
+  border-radius: 4px;
+}
+
+.emotion-4 {
+  color: #696979;
+  font-size: 0.75rem;
+}
+
+.emotion-6 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 0.25rem;
+  font-family: "IBM Plex Sans",sans-serif;
+  white-space: nowrap;
+  margin-left: 1rem;
+  font-weight: normal;
+}
+
+.emotion-6 kbd {
+  line-height: 1rem;
+}
+
+.emotion-18 {
+  list-style: none;
+}
+
+.emotion-18 + .emotion-18 {
+  margin-top: 0.5rem;
+}
+
+.emotion-15 {
+  display: block;
+  padding: 0.25rem 1rem;
+  color: #696979;
+  font-size: 0.75rem;
+  font-weight: bold;
+  text-transform: uppercase;
+  -webkit-letter-spacing: 0.04em;
+  -moz-letter-spacing: 0.04em;
+  -ms-letter-spacing: 0.04em;
+  letter-spacing: 0.04em;
+}
+
+.emotion-17 {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+<div>
+  <ul
+    class="emotion-19"
+    role="menu"
+  >
+    <li
+      class="emotion-7"
+      role="menuitem"
+      tabindex="0"
+    >
+      <span
+        aria-hidden="true"
+        class="emotion-1"
+      >
+        <svg
+          aria-hidden="true"
+          class="emotion-0"
+          height="1em"
+          role="img"
+          viewBox="0 0 24 24"
+          width="1em"
+        >
+          <path
+            d="M16 6h4c1.333 0 2 .667 2 2v12c0 1.334-.667 2-2 2H10c-1.333 0-2-.666-2-2v-2H4c-1.333 0-2-.667-2-2V4c0-1.333.667-2 2-2h10c1.333 0 2 .667 2 2v2zm-6 14h10V8H10v12zm-2-4V8c0-1.333.667-2 2-2h4V4H4v12h4z"
+          />
+        </svg>
+      </span>
+      <span
+        class="emotion-2"
+      >
+        Copy
+      </span>
+      <kbd
+        class="emotion-6"
+      >
+        <kbd
+          class="emotion-3"
+        >
+          Ctrl
+        </kbd>
+        <span
+          class="emotion-4"
+        >
+          +
+        </span>
+        <kbd
+          class="emotion-3"
+        >
+          C
+        </kbd>
+      </kbd>
+    </li>
+    <li
+      class="emotion-7"
+      role="menuitem"
+      tabindex="-1"
+    >
+      <span
+        aria-hidden="true"
+        class="emotion-1"
+      />
+      <span
+        class="emotion-2"
+      >
+        Paste
+      </span>
+    </li>
+    <li
+      aria-checked="true"
+      class="emotion-7"
+      role="menuitemcheckbox"
+      tabindex="-1"
+    >
+      <span
+        aria-hidden="true"
+        class="emotion-1"
+      >
+        <svg
+          aria-hidden="true"
+          class="emotion-0"
+          height="1em"
+          role="img"
+          viewBox="0 0 24 24"
+          width="1em"
+        >
+          <path
+            clip-rule="evenodd"
+            d="M18.294 6.293a1 1 0 111.414 1.414l-9 9a1 1 0 01-1.414 0l-5.001-5.001a1 1 0 011.414-1.414l4.294 4.294 8.293-8.293z"
+            fill-rule="evenodd"
+          />
+        </svg>
+      </span>
+      <span
+        class="emotion-2"
+      >
+        Show hidden files
+      </span>
+    </li>
+    <li
+      class="emotion-18"
+      role="none"
+    >
+      <span
+        class="emotion-15"
+        id="dropdown-group-abc"
+      >
+        Sort by
+      </span>
+      <ul
+        aria-labelledby="dropdown-group-abc"
+        class="emotion-17"
+        role="group"
+      >
+        <li
+          class="emotion-16"
+          role="menuitem"
+          tabindex="-1"
+        >
+          Name
+        </li>
+      </ul>
+    </li>
+  </ul>
+</div>
+`;

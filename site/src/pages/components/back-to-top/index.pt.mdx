@@ -1,0 +1,20 @@
+import { Demo } from '../../../components/Demo'
+
+# Back to top
+
+O back to top é um botão que flutua no canto da tela e leva o usuário de volta ao topo de uma página longa. Ele só aparece depois que a página rola para baixo.
+
+## Boas práticas
+
+- Use-o em páginas longas, como documentação, listas ou formulários longos, em que voltar ao topo exige rolar muito.
+- Mantenha um por página e verifique que ele não cobre outros botões flutuantes.
+
+## Uso
+
+O `BackToTop` aparece depois que a página rola mais que `threshold` pixels, 400 por padrão. O `scrollContainer` é o elemento que rola, quando não é a página. O `focusTarget` é um seletor CSS do elemento que recebe o foco no topo, o `h1` por padrão, e o `label` muda o nome do botão.
+
+<Demo src='pages/components/back-to-top/BackToTop' />
+
+## Acessibilidade
+
+O botão tem o nome "Voltar ao topo", dos textos de locale. Como ele some no topo da página, o foco vai para o título principal, para o teclado e os leitores de tela continuarem do início do conteúdo. A página rola sem animação quando o usuário prefere menos movimento.

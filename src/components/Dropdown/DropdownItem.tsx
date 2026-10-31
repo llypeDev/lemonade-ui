@@ -1,22 +1,37 @@
 import React from 'react'
 
 import { focusBoxShadow, Theme, useStyles } from '../../styles'
+import { Icon, IconImage } from '../Icon'
+import { Kbd } from '../Kbd'
 
 export interface DropdownItemProps extends React.HTMLAttributes<HTMLElement> {
   type?: 'normal' | 'danger'
   disabled?: boolean
   component?: React.ElementType<any>
+
+  /**
+   * Icon before the text. `null` keeps the space of an icon, so the text lines up with items that have one.
+   */
+  icon?: IconImage | null
+
+  /**
+   * Keyboard shortcut of the action, shown at the end of the item, such as `['Ctrl', 'C']`. It is only shown: the
+   * application handles the keys.
+   */
+  shortcut?: string | string[]
+
   [prop: string]: any
 }
 
 export function DropdownItem(props: DropdownItemProps) {
-  const { type, disabled, children, onClick, component: Component, ...rest } = props
+  const { type, disabled, children, onClick, component: Component, icon, shortcut, ...rest } = props
   const { classes, css } = useStyles(styles)
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLElement>) => {
     if (event.key === 'Enter' || event.key === ' ') {
-      const elem = event.target as any
-      elem.click()
+      // Without it, Space scrolls the page and Enter follows a link twice
+      event.preventDefault()
+      event.currentTarget.click()
     }
   }
 
@@ -28,7 +43,13 @@ export function DropdownItem(props: DropdownItemProps) {
     }
   }
 
-  const classNames = css(classes.item, type === 'danger' && classes.danger, disabled && classes.disabled)
+  const hasExtras = icon !== undefined || !!shortcut
+  const classNames = css(
+    classes.item,
+    hasExtras && classes.withExtras,
+    type === 'danger' && classes.danger,
+    disabled && classes.disabled
+  )
 
   return (
     <Component
@@ -39,7 +60,19 @@ export function DropdownItem(props: DropdownItemProps) {
       aria-disabled={disabled ? true : undefined}
       {...rest}
     >
-      {children}
+      {hasExtras ? (
+        <>
+          {icon !== undefined && (
+            <span className={classes.icon} aria-hidden>
+              {icon && <Icon icon={icon} size={1.25} />}
+            </span>
+          )}
+          <span className={classes.label}>{children}</span>
+          {shortcut && <Kbd keys={typeof shortcut === 'string' ? [shortcut] : shortcut} style={classes.shortcut} />}
+        </>
+      ) : (
+        children
+      )}
     </Component>
   )
 }
@@ -69,6 +102,27 @@ const styles = (theme: Theme) => ({
     '&:focus': {
       boxShadow: focusBoxShadow(theme, 'primary', 'inset'),
       borderRadius: 4,
+    },
+  } as React.CSSProperties,
+  withExtras: {
+    display: 'flex',
+    alignItems: 'center',
+    gap: '0.5rem',
+  } as React.CSSProperties,
+  icon: {
+    display: 'inline-flex',
+    flexShrink: 0,
+    width: '1.25rem',
+  } as React.CSSProperties,
+  label: {
+    flex: 1,
+  } as React.CSSProperties,
+  shortcut: {
+    marginLeft: '1rem',
+    fontWeight: 'normal',
+    // Shorter keys keep the item as tall as the others
+    '& kbd': {
+      lineHeight: '1rem',
     },
   } as React.CSSProperties,
   disabled: {

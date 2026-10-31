@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Color field
+
+The color field picks a color, such as the color of a tag or of a category, from a set of swatches or by its hex code.
+
+## Best practices
+
+- Offer a short set of swatches that work with the rest of the interface, and name each one.
+- Hide the custom color with `allowCustom={false}` when only the swatches make sense, such as colors with a meaning.
+- Check the contrast of the text that goes over the chosen color.
+
+## Usage
+
+`ColorField` takes a `label` and the color as `#RRGGBB` in `defaultValue` or, controlled, in `value` with `onChange`. `swatches` are the colors to pick from, as codes or as objects with a `value` and a `label`. With `allowCustom`, on by default, a field takes a hex code, such as `#5E7300` or `#abc`, and a button opens the color picker of the browser.
+
+<Demo src='pages/components/color-field/ColorField' />
+
+## Accessibility
+
+The swatches are radio buttons named by their colors, such as "Blue": the arrow keys move between them and pick them, and only the checked one is reached with Tab. A swatch given only as a code is named by its code. A code that is not a color shows a message when the field loses the focus, and the field is marked as invalid.

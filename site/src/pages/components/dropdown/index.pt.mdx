@@ -12,3 +12,20 @@ Utilizado para revelar uma lista de opções ou comandos ocultos. No cabeçalho,
 ## Exemplo
 
 <Demo src='pages/components/dropdown/DropdownExample' />
+
+## Ícones, atalhos, opções e submenus
+
+Um `DropdownItem` recebe um `icon` e um `shortcut`, como `['Ctrl', 'C']`; o atalho é só mostrado, e a aplicação trata as teclas. O `icon={null}` mantém o espaço de um ícone, para os textos ficarem alinhados.
+
+- `DropdownCheckboxItem` liga e desliga uma opção com `checked` e `onCheckedChange`.
+- `DropdownRadioGroup`, com `label`, `value` e `onValueChange`, agrupa `DropdownRadioItem`s em que só um fica marcado.
+- `DropdownGroup` coloca itens sob um título.
+- `DropdownSubmenu` abre um menu ao lado de um item, como "Mover para".
+
+Os itens de marcar mantêm o menu aberto, para o usuário mudar várias opções.
+
+<Demo src='pages/components/dropdown/DropdownItems' />
+
+## Acessibilidade
+
+O menu segue o padrão ARIA de menu: as setas para cima e para baixo percorrem todos os tipos de item, Home e End vão para as pontas, e Enter ou Espaço escolhem um item. Os itens de marcar informam se estão marcados, e os grupos têm o nome do seu título. Em um item com submenu, Enter, Espaço ou a seta para a direita o abrem e movem o foco para dentro dele; a seta para a esquerda e Escape o fecham e devolvem o foco ao item.

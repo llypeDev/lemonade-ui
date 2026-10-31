@@ -1,9 +1,9 @@
 import { render } from '@testing-library/react'
 import React from 'react'
 
+import enUs from '../../../i18n/locales/en-US'
+
 import { TableFilledBody, TableFilledBodyProps } from './TableFilledBody'
-import { TableLoadingRow } from './TableLoadingRow'
-import { TablePlaceholderRow } from './TablePlaceholderRow'
 
 interface Row {
   id: number
@@ -36,13 +36,13 @@ it('should render correctly', () => {
 })
 
 it('should render the TableLoadingRow if loading is true', () => {
-  const queryText = TableLoadingRow.defaultProps.message
+  const queryText = enUs.dataTable.loading
   expect(render(createTable({ loading: false })).queryAllByText(queryText).length).toEqual(0)
   expect(render(createTable({ loading: true })).queryAllByText(queryText).length).toEqual(1)
 })
 
 it('should render TablePlaceholderRow if loading is false and there are no rows', () => {
-  const queryText = TablePlaceholderRow.defaultProps.message
+  const queryText = enUs.dataTable.empty
   expect(render(createTable()).queryAllByText(queryText).length).toEqual(0)
   expect(render(createTable({ rows: [], loading: true })).queryAllByText(queryText).length).toEqual(0)
   expect(render(createTable({ rows: [], loading: false })).queryAllByText(queryText).length).toEqual(1)
