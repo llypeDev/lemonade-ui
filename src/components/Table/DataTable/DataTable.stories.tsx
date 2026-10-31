@@ -36,10 +36,10 @@ export default {
         align: 'right',
         render: (row: Row) => (
           <>
-            <Button size='small' skin='ghost'>
+            <Button size='small' skin='ghost' aria-label={`Edit ${row.name}`}>
               <Icon icon='penOutline' />
             </Button>
-            <Button size='small' skin='ghost'>
+            <Button size='small' skin='ghost' aria-label={`More actions for ${row.name}`}>
               <Icon icon='dots' />
             </Button>
           </>

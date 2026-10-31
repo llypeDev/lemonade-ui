@@ -623,7 +623,7 @@ export const customHeader = (args) => {
   return (
     <ChartContainer>
       <h1 style={{ color: 'red', fontWeight: 'bold', padding: '1rem' }}>
-        <input type='checkbox' />
+        <input type='checkbox' aria-label='Show in the report' />
         {args.title}
       </h1>
       <ChartBody height={500}>

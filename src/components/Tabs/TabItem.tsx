@@ -30,7 +30,7 @@ export function TabItem(props: TabItemProps) {
   const Cmp = component
 
   return (
-    <li className={css(classes.li, vertical && classes.verticalLi, style)}>
+    <li role='presentation' className={css(classes.li, vertical && classes.verticalLi, style)}>
       <Cmp role='tab' className={className} aria-selected={!!active} aria-disabled={disabled || undefined} {...rest}>
         {children}
       </Cmp>

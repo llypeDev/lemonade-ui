@@ -64,7 +64,7 @@ export const InputWrapper = React.forwardRef((props: InputWrapperProps, ref: Ref
           tabIndex={-1}
           onClick={onClear}
           className={classes.clearButton}
-          aria-label={iconAriaLabel}
+          aria-label={locale.input.clear}
         >
           <Icon size={1.5} icon='timesDefault' />
         </span>

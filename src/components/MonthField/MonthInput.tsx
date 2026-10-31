@@ -1,5 +1,6 @@
 import React, { useCallback } from 'react'
 import createAutoCorrectedDatePipe from 'text-mask-addons/dist/createAutoCorrectedDatePipe'
+import { useLocale } from '../../i18n'
 import { MaskedTextField, MaskedTextFieldProps } from '../MaskedTextField'
 import { ReferenceMonth } from '../MonthPicker'
 import { format } from './util'
@@ -11,6 +12,7 @@ export interface MonthInputProps extends Omit<MaskedTextFieldProps, 'value' | 'o
 
 export function MonthInput(props: MonthInputProps) {
   const { value, onChange, ...rest } = props
+  const locale = useLocale()
 
   const handleChange = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>) => {
@@ -34,7 +36,7 @@ export function MonthInput(props: MonthInputProps) {
       value={value ? format(value) : null}
       mask={[/\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]}
       pipe={createAutoCorrectedDatePipe('mm/yyyy')}
-      placeholder='mm/yyyy'
+      placeholder={locale.monthInput.placeholder}
       onChange={handleChange}
       {...rest}
     />

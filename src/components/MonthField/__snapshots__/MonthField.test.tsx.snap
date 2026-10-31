@@ -246,6 +246,7 @@ exports[`Component presentation should render correctly when closed 1`] = `
               value="02/2019"
             />
             <span
+              aria-label="Clear"
               class="emotion-2"
               role="button"
               tabindex="-1"
@@ -270,6 +271,7 @@ exports[`Component presentation should render correctly when closed 1`] = `
               class="emotion-5"
             >
               <button
+                aria-label="Open calendar"
                 class="emotion-4"
                 tabindex="-1"
                 type="button"
@@ -768,6 +770,7 @@ exports[`Component presentation should render correctly when opened 1`] = `
               value="02/2019"
             />
             <span
+              aria-label="Clear"
               class="emotion-2"
               role="button"
               tabindex="-1"
@@ -792,6 +795,7 @@ exports[`Component presentation should render correctly when opened 1`] = `
               class="emotion-5"
             >
               <button
+                aria-label="Open calendar"
                 class="emotion-4"
                 tabindex="-1"
                 type="button"

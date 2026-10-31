@@ -49,3 +49,13 @@ it('should render correctly without clear icon AND left position', () => {
   )
   expect(container).toMatchSnapshot()
 })
+
+it('should keep the name of the clear button when the icon has its own name', () => {
+  const { getByRole } = render(
+    <InputWrapper icon='eyeOutline' iconAriaLabel='Show password' clearVisible onIconClick={jest.fn()}>
+      <Input />
+    </InputWrapper>
+  )
+  expect(getByRole('button', { name: 'Clear' })).toBeInTheDocument()
+  expect(getByRole('button', { name: 'Show password' })).toBeInTheDocument()
+})

@@ -346,6 +346,7 @@ exports[`DateRangePicker render should render correctly 1`] = `
                 class="emotion-15"
               >
                 <button
+                  aria-label="Open calendar"
                   class="emotion-14"
                   tabindex="-1"
                   type="button"
@@ -727,6 +728,7 @@ exports[`DateRangePicker render should render correctly when disabled 1`] = `
                 class="emotion-15"
               >
                 <button
+                  aria-label="Open calendar"
                   class="emotion-14"
                   disabled=""
                   tabindex="-1"
@@ -1115,6 +1117,7 @@ exports[`DateRangePicker render should render correctly when invalid 1`] = `
                 class="emotion-15"
               >
                 <button
+                  aria-label="Open calendar"
                   class="emotion-14"
                   tabindex="-1"
                   type="button"
@@ -1634,6 +1637,7 @@ exports[`DateRangePicker render should render correctly when opened 1`] = `
                 class="emotion-15"
               >
                 <button
+                  aria-label="Open calendar"
                   class="emotion-14"
                   tabindex="-1"
                   type="button"
@@ -2550,6 +2554,7 @@ exports[`DateRangePicker render should render correctyly when onlyWeeks 1`] = `
                 class="emotion-15"
               >
                 <button
+                  aria-label="Open calendar"
                   class="emotion-14"
                   tabindex="-1"
                   type="button"

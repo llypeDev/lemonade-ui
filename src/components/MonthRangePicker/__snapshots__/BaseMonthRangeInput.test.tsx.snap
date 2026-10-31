@@ -334,6 +334,7 @@ exports[`BaseMonthRangeInput customization should allow a custom string in range
         class="emotion-15"
       >
         <button
+          aria-label="Open calendar"
           class="emotion-14"
           tabindex="-1"
           type="button"
@@ -693,6 +694,7 @@ exports[`BaseMonthRangeInput customization should allow enUS placeholder customi
         class="emotion-15"
       >
         <button
+          aria-label="Open calendar"
           class="emotion-14"
           tabindex="-1"
           type="button"
@@ -1052,6 +1054,7 @@ exports[`BaseMonthRangeInput customization should allow enUs i18n in range separ
         class="emotion-15"
       >
         <button
+          aria-label="Open calendar"
           class="emotion-14"
           tabindex="-1"
           type="button"
@@ -1411,6 +1414,7 @@ exports[`BaseMonthRangeInput customization should allow ptBR placeholder customi
         class="emotion-15"
       >
         <button
+          aria-label="Abrir calendário"
           class="emotion-14"
           tabindex="-1"
           type="button"
@@ -1770,6 +1774,7 @@ exports[`BaseMonthRangeInput customization should allow ptBr i18n in range separ
         class="emotion-15"
       >
         <button
+          aria-label="Abrir calendário"
           class="emotion-14"
           tabindex="-1"
           type="button"
@@ -2129,6 +2134,7 @@ exports[`BaseMonthRangeInput render should render correctly 1`] = `
         class="emotion-15"
       >
         <button
+          aria-label="Open calendar"
           class="emotion-14"
           tabindex="-1"
           type="button"
@@ -2494,6 +2500,7 @@ exports[`BaseMonthRangeInput render should render correctly when disabled 1`] = 
         class="emotion-15"
       >
         <button
+          aria-label="Open calendar"
           class="emotion-14"
           disabled=""
           tabindex="-1"
@@ -2866,6 +2873,7 @@ exports[`BaseMonthRangeInput render should render correctly when invalid 1`] = `
         class="emotion-15"
       >
         <button
+          aria-label="Open calendar"
           class="emotion-14"
           tabindex="-1"
           type="button"

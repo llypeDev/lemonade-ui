@@ -222,6 +222,7 @@ exports[`DateField should render correctly 1`] = `
               class="emotion-3"
             >
               <button
+                aria-label="Open calendar"
                 class="emotion-2"
                 tabindex="-1"
                 type="button"
@@ -475,6 +476,7 @@ exports[`DateField should render correctly when disabled 1`] = `
               class="emotion-3"
             >
               <button
+                aria-label="Open calendar"
                 class="emotion-2"
                 disabled=""
                 tabindex="-1"
@@ -870,6 +872,7 @@ exports[`DateField should render correctly when opened 1`] = `
               class="emotion-3"
             >
               <button
+                aria-label="Open calendar"
                 class="emotion-2"
                 tabindex="-1"
                 type="button"

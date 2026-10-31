@@ -25,7 +25,7 @@ Default.args = {
 }
 
 export const WithIcon = (args) => (
-  <Button {...args}>
+  <Button aria-label='Adjust' {...args}>
     <Icon icon='adjust' />
   </Button>
 )

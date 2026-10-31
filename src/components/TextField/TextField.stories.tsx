@@ -50,6 +50,7 @@ export const WithIcon = (args) => (
       id='clickable'
       name='clickable'
       icon='zoomOutline'
+      iconAriaLabel='Search'
       label='Clickable icon'
       onIconClick={action('icon-clicked')}
     />

@@ -178,6 +178,7 @@ exports[`CurrencyField should render correctly 1`] = `
             value="R$ 1.234,50"
           />
           <span
+            aria-label="Clear"
             class="emotion-3"
             role="button"
             tabindex="-1"

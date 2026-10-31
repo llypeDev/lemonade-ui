@@ -344,6 +344,7 @@ exports[`MonthRangePicker render should render correctly 1`] = `
                 class="emotion-15"
               >
                 <button
+                  aria-label="Open calendar"
                   class="emotion-14"
                   tabindex="-1"
                   type="button"
@@ -723,6 +724,7 @@ exports[`MonthRangePicker render should render correctly when disabled 1`] = `
                 class="emotion-15"
               >
                 <button
+                  aria-label="Open calendar"
                   class="emotion-14"
                   disabled=""
                   tabindex="-1"
@@ -1109,6 +1111,7 @@ exports[`MonthRangePicker render should render correctly when invalid 1`] = `
                 class="emotion-15"
               >
                 <button
+                  aria-label="Open calendar"
                   class="emotion-14"
                   tabindex="-1"
                   type="button"
@@ -1639,6 +1642,7 @@ exports[`MonthRangePicker render should render correctly when opened 1`] = `
                 class="emotion-15"
               >
                 <button
+                  aria-label="Open calendar"
                   class="emotion-14"
                   tabindex="-1"
                   type="button"

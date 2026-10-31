@@ -31,7 +31,7 @@ export const Default = (args) => {
 
   return (
     <>
-      <Button innerRef={setAnchorRef} size='small' onClick={() => setOpen((state) => !state)}>
+      <Button innerRef={setAnchorRef} size='small' aria-label='More actions' onClick={() => setOpen((state) => !state)}>
         <Icon icon='dots' />
       </Button>
 

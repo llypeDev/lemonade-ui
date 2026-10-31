@@ -10,7 +10,7 @@ export default {
 }
 
 export const Default = (args) => (
-  <div style={{ height: '400px', overflowY: 'auto' }}>
+  <div style={{ height: '400px', overflowY: 'auto' }} tabIndex={0} role='region' aria-label='Scrollable area'>
     <StickyContainer {...args}>
       <h1>Sticky title</h1>
       <p>(scroll window to see sticker in action)</p>

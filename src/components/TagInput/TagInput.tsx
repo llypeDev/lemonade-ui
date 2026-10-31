@@ -59,7 +59,7 @@ export interface TagInputProps
 const fill = (text: string, values: Record<string, string | number>) =>
   text.replace(/\{(\w+)\}/g, (match, name) => (name in values ? String(values[name]) : match))
 
-const escapeRegExp = (text: string) => text.replace(/[.*+?^${}()|[\]\\]/g, '\\$&')
+const escapeRegExp = (text: string) => text.replace(/[.*+?^${}()|[\]\\-]/g, '\\$&')
 
 /**
  * Field for a list of short free values, such as email addresses or keywords, shown as tags. Enter or a comma
