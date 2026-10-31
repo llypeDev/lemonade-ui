@@ -22,6 +22,11 @@ export interface MonthViewProps {
   renderWeekName?(firstWeekDay: Date): React.ReactNode
   isDaySelected?(day: Date): boolean
 
+  /**
+   * Days that cannot be picked, announced as disabled
+   */
+  isDayDisabled?(day: Date): boolean
+
   onWeekClick?(week: Week): void
   onWeekHover?(week: Week): void
 
@@ -79,6 +84,7 @@ export function MonthView(props: MonthViewProps) {
                   onMouseOver={onlyWeeks ? undefined : handleDayHover(day)}
                   role='button'
                   aria-selected={onlyWeeks ? undefined : props.isDaySelected && props.isDaySelected(day)}
+                  aria-disabled={(!onlyWeeks && props.isDayDisabled && props.isDayDisabled(day)) || undefined}
                 >
                   {renderDay(day)}
                 </span>

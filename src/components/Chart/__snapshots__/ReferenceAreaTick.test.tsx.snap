@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`ReferenceAreaTick should renders correctly when label alignment is central 1`] = `
-<div>
+<svg>
   <text
     dominant-baseline="central"
     dx="15"
@@ -51,11 +51,11 @@ exports[`ReferenceAreaTick should renders correctly when label alignment is cent
     x="10"
     y="20"
   />
-</div>
+</svg>
 `;
 
 exports[`ReferenceAreaTick should renders correctly when label alignment is central and name or description has more than one line 1`] = `
-<div>
+<svg>
   <text
     dominant-baseline="central"
     dx="15"
@@ -121,11 +121,11 @@ exports[`ReferenceAreaTick should renders correctly when label alignment is cent
     x="10"
     y="20"
   />
-</div>
+</svg>
 `;
 
 exports[`ReferenceAreaTick should renders correctly when set label color 1`] = `
-<div>
+<svg>
   <text
     dominant-baseline="text-before-edge"
     dx="15"
@@ -157,11 +157,11 @@ exports[`ReferenceAreaTick should renders correctly when set label color 1`] = `
     x="10"
     y="20"
   />
-</div>
+</svg>
 `;
 
 exports[`ReferenceAreaTick should renders correctly when tick kind is horizontal 1`] = `
-<div>
+<svg>
   <text
     dominant-baseline="text-before-edge"
     dx="15"
@@ -193,11 +193,11 @@ exports[`ReferenceAreaTick should renders correctly when tick kind is horizontal
     x="10"
     y="20"
   />
-</div>
+</svg>
 `;
 
 exports[`ReferenceAreaTick should renders correctly with the default props 1`] = `
-<div>
+<svg>
   <text
     dominant-baseline="text-before-edge"
     dx="15"
@@ -229,5 +229,5 @@ exports[`ReferenceAreaTick should renders correctly with the default props 1`] =
     x="10"
     y="20"
   />
-</div>
+</svg>
 `;

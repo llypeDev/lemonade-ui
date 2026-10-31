@@ -27,4 +27,4 @@ Replace `SelectInline` with `Combobox` and `inline`. The main props keep their n
 
 ## Accessibility
 
-The button of the `Combobox` with `inline` tells screen readers whether the list is open, and opening it moves the focus to the search box. Clicking an option or pressing Escape closes the list. Two known issues remain: the arrow keys do not move through the options from the search box, and after the list closes the focus does not go back to the button. Until they are fixed, avoid it in flows used mostly with the keyboard.
+The button of the `Combobox` with `inline` tells screen readers whether the list is open, and opening it moves the focus to the search box, which is the combobox of the list. The arrow keys move through the options, Enter picks one and Escape closes the list; either way, the focus goes back to the button. Without the search box, the button itself is the combobox.

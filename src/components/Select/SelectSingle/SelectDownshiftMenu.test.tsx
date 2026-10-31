@@ -1,4 +1,4 @@
-import { fireEvent, render } from '@testing-library/react'
+import { fireEvent, render, act } from '@testing-library/react'
 import { resetIdCounter } from 'downshift'
 import React from 'react'
 import { HFlow } from '../../HFlow'
@@ -7,6 +7,9 @@ import { Text } from '../../Text'
 import { Select, SelectProps } from './../Select'
 import { DefaultItemType } from './SelectSingle'
 import { SelectDownshiftComponentCustom } from './SelectDownshiftMenu'
+
+// Lets pending updates, such as popper positions and debounced loads, settle inside act
+const flush = () => act(async () => undefined)
 
 jest.mock('../../../util/string')
 
@@ -25,7 +28,7 @@ function SelectTest(props: Partial<SelectProps>) {
 }
 
 describe('downshift', () => {
-  it('should render the menu as a DIV with the list inside as a UL', () => {
+  it('should render the menu as a DIV with the list inside as a UL', async () => {
     const { container } = render(<SelectTest value={items} />)
 
     const input = container.querySelector('input')
@@ -34,8 +37,9 @@ describe('downshift', () => {
     const dropdown = container.querySelector('[role="listbox"]')
     expect(dropdown.nodeName).toEqual('DIV')
     expect(dropdown.firstElementChild.nodeName).toEqual('UL')
+    await flush()
   })
-  it('should render the menu with width equal or greater than 1000px', () => {
+  it('should render the menu with width equal or greater than 1000px', async () => {
     const { container } = render(<SelectTest menuMinWidth={1000} value={items} />)
 
     const input = container.querySelector('input')
@@ -43,15 +47,17 @@ describe('downshift', () => {
 
     const styleDropdown = container.querySelector('[role="listbox"]').getAttribute('style')
     expect(styleDropdown).toContain('min-width: 1000px')
+    await flush()
   })
 })
 
 describe('SelectDownshiftComponentCustom', () => {
-  it('should render correctly', () => {
+  it('should render correctly', async () => {
     const { container } = render(<SelectDownshiftComponentCustom>Prepend Item</SelectDownshiftComponentCustom>)
     expect(container).toMatchSnapshot()
+    await flush()
   })
-  it('should accept actions inside children prop', () => {
+  it('should accept actions inside children prop', async () => {
     const click = jest.fn()
 
     const { container } = render(
@@ -72,5 +78,6 @@ describe('SelectDownshiftComponentCustom', () => {
 
     fireEvent.click(container.querySelector('button'))
     expect(click).toHaveBeenCalledTimes(1)
+    await flush()
   })
 })

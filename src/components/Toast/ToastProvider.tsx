@@ -1,6 +1,7 @@
 import { keyframes } from 'emotion'
 import React, { CSSProperties, useCallback, useContext, useEffect, useMemo, useRef, useState } from 'react'
 
+import { useIsMounted } from '../../hooks/useIsMounted'
 import { Theme, useStyles } from '../../styles'
 import { Portal } from '../Portal'
 
@@ -121,6 +122,8 @@ function ToastItem(props: ToastItemProps) {
   const { classes } = useStyles(createStyles)
 
   const timerRef = useRef<ReturnType<typeof setTimeout>>(null)
+  // A toast that has the focus when it is removed gets a blur, which would start a timer after the cleanup
+  const isMounted = useIsMounted()
 
   const stopTimer = useCallback(() => {
     clearTimeout(timerRef.current)
@@ -129,9 +132,9 @@ function ToastItem(props: ToastItemProps) {
   const startTimer = useCallback(() => {
     stopTimer()
     if (duration > 0) {
-      timerRef.current = setTimeout(() => onClose(id), duration)
+      timerRef.current = setTimeout(() => isMounted.current && onClose(id), duration)
     }
-  }, [duration, id, onClose, stopTimer])
+  }, [duration, id, isMounted, onClose, stopTimer])
 
   useEffect(() => {
     startTimer()

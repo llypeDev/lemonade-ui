@@ -1,4 +1,4 @@
-import { fireEvent, render } from '@testing-library/react'
+import { fireEvent, render, act } from '@testing-library/react'
 import React from 'react'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
@@ -6,6 +6,9 @@ import { DroppableDiv } from './FilterDraggable.test'
 import { KeyMapping } from './types/KeyMapping'
 import { Draggable, DraggableProps } from './Draggable'
 import { useDraggableKeyNavigation } from './useDraggableNavigation'
+
+// Lets pending updates, such as popper positions and debounced loads, settle inside act
+const flush = () => act(async () => undefined)
 
 jest.mock('./useDraggableNavigation')
 const mockedUseDraggableKeyNavigation = useDraggableKeyNavigation as jest.Mock
@@ -43,14 +46,15 @@ describe('Draggable', () => {
   })
 
   describe('render', () => {
-    it('should render correctly', () => {
+    it('should render correctly', async () => {
       const { container } = render(createDefaultComponent())
       expect(container).toMatchSnapshot()
+      await flush()
     })
   })
 
   describe('Drag and drop', () => {
-    it('should call onDragEnd when the drag event ends', () => {
+    it('should call onDragEnd when the drag event ends', async () => {
       const onDragEnd = jest.fn()
       const { container } = render(
         <DndProvider backend={HTML5Backend}>
@@ -69,11 +73,12 @@ describe('Draggable', () => {
       fireEvent.dragEnd(draggable)
 
       expect(onDragEnd).toHaveBeenCalled()
+      await flush()
     })
   })
 
   describe('Keyboard navigation', () => {
-    it('should call useDraggableKeyNavigation with correct params and trigger its returned function on key down', () => {
+    it('should call useDraggableKeyNavigation with correct params and trigger its returned function on key down', async () => {
       const onDragEnd = jest.fn()
       const onKeyNav = jest.fn()
 
@@ -84,6 +89,7 @@ describe('Draggable', () => {
       expect(mockedUseDraggableKeyNavigation).toHaveBeenCalledWith(onDragEnd, origin, onKeyNav)
       expect(mockHandleKeyDown).toHaveBeenCalledWith(key)
       expect(mockKeyDownHandler).toHaveBeenCalledTimes(1)
+      await flush()
     })
   })
 })

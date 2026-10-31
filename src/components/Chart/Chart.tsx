@@ -1,7 +1,8 @@
-import React from 'react'
+import React, { useMemo } from 'react'
 import { CartesianGrid, ComposedChart, Legend, ReferenceArea as RechartsReferenceArea, ReferenceLine } from 'recharts'
 
 import { useTheme } from '../../styles'
+import { randomStr } from '../../util/string'
 import { blue } from '../../styles/colors'
 import { adaptDomainToSeriesRange } from './adaptDomainToData'
 import { convertReferenceRangesToPercents } from './convertReferenceRangesToPercents'
@@ -60,6 +61,7 @@ export function Chart<XDomain>(props: ChartProps<XDomain>) {
     outliers = 'expand-domain',
   } = props
 
+  const maskId = useMemo(() => `${RANGE_AREA_MASK_ID}-${randomStr()}`, [])
   const theme = useTheme()
   const domainPoints = getDomainPoints(xAxis.domain)
   const { rangedSeries, outlierSeries, hasOutliers } = splitOutlierSeries(
@@ -116,8 +118,9 @@ export function Chart<XDomain>(props: ChartProps<XDomain>) {
 
       {referenceAreas?.map((ra, i) => renderReferenceAreas(ra, i, colorScheme ?? 'default'))}
 
+      {rangeAreas?.length > 0 && RangeAreaMaskChartPattern(maskId)}
+
       {rangeAreas?.map((ra) => [
-        RangeAreaMaskChartPattern(),
         <RechartsReferenceArea
           yAxisId='data'
           x1={getRangeAreaInit(ra, xAxis.domain)}
@@ -142,7 +145,7 @@ export function Chart<XDomain>(props: ChartProps<XDomain>) {
                 y1={getAxisDomainInit(adaptedYDomain)}
                 y2={getAxisDomainEnd(adaptedYDomain, hasOutliers)}
                 fillOpacity={ra.mask?.fillOpacity ?? 1}
-                fill={`url(#${RANGE_AREA_MASK_ID})`}
+                fill={`url(#${maskId})`}
               />,
               ...renderRangeAreaStroke(ra),
             ]
@@ -174,7 +177,7 @@ export function Chart<XDomain>(props: ChartProps<XDomain>) {
                 y1={getAxisDomainInit(adaptedYDomain)}
                 y2={getAxisDomainEnd(adaptedYDomain, hasOutliers)}
                 fillOpacity={ra.mask?.fillOpacity ?? 1}
-                fill={`url(#${RANGE_AREA_MASK_ID})`}
+                fill={`url(#${maskId})`}
               />,
               ...renderRangeAreaStroke(ra),
             ]

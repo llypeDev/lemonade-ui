@@ -261,7 +261,6 @@ export function ComboboxMultiselect<T = DefaultComboboxItemType>(props: Combobox
             itemToString={itemToString}
             items={loadedItems}
             loading={isLoading}
-            tabIndex={-1}
           />
         )}
       </div>

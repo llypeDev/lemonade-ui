@@ -205,7 +205,6 @@ export function ComboboxSingleselect<T = DefaultComboboxItemType>(props: Combobo
             itemToString={itemToString}
             items={loadedItems}
             loading={isLoading}
-            tabIndex={-1}
           />
         )}
       </div>

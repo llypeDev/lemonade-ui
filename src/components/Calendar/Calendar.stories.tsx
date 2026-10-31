@@ -55,8 +55,8 @@ export const CustomModifier = (args) => (
       oddDays: isOddDay,
     }}
     modifierStyles={{
-      today: () => ({ background: 'pink' }),
-      oddDays: () => ({ color: 'red', fontWeight: 'bold' }),
+      today: (theme) => ({ background: theme.pallete.status.danger.background }),
+      oddDays: (theme) => ({ color: theme.pallete.status.danger.main, fontWeight: 'bold' }),
     }}
   />
 )

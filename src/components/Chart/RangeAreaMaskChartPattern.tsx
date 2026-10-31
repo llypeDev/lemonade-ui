@@ -2,18 +2,14 @@ import React from 'react'
 
 export const RANGE_AREA_MASK_ID = 'mask-range-area'
 
-export function RangeAreaMaskChartPattern() {
+/**
+ * Pattern that fills the masked range areas. Each chart passes its own id, since two charts on a page with the same
+ * id would share one pattern, and a chart that unmounts would take the pattern of the other with it.
+ */
+export function RangeAreaMaskChartPattern(id: string = RANGE_AREA_MASK_ID) {
   return (
-    <defs>
-      <pattern
-        id={RANGE_AREA_MASK_ID}
-        patternUnits='userSpaceOnUse'
-        x='0'
-        y='0'
-        width='10.5'
-        height='60'
-        viewBox='0 0 10.5 60'
-      >
+    <defs key={id}>
+      <pattern id={id} patternUnits='userSpaceOnUse' x='0' y='0' width='10.5' height='60' viewBox='0 0 10.5 60'>
         <rect width='10.5' height='60' fill='white' fillOpacity='1' />
         <path
           d='

@@ -25,6 +25,8 @@ const config = {
         test: /\.tsx?$/,
         loader: 'ts-loader',
         exclude: /node_modules/,
+        // The build config leaves the stories out of the declarations written to lib
+        options: { configFile: 'tsconfig.build.json' },
       },
       {
         test: /\.css$/,

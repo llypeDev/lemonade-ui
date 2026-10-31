@@ -38,6 +38,7 @@ const createStyles = (theme: Theme, status: StepStatus) => ({
 
 const getLabelColor = (status: StepStatus, theme: Theme): CSSProperties['color'] => {
   if (status === 'active') return theme.pallete.primary.main
-  if (status === 'inactive') return theme.pallete.text.disabled
+  // The label of an inactive step is still read, so it keeps a readable contrast
+  if (status === 'inactive') return theme.pallete.text.secondary
   return theme.pallete.text.main
 }

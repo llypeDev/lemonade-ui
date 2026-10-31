@@ -792,11 +792,10 @@ exports[`rendering renders correcly opened 1`] = `
         data-popper-reference-hidden="true"
         data-testid="menu"
         style="position: absolute; left: 0px; top: 0px; width: 0px; transform: translate(0px, 0px);"
-        tabindex="-1"
       >
         <ul
           class="emotion-69"
-          tabindex="-1"
+          role="presentation"
         >
           <li
             aria-disabled="false"
@@ -1657,14 +1656,16 @@ exports[`rendering renders correcly opened and loading 1`] = `
         data-popper-reference-hidden="true"
         data-testid="menu"
         style="position: absolute; left: 0px; top: 0px; width: 0px; transform: translate(0px, 0px);"
-        tabindex="-1"
       >
         <ul
           class="emotion-71"
-          tabindex="-1"
+          role="presentation"
         >
           <li
+            aria-disabled="true"
+            aria-selected="false"
             class="emotion-10"
+            role="option"
           >
             Loading...
             <span
@@ -2459,11 +2460,10 @@ exports[`rendering renders correcly with custom components correctly 1`] = `
         data-popper-reference-hidden="true"
         data-testid="menu"
         style="position: absolute; left: 0px; top: 0px; width: 0px; transform: translate(0px, 0px);"
-        tabindex="-1"
       >
         <ul
           class="emotion-36"
-          tabindex="-1"
+          role="presentation"
         >
           <div
             style="background: rgb(240, 240, 245); padding: 0.25rem 0.5rem; cursor: initial;"

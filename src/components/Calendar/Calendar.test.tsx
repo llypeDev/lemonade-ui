@@ -9,6 +9,21 @@ import { Calendar, createStylesFn, defaultModifierStyles, defaultDayModifiers, d
 import { createWeekArray, isSameDay } from './util'
 
 describe('Calendar', () => {
+  it('should mark the disabled days, so screen readers announce them', () => {
+    const visibleDate = new Date('2018-10-01T12:00:00')
+    const { container } = render(
+      <Calendar
+        visibleDate={visibleDate}
+        onVisibleDateChange={jest.fn()}
+        modifiers={{ disabled: (day: Date) => day.getDate() === 15 }}
+      />
+    )
+
+    const day = (date: string) => container.querySelector(`td[data-date="${date}"] [role="button"]`)
+    expect(day('2018-10-15')).toHaveAttribute('aria-disabled', 'true')
+    expect(day('2018-10-16')).not.toHaveAttribute('aria-disabled')
+  })
+
   it('should render correctly', () => {
     const { container } = render(
       <Calendar

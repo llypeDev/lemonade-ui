@@ -24,7 +24,7 @@ describe('Checkbox', () => {
   it('should use external inputRef', () => {
     const ref = React.createRef<HTMLInputElement>()
 
-    const { container } = render(<Checkbox label='check' inputRef={ref} checked={false} />)
+    const { container } = render(<Checkbox label='check' inputRef={ref} defaultChecked={false} />)
     const input = container.querySelector('input')
     fireEvent(input, new MouseEvent('click'))
     expect(input.checked).toBeTruthy()

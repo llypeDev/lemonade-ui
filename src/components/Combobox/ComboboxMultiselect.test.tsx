@@ -6,9 +6,20 @@ import { Text } from '../Text'
 import { useTheme } from '../../styles'
 import { HFlow } from '../HFlow'
 import { Button } from '../Button'
-import { ComboboxMenuItem, ComboboxMultiselectSelectedItem } from './ComboboxMenuComponents'
+import {
+  ComboboxItemProps,
+  ComboboxMenuItem,
+  ComboboxMultiselectSelectedItem,
+  ComboboxMultiselectSelectedItemProps,
+} from './ComboboxMenuComponents'
 import { Combobox } from './Combobox'
 import { ComboboxMultiselect, ComboboxMultiselectProps } from './ComboboxMultiselect'
+
+// Lets pending updates, such as popper positions and debounced loads, settle inside act
+const flush = () =>
+  act(
+    () => new Promise<void>((resolve) => setTimeout(resolve, 20))
+  )
 
 const TOGGLE_BUTTON_ID = 'test-toggle-button-id'
 const MENU_ID = 'test-menu-id'
@@ -64,8 +75,8 @@ const ComboboxTest = (props: Partial<ComboboxMultiselectProps<Fruit>> & { async?
     openOnFocus
     loading={false}
     components={{
-      SelectedItem: forwardRef((props) => (
-        <ComboboxMultiselectSelectedItem {...props} data-testid={`${props.children}`} />
+      SelectedItem: forwardRef<HTMLSpanElement, ComboboxMultiselectSelectedItemProps>((props, ref) => (
+        <ComboboxMultiselectSelectedItem ref={ref} {...props} data-testid={`${props.children}`} />
       )),
     }}
     inputId={'test-input-id'}
@@ -92,9 +103,12 @@ function CustomComponent(props: React.HTMLAttributes<HTMLDivElement>) {
   )
 }
 
-const ComboboxWithCustomComponentsTest = (
-  props: Partial<ComboboxMultiselectProps<Fruit>> & { action?: () => void; onRemove?: () => void }
-) => (
+// The action and onRemove are used by the custom items, not passed to the component
+const ComboboxWithCustomComponentsTest = ({
+  action,
+  onRemove,
+  ...props
+}: Partial<ComboboxMultiselectProps<Fruit>> & { action?: () => void; onRemove?: () => void }) => (
   <ComboboxMultiselect<typeof fruits[0]>
     label='Fruit'
     name='fruit'
@@ -110,14 +124,16 @@ const ComboboxWithCustomComponentsTest = (
     toggleButtonId={TOGGLE_BUTTON_ID}
     getItemId={(index) => `test-item-id-${index}`}
     components={{
-      SelectedItem: forwardRef((props) => (
-        <ComboboxMultiselectSelectedItem onRemove={props.onRemove}>Selected item</ComboboxMultiselectSelectedItem>
+      SelectedItem: forwardRef<HTMLSpanElement, ComboboxMultiselectSelectedItemProps>((props, ref) => (
+        <ComboboxMultiselectSelectedItem ref={ref} onRemove={props.onRemove}>
+          Selected item
+        </ComboboxMultiselectSelectedItem>
       )),
-      Item: (props) => (
-        <ComboboxMenuItem {...props}>
+      Item: forwardRef<HTMLLIElement, ComboboxItemProps<Fruit>>((props, ref) => (
+        <ComboboxMenuItem ref={ref} {...props}>
           <Text color='success'>Custom {props.itemToString(props.item)}</Text>
         </ComboboxMenuItem>
-      ),
+      )),
       PrependItem: (props) => <CustomComponent>Prepend item</CustomComponent>,
       EmptyItem: (props) => <CustomComponent>Empty item</CustomComponent>,
       CreateItem: (props) => <CustomComponent>Create item</CustomComponent>,
@@ -129,7 +145,7 @@ const ComboboxWithCustomComponentsTest = (
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime quod modi, inventore quasi aut sed beatae
               corrupti repellendus minima voluptatem debitis, quibusdam repudiandae totam voluptatum odit.
             </Text>
-            <Button kind='primary' size='small' data-testid='action-btn' onClick={() => props.action?.()}>
+            <Button kind='primary' size='small' data-testid='action-btn' onClick={() => action?.()}>
               New item
             </Button>
           </HFlow>
@@ -175,12 +191,13 @@ test.each`
   //Opens menu
   fireEvent.focus(input)
   expect(combobox).toHaveAttribute('aria-expanded', 'true')
-  await waitFor(() => expect(listbox.querySelector('[aria-selected]')).toBeTruthy())
+  await waitFor(() => expect(listbox.querySelector('[role="option"]:not([aria-disabled="true"])')).toBeTruthy())
 
   fireEvent.keyDown(combobox, { key: 'ArrowDown' })
 
   await waitFor(() => expect(listbox.querySelector('[aria-selected="true"]')?.textContent).toBe(fruits[0].label))
   expect(combobox).toHaveAttribute('aria-activedescendant', listbox.querySelector('[aria-selected="true"]')?.id)
+  await flush()
 })
 
 test.each`
@@ -203,6 +220,7 @@ test.each`
   fireEvent.click(iconButton)
 
   expect(baseElement.querySelector('ul')).toBeFalsy()
+  await flush()
 })
 
 test.each`
@@ -230,6 +248,7 @@ test.each`
   // focus input and now menu should not be open
   fireEvent.focus(input)
   expect(baseElement.querySelector('ul')).toBeFalsy()
+  await flush()
 })
 
 it('shows placeholder when specified', async () => {
@@ -239,6 +258,7 @@ it('shows placeholder when specified', async () => {
   const input = baseElement.querySelector('input')
 
   expect(input).toHaveAttribute('placeholder', placeholder)
+  await flush()
 })
 
 it('does not show placeholder when not specified', async () => {
@@ -247,6 +267,7 @@ it('does not show placeholder when not specified', async () => {
   const input = baseElement.querySelector('input')
 
   expect(input).not.toHaveAttribute('placeholder')
+  await flush()
 })
 
 it('does not show placeholder if any item is selected', async () => {
@@ -255,6 +276,7 @@ it('does not show placeholder if any item is selected', async () => {
   const input = baseElement.querySelector('input')
 
   expect(input).not.toHaveAttribute('placeholder')
+  await flush()
 })
 
 it.each`
@@ -287,6 +309,7 @@ it.each`
   expect(notCleared).not.toBeNull()
   const cleared = baseElement.querySelector(`[data-testid="${options[0].textContent}"]`)
   expect(cleared).toBeNull()
+  await flush()
 })
 
 it.each`
@@ -326,6 +349,7 @@ it.each`
     const cleared2 = baseElement.querySelector(`[data-testid="${options[1].textContent}"]`)
     expect(cleared2).toBeNull()
   })
+  await flush()
 })
 
 it('enters error state', async () => {
@@ -339,6 +363,7 @@ it('enters error state', async () => {
 
   const errorMessageContainer = baseElement.querySelector(`#${input.getAttribute('aria-errormessage')}`)
   expect(errorMessageContainer).toHaveTextContent(errorMessage)
+  await flush()
 })
 
 it('respects menu min-width', async () => {
@@ -351,6 +376,7 @@ it('respects menu min-width', async () => {
   const menu = getByTestId(baseElement, 'menu')
 
   expect(menu).toHaveStyle('min-width: 1000px')
+  await flush()
 })
 
 it.each`
@@ -378,9 +404,10 @@ it.each`
 
   expect(onChange).toHaveBeenLastCalledWith([fruits[0], fruits[2]])
   expect(onChange).toHaveBeenCalledTimes(2)
+  await flush()
 })
 
-it('should not call onChange when filter is typed and cleared - no selected values', () => {
+it('should not call onChange when filter is typed and cleared - no selected values', async () => {
   const change = jest.fn()
   const { container } = render(<ComboboxTest onChange={change} />)
 
@@ -390,6 +417,7 @@ it('should not call onChange when filter is typed and cleared - no selected valu
   fireEvent.change(input, { target: { value: '' } })
 
   expect(change).not.toHaveBeenCalled()
+  await flush()
 })
 
 it('should not call onChange when filter is typed and cleared - with selected values', async () => {
@@ -413,6 +441,7 @@ it('should not call onChange when filter is typed and cleared - with selected va
 
   expect(onChange).toHaveBeenLastCalledWith([fruits[0], fruits[2]])
   expect(onChange).toHaveBeenCalledTimes(2)
+  await flush()
 })
 
 it.each`
@@ -430,6 +459,7 @@ it.each`
   fireEvent.change(input, { target: { value: 'filter' } })
 
   expect(filter).toBe('filter')
+  await flush()
 })
 
 it('should trigger onFocus', async () => {
@@ -440,6 +470,7 @@ it('should trigger onFocus', async () => {
   const input = baseElement.querySelector('input')!
   fireEvent.focus(input)
   expect(onFocus).toBeCalled()
+  await flush()
 })
 
 it('should trigger onBlur', async () => {
@@ -451,6 +482,7 @@ it('should trigger onBlur', async () => {
   fireEvent.focus(input)
   fireEvent.blur(input)
   expect(onBlur).toBeCalled()
+  await flush()
 })
 
 it.each`
@@ -465,6 +497,7 @@ it.each`
   fireEvent.change(input, { target: { value: 'not a fruit' } })
   fireEvent.blur(input)
   expect(input).not.toHaveValue()
+  await flush()
 })
 
 it.each`
@@ -478,6 +511,7 @@ it.each`
   const selected2 = await findByTestId(fruits[3].label)
   expect(selected1).toBeInTheDocument()
   expect(selected2).toBeInTheDocument()
+  await flush()
 })
 
 it('should accept actions inside children prop', async () => {
@@ -491,6 +525,7 @@ it('should accept actions inside children prop', async () => {
   fireEvent.click(await findByTestId('action-btn'))
 
   expect(click).toHaveBeenCalledTimes(1)
+  await flush()
 })
 
 test.each`
@@ -516,6 +551,7 @@ test.each`
   // focus input
   fireEvent.focus(input)
   expect(baseElement.querySelector('ul')).toBeFalsy()
+  await flush()
 })
 
 describe('rendering', () => {
@@ -523,6 +559,7 @@ describe('rendering', () => {
     const { baseElement } = render(<ComboboxTest label='Fruits' />)
 
     expect(baseElement).toMatchSnapshot()
+    await flush()
   })
 
   it('renders correcly opened', async () => {
@@ -533,6 +570,7 @@ describe('rendering', () => {
     fireEvent.focus(input)
     await act(() => waait(asyncDelay))
     expect(baseElement).toMatchSnapshot()
+    await flush()
   })
 
   it('renders correcly opened and loading', async () => {
@@ -543,6 +581,7 @@ describe('rendering', () => {
     fireEvent.focus(input)
     await act(() => waait(asyncDelay))
     expect(baseElement).toMatchSnapshot()
+    await flush()
   })
 
   it('renders correcly with custom components correctly', async () => {
@@ -553,6 +592,7 @@ describe('rendering', () => {
     fireEvent.focus(input)
     await act(() => waait(asyncDelay))
     expect(baseElement).toMatchSnapshot()
+    await flush()
   })
 })
 
@@ -562,6 +602,7 @@ describe('async loading', () => {
     render(<Combobox items={loadItems} />)
 
     expect(loadItems).not.toHaveBeenCalledWith()
+    await flush()
   })
 
   it('should call "loadItems" on first interaction', async () => {
@@ -574,6 +615,7 @@ describe('async loading', () => {
       expect(loadItems).not.toHaveBeenCalledWith()
       expect(loadItems).toHaveBeenCalledWith('')
     })
+    await flush()
   })
 })
 
@@ -598,6 +640,7 @@ describe('filtering', () => {
 
       expect(container.querySelectorAll('li')).toHaveLength(0)
       expect(input.value).toEqual('')
+      await flush()
     }
   )
 
@@ -614,6 +657,7 @@ describe('filtering', () => {
 
     await waitFor(() => expect(input.value).toEqual(''))
     await waitFor(() => expect(container.querySelectorAll('li')).toHaveLength(fruits.length))
+    await flush()
   })
 
   it('should not clear the current filter and the input value after an item is selected if clearFilterOnSelect is false', async () => {
@@ -634,6 +678,7 @@ describe('filtering', () => {
 
     expect(container.querySelectorAll('li')).toHaveLength(4)
     expect(input.value).toEqual('pe')
+    await flush()
   })
 })
 
@@ -652,6 +697,7 @@ describe('remove item', () => {
     fireEvent.click(removeFirstElementButton)
 
     expect(onChange).toHaveBeenLastCalledWith([fruits[1]])
+    await flush()
   })
 
   it('should not focus nor toggle the menu opened state', async () => {
@@ -666,5 +712,6 @@ describe('remove item', () => {
 
     expect(baseElement.querySelector('ul')).toBeFalsy()
     expect(document.activeElement).not.toEqual(input)
+    await flush()
   })
 })

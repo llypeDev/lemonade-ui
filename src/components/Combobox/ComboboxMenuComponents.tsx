@@ -121,7 +121,13 @@ export function ComboboxLoadingItem(props: ComboboxMenuItemProps) {
   const locale = useLocale()
 
   return (
-    <li className={css(classes.item, classes.loadingItem, style)} {...rest}>
+    <li
+      role='option'
+      aria-disabled='true'
+      aria-selected='false'
+      className={css(classes.item, classes.loadingItem, style)}
+      {...rest}
+    >
       {locale.combobox.loadingItem}
       <Spinner style={classes.loadingSpinner} />
     </li>
@@ -135,7 +141,7 @@ export function ComboboxEmptyItem(props: ComboboxMenuItemProps) {
   const { classes, css } = useStyles(createStyles)
 
   return (
-    <li className={css(classes.item, style)} {...rest}>
+    <li role='option' aria-disabled='true' aria-selected='false' className={css(classes.item, style)} {...rest}>
       {locale.combobox.emptyItem}
     </li>
   )
@@ -148,7 +154,7 @@ export function ComboboxCreateItem(props: ComboboxMenuItemProps) {
   const { classes, css } = useStyles(createStyles)
 
   return (
-    <li className={css(classes.item, style)} {...rest}>
+    <li role='option' aria-disabled='true' aria-selected='false' className={css(classes.item, style)} {...rest}>
       {locale.combobox.createItem}
     </li>
   )

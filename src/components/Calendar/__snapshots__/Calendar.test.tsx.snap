@@ -130,7 +130,7 @@ exports[`Calendar should render correctly 1`] = `
   padding: 0.25rem 0;
   display: inline-block;
   border-radius: 50%;
-  color: #AAAAB9;
+  color: #696979;
 }
 
 .emotion-11:hover {
@@ -677,7 +677,7 @@ Object {
 
 exports[`modifierStyles should have "adjacentMonth" styles 1`] = `
 Object {
-  "color": "#AAAAB9",
+  "color": "#696979",
 }
 `;
 

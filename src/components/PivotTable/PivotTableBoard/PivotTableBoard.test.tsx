@@ -1,10 +1,13 @@
 import React from 'react'
-import { fireEvent, render, within } from '@testing-library/react'
+import { fireEvent, render, within, act } from '@testing-library/react'
 import { noop } from 'lodash'
 import { KeyMap } from '../model'
 import { AggregatorEnum } from '../Aggregators/model'
 import { PivotTableBoard } from './PivotTableBoard'
 import { BoardField } from './model'
+
+// Lets pending updates, such as popper positions, settle inside act
+const flush = () => act(async () => undefined)
 
 describe('PivotTable - PivotTableBoard', () => {
   type Test = {
@@ -38,7 +41,7 @@ describe('PivotTable - PivotTableBoard', () => {
     },
   ]
 
-  it('should render correctly', () => {
+  it('should render correctly', async () => {
     const { container } = render(
       <PivotTableBoard<Test>
         keys={keys}
@@ -51,9 +54,10 @@ describe('PivotTable - PivotTableBoard', () => {
       />
     )
     expect(container).toMatchSnapshot()
+    await flush()
   })
 
-  it('should render with initial fields', () => {
+  it('should render with initial fields', async () => {
     const { container } = render(
       <PivotTableBoard<Test>
         keys={keys}
@@ -67,9 +71,10 @@ describe('PivotTable - PivotTableBoard', () => {
       />
     )
     expect(container).toMatchSnapshot()
+    await flush()
   })
 
-  it('should call handleSubmit with the correct parameters when the user clicks the generate table button', () => {
+  it('should call handleSubmit with the correct parameters when the user clicks the generate table button', async () => {
     const handleSubmit = jest.fn()
     const handleReset = jest.fn()
 
@@ -95,6 +100,7 @@ describe('PivotTable - PivotTableBoard', () => {
         ['size', new Set(['Medium', 'Very small', 'Small', 'Medium'])],
       ])
     )
+    await flush()
   })
 
   it('should call handleSubmit with the correct parameters when the user interacts with the filters', async () => {
@@ -136,6 +142,7 @@ describe('PivotTable - PivotTableBoard', () => {
         ['size', new Set(['Very small', 'Small', 'Medium', 'Big', 'Very big'])],
       ])
     )
+    await flush()
   })
 
   it('should reset columns, rows, and available fields upon confirming the table clear action', async () => {
@@ -173,6 +180,7 @@ describe('PivotTable - PivotTableBoard', () => {
 
     expect(within(availableDroppable).getByText('Name')).toBeInTheDocument()
     expect(within(availableDroppable).getByText('Size')).toBeInTheDocument()
+    await flush()
   })
 
   it('should call handleKeyChange when the user selects a key for the aggregator', async () => {
@@ -198,6 +206,7 @@ describe('PivotTable - PivotTableBoard', () => {
     fireEvent.click(await findByTestId('aggregator-key-select'))
     fireEvent.click(await findByRole('option', { name: 'Name' }))
     expect(handleKeyChange).toHaveBeenCalledWith('name')
+    await flush()
   })
 
   it('should call handleChange when the user selects an aggregator', async () => {
@@ -243,6 +252,7 @@ describe('PivotTable - PivotTableBoard', () => {
         ]),
       })
     )
+    await flush()
   })
 
   it('should call handleClearFilters when the user clicks the clear filters button', async () => {
@@ -271,9 +281,10 @@ describe('PivotTable - PivotTableBoard', () => {
         ['size', new Set(['Medium', 'Very small', 'Small', 'Medium', 'Big', 'Very big'])],
       ])
     )
+    await flush()
   })
 
-  it('should enable submit button when isBuilding is false', () => {
+  it('should enable submit button when isBuilding is false', async () => {
     const { getByRole } = render(
       <PivotTableBoard<Test>
         keys={keys}
@@ -287,9 +298,10 @@ describe('PivotTable - PivotTableBoard', () => {
     )
 
     expect(getByRole('button', { name: /Generate table/i })).toBeEnabled()
+    await flush()
   })
 
-  it('should disable submit button when isBuilding is true', () => {
+  it('should disable submit button when isBuilding is true', async () => {
     const { getByRole } = render(
       <PivotTableBoard<Test>
         keys={keys}
@@ -302,10 +314,13 @@ describe('PivotTable - PivotTableBoard', () => {
       />
     )
     expect(getByRole('button', { name: /Generate table/i })).toBeDisabled()
+    await flush()
   })
 
   describe('onKeyNav', () => {
     it('should move Size from Columns to Available and call handleFilterUpdate when the user presses left arrow key', async () => {
+      // Lets pending updates, such as popper positions and debounced loads, settle inside act
+      const flush = () => act(async () => undefined)
       const handleSubmit = jest.fn()
       const handleReset = jest.fn()
       const { findByTestId, getByRole } = render(
@@ -335,6 +350,7 @@ describe('PivotTable - PivotTableBoard', () => {
           ['size', new Set(['Medium', 'Very small', 'Small', 'Medium'])],
         ])
       )
+      await flush()
     })
   })
 })

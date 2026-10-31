@@ -27,4 +27,4 @@ Troque o `SelectInline` pelo `Combobox` com `inline`. As props principais mantê
 
 ## Acessibilidade
 
-O botão do `Combobox` com `inline` informa aos leitores de tela se a lista está aberta, e abri-lo leva o foco para a caixa de busca. Clicar em uma opção ou apertar Escape fecha a lista. Restam dois problemas conhecidos: as setas não percorrem as opções a partir da caixa de busca, e depois que a lista fecha o foco não volta para o botão. Até que sejam corrigidos, evite-o em fluxos usados principalmente pelo teclado.
+O botão do `Combobox` com `inline` informa aos leitores de tela se a lista está aberta, e abri-lo leva o foco para a caixa de busca, que é o combobox da lista. As setas percorrem as opções, o Enter escolhe uma e o Escape fecha a lista; nos dois casos, o foco volta para o botão. Sem a caixa de busca, o próprio botão é o combobox.
