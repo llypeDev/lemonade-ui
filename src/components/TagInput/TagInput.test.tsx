@@ -152,6 +152,14 @@ describe('TagInput', () => {
     expect(tagTexts(container)).toEqual(['react'])
   })
 
+  it('should treat a dash separator as a character, not as a range', () => {
+    const { container, getByRole } = render(<Controlled separators={[',', '-', ';']} />)
+
+    // Unescaped, the separators would form the range ",-;", which includes the digits
+    fireEvent.paste(getByRole('textbox'), { clipboardData: { getData: () => '123-456' } })
+    expect(tagTexts(container)).toEqual(['123', '456'])
+  })
+
   it('should explain the keys and show the error', () => {
     const { getByRole, getByText } = render(<TagInput label='Emails' error='Add at least one email' />)
     const input = getByRole('textbox')

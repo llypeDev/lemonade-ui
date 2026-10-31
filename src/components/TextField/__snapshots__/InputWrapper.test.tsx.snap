@@ -48,6 +48,7 @@ exports[`should render correctly 1`] = `
   >
     <input />
     <span
+      aria-label="Clear"
       class="emotion-1"
       role="button"
       tabindex="-1"
@@ -203,6 +204,7 @@ exports[`should render correctly with button 1`] = `
   >
     <input />
     <span
+      aria-label="Clear"
       class="emotion-1"
       role="button"
       tabindex="-1"
@@ -334,6 +336,7 @@ exports[`should render correctly with left position 1`] = `
   >
     <input />
     <span
+      aria-label="Clear"
       class="emotion-1"
       role="button"
       tabindex="-1"

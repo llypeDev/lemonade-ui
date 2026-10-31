@@ -166,6 +166,7 @@ export function BaseMonthRangeInput(props: BaseMonthRangeInputProps) {
             onClick={handleIconClick}
             style={classes.icon}
             disabled={disabled}
+            aria-label={locale.calendar.open}
           >
             <Icon icon={icon} />
           </Button>

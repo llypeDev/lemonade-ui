@@ -23,6 +23,7 @@ const locale = {
     previousMonth: 'Previous month',
     nextYear: 'Next year',
     previousYear: 'Previous year',
+    open: 'Open calendar',
   },
   carousel: {
     previous: 'Previous slide',

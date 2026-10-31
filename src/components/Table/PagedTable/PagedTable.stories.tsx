@@ -41,7 +41,7 @@ export default {
         name: 'buttons',
         style: { textAlign: 'right' },
         render: (row: Row) => (
-          <Button size='small' skin='ghost'>
+          <Button size='small' skin='ghost' aria-label={`Edit ${row.name}`}>
             <Icon icon='penOutline' />
           </Button>
         ),

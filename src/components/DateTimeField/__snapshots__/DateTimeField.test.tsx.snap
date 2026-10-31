@@ -352,6 +352,7 @@ exports[`DateTimeField should render correctly 1`] = `
                     value="10/05/2024"
                   />
                   <span
+                    aria-label="Clear"
                     class="emotion-4"
                     role="button"
                     tabindex="-1"
@@ -376,6 +377,7 @@ exports[`DateTimeField should render correctly 1`] = `
                     class="emotion-7"
                   >
                     <button
+                      aria-label="Open calendar"
                       class="emotion-6"
                       tabindex="-1"
                       type="button"
@@ -427,6 +429,7 @@ exports[`DateTimeField should render correctly 1`] = `
                   value="14:30"
                 />
                 <span
+                  aria-label="Clear"
                   class="emotion-15"
                   role="button"
                   tabindex="-1"

@@ -1,6 +1,7 @@
 import { Options as PopperOptions } from '@popperjs/core'
 import React, { useEffect, useState } from 'react'
 import { usePopper } from 'react-popper'
+import { useLocale } from '../../i18n'
 import { Theme } from '../../styles'
 import { useStyles } from '../../styles/hooks/useStyles'
 import { composeHandlers } from '../../util/react'
@@ -35,6 +36,7 @@ export function DateField(props: DateFieldProps) {
   const { calendarProps, popperProps, minDate, maxDate, value, onClick, icon, onIconClick, ...rest } = props
 
   const { css, classes } = useStyles(createStyles)
+  const locale = useLocale()
 
   const [inputRef, setInputRef] = useState<HTMLInputElement>()
   const [popupRef, setPopupRef] = useState<HTMLDivElement>()
@@ -70,6 +72,7 @@ export function DateField(props: DateFieldProps) {
         inputRef={setInputRef}
         value={value}
         icon={icon}
+        iconAriaLabel={locale.calendar.open}
         onIconClick={composeHandlers(handleInputIconClick, onIconClick)}
         onClick={composeHandlers(handleIconClick, onClick)}
         {...rest}

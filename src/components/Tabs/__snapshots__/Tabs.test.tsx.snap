@@ -159,6 +159,7 @@ exports[`renders correctly 1`] = `
   >
     <li
       class="emotion-1"
+      role="presentation"
     >
       <span
         aria-selected="false"
@@ -171,6 +172,7 @@ exports[`renders correctly 1`] = `
     </li>
     <li
       class="emotion-1"
+      role="presentation"
     >
       <span
         aria-selected="false"
@@ -183,6 +185,7 @@ exports[`renders correctly 1`] = `
     </li>
     <li
       class="emotion-1"
+      role="presentation"
     >
       <span
         aria-selected="true"
@@ -195,6 +198,7 @@ exports[`renders correctly 1`] = `
     </li>
     <li
       class="emotion-1"
+      role="presentation"
     >
       <span
         aria-disabled="true"
@@ -402,6 +406,7 @@ exports[`should render vertical tabs 1`] = `
   >
     <li
       class="emotion-1"
+      role="presentation"
     >
       <span
         aria-selected="false"
@@ -414,6 +419,7 @@ exports[`should render vertical tabs 1`] = `
     </li>
     <li
       class="emotion-1"
+      role="presentation"
     >
       <span
         aria-selected="true"
@@ -426,6 +432,7 @@ exports[`should render vertical tabs 1`] = `
     </li>
     <li
       class="emotion-1"
+      role="presentation"
     >
       <span
         aria-selected="false"

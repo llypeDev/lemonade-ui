@@ -22,11 +22,11 @@ export const Default = () => (
         Third
       </Button>
     </ButtonGroup>
-    <ButtonGroup>
-      <Button size='small'>
+    <ButtonGroup aria-label='Item actions'>
+      <Button size='small' aria-label='Delete'>
         <Icon icon='trashOutline' />
       </Button>
-      <Button size='small'>
+      <Button size='small' aria-label='Search'>
         <Icon icon='zoomOutline' />
       </Button>
     </ButtonGroup>

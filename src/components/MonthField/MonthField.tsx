@@ -1,6 +1,7 @@
 import { Options as PopperOptions } from '@popperjs/core'
 import React, { useEffect, useState } from 'react'
 import { usePopper } from 'react-popper'
+import { useLocale } from '../../i18n'
 import { useStyles } from '../../styles/hooks/useStyles'
 import { Theme } from '../../styles/theme/createTheme'
 import { composeHandlers, composeRefs } from '../../util/react'
@@ -18,7 +19,8 @@ export interface MonthFieldProps extends MonthInputProps {
 }
 
 export function MonthField(props: MonthFieldProps) {
-  const { value, popperProps, inputRef, onChange, onIconClick, maxMonth, minMonth, ...rest } = props
+  const { value, popperProps, inputRef, onChange, onIconClick, maxMonth, minMonth, monthPickerProps, ...rest } = props
+  const locale = useLocale()
 
   const { classes, css } = useStyles(createStyles)
 
@@ -69,6 +71,7 @@ export function MonthField(props: MonthFieldProps) {
         inputRef={composeRefs(setAnchorRef, inputRef)}
         value={value}
         icon='calendarOutline'
+        iconAriaLabel={locale.calendar.open}
         onIconClick={composeHandlers(handleInputIconClick, onIconClick)}
         onChange={handleInputChange}
         {...rest}
@@ -89,7 +92,7 @@ export function MonthField(props: MonthFieldProps) {
             modifiers={{
               selected: (month: ReferenceMonth) => value && isSameReferenceMonth(value, month),
             }}
-            {...props.monthPickerProps}
+            {...monthPickerProps}
           />
         </div>
       )}

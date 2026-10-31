@@ -15,7 +15,7 @@ import { Cell, Grid } from '../Grid'
 
 const CardContent = () => (
   <HFlow hSpacing={0.5} style={{ gridAutoColumns: 'auto 1fr' }}>
-    <Checkbox />
+    <Checkbox aria-label='Select card' />
     <HFlow alignItems='center' justifyContent='space-between'>
       <VFlow vSpacing={0.5}>
         <VFlow vSpacing={0.25}>
@@ -27,16 +27,16 @@ const CardContent = () => (
         </VFlow>
         <Status type='info' text='Status description' />
       </VFlow>
-      <Button skin='ghost' size='small'>
+      <Button skin='ghost' size='small' aria-label='Adjust'>
         <Icon icon='adjust' />
       </Button>
     </HFlow>
   </HFlow>
 )
 
+// A clickable card is a button, so it holds no other control, such as a checkbox
 const ClickableCardContent = () => (
   <HFlow hSpacing={0.5} style={{ gridAutoColumns: 'auto 1fr' }}>
-    <Checkbox />
     <VFlow vSpacing={0.5}>
       <VFlow vSpacing={0.25}>
         <HFlow hSpacing={0.5} alignItems='center'>

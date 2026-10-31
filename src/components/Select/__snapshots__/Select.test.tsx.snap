@@ -1093,6 +1093,7 @@ exports[`select custom components should accept actions inside AppendItem 1`] = 
                 value="Apple"
               />
               <span
+                aria-label="Clear"
                 class="emotion-2"
                 role="button"
                 tabindex="-1"
@@ -1595,6 +1596,7 @@ exports[`select custom components should accept actions inside PrependItem 1`] =
                 value="Apple"
               />
               <span
+                aria-label="Clear"
                 class="emotion-2"
                 role="button"
                 tabindex="-1"

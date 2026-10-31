@@ -159,6 +159,7 @@ exports[`should accept "component" prop 1`] = `
   >
     <li
       class="emotion-1"
+      role="presentation"
     >
       <a
         aria-selected="false"
@@ -172,6 +173,7 @@ exports[`should accept "component" prop 1`] = `
     </li>
     <li
       class="emotion-1"
+      role="presentation"
     >
       <a
         aria-selected="false"
@@ -185,6 +187,7 @@ exports[`should accept "component" prop 1`] = `
     </li>
     <li
       class="emotion-1"
+      role="presentation"
     >
       <a
         aria-selected="true"
@@ -198,6 +201,7 @@ exports[`should accept "component" prop 1`] = `
     </li>
     <li
       class="emotion-1"
+      role="presentation"
     >
       <a
         aria-disabled="true"
@@ -259,6 +263,7 @@ exports[`should accept "style" prop 1`] = `
 <div>
   <li
     class="emotion-1"
+    role="presentation"
   >
     <span
       aria-selected="false"
@@ -316,6 +321,7 @@ exports[`should render correctly 1`] = `
 <div>
   <li
     class="emotion-1"
+    role="presentation"
   >
     <span
       aria-selected="false"

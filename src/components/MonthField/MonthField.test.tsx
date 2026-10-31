@@ -1,6 +1,9 @@
 import { fireEvent, render } from '@testing-library/react'
 import React from 'react'
 
+import { LocaleContext } from '../../i18n'
+import ptBR from '../../i18n/locales/pt-BR'
+
 import { MonthField } from './MonthField'
 
 describe('Component presentation', () => {
@@ -51,5 +54,27 @@ describe('Component behavior', () => {
     expect(queryByTestId('MonthField.popup')).not.toBeNull()
     fireEvent.click(getByText('Jan'))
     expect(queryByTestId('MonthField.popup')).toBeNull()
+  })
+})
+
+describe('Accessibility and props', () => {
+  it('should name the calendar button and use the placeholder of the locale', () => {
+    const { getByRole, container } = render(
+      <LocaleContext.Provider value={ptBR}>
+        <MonthField value={null} onChange={jest.fn()} />
+      </LocaleContext.Provider>
+    )
+    expect(getByRole('button', { name: 'Abrir calendário' })).toBeInTheDocument()
+    expect(container.querySelector('input')).toHaveAttribute('placeholder', 'mm/aaaa')
+  })
+
+  it('should pass monthPickerProps to the picker and not to the input', () => {
+    const { container, getByTestId } = render(
+      <MonthField value={{ year: 2019, month: 1 }} onChange={jest.fn()} monthPickerProps={{ id: 'picker' }} />
+    )
+    const input = container.querySelector('input')
+    expect(input).not.toHaveAttribute('monthpickerprops')
+    fireEvent.focus(input)
+    expect(getByTestId('MonthField.popup').querySelector('#picker')).toBeInTheDocument()
   })
 })

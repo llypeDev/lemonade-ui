@@ -25,6 +25,7 @@ const locale: LocaleConfiguration = {
     previousMonth: 'Mês anterior',
     nextYear: 'Próximo ano',
     previousYear: 'Ano anterior',
+    open: 'Abrir calendário',
   },
   carousel: {
     previous: 'Slide anterior',
