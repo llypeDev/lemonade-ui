@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Truncated text
+
+O truncated text corta um texto com reticências quando ele não cabe na largura ou em um número de linhas, como um nome de arquivo longo em uma tabela. Só quando o texto é cortado, ele aparece inteiro em uma tooltip.
+
+## Boas práticas
+
+- Use-o onde o espaço é curto e o começo do texto basta para reconhecê-lo, como nomes em uma lista.
+- Evite cortar textos que o usuário precisa ler inteiros, como mensagens de erro ou instruções.
+- Para o usuário expandir um texto longo no próprio lugar, use o `ExpandableText`.
+
+## Uso
+
+O `TruncatedText` recebe o texto como filho e o `lines`, o número de linhas mostradas, 1 por padrão. A tooltip mostra o texto dos filhos, e o `tooltip` o muda, como quando os filhos têm conteúdo rico. O `component` muda o elemento, como `p` para um parágrafo. O texto verifica de novo se foi cortado quando o tamanho ou o texto mudam.
+
+<Demo src='pages/components/truncated-text/TruncatedText' />
+
+## Acessibilidade
+
+O texto inteiro continua na página, então os leitores de tela o leem todo. Quando o texto é cortado, ele pode receber o foco, para quem usa teclado também abrir a tooltip; quando cabe, ele não tem tooltip nem uma parada a mais para o teclado.

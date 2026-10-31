@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Transfer list
+
+O transfer list mostra duas listas lado a lado e botões que movem os itens marcados de uma para a outra, como as permissões de um perfil ou as colunas exibidas em um relatório.
+
+## Boas práticas
+
+- Use-o para escolher muitos itens de uma lista longa quando ajuda ao usuário ver o que entrou e o que ficou de fora.
+- Para poucos itens, prefira checkboxes; para uma escolha curta em uma lista conhecida, prefira o `Combobox` com `multiple`.
+- Dê às listas o nome do que elas guardam, como "Permissões" e "Concedidas ao Suporte".
+
+## Uso
+
+O `TransferList` recebe os `items`, cada um com `id`, `label` e, opcionalmente, `description` e `disabled`. Os ids da segunda lista vêm em `defaultValue` ou, controlado, em `value` com `onChange`. O `sourceLabel` e o `targetLabel` dão nome às listas, o `searchable={false}` esconde os campos de busca, e o `listHeight` define a altura das listas. As duas listas mantêm a ordem de `items`, e "mover todos" move os itens que correspondem à busca.
+
+<Demo src='pages/components/transfer-list/TransferList' />
+
+## Acessibilidade
+
+Cada lista é uma região com o nome do seu título, com um checkbox para cada item e um que marca todos. Os botões têm o nome do que fazem, como "Mover os itens marcados para Selecionados", e cada movimento é anunciado, como "2 movidos para Selecionados". Em telas pequenas, as listas ficam uma acima da outra e as setas apontam para baixo e para cima.

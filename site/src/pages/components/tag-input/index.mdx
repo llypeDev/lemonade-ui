@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Tag input
+
+The tag input is a field for a list of short free values, such as email addresses or keywords, shown as tags.
+
+## Best practices
+
+- Use it for values the user types, such as emails. To pick values from a known list, use the `Combobox` with `multiple`.
+- Validate each value and mark the ones that fail, so the user can fix or remove them.
+- Say in the placeholder or the label what the values are and how to add them.
+
+## Usage
+
+`TagInput` takes a `label` and the values in `defaultValue` or, controlled, in `value` with `onChange`. Enter, a comma or a semicolon adds the typed text, and `separators` changes the keys. Pasting a list adds each item, Backspace in an empty field removes the last tag, and leaving the field adds what was typed. `validate` marks values that fail, repeated values are skipped unless `allowDuplicates` is set, and `max` limits the number of values.
+
+<Demo src='pages/components/tag-input/TagInput' />
+
+## Accessibility
+
+The field explains how to add and remove values, and each tag has a button named "Remove" and its value. Each added or removed value is announced, and a value that fails the validation is read as "not valid". Enter without text is left alone, so it still sends the form.

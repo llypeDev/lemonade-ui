@@ -15,3 +15,13 @@ O uso de abas é indicado para organizar conteúdos similares em uma mesma pági
 ## Exemplos
 
 <Demo src='pages/components/tabs/Tab' />
+
+## Abas verticais e painéis
+
+O `orientation='vertical'` empilha as abas em uma coluna ao lado do conteúdo, o que comporta muitas abas ou rótulos longos, como em uma página de configurações. O `TabPanel` guarda o conteúdo de uma aba: dê a ele um `id` para o qual o `TabItem` aponta com `aria-controls`, aponte de volta para a aba com `aria-labelledby` e passe `active` para o painel da aba ativa.
+
+<Demo src='pages/components/tabs/VerticalTabs' />
+
+## Acessibilidade
+
+As abas formam uma `tablist`, e cada `TabItem` informa se está selecionado (`aria-selected`) ou desabilitado. O Tab entra na lista pela aba ativa, e as setas, Home e End movem entre as abas. Um `TabPanel` pode receber o foco com Tab, para quem usa teclado chegar ao conteúdo mesmo quando ele não tem links nem campos.

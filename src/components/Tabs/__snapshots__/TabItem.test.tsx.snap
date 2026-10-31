@@ -161,10 +161,11 @@ exports[`should accept "component" prop 1`] = `
       class="emotion-1"
     >
       <a
+        aria-selected="false"
         class="emotion-0"
         href="/"
         role="tab"
-        tabindex="0"
+        tabindex="-1"
       >
         Home
       </a>
@@ -173,6 +174,7 @@ exports[`should accept "component" prop 1`] = `
       class="emotion-1"
     >
       <a
+        aria-selected="false"
         class="emotion-0"
         href="/"
         role="tab"
@@ -185,10 +187,11 @@ exports[`should accept "component" prop 1`] = `
       class="emotion-1"
     >
       <a
+        aria-selected="true"
         class="emotion-4"
         href="/"
         role="tab"
-        tabindex="-1"
+        tabindex="0"
       >
         Active
       </a>
@@ -197,6 +200,8 @@ exports[`should accept "component" prop 1`] = `
       class="emotion-1"
     >
       <a
+        aria-disabled="true"
+        aria-selected="false"
         class="emotion-6 disabled"
         href="/"
         role="tab"
@@ -256,6 +261,7 @@ exports[`should accept "style" prop 1`] = `
     class="emotion-1"
   >
     <span
+      aria-selected="false"
       class="emotion-0"
       role="tab"
     >
@@ -312,6 +318,7 @@ exports[`should render correctly 1`] = `
     class="emotion-1"
   >
     <span
+      aria-selected="false"
       class="emotion-0"
       role="tab"
     >

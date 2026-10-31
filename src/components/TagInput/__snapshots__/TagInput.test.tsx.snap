@@ -1,0 +1,332 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TagInput should render correctly 1`] = `
+.emotion-4 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1rem;
+  color: #24252E;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  max-width: 100%;
+  min-height: 1.5rem;
+  box-sizing: border-box;
+  padding-left: 0.5rem;
+  border: 1px solid #D3D4DD;
+  border-radius: 4px;
+  background: #F0F0F5;
+  font-weight: bold;
+}
+
+.emotion-1 {
+  min-width: 0;
+  overflow-wrap: anywhere;
+  padding-right: 0.25rem;
+}
+
+.emotion-3 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  width: 1.375rem;
+  height: 1.375rem;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  outline: none;
+}
+
+.emotion-3:hover {
+  color: #D01E29;
+}
+
+.emotion-3:focus {
+  box-shadow: inset 0 0 0 2px #5E7300;
+}
+
+.emotion-10 {
+  -webkit-flex: 1 1 6rem;
+  -ms-flex: 1 1 6rem;
+  flex: 1 1 6rem;
+  min-width: 6rem;
+  height: 1.5rem;
+  margin: 0;
+  padding: 0 0.25rem;
+  border: 0;
+  outline: none;
+  background: transparent;
+  color: #24252E;
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.8125rem;
+}
+
+.emotion-10::-webkit-input-placeholder {
+  color: #696979;
+}
+
+.emotion-10::-moz-placeholder {
+  color: #696979;
+}
+
+.emotion-10:-ms-input-placeholder {
+  color: #696979;
+}
+
+.emotion-10::placeholder {
+  color: #696979;
+}
+
+.emotion-10:disabled {
+  cursor: not-allowed;
+}
+
+.emotion-11 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 0.25rem;
+  box-sizing: border-box;
+  min-height: 2rem;
+  padding: calc(0.25rem - 1px);
+  border: 1px solid #8F8FA2;
+  border-radius: 2px;
+  background: #FFFFFF;
+  cursor: text;
+  -webkit-transition: box-shadow .2s;
+  transition: box-shadow .2s;
+  border-color: #D01E29;
+}
+
+.emotion-11:hover {
+  border-color: #7A7B8E;
+}
+
+.emotion-11:focus-within {
+  box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
+.emotion-11:hover {
+  border-color: #D01E29;
+}
+
+.emotion-11:focus-within {
+  box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #D01E29;
+}
+
+.emotion-9 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1rem;
+  color: #24252E;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  max-width: 100%;
+  min-height: 1.5rem;
+  box-sizing: border-box;
+  padding-left: 0.5rem;
+  border: 1px solid #D3D4DD;
+  border-radius: 4px;
+  background: #F0F0F5;
+  font-weight: bold;
+  border-color: #D01E29;
+  background: #FEECED;
+  color: #D01E29;
+}
+
+.emotion-16 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.emotion-15 {
+  display: inline-block;
+  margin-bottom: 0rem;
+  margin-top: 0rem;
+}
+
+.emotion-15:first-of-type {
+  margin-top: 0;
+}
+
+.emotion-15:last-of-type {
+  margin-bottom: 0;
+}
+
+.emotion-15:empty {
+  display: none;
+}
+
+.emotion-0 {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 0.25rem;
+  line-height: 20px;
+}
+
+.emotion-2 {
+  fill: currentColor;
+  font-size: 1rem;
+}
+
+.emotion-6 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+<div>
+  <div
+    class="emotion-16"
+  >
+    <div
+      class="emotion-15"
+    >
+      <div
+        class="emotion-14"
+      >
+        <label
+          class="emotion-0"
+          id="label-abc"
+        >
+          Recipients
+        </label>
+        <div
+          class="emotion-11"
+        >
+          <span
+            class="emotion-4"
+          >
+            <span
+              class="emotion-1"
+            >
+              ana@example.com
+            </span>
+            <button
+              aria-label="Remove ana@example.com"
+              class="emotion-3"
+              title="Remove ana@example.com"
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                class="emotion-2"
+                height="1em"
+                role="img"
+                viewBox="0 0 24 24"
+                width="1em"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M8.071 6.657l4.243 4.242 4.242-4.242c.464-.48.935-.48 1.415 0s.48.95 0 1.414l-4.243 4.243 4.243 4.242c.471.472.471.943 0 1.415-.472.471-.943.471-1.415 0l-4.242-4.243L8.07 17.97c-.46.482-.932.482-1.414 0-.482-.483-.482-.954 0-1.415l4.242-4.242L6.657 8.07c-.472-.47-.472-.942 0-1.414s.943-.472 1.414 0v.001z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </button>
+          </span>
+          <span
+            class="emotion-9"
+          >
+            <span
+              class="emotion-1"
+            >
+              not an email
+            </span>
+            <span
+              class="emotion-6"
+            >
+              , 
+              not valid
+            </span>
+            <button
+              aria-label="Remove not an email"
+              class="emotion-3"
+              title="Remove not an email"
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                class="emotion-2"
+                height="1em"
+                role="img"
+                viewBox="0 0 24 24"
+                width="1em"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M8.071 6.657l4.243 4.242 4.242-4.242c.464-.48.935-.48 1.415 0s.48.95 0 1.414l-4.243 4.243 4.243 4.242c.471.472.471.943 0 1.415-.472.471-.943.471-1.415 0l-4.242-4.243L8.07 17.97c-.46.482-.932.482-1.414 0-.482-.483-.482-.954 0-1.415l4.242-4.242L6.657 8.07c-.472-.47-.472-.942 0-1.414s.943-.472 1.414 0v.001z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </button>
+          </span>
+          <input
+            aria-describedby="tag-input-abc"
+            aria-invalid="true"
+            aria-labelledby="label-abc"
+            class="emotion-10"
+            value=""
+          />
+        </div>
+        <span
+          class="emotion-6"
+          id="tag-input-abc"
+        >
+          Press Enter or comma to add. Backspace removes the last one.
+        </span>
+        <span
+          class="emotion-6"
+          role="status"
+        />
+      </div>
+    </div>
+  </div>
+</div>
+`;

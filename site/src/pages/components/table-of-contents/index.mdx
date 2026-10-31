@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Table of contents
+
+The table of contents links to the sections of a long page and marks the one the user is reading as the page scrolls.
+
+## Best practices
+
+- Use it on long pages with several sections, such as documentation, policies or long forms.
+- Put it beside the content, in a column that sticks to the top as the page scrolls.
+- List two levels at most, so it stays short.
+
+## Usage
+
+`TableOfContents` finds the headings of the page with the `headings` selector, `h2, h3` by default, and gives an id to the headings without one. `items` gives the sections instead, each with an `id`, a `label` and a `level`. `offset` is the height of what covers the top of the page, such as a fixed header, and `scrollContainer` is the element that scrolls, when it is not the page. The demo below lists the sections of this page: scroll the page to see the current one change.
+
+<Demo src='pages/components/table-of-contents/TableOfContents' />
+
+## Accessibility
+
+The links are a navigation named "On this page", from the locale strings, and the link of the current section has `aria-current="location"`. A link moves the focus to the heading of its section, so the keyboard and screen readers continue from there, and the page scrolls without animation when the user prefers reduced motion.

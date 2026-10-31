@@ -40,8 +40,21 @@ const locale: LocaleConfiguration = {
     copied: 'Copiado',
     failed: 'Não foi possível copiar',
   },
+  dataTable: {
+    selectAll: 'Selecionar todas as linhas',
+    selectRow: 'Selecionar {row}',
+    row: 'linha {index}',
+    selectedOne: '1 linha selecionada',
+    selectedOther: '{count} linhas selecionadas',
+    clearSelection: 'Limpar seleção',
+    bulkActions: 'Ações para as linhas selecionadas',
+  },
   dateInput: {
     placeholder: 'dd/mm/aaaa',
+  },
+  dateTimeField: {
+    date: 'Data',
+    time: 'Hora',
   },
   errorSummary: {
     title: 'Há um problema',
@@ -54,6 +67,16 @@ const locale: LocaleConfiguration = {
     edit: 'Editar',
     save: 'Salvar',
     cancel: 'Cancelar',
+  },
+  imageViewer: {
+    label: 'Visualizador de imagens',
+    close: 'Fechar',
+    previous: 'Imagem anterior',
+    next: 'Próxima imagem',
+    zoomIn: 'Aumentar zoom',
+    zoomOut: 'Diminuir zoom',
+    resetZoom: 'Ajustar à tela',
+    counter: '{current} de {total}',
   },
   monthInput: {
     placeholder: 'mm/aaaa',
@@ -123,10 +146,32 @@ const locale: LocaleConfiguration = {
   splitter: {
     resize: 'Redimensionar painéis',
   },
+  tableOfContents: {
+    label: 'Nesta página',
+  },
   stat: {
     increase: 'Alta de',
     decrease: 'Queda de',
     noChange: 'Sem variação',
+  },
+  tagInput: {
+    instructions: 'Pressione Enter ou vírgula para adicionar. Backspace remove o último.',
+    remove: 'Remover {tag}',
+    invalid: 'inválido',
+    added: '{tag} adicionado.',
+    removed: '{tag} removido.',
+  },
+  transferList: {
+    available: 'Disponíveis',
+    selected: 'Selecionados',
+    search: 'Pesquisar em {list}',
+    selectAll: 'Marcar todos em {list}',
+    moveSelected: 'Mover os itens marcados para {list}',
+    moveAll: 'Mover todos os itens para {list}',
+    count: '{checked} de {total} marcados',
+    empty: 'Nenhum item',
+    noResults: 'Nenhum resultado',
+    moved: '{count} movidos para {list}.',
   },
   tour: {
     step: 'Passo {current} de {total}',

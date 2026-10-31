@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Date time field
+
+The date time field takes a date and a time in one field, such as the start of an appointment. The calendar picks the day, and the time is typed as hh:mm.
+
+## Best practices
+
+- Use it when the time matters, such as appointments and deadlines. For a day alone, use the `DateField`.
+- Use `minDate` and `maxDate` to keep the user in the days that make sense, such as the next two weeks.
+- Say which time zone the time is in when users are in different places.
+
+## Usage
+
+`DateTimeField` takes a `label` and the moment as a single `Date` in `value`, with `onChange`. The value is `null` while the date or the time is empty or incomplete, and each part keeps what the user typed meanwhile. `minDate` and `maxDate` limit the days of the calendar, `error` shows a message under both parts, and `name` and `id` get the `-date` and `-time` suffixes.
+
+<Demo src='pages/components/date-time-field/DateTimeField' />
+
+## Accessibility
+
+The two fields are a group named by the label, and each one is named "Date" and "Time", from the locale strings. The error is linked to both fields and marks them as invalid.

@@ -1,0 +1,20 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TruncatedText should render correctly 1`] = `
+.emotion-0 {
+  display: inline-block;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  vertical-align: bottom;
+}
+
+<div>
+  <span
+    class="emotion-0"
+  >
+    Annual report 2024 final version.pdf
+  </span>
+</div>
+`;
