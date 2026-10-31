@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Relative time
+
+The relative time describes a moment from now, such as "5 minutes ago" or "in 3 days", in the language of the locale strings. The text updates by itself, and the full date shows in a tooltip.
+
+## Best practices
+
+- Use it for recent moments, where "how long ago" matters more than the exact date, such as in feeds, comments and lists of files.
+- Prefer the full date for moments far away or when the exact day matters, such as a due date in a contract.
+- Keep the same format in the same list, so the times are easy to compare.
+
+## Usage
+
+`RelativeTime` takes the `date` as a `Date`, a timestamp or an ISO string. `format` chooses the length of the words: `long`, `short` or `narrow`. The language comes from the locale strings, and `language` changes it, such as `pt-BR`. `dateFormat` changes how the full date shows in the tooltip, and `tooltip={false}` removes it. `now` sets the moment to compare with, which stops the updates, such as on the server or in tests.
+
+<Demo src='pages/components/relative-time/RelativeTime' />
+
+## Accessibility
+
+The text is a `time` element with the exact moment in its `datetime` attribute. The full date shows in a tooltip when the pointer is over the text. The text updates every 10 seconds in the first hour, every minute in the first day and then every hour.

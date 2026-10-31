@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Relative time
+
+O relative time descreve um momento a partir de agora, como "há 5 minutos" ou "em 3 dias", no idioma dos textos de locale. O texto se atualiza sozinho, e a data completa aparece em uma tooltip.
+
+## Boas práticas
+
+- Use-o para momentos recentes, em que "há quanto tempo" importa mais que a data exata, como em feeds, comentários e listas de arquivos.
+- Prefira a data completa para momentos distantes ou quando o dia exato importa, como o vencimento de um contrato.
+- Mantenha o mesmo formato na mesma lista, para os horários serem fáceis de comparar.
+
+## Uso
+
+O `RelativeTime` recebe a `date` como `Date`, _timestamp_ ou texto ISO. O `format` escolhe o tamanho das palavras: `long`, `short` ou `narrow`. O idioma vem dos textos de locale, e o `language` o muda, como `pt-BR`. O `dateFormat` muda como a data completa aparece na tooltip, e o `tooltip={false}` a remove. O `now` define o momento de comparação, o que para as atualizações, como no servidor ou em testes.
+
+<Demo src='pages/components/relative-time/RelativeTime' />
+
+## Acessibilidade
+
+O texto é um elemento `time` com o momento exato no atributo `datetime`. A data completa aparece em uma tooltip quando o ponteiro está sobre o texto. O texto se atualiza a cada 10 segundos na primeira hora, a cada minuto no primeiro dia e depois a cada hora.

@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Sortable list
+
+O sortable list é uma lista que o usuário põe em ordem arrastando a alça de um item, ou pelo teclado, como os passos de um processo ou as colunas de uma tabela.
+
+## Boas práticas
+
+- Use-o quando a ordem importa e a lista é curta o bastante para ser vista de uma vez.
+- Mostre o resultado da ordem quando ele não for óbvio, como a posição das colunas na tabela.
+- Ofereça outra forma de mudar a ordem em listas longas, como uma ação "Mover para o topo".
+
+## Uso
+
+O `SortableList` recebe os `items` e o `onChange`, que recebe os itens na nova ordem depois de soltar um item. Os itens podem ser textos ou objetos com `id` e `label`; para outros formatos, o `getKey` e o `getLabel` dão a chave e o texto de um item. O `renderItem` mostra um conteúdo mais rico. Dê um nome à lista com `aria-label`.
+
+<Demo src='pages/components/sortable-list/SortableList' />
+
+## Acessibilidade
+
+Cada item tem uma alça, um botão com o nome "Mover" e o texto do item, descrito pelas instruções. Espaço ou Enter pegam o item, as setas o movem, Home e End o levam às pontas, Espaço o solta e Esc o devolve. Cada passo é anunciado, como "Build movido para a posição 2 de 5". Sair da alça com Tab solta o item onde ele está.

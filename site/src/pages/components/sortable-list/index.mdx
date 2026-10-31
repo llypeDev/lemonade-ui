@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Sortable list
+
+The sortable list is a list the user puts in order by dragging the handle of an item, or with the keyboard, such as the steps of a process or the columns of a table.
+
+## Best practices
+
+- Use it when the order matters and the list is short enough to see at once.
+- Show the result of the order when it is not obvious, such as the position of the columns in the table.
+- Offer another way to change the order for long lists, such as a "Move to top" action.
+
+## Usage
+
+`SortableList` takes the `items` and `onChange`, which gets the items in the new order after a drop. Items can be strings or objects with an `id` and a `label`; for other shapes, `getKey` and `getLabel` give the key and the text of an item. `renderItem` renders richer content. Name the list with `aria-label`.
+
+<Demo src='pages/components/sortable-list/SortableList' />
+
+## Accessibility
+
+Each item has a handle, a button named "Move" and the text of the item, described by the instructions. Space or Enter picks the item up, the arrow keys move it, Home and End take it to the ends, Space drops it and Escape puts it back. Each step is announced, such as "Build moved to position 2 of 5". Leaving the handle with Tab drops the item where it is.

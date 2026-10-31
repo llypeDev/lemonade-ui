@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Context menu
+
+The context menu is a menu of actions that opens where the user right clicks an element, or long presses it on a touch screen, such as the actions of a file. The keyboard opens it with Shift + F10 or the context menu key.
+
+## Best practices
+
+- Use it as a shortcut: every action in it should also be reachable another way, such as a button or a `Dropdown`, since many users never right click.
+- Keep the actions about the element that was clicked, with the most used first and the destructive ones last.
+- Keep the menu short, and split groups of actions with a `DropdownDivider`.
+
+## Usage
+
+`ContextMenu` wraps the element that opens it and takes the items of the menu in `menu`, such as `DropdownItem` and `DropdownDivider`. Choosing an item closes the menu, unless the item is disabled. `label` names the menu, `onOpenChange` tells when it opens and closes, and `disabled` keeps the menu of the browser. Make the element focusable, such as with `tabIndex={0}`, so the keyboard can open the menu.
+
+<Demo src='pages/components/context-menu/ContextMenu' />
+
+## Accessibility
+
+The element tells its shortcut with `aria-keyshortcuts="Shift+F10"`. The menu opens under the element when opened by the keyboard, and the focus goes to its first item; the up and down arrows move through the items, Enter chooses one, and Escape closes the menu and gives the focus back to the element. The menu also closes with Tab, a click outside, a scroll of the page or a resize of the window.

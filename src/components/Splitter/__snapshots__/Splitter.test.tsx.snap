@@ -1,0 +1,154 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Splitter should render correctly 1`] = `
+.emotion-4 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  width: 100%;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.emotion-0 {
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+}
+
+.emotion-2 {
+  position: relative;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  background: #D3D4DD;
+  outline: none;
+  touch-action: none;
+  -webkit-transition: background .2s;
+  transition: background .2s;
+  z-index: 1;
+  width: 1px;
+  cursor: col-resize;
+}
+
+.emotion-2::after {
+  content: "";
+  position: absolute;
+}
+
+.emotion-2:hover,
+.emotion-2[data-dragging] {
+  background: #5E7300;
+}
+
+.emotion-2:hover > span,
+.emotion-2[data-dragging] > span {
+  border-color: #5E7300;
+}
+
+.emotion-2:focus > span {
+  border-color: #5E7300;
+  box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .emotion-2 {
+    -webkit-transition: none;
+    transition: none;
+  }
+}
+
+.emotion-2::after {
+  top: 0;
+  bottom: 0;
+  left: -4px;
+  right: -4px;
+}
+
+.emotion-1 {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+  box-sizing: border-box;
+  border: 1px solid #D3D4DD;
+  border-radius: 4px;
+  background: #FFFFFF;
+  -webkit-transition: border-color .2s,box-shadow .2s;
+  transition: border-color .2s,box-shadow .2s;
+  width: 0.5rem;
+  height: 2rem;
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .emotion-1 {
+    -webkit-transition: none;
+    transition: none;
+  }
+}
+
+.emotion-3 {
+  -webkit-box-flex: 0;
+  -webkit-flex-grow: 0;
+  -ms-flex-positive: 0;
+  flex-grow: 0;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  min-width: 0;
+  min-height: 0;
+  overflow: auto;
+  -webkit-flex: 1 1 0;
+  -ms-flex: 1 1 0;
+  flex: 1 1 0;
+}
+
+<div>
+  <div
+    class="emotion-4"
+  >
+    <div
+      class="emotion-0"
+      id="splitter-panel-abc"
+      style="flex-basis: 30%;"
+    >
+      <p>
+        Folders
+      </p>
+    </div>
+    <div
+      aria-controls="splitter-panel-abc"
+      aria-label="Resize panels"
+      aria-orientation="vertical"
+      aria-valuemax="90"
+      aria-valuemin="10"
+      aria-valuenow="30"
+      class="emotion-2"
+      role="separator"
+      tabindex="0"
+    >
+      <span
+        class="emotion-1"
+      />
+    </div>
+    <div
+      class="emotion-3"
+    >
+      <p>
+        Files
+      </p>
+    </div>
+  </div>
+</div>
+`;

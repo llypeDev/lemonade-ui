@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Splitter
+
+The splitter shows two panels with a divider between them that the user drags, or moves with the keyboard, to resize them, such as a list beside the details of the selected item.
+
+## Best practices
+
+- Use it when users need more room for one panel at times, such as a long list of folders or a wide table.
+- Set `min` and `max` so neither panel becomes too small to use.
+- Name the divider after what it resizes, such as "Resize the folder list".
+
+## Usage
+
+`Splitter` takes the two panels as its children. `direction='vertical'` puts one above the other. The size of the first panel is a percent: `defaultSize` sets where it starts and, controlled, `size` and `onSizeChange` keep it. `min` and `max` limit it, and `step` sets how much each arrow key moves it. Give the splitter a height, such as with `style`.
+
+<Demo src='pages/components/splitter/Splitter' />
+
+## Accessibility
+
+The divider is a focusable separator named by `label`, "Resize panels" by default, that controls the first panel and gives its size as a value from `min` to `max`. The left and right arrows, or up and down when one panel is above the other, move it; Home and End take it to the limits, and Enter collapses the first panel and brings it back.

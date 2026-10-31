@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Splitter
+
+O splitter mostra dois painéis com um divisor entre eles, que o usuário arrasta ou move pelo teclado para redimensioná-los, como uma lista ao lado dos detalhes do item selecionado.
+
+## Boas práticas
+
+- Use-o quando os usuários às vezes precisam de mais espaço para um painel, como uma lista longa de pastas ou uma tabela larga.
+- Defina `min` e `max` para nenhum painel ficar pequeno demais para usar.
+- Dê ao divisor o nome do que ele redimensiona, como "Redimensionar a lista de pastas".
+
+## Uso
+
+O `Splitter` recebe os dois painéis como filhos. O `direction='vertical'` coloca um acima do outro. O tamanho do primeiro painel é uma porcentagem: o `defaultSize` define onde ele começa e, controlado, o `size` e o `onSizeChange` o mantêm. O `min` e o `max` o limitam, e o `step` define quanto cada seta o move. Dê uma altura ao splitter, como pelo `style`.
+
+<Demo src='pages/components/splitter/Splitter' />
+
+## Acessibilidade
+
+O divisor é um separador focável com o nome do `label`, "Redimensionar painéis" por padrão, que controla o primeiro painel e informa o tamanho dele como um valor de `min` a `max`. As setas para a esquerda e para a direita, ou para cima e para baixo quando um painel está acima do outro, o movem; Home e End o levam aos limites, e Enter recolhe o primeiro painel e o traz de volta.
