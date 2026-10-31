@@ -221,7 +221,10 @@ const comboboxStateReducer = <T,>(createNewItem: (inputValue: string) => T) => (
     case useCombobox.stateChangeTypes.InputChange:
       return {
         ...changes,
-        selectedItem: undefined,
+        // Typing over a picked item keeps it until the field loses the focus, without calling onChange. With nothing
+        // picked, the state stays null as the value: downshift compares them, and a difference would replace the text
+        // with the empty value right after `createNewItem` creates an item
+        selectedItem: state.selectedItem === null ? null : undefined,
       }
     case useCombobox.stateChangeTypes.InputBlur:
       return {

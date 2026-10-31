@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react'
+import React, { forwardRef, useRef, useState } from 'react'
 import { act, render, fireEvent, getByTestId, waitFor } from '@testing-library/react'
 import matchSorter from 'match-sorter'
 import waait from 'waait'
@@ -15,11 +15,14 @@ import {
 import { Combobox } from './Combobox'
 import { ComboboxMultiselect, ComboboxMultiselectProps } from './ComboboxMultiselect'
 
-// Lets pending updates, such as popper positions and debounced loads, settle inside act
+// Lets pending updates settle inside act. Each wait starts after the previous one ends, so the debounce, the
+// simulated load and its update all finish first, even when timers run late on a busy machine
 const flush = () =>
-  act(
-    () => new Promise<void>((resolve) => setTimeout(resolve, 20))
-  )
+  act(async () => {
+    for (let round = 0; round < 3; round++) {
+      await new Promise<void>((resolve) => setTimeout(resolve, 20))
+    }
+  })
 
 const TOGGLE_BUTTON_ID = 'test-toggle-button-id'
 const MENU_ID = 'test-menu-id'
@@ -714,4 +717,87 @@ describe('remove item', () => {
     expect(document.activeElement).not.toEqual(input)
     await flush()
   })
+})
+
+describe('controlled value', () => {
+  // Keeps the value in state, as an application does. The guard turns a loop of changes into a failure instead of a
+  // test that never ends
+  function ControlledCombobox(props: { initialValue: Fruit[]; onChange?: (value: Fruit[]) => void }) {
+    const [value, setValue] = useState(props.initialValue)
+    const changes = useRef(0)
+    const handleChange = (newValue: Fruit[]) => {
+      if (++changes.current > 20) {
+        throw new Error('onChange called in a loop')
+      }
+      props.onChange?.(newValue)
+      setValue(newValue)
+    }
+
+    return (
+      <>
+        <ComboboxTest value={value} onChange={handleChange} openOnFocus={false} />
+        <button onClick={() => setValue([])}>Clear value</button>
+      </>
+    )
+  }
+
+  it('removes the last item with Backspace in the empty field', async () => {
+    const onChange = jest.fn()
+    const { baseElement, queryByTestId } = render(
+      <ControlledCombobox initialValue={[fruits[0], fruits[1]]} onChange={onChange} />
+    )
+    await flush()
+
+    fireEvent.keyDown(baseElement.querySelector('input'), { key: 'Backspace' })
+    await flush()
+
+    expect(onChange).toHaveBeenLastCalledWith([fruits[0]])
+    expect(queryByTestId('Apple')).toBeTruthy()
+    expect(queryByTestId('Avocado')).toBeNull()
+  })
+
+  it('adds a picked option and removes an item by its button', async () => {
+    const onChange = jest.fn()
+    const { baseElement, findAllByTitle, queryByTestId } = render(
+      <ControlledCombobox initialValue={[fruits[0]]} onChange={onChange} />
+    )
+    await flush()
+
+    fireEvent.click(baseElement.querySelector(`#${TOGGLE_BUTTON_ID}`))
+    const options = await waitForOptions(baseElement)
+    fireEvent.click(options[2])
+    await flush()
+    expect(onChange).toHaveBeenLastCalledWith([fruits[0], fruits[2]])
+    expect(queryByTestId('Banana')).toBeTruthy()
+
+    fireEvent.click((await findAllByTitle('Remove'))[0])
+    await flush()
+    expect(onChange).toHaveBeenLastCalledWith([fruits[2]])
+    expect(queryByTestId('Apple')).toBeNull()
+    expect(queryByTestId('Banana')).toBeTruthy()
+  })
+
+  it('shows the items of a new value, including an empty one', async () => {
+    const { getByText, queryByTestId } = render(<ControlledCombobox initialValue={[fruits[0]]} />)
+    await flush()
+    expect(queryByTestId('Apple')).toBeTruthy()
+
+    fireEvent.click(getByText('Clear value'))
+    await flush()
+    expect(queryByTestId('Apple')).toBeNull()
+  })
+})
+
+it('tells screen readers which options are checked', async () => {
+  const { baseElement } = render(<ComboboxTest open />)
+  const options = await waitForOptions(baseElement)
+
+  fireEvent.click(options[1])
+  await flush()
+
+  const updatedOptions = baseElement.querySelectorAll('[role="option"]')
+  expect(updatedOptions[0]).toHaveAttribute('aria-checked', 'false')
+  expect(updatedOptions[1]).toHaveAttribute('aria-checked', 'true')
+  expect(baseElement.querySelector('[role="listbox"]')).toHaveAttribute('aria-multiselectable', 'true')
+  expect(updatedOptions[1].querySelector('input').closest('[aria-hidden="true"]')).toBeTruthy()
 })

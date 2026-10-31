@@ -95,6 +95,7 @@ export function InternalFilterDraggable<T extends object, TOrigin = string>(prop
         innerRef={setButtonRef}
         onClick={handleClick}
         onKeyDown={handleKeyDown(name)}
+        data-key={String(name)}
         size='small'
         kind='primary'
         skin='ghost'

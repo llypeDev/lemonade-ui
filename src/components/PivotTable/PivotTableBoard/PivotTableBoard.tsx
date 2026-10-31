@@ -1,6 +1,6 @@
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
-import React, { CSSProperties, useCallback, useEffect, useMemo, useState } from 'react'
+import React, { CSSProperties, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { HFlow } from '../../HFlow'
 import { Theme, useStyles } from '../../../styles'
 import { Aggregator } from '../Aggregators/model'
@@ -10,6 +10,7 @@ import { Droppable } from '../Droppable/Droppable'
 import { Aggregators } from '../Aggregators/Aggregators'
 import { Button } from '../../Button'
 import { DroppableFilter } from '../Droppable/types/Filter'
+import { KeyNavigationDirection } from '../Droppable/types/model'
 import { useLocale } from '../../../i18n'
 import { ModalMountTarget } from '../../Modal'
 import { KeyMap } from '../model'
@@ -20,24 +21,69 @@ import { FilterValuesTags } from './FilterValuesTags'
 import { useOnKeyNav } from './useOnKeyNav'
 import { getInitialKeys, handleTagFilterRemove, initializeActiveFilters } from './utils'
 
-interface BoardAggregatorProps<T extends object> {
+export interface BoardAggregatorProps<T extends object> {
+  /**
+   * Called when the user picks another aggregator, such as the average
+   */
   onChange: (aggregator: Aggregator) => void
+
+  /**
+   * Called when the user picks the numeric key that the aggregator reads
+   */
   onKeyChange: (key: keyof T) => void
+
   value: Aggregator
+
+  /**
+   * Numeric key that the aggregator reads, for aggregators such as the average
+   */
   key: keyof T
 }
 
-interface PivotTableBoardProps<T extends object> {
+export interface PivotTableBoardProps<T extends object> {
+  /**
+   * Values of each key of the data, which the user can filter
+   */
   keys: FieldValuesByKey<T>
+
+  /**
+   * Name, formatter and order of the values of each key
+   */
   keyMapping: KeyMap<T>
+
+  /**
+   * Keys with numbers, which aggregators such as the average can read
+   */
   numberKeys: Array<keyof T>
+
+  /**
+   * Shows that the table is being built after the user asked for it
+   */
   isBuilding: boolean
+
+  /**
+   * Called with the row keys, the column keys and the filters when the user asks for the table
+   */
   onSubmit: (values: RowColumnKeys<T>, filterValues: FieldFiltersByKey<T>) => void
+
+  /**
+   * Called when the user clears the table
+   */
   onReset: () => void
+
   aggregator: BoardAggregatorProps<T>
+
+  /**
+   * Keys that start in the rows, in the columns or with filters
+   */
   initialFields?: Array<BoardField<T>>
 }
 
+/**
+ * Board where the user builds a pivot table: dragging the keys of the data to the rows and the columns, filtering
+ * their values and picking how the cells are aggregated. It does not draw the table: `onSubmit` gives the keys and
+ * the filters, and the application draws a `PivotTableGrid`, such as with `buildPivotTableTrees`.
+ */
 export function PivotTableBoard<T extends object>(props: PivotTableBoardProps<T>) {
   const { keys, keyMapping, onSubmit, numberKeys, isBuilding, onReset, aggregator, initialFields } = props
 
@@ -86,7 +132,7 @@ export function PivotTableBoard<T extends object>(props: PivotTableBoardProps<T>
     setAvailableKeys(Array.from(keys.keys()))
   }, [handleClearFilters, onReset, keys])
 
-  const onKeyNav = useOnKeyNav({
+  const moveKey = useOnKeyNav({
     setColumnKeys,
     setRowKeys,
     setAvailableKeys,
@@ -94,6 +140,25 @@ export function PivotTableBoard<T extends object>(props: PivotTableBoardProps<T>
     rowKeys,
     availableKeys,
   })
+
+  // A key moved with the arrow keys is drawn again in its new area, so the focus goes to it there instead of being lost
+  const boardRef = useRef<HTMLDivElement>()
+  const [movedKey, setMovedKey] = useState<keyof T>()
+  const onKeyNav = useCallback(
+    (direction: KeyNavigationDirection, origin: PivotTableBoardOrigin, key?: keyof T) => {
+      const moved = moveKey(direction, origin, key)
+      moved && setMovedKey(key)
+      return moved
+    },
+    [moveKey]
+  )
+  useEffect(() => {
+    if (movedKey !== undefined) {
+      const buttons = Array.from(boardRef.current?.querySelectorAll<HTMLElement>('[data-key]') ?? [])
+      buttons.find((button) => button.dataset.key === String(movedKey))?.focus()
+      setMovedKey(undefined)
+    }
+  }, [movedKey])
 
   const handleFilterUpdate = useCallback(
     (key: keyof T, filter: Set<string>) => {
@@ -128,113 +193,115 @@ export function PivotTableBoard<T extends object>(props: PivotTableBoardProps<T>
 
   return (
     <DndProvider backend={HTML5Backend}>
-      <Grid>
-        <Cell md={6} sm={12} xs={12}>
-          <Box label={pivotTableBoardLabels.availableFields}>
-            <Droppable<T, PivotTableBoardOrigin>
-              data-testid='droppable-available'
-              keyState={availableKeys}
-              filter={filter}
-              keyMapping={keyMapping}
-              handleKeyUpdate={setAvailableKeys}
-              onKeyNav={onKeyNav}
-              name='filter'
-              accept='filter'
-            />
-          </Box>
-        </Cell>
-        <Cell md={6} sm={12} xs={12}>
-          <Box label={pivotTableBoardLabels.columns} icon='hamburguerMenu' rotation='90'>
-            <Droppable<T, PivotTableBoardOrigin>
-              data-testid='droppable-column'
-              keyState={columnKeys}
-              filter={filter}
-              keyMapping={keyMapping}
-              handleKeyUpdate={setColumnKeys}
-              onKeyNav={onKeyNav}
-              name='column'
-              accept='filter'
-            />
-          </Box>
-        </Cell>
-        <Cell md={6} sm={12} xs={12}>
-          <Box label={pivotTableBoardLabels.rows} icon='hamburguerMenu'>
-            <Droppable<T, PivotTableBoardOrigin>
-              data-testid='droppable-row'
-              keyState={rowKeys}
-              filter={filter}
-              keyMapping={keyMapping}
-              handleKeyUpdate={setRowKeys}
-              onKeyNav={onKeyNav}
-              name='row'
-              accept='filter'
-            />
-          </Box>
-        </Cell>
-        <Cell md={6} sm={12} xs={12}>
-          <Box label={pivotTableBoardLabels.kindOfPresentation}>
-            <div className={classes.aggregatorsContainer}>
-              <Aggregators
-                numberKeys={numberKeys}
+      <div ref={boardRef}>
+        <Grid>
+          <Cell md={6} sm={12} xs={12}>
+            <Box label={pivotTableBoardLabels.availableFields}>
+              <Droppable<T, PivotTableBoardOrigin>
+                data-testid='droppable-available'
+                keyState={availableKeys}
+                filter={filter}
                 keyMapping={keyMapping}
-                handleAggregatorChange={aggregator.onChange}
-                handleAggregatorKeyChange={aggregator.onKeyChange}
-                aggregator={aggregator.value}
-                aggregatorKey={aggregator.key}
+                handleKeyUpdate={setAvailableKeys}
+                onKeyNav={onKeyNav}
+                name='filter'
+                accept='filter'
               />
+            </Box>
+          </Cell>
+          <Cell md={6} sm={12} xs={12}>
+            <Box label={pivotTableBoardLabels.columns} icon='hamburguerMenu' rotation='90'>
+              <Droppable<T, PivotTableBoardOrigin>
+                data-testid='droppable-column'
+                keyState={columnKeys}
+                filter={filter}
+                keyMapping={keyMapping}
+                handleKeyUpdate={setColumnKeys}
+                onKeyNav={onKeyNav}
+                name='column'
+                accept='filter'
+              />
+            </Box>
+          </Cell>
+          <Cell md={6} sm={12} xs={12}>
+            <Box label={pivotTableBoardLabels.rows} icon='hamburguerMenu'>
+              <Droppable<T, PivotTableBoardOrigin>
+                data-testid='droppable-row'
+                keyState={rowKeys}
+                filter={filter}
+                keyMapping={keyMapping}
+                handleKeyUpdate={setRowKeys}
+                onKeyNav={onKeyNav}
+                name='row'
+                accept='filter'
+              />
+            </Box>
+          </Cell>
+          <Cell md={6} sm={12} xs={12}>
+            <Box label={pivotTableBoardLabels.kindOfPresentation}>
+              <div className={classes.aggregatorsContainer}>
+                <Aggregators
+                  numberKeys={numberKeys}
+                  keyMapping={keyMapping}
+                  handleAggregatorChange={aggregator.onChange}
+                  handleAggregatorKeyChange={aggregator.onKeyChange}
+                  aggregator={aggregator.value}
+                  aggregatorKey={aggregator.key}
+                />
+              </div>
+            </Box>
+          </Cell>
+          <Cell sm={12}>
+            <div className={classes.filtersContainer}>
+              <Grid wrap alignItems='center'>
+                <Cell size={10}>
+                  <HFlow alignItems='center'>
+                    <Text fontWeight='bold'>{pivotTableBoardLabels.appliedFilters}</Text>
+                    <FilterValuesTags
+                      filterState={filterState}
+                      keys={keys}
+                      keyMapping={keyMapping}
+                      onRemoveTag={handleRemoveTag}
+                    />
+                  </HFlow>
+                </Cell>
+                <Cell size={2}>
+                  <Button
+                    onClick={handleClearFilters}
+                    size='small'
+                    kind='normal'
+                    skin='outline'
+                    style={{ float: 'right' }}
+                  >
+                    {pivotTableBoardLabels.clearFilters}
+                  </Button>
+                </Cell>
+              </Grid>
             </div>
-          </Box>
-        </Cell>
-        <Cell sm={12}>
-          <div className={classes.filtersContainer}>
-            <Grid wrap alignItems='center'>
-              <Cell size={10}>
-                <HFlow alignItems='center'>
-                  <Text fontWeight='bold'>{pivotTableBoardLabels.appliedFilters}</Text>
-                  <FilterValuesTags
-                    filterState={filterState}
-                    keys={keys}
-                    keyMapping={keyMapping}
-                    onRemoveTag={handleRemoveTag}
-                  />
-                </HFlow>
-              </Cell>
-              <Cell size={2}>
-                <Button
-                  onClick={handleClearFilters}
-                  size='small'
-                  kind='normal'
-                  skin='outline'
-                  style={{ float: 'right' }}
-                >
-                  {pivotTableBoardLabels.clearFilters}
-                </Button>
-              </Cell>
-            </Grid>
-          </div>
-        </Cell>
-        <Cell size={12}>
-          <HFlow justifyContent='flex-end'>
-            <Button
-              kind='normal'
-              size='medium'
-              onClick={renderClearTableModal(pivotTableBoardLabels, handleTableReset)}
-            >
-              {pivotTableBoardLabels.clearTable}
-            </Button>
-            <ModalMountTarget />
-            <Button
-              kind='primary'
-              size='medium'
-              onClick={handleGenerateTableClick}
-              loading={isBuilding}
-              disabled={isBuilding}
-            >
-              {pivotTableBoardLabels.generateTable}
-            </Button>
-          </HFlow>
-        </Cell>
-      </Grid>
+          </Cell>
+          <Cell size={12}>
+            <HFlow justifyContent='flex-end'>
+              <Button
+                kind='normal'
+                size='medium'
+                onClick={renderClearTableModal(pivotTableBoardLabels, handleTableReset)}
+              >
+                {pivotTableBoardLabels.clearTable}
+              </Button>
+              <ModalMountTarget />
+              <Button
+                kind='primary'
+                size='medium'
+                onClick={handleGenerateTableClick}
+                loading={isBuilding}
+                disabled={isBuilding}
+              >
+                {pivotTableBoardLabels.generateTable}
+              </Button>
+            </HFlow>
+          </Cell>
+        </Grid>
+      </div>
     </DndProvider>
   )
 }

@@ -1,0 +1,38 @@
+import { Demo } from '../../../components/Demo'
+
+# Pivot table
+
+A pivot table resume linhas de dados agrupando-as por algumas de suas chaves, como os pedidos por região e status. O usuário a monta em um painel: arrastando as chaves para as linhas e as colunas, filtrando seus valores e escolhendo como as células são contadas ou agregadas.
+
+## Boas práticas
+
+- Use-a para explorar dados com poucas chaves de poucos valores cada, como regiões, produtos e status.
+- Comece com uma tabela útil, definindo as primeiras linhas e colunas com `initialFields`.
+- Para um resumo fixo que o usuário não muda, use uma `DataTable` ou um gráfico.
+
+## Uso
+
+A pivot table vem de um ponto de entrada próprio, para que aplicações que não a usam não carreguem suas dependências de arrastar e soltar:
+
+```js
+import {
+  PivotTableBoard,
+  PivotTableGrid,
+  PivotTableProvider,
+  buildPivotTableTrees,
+} from '@lemonade/ui/lib/components/PivotTable'
+```
+
+Ela tem três partes:
+
+- O `PivotTableBoard` é o painel. O `keys` guarda os valores de cada chave que o usuário pode arrastar, o `keyMapping` seus nomes, formatadores e ordens, e o `numberKeys` as chaves numéricas que agregadores como a média leem. O `aggregator` guarda o agregador escolhido pelo usuário. O `onSubmit` recebe as chaves das linhas, as das colunas e os valores que ficaram em cada filtro quando o usuário pede a tabela, e o `onReset` é chamado quando o usuário a limpa.
+- O `PivotTableGrid` desenha a tabela a partir de duas árvores, com os valores agrupados pelas chaves das linhas e das colunas e seus totais.
+- O `PivotTableProvider` envolve a grade e colore cada célula pelo seu valor, até `maxValue`, com um `suffix` como `%`.
+
+O `buildPivotTableTrees(rows, rowKeys, columnKeys, { aggregator, valueKey })` monta as árvores a partir das linhas de dados no navegador. Para dados grandes, um servidor pode montar as mesmas árvores.
+
+<Demo src='pages/components/pivot-table/PivotTable' />
+
+## Acessibilidade
+
+No painel, cada chave é um botão: pelo teclado, as setas movem a chave com foco entre as chaves disponíveis, as linhas e as colunas. Os filtros de uma chave abrem em um menu de checkboxes. A tabela é desenhada com uma grade de células, que os leitores de tela leem em sequência sem os nomes das linhas e colunas, então quando o resumo importar para todos os usuários, ofereça também os mesmos dados em uma `DataTable`.

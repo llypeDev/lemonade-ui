@@ -31,15 +31,22 @@ export function MultiDownshift<T>(props: MultiDownshiftProps<T>) {
     setSelectedItems(props.selectedItems)
   }, [props.selectedItems])
 
+  // The handlers and helpers of the latest render, read when the user changes the selection
+  const latestProps = useRef(props)
+  latestProps.current = props
+  const latestStateAndHelpers = useRef<(downshift: SelectDownshiftRenderProps<T>) => MultiSelectRenderProps<T>>()
+
+  // Only a change made by the user calls the handlers: `changed` turns true together with the new selection
   useEffect(() => {
     if (downshiftRef.current && changed) {
-      props.onChange && props.onChange(selectedItems, getStateAndHelpers(downshiftRef.current))
-      props.onSelect && props.onSelect(selectedItems, getStateAndHelpers(downshiftRef.current))
+      const stateAndHelpers = latestStateAndHelpers.current(downshiftRef.current)
+      latestProps.current.onChange && latestProps.current.onChange(selectedItems, stateAndHelpers)
+      latestProps.current.onSelect && latestProps.current.onSelect(selectedItems, stateAndHelpers)
       setChanged(false)
     }
-  }, [selectedItems])
+  }, [selectedItems, changed])
 
-  const isSelected = (item: T) => some(selectedItems, i => props.itemIsEqual(i, item))
+  const isSelected = (item: T) => some(selectedItems, (i) => props.itemIsEqual(i, item))
 
   const handleChange = (selectedItem: T) => {
     if (selectedItem) {
@@ -53,13 +60,13 @@ export function MultiDownshift<T>(props: MultiDownshiftProps<T>) {
 
   const removeItem = (selectedItem: T) => {
     setChanged(true)
-    setSelectedItems(currentItems => currentItems.filter(item => !props.itemIsEqual(selectedItem, item)))
+    setSelectedItems((currentItems) => currentItems.filter((item) => !props.itemIsEqual(selectedItem, item)))
   }
 
   const addItem = (item: T) => {
     setChanged(true)
     if (!isSelected(item)) {
-      setSelectedItems(currentItems => [...currentItems, item])
+      setSelectedItems((currentItems) => [...currentItems, item])
     }
   }
 
@@ -74,6 +81,7 @@ export function MultiDownshift<T>(props: MultiDownshiftProps<T>) {
       removeItem,
     }
   }
+  latestStateAndHelpers.current = getStateAndHelpers
 
   const { children, onSelect, ...rest } = props
 
@@ -86,7 +94,7 @@ export function MultiDownshift<T>(props: MultiDownshiftProps<T>) {
       selectedItem={null}
       keepFilterAfterSelect
     >
-      {downshift => children(getStateAndHelpers(downshift))}
+      {(downshift) => children(getStateAndHelpers(downshift))}
     </SelectDownshift>
   )
 }

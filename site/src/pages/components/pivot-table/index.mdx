@@ -1,0 +1,38 @@
+import { Demo } from '../../../components/Demo'
+
+# Pivot table
+
+The pivot table summarizes rows of data by grouping them by some of their keys, such as the orders by region and status. The user builds it on a board: dragging the keys to the rows and the columns, filtering their values and picking how the cells are counted or aggregated.
+
+## Best practices
+
+- Use it for exploring data with a few keys of few values each, such as regions, products and statuses.
+- Start with a useful table, setting the first rows and columns with `initialFields`.
+- For a fixed summary that the user does not change, use a `DataTable` or a chart instead.
+
+## Usage
+
+The pivot table comes from its own entry point, so applications that do not use it do not load its drag and drop dependencies:
+
+```js
+import {
+  PivotTableBoard,
+  PivotTableGrid,
+  PivotTableProvider,
+  buildPivotTableTrees,
+} from '@lemonade/ui/lib/components/PivotTable'
+```
+
+It has three parts:
+
+- `PivotTableBoard` is the board. `keys` holds the values of each key the user can drag, `keyMapping` their names, formatters and orders, and `numberKeys` the numeric keys that aggregators such as the average read. `aggregator` holds the aggregator the user picked. `onSubmit` receives the row keys, the column keys and the values left in each filter when the user asks for the table, and `onReset` is called when the user clears it.
+- `PivotTableGrid` draws the table from two trees, with the values grouped by the row keys and the column keys and their totals.
+- `PivotTableProvider` wraps the grid and colors each cell by its value, up to `maxValue`, with a `suffix` such as `%`.
+
+`buildPivotTableTrees(rows, rowKeys, columnKeys, { aggregator, valueKey })` builds the trees from the rows of data in the browser. For large data, a server can build the same trees.
+
+<Demo src='pages/components/pivot-table/PivotTable' />
+
+## Accessibility
+
+On the board, each key is a button: with the keyboard, the arrow keys move the focused key between the available keys, the rows and the columns. The filters of a key open in a menu of checkboxes. The table is drawn with a grid of cells, which screen readers read in order without the names of the rows and columns, so when the summary matters to every user, also offer the same data in a `DataTable`.

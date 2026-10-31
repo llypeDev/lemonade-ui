@@ -130,6 +130,7 @@ exports[`Droppable render should render with filter options 1`] = `
         <button
           aria-haspopup="true"
           class="emotion-3"
+          data-key="name"
           type="button"
         >
           <span>
@@ -315,6 +316,7 @@ exports[`Droppable render should render without filter options 1`] = `
       >
         <button
           class="emotion-2"
+          data-key="name"
           type="button"
         >
           <span>

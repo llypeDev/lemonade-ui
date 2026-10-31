@@ -11,11 +11,14 @@ import locale from '../../i18n/locales/en-US'
 import { ComboboxMenuItem, ComboboxItemProps } from './ComboboxMenuComponents'
 import { Combobox } from './Combobox'
 
-// Lets pending updates, such as popper positions and debounced loads, settle inside act
+// Lets pending updates settle inside act. Each wait starts after the previous one ends, so the debounce, the
+// simulated load and its update all finish first, even when timers run late on a busy machine
 const flush = () =>
-  act(
-    () => new Promise<void>((resolve) => setTimeout(resolve, 20))
-  )
+  act(async () => {
+    for (let round = 0; round < 3; round++) {
+      await new Promise<void>((resolve) => setTimeout(resolve, 20))
+    }
+  })
 
 const TOGGLE_BUTTON_ID = 'test-toggle-button-id'
 const MENU_ID = 'test-menu-id'

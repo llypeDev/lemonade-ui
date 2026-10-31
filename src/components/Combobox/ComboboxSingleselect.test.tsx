@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react'
+import React, { forwardRef, useState } from 'react'
 import { act, render, fireEvent, getByTestId, waitFor } from '@testing-library/react'
 import matchSorter from 'match-sorter'
 import waait from 'waait'
@@ -12,11 +12,14 @@ import { ComboboxMenuItem, ComboboxItemProps } from './ComboboxMenuComponents'
 import { Combobox } from './Combobox'
 import { ComboboxSingleselect, ComboboxSingleselectProps } from './ComboboxSingleselect'
 
-// Lets pending updates, such as popper positions and debounced loads, settle inside act
+// Lets pending updates settle inside act. Each wait starts after the previous one ends, so the debounce, the
+// simulated load and its update all finish first, even when timers run late on a busy machine
 const flush = () =>
-  act(
-    () => new Promise<void>((resolve) => setTimeout(resolve, 20))
-  )
+  act(async () => {
+    for (let round = 0; round < 3; round++) {
+      await new Promise<void>((resolve) => setTimeout(resolve, 20))
+    }
+  })
 
 const TOGGLE_BUTTON_ID = 'test-toggle-button-id'
 const MENU_ID = 'test-menu-id'
@@ -726,5 +729,54 @@ describe('emptyItem', () => {
 
     expect(queryByText(en.select.emptyItem)).toBeFalsy()
     await flush()
+  })
+})
+
+describe('controlled value', () => {
+  // Keeps the value in state, as an application does
+  function ControlledCombobox(props: Partial<ComboboxSingleselectProps<Fruit>> & { initialValue: Fruit }) {
+    const { initialValue, onChange, ...rest } = props
+    const [value, setValue] = useState(initialValue)
+    const handleChange = (newValue: Fruit) => {
+      onChange?.(newValue)
+      setValue(newValue)
+    }
+
+    return <ComboboxTest {...rest} value={value} onChange={handleChange} />
+  }
+
+  it('keeps the typed text of an item created by "createNewItem"', async () => {
+    const onChange = jest.fn()
+    const createNewItem = (input: string) => ({ value: 100, label: input })
+    const { baseElement } = render(
+      <ControlledCombobox initialValue={null} createNewItem={createNewItem} onChange={onChange} />
+    )
+    const input = baseElement.querySelector('input')!
+
+    fireEvent.focus(input)
+    fireEvent.change(input, { target: { value: 'Starfruit' } })
+    await flush()
+    fireEvent.blur(input)
+    await flush()
+
+    expect(onChange).toHaveBeenLastCalledWith({ value: 100, label: 'Starfruit' })
+    expect(input).toHaveValue('Starfruit')
+  })
+
+  it('keeps the picked item while the user types over it, until the field loses the focus', async () => {
+    const onChange = jest.fn()
+    const { baseElement } = render(<ControlledCombobox initialValue={fruits[2]} onChange={onChange} />)
+    const input = baseElement.querySelector('input')!
+
+    fireEvent.focus(input)
+    fireEvent.change(input, { target: { value: 'Ban' } })
+    await flush()
+    expect(input).toHaveAttribute('aria-expanded', 'true')
+
+    fireEvent.blur(input)
+    await flush()
+
+    expect(onChange).not.toHaveBeenCalled()
+    expect(input).toHaveValue(fruits[2].label)
   })
 })

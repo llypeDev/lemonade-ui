@@ -352,5 +352,36 @@ describe('PivotTable - PivotTableBoard', () => {
       )
       await flush()
     })
+
+    it('keeps the focus on a key moved with the arrow keys', async () => {
+      const { findByTestId } = render(
+        <PivotTableBoard<Test>
+          keys={keys}
+          keyMapping={keyMapping}
+          numberKeys={[]}
+          onSubmit={noop}
+          onReset={noop}
+          aggregator={aggregator}
+          isBuilding={false}
+          initialFields={initialFields}
+        />
+      )
+
+      const sizeButton = (area: HTMLElement) => within(area).getByText('Size').closest('button')
+
+      const droppableColumn = await findByTestId('droppable-column')
+      sizeButton(droppableColumn).focus()
+      fireEvent.keyDown(sizeButton(droppableColumn), { key: 'ArrowDown', code: 'ArrowDown' })
+      await flush()
+
+      const droppableRow = await findByTestId('droppable-row')
+      expect(document.activeElement).toBe(sizeButton(droppableRow))
+
+      fireEvent.keyDown(document.activeElement, { key: 'ArrowLeft', code: 'ArrowLeft' })
+      await flush()
+
+      const droppableAvailable = await findByTestId('droppable-available')
+      expect(document.activeElement).toBe(sizeButton(droppableAvailable))
+    })
   })
 })

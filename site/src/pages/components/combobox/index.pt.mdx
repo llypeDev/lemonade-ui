@@ -1,0 +1,43 @@
+import { Demo } from '../../../components/Demo'
+
+# Combobox
+
+O combobox é um campo em que o usuário escolhe uma ou mais opções de uma lista, digitando para filtrá-las. Ele substitui o `Select`, o `MultiSelect` e o `SelectInline`, que estão obsoletos.
+
+## Boas práticas
+
+- Use-o para listas com mais do que algumas opções; para duas a cinco opções, mostre todas com botões `Radio` ou um `SegmentedControl`.
+- Ordene as opções pela frequência de uso, ou em ordem alfabética.
+- Carregue as opções de um servidor quando forem muitas para enviar à página, como no exemplo assíncrono.
+
+## Uma opção
+
+O `Combobox` recebe os `items`, o `itemToString`, que escreve um item como texto, o `value` e o `onChange`. Digitar filtra as opções; o `filter` muda como.
+
+<Demo src='pages/components/combobox/Combobox' />
+
+## Várias opções
+
+Com `multiple`, o valor é uma lista e as opções escolhidas aparecem como tags no campo. O `itemIsEqual` diz quando dois itens são o mesmo, e o `clearFilterOnSelect` limpa o texto digitado depois de cada escolha.
+
+<Demo src='pages/components/combobox/ComboboxMultiple' />
+
+## Opções de um servidor
+
+O `items` pode ser uma função que recebe o texto digitado e retorna uma promise com as opções. O combobox espera o usuário pausar, `debounceMilliseconds` (350 ms por padrão), e mostra uma mensagem de carregamento enquanto isso. Quando o usuário digita mais rápido do que o servidor responde, só a resposta do texto mais recente aparece.
+
+<Demo src='pages/components/combobox/ComboboxAsync' />
+
+## Sugestões
+
+Com `createNewItem`, o usuário também pode digitar um valor que não está na lista: quando o campo perde o foco, a função transforma o texto digitado em um item.
+
+<Demo src='pages/components/combobox/ComboboxSuggestion' />
+
+## Inline
+
+Com `inline`, o combobox é um botão pequeno dentro de uma frase ou de uma barra de ferramentas, com uma caixa de busca na sua lista. Veja na página do [Select inline](/components/select-inline).
+
+## Acessibilidade
+
+O campo segue o padrão ARIA de combobox: ele informa aos leitores de tela se a lista está aberta e qual opção está destacada, as setas percorrem as opções, o Enter escolhe uma e o Escape fecha a lista. A lista só contém opções, e as mensagens de carregamento e de lista vazia são anunciadas como opções desabilitadas. Com `multiple`, a lista informa aos leitores de tela que aceita várias opções e se cada uma está marcada, e as opções escolhidas aparecem como tags: com a lista fechada e o campo vazio, o Backspace remove a última tag e a seta para a esquerda leva o foco às tags, onde as setas passam de uma para outra e o Delete ou o Backspace remove a que está com o foco. O × de cada tag a remove com o mouse.

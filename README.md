@@ -370,7 +370,7 @@ Search, preview, copy and download every icon in the [Phosphor explorer](https:/
 | **Layout**        | `Grid` · `Cell` · `Flow` · `HFlow` (deprecated) · `VFlow` (deprecated) · `Accordion` · `Card` · `ClickableCard` · `ToggleCard` · `ExpandableCard` · `Paper` · `Divider` · `Splitter` · `StickyContainer` · `Portal` · `RootRef`                                                                                                                                                                      |
 | **Typography**    | `Text` · `Heading` · `HeadingSection` · `VisuallyHidden` · `Kbd` · `ExpandableText` · `TruncatedText`                                                                                                                                                                                                                                                                                                |
 
-Charts (`Chart`, `BarChart`, `PieChart` and their parts) come from a separate entry point, `@lemonade/ui/lib/components/Chart`, so apps that don't draw charts don't load their dependencies. Components marked as deprecated still work; their documentation points to the replacement.
+Charts (`Chart`, `BarChart`, `PieChart` and their parts) and the pivot table (`PivotTableBoard`, `PivotTableGrid` and `buildPivotTableTrees`) come from separate entry points, `@lemonade/ui/lib/components/Chart` and `@lemonade/ui/lib/components/PivotTable`, so apps that don't use them don't load their dependencies. Components marked as deprecated still work; their documentation points to the replacement.
 
 Interactive examples and the full API of each component are in the [Storybook](https://lemonade-ui.llypedev.com.br/storybook). Usage guidelines for each one are in the [components overview](https://lemonade-ui.llypedev.com.br/components/overview).
 
@@ -380,6 +380,8 @@ Components and improvements added since version 1.4.0, each with live demos and 
 
 | Component                                  | What it is for                                                                            | Docs                                                                       |
 | ------------------------------------------ | ----------------------------------------------------------------------------------------- | -------------------------------------------------------------------------- |
+| `PivotTableBoard` · `PivotTableGrid`       | A pivot table, with a board to drag keys to rows and columns, filter and aggregate        | [Docs](https://lemonade-ui.llypedev.com.br/components/pivot-table)         |
+| `Combobox`                                 | Own docs page; the inline combobox works by keyboard and keeps the latest results         | [Docs](https://lemonade-ui.llypedev.com.br/components/combobox)            |
 | `CurrencyField`                            | An amount of money typed from the cents, as in banking apps                               | [Docs](https://lemonade-ui.llypedev.com.br/components/currency-field)      |
 | `Wizard`                                   | A long form split in steps, each checked before going forward                             | [Docs](https://lemonade-ui.llypedev.com.br/components/wizard)              |
 | `FilterBar`                                | Search, filters in popovers and the active filters as tags that can be removed            | [Docs](https://lemonade-ui.llypedev.com.br/components/filter-bar)          |

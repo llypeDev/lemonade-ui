@@ -79,9 +79,19 @@ export const ComboboxMultiselectMenuItem = React.forwardRef(
     const { classes, css } = useStyles(createStyles)
 
     return (
-      <li ref={ref} className={css(classes.item, highlighted && classes.selected, style)} {...rest}>
+      <li
+        ref={ref}
+        className={css(classes.item, highlighted && classes.selected, style)}
+        role='option'
+        aria-selected={!!highlighted}
+        aria-checked={!!selected}
+        {...rest}
+      >
         <HFlow hSpacing={0.5} alignItems='center'>
-          <Checkbox style={{ pointerEvents: 'none' }} checked={selected} tabIndex={-1} readOnly />
+          {/* The option tells screen readers whether it is checked, so the checkbox is only drawn */}
+          <span aria-hidden='true'>
+            <Checkbox style={{ pointerEvents: 'none' }} checked={selected} tabIndex={-1} readOnly />
+          </span>
           {children ?? itemToString(item)}
         </HFlow>
       </li>
