@@ -1,0 +1,27 @@
+# Sticky container
+
+The sticky container keeps its content at the top of the window after the page scrolls past it, such as a bar with the actions of a long form.
+
+## Best practices
+
+- Keep the sticky content short, so it does not cover the page on small screens.
+- In most cases, the CSS `position: sticky` does the same with no JavaScript, and also works inside a container that scrolls. Use `StickyContainer` when the content must leave the flow of the page.
+
+## Usage
+
+`StickyContainer` is placed with `position: absolute` at `top` and `left`, in pixels, inside the nearest positioned parent. When the window scrolls more than `top`, it becomes `position: fixed` at the top of the window, with the full width. It follows only the scroll of the window, not of other containers.
+
+```jsx
+<div style={{ position: 'relative', paddingTop: 56 }}>
+  <StickyContainer top={0}>
+    <Toolbar aria-label='Form actions'>…</Toolbar>
+  </StickyContainer>
+  <Form />
+</div>
+```
+
+A live demo is in the [Storybook](https://lemonade-ui.llypedev.com.br/storybook/?path=/story/components-stickycontainer--default), since a fixed bar would cover this page.
+
+## Accessibility
+
+Fixed content can hide the element that has the focus when the user moves with Tab. Leave room for it with `scroll-padding-top` on the page, as tall as the container, so the focused element scrolls into view below it.

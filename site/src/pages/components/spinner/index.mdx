@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Spinner
+
+The spinner is a small turning circle that shows something is loading, when you cannot tell how long it will take.
+
+## Best practices
+
+- Use it for short waits in a small area, such as inside a button or next to a text.
+- For a whole section or page, use a `Skeleton`, which shows the shape of what is coming, or a `LoadingOverlay`.
+- When you know the progress, use a `Progress` bar or a `ProgressCircle` instead.
+
+## Usage
+
+`Spinner` takes its color from the text around it, so it follows the color of the button or text it is in. `size` is the size in rem, `1` by default, and `borderWidth` the width of the line in pixels, `2` by default. A `Button` with `loading` already shows a spinner.
+
+<Demo src='pages/components/spinner/Spinner' />
+
+## Accessibility
+
+The spinner is only visual, and screen readers do not see it. Say what is loading in text next to it, as in "Loading orders…", inside an element with `role='status'` so the message is announced. On a region that is loading, add `aria-busy='true'`. The animation is short and does not flash.

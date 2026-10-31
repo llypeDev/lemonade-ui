@@ -1,0 +1,27 @@
+import { Demo } from '../../../components/Demo'
+
+# Month field
+
+O month field é um campo de texto para um mês de um ano, como o mês de referência de um relatório, com um seletor de meses que abre abaixo dele. O seletor de meses também pode ser usado sozinho.
+
+## Boas práticas
+
+- Use-o quando só o mês importa, como em faturas, relatórios e datas de validade; para um dia, use um `DateField`.
+- Limite os meses com `minMonth` e `maxMonth` quando só alguns forem válidos, e explique o motivo no texto de ajuda.
+- Para um intervalo de meses, use um `MonthRangePicker`; para navegar entre meses em uma tela, use um `MonthPaginator`.
+
+## Month field
+
+O `MonthField` recebe as props de um `TextField`. O `value` é um objeto com o `month`, de `0` para janeiro a `11` para dezembro, e o `year`, e o `onChange` recebe o novo objeto, ou `null` quando o campo é limpo. O usuário digita o mês como `mm/aaaa` (mês e ano), ou o escolhe no seletor que abre quando o campo recebe o foco ou o ícone de calendário é clicado. `minMonth` e `maxMonth` desabilitam no seletor os meses fora dos limites.
+
+<Demo src='pages/components/month-field/MonthField' />
+
+## Month picker
+
+O `MonthPicker` mostra os doze meses de um ano, com botões para ir ao ano anterior e ao próximo. O `visibleMonth` escolhe o ano mostrado, e o `onVisibleMonthChange` é chamado quando o usuário o troca. O `onMonthClick` recebe o mês que o usuário clica. Os `modifiers` marcam meses, como `selected`, e o `isDisabled` os desabilita. Os nomes dos meses seguem o idioma do navegador.
+
+<Demo src='pages/components/month-field/MonthPicker' />
+
+## Acessibilidade
+
+O campo mostra o formato `mm/yyyy` como placeholder, e digitar funciona sem o seletor. No seletor, cada mês é um botão com o nome do mês, e os botões de ano têm os nomes "Ano anterior" e "Próximo ano", dos textos de locale. O mês selecionado é indicado só pela cor, então mostre também o mês escolhido em texto, como o campo faz.

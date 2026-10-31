@@ -1,0 +1,27 @@
+import { Demo } from '../../../components/Demo'
+
+# Month field
+
+The month field is a text field for a month of a year, such as the reference month of a report, with a picker of months that opens below it. The month picker can also be used alone.
+
+## Best practices
+
+- Use it when only the month matters, such as for invoices, reports and expiry dates; for a day, use a `DateField`.
+- Limit the months with `minMonth` and `maxMonth` when only some of them are valid, and say why in the help text.
+- For a range of months, use a `MonthRangePicker`; to step through months on a screen, use a `MonthPaginator`.
+
+## Month field
+
+`MonthField` takes the props of a `TextField`. Its `value` is an object with the `month`, from `0` for January to `11` for December, and the `year`, and `onChange` receives the new object, or `null` when the field is cleared. The user types the month as `mm/yyyy`, or picks it in the picker that opens when the field gets the focus or the calendar icon is clicked. `minMonth` and `maxMonth` disable the months outside the limits in the picker.
+
+<Demo src='pages/components/month-field/MonthField' />
+
+## Month picker
+
+`MonthPicker` shows the twelve months of a year, with buttons to go to the previous and the next year. `visibleMonth` chooses the year shown, and `onVisibleMonthChange` is called when the user changes it. `onMonthClick` receives the month the user clicks. `modifiers` mark months, such as `selected`, and `isDisabled` disables them. The names of the months follow the language of the browser.
+
+<Demo src='pages/components/month-field/MonthPicker' />
+
+## Accessibility
+
+The field shows the format `mm/yyyy` as its placeholder, and typing works without the picker. In the picker, each month is a button named after the month, and the year buttons are named "Previous year" and "Next year", from the locale strings. The selected month is shown by its color only, so also show the chosen month in text, as the field does.

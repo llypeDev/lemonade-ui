@@ -1,0 +1,30 @@
+import { Demo } from '../../../components/Demo'
+
+# Select inline
+
+`SelectInline` is **deprecated**: it still works, but new screens should use a `Combobox` with `inline`, which replaces it.
+
+The inline select is a small button that shows the chosen option and opens a list with a search, used inside a sentence or a toolbar, such as "Showing orders from Last 30 days".
+
+## Best practices
+
+- Use it where a full field would take too much room, such as in the header of a table or a chart.
+- Keep the text of the button short and make it the chosen option, so the sentence still reads well.
+
+## Moving to Combobox
+
+Replace `SelectInline` with `Combobox` and `inline`. The main props keep their names: `items`, `value`, `onChange`, `itemToString` and `defaultButtonText`. The placeholder of the search box moves to `searchBoxPlaceholder`.
+
+```jsx
+// Before
+<SelectInline items={periods} value={period} onChange={setPeriod} itemToString={toLabel} defaultButtonText='Period' />
+
+// After
+<Combobox inline items={periods} value={period} onChange={setPeriod} itemToString={toLabel} defaultButtonText='Period' />
+```
+
+<Demo src='pages/components/select-inline/ComboboxInline' />
+
+## Accessibility
+
+The button of the `Combobox` with `inline` tells screen readers whether the list is open, and opening it moves the focus to the search box. Clicking an option or pressing Escape closes the list. Two known issues remain: the arrow keys do not move through the options from the search box, and after the list closes the focus does not go back to the button. Until they are fixed, avoid it in flows used mostly with the keyboard.

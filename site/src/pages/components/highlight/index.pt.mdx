@@ -1,0 +1,20 @@
+import { Demo } from '../../../components/Demo'
+
+# Highlight
+
+O highlight marca as palavras de uma busca em um texto, como nos resultados de um campo de busca, para que o usuário veja por que cada resultado corresponde.
+
+## Boas práticas
+
+- Use-o em resultados de busca e listas filtradas, no texto que foi buscado.
+- Marque as palavras como o usuário as digitou, sem outras mudanças no texto.
+
+## Uso
+
+O `Highlight` recebe o `text` e as `words` a marcar. Cada palavra é encontrada sem diferenciar maiúsculas e minúsculas, e caracteres como `(` ou `+` são buscados como foram digitados. O texto é sempre renderizado como texto, nunca como HTML, então pode vir do usuário.
+
+<Demo src='pages/components/highlight/Highlight' />
+
+## Acessibilidade
+
+As palavras são marcadas com o elemento `mark`, que alguns leitores de tela anunciam como "destaque". Como a marcação é só uma dica, o texto é lido igual com ou sem ela.

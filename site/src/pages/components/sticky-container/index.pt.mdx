@@ -1,0 +1,27 @@
+# Sticky container
+
+O sticky container mantém seu conteúdo no topo da janela depois que a página rola além dele, como uma barra com as ações de um formulário longo.
+
+## Boas práticas
+
+- Mantenha curto o conteúdo fixo, para que ele não cubra a página em telas pequenas.
+- Na maioria dos casos, o CSS `position: sticky` faz o mesmo sem JavaScript, e também funciona dentro de um contêiner que rola. Use o `StickyContainer` quando o conteúdo precisar sair do fluxo da página.
+
+## Uso
+
+O `StickyContainer` é posicionado com `position: absolute` em `top` e `left`, em pixels, dentro do pai posicionado mais próximo. Quando a janela rola mais que `top`, ele passa a `position: fixed` no topo da janela, com a largura toda. Ele segue só a rolagem da janela, não a de outros contêineres.
+
+```jsx
+<div style={{ position: 'relative', paddingTop: 56 }}>
+  <StickyContainer top={0}>
+    <Toolbar aria-label='Ações do formulário'>…</Toolbar>
+  </StickyContainer>
+  <Form />
+</div>
+```
+
+Uma demonstração interativa está no [Storybook](https://lemonade-ui.llypedev.com.br/storybook/?path=/story/components-stickycontainer--default), já que uma barra fixa cobriria esta página.
+
+## Acessibilidade
+
+Conteúdo fixo pode esconder o elemento com foco quando o usuário navega com Tab. Deixe espaço para ele com `scroll-padding-top` na página, da altura do contêiner, para que o elemento focado role para baixo dele.

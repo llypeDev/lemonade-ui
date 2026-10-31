@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Button group
+
+O button group junta botões relacionados lado a lado, com bordas compartilhadas, como "Desfazer" e "Refazer" ou os botões de um zoom.
+
+## Boas práticas
+
+- Agrupe só botões que agem sobre a mesma coisa, e mantenha o grupo curto.
+- Para escolher uma opção entre poucas, use um `SegmentedControl`, que mostra a opção selecionada.
+- Para botões que ligam e desligam algo, como negrito e itálico, use `ToggleButton`s, dentro de uma `Toolbar` quando forem muitos.
+
+## Uso
+
+O `ButtonGroup` recebe `Button`s, ou links com aparência de botão, como filhos, e une os cantos deles. Dê aos botões o mesmo `size` e `skin`.
+
+<Demo src='pages/components/button-group/ButtonGroup' />
+
+## Acessibilidade
+
+O grupo tem o papel `group`. Dê um nome a ele com `aria-label`, como "Zoom", para que os leitores de tela digam para que servem os botões. Botões só com ícone precisam do próprio `aria-label`, como "Aumentar zoom". O teclado passa pelos botões com Tab, como em qualquer botão.
