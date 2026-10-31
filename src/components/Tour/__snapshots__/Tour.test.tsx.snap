@@ -1,0 +1,311 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Tour should render correctly 1`] = `
+.emotion-1 {
+  margin: 0;
+  color: #696979;
+  font-size: 0.75rem;
+}
+
+.emotion-2 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #24252E;
+  font-weight: bold;
+  margin: 0.25rem 0 0;
+}
+
+.emotion-3 {
+  margin-top: 0.5rem;
+}
+
+.emotion-7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 1rem;
+}
+
+.emotion-5 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+}
+
+.emotion-0 {
+  position: fixed;
+  z-index: 1300;
+  border-radius: 4px;
+  box-shadow: 0 0 0 100vmax rgba(0,0,0,0.5);
+  pointer-events: none;
+  -webkit-transition: top .2s,left .2s,width .2s,height .2s;
+  transition: top .2s,left .2s,width .2s,height .2s;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  border-radius: 0;
+  box-shadow: none;
+  background: rgba(0,0,0,0.5);
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .emotion-0 {
+    -webkit-transition: none;
+    transition: none;
+  }
+}
+
+.emotion-8 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: #24252E;
+  z-index: 1301;
+  box-sizing: border-box;
+  width: 20rem;
+  max-width: calc(100vw - 2rem);
+  padding: 1rem;
+  border: 1px solid #D3D4DD;
+  border-radius: 2px;
+  background: #FFFFFF;
+  box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2),0 1px 10px 0 rgba(0,0,0,0.12),0 4px 5px 0 rgba(0,0,0,0.14);
+  outline: none;
+  position: fixed;
+  top: 50%;
+  left: 50%;
+  -webkit-transform: translate(-50%,-50%);
+  -ms-transform: translate(-50%,-50%);
+  transform: translate(-50%,-50%);
+}
+
+.emotion-8[data-popper-placement^="bottom"] > [data-popper-arrow] {
+  top: -7px;
+}
+
+.emotion-8[data-popper-placement^="bottom"] > [data-popper-arrow]::before {
+  border-right-color: transparent;
+  border-bottom-color: transparent;
+}
+
+.emotion-8[data-popper-placement^="top"] > [data-popper-arrow] {
+  bottom: -7px;
+}
+
+.emotion-8[data-popper-placement^="top"] > [data-popper-arrow]::before {
+  border-left-color: transparent;
+  border-top-color: transparent;
+}
+
+.emotion-8[data-popper-placement^="left"] > [data-popper-arrow] {
+  right: -7px;
+}
+
+.emotion-8[data-popper-placement^="left"] > [data-popper-arrow]::before {
+  border-left-color: transparent;
+  border-bottom-color: transparent;
+}
+
+.emotion-8[data-popper-placement^="right"] > [data-popper-arrow] {
+  left: -7px;
+}
+
+.emotion-8[data-popper-placement^="right"] > [data-popper-arrow]::before {
+  border-right-color: transparent;
+  border-top-color: transparent;
+}
+
+.emotion-4 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5rem;
+  color: #24252E;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: #24252E;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  font-size: 0.875rem;
+  padding: calc(0.25rem - 1px) calc(0.5rem - 1px);
+  margin-left: -0.5rem;
+}
+
+.emotion-4 > span {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.emotion-4:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
+}
+
+.emotion-4:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-4:not(:disabled):hover {
+  background-color: rgba(58,58,71,0.1);
+}
+
+.emotion-6 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5rem;
+  color: #24252E;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #FFFFFF;
+  border: 1px solid #696979;
+  border-radius: 4px;
+  color: #24252E;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  background-color: #5E7300;
+  color: #FFFFFF;
+  border: 1px solid #5E7300;
+  font-size: 0.875rem;
+  padding: calc(0.25rem - 1px) calc(0.5rem - 1px);
+}
+
+.emotion-6 > span {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.emotion-6:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
+}
+
+.emotion-6:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
+.emotion-6:not(:disabled):hover {
+  background-color: #F0F0F5;
+}
+
+.emotion-6:not(:disabled):hover {
+  background-color: #455400;
+}
+
+<body>
+  <div>
+    <button>
+      Start tour
+    </button>
+    <input
+      aria-label="Search"
+      id="search"
+    />
+    <button>
+      Filters
+    </button>
+  </div>
+  <div
+    aria-hidden="true"
+    class="emotion-0"
+  />
+  <div
+    aria-describedby="tour-content-abc"
+    aria-labelledby="tour-title-abc"
+    class="emotion-8"
+    role="dialog"
+    tabindex="-1"
+  >
+    <p
+      class="emotion-1"
+    >
+      Step 1 of 3
+    </p>
+    <h2
+      class="emotion-2"
+      id="tour-title-abc"
+    >
+      Welcome
+    </h2>
+    <div
+      class="emotion-3"
+      id="tour-content-abc"
+    >
+      A quick look at the new orders page.
+    </div>
+    <div
+      class="emotion-7"
+    >
+      <button
+        class="emotion-4"
+        type="button"
+      >
+        <span>
+          Skip tour
+        </span>
+      </button>
+      <span
+        class="emotion-5"
+      />
+      <button
+        class="emotion-6"
+        type="button"
+      >
+        <span>
+          Next
+        </span>
+      </button>
+    </div>
+  </div>
+</body>
+`;

@@ -1,0 +1,24 @@
+import { Demo } from '../../../components/Demo'
+
+# Error summary
+
+The error summary lists the errors of a form at its top after the user submits it. It takes the focus, and each error links to its field.
+
+## Best practices
+
+- Show it only after a submit, together with the error under each field.
+- Use the same text in the summary and under the field, saying what to do, such as "Enter your email address".
+- List the errors in the order of the fields on the page.
+- Keep it at the top of the form, above the first field.
+
+## Usage
+
+`ErrorSummary` takes the `errors`, each with a `message` and the `fieldId` of its field, which makes the message a link. An error without a field, such as a failure of the server, shows as text. It renders nothing when there are no errors. `title` changes the heading, and `description` adds a text before the list. The summary takes the focus when it appears; pass the number of submits in `focusKey` to take it again on each submit, or turn it off with `autoFocus={false}`.
+
+Try to submit the form below with empty fields.
+
+<Demo src='pages/components/error-summary/ErrorSummary' />
+
+## Accessibility
+
+The summary is an alert named by its heading, "There is a problem" by default, so screen readers read it when it appears and when it takes the focus. A link moves the focus to its field and scrolls the label, or the legend of a group, into view. For a group, such as radio buttons, the focus goes to its first field.

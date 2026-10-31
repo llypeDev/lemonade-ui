@@ -1,0 +1,142 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ErrorSummary should render correctly 1`] = `
+.emotion-6 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: #24252E;
+  box-sizing: border-box;
+  padding: 1rem;
+  border: 1px solid #D01E29;
+  border-left-width: 0.25rem;
+  border-radius: 4px;
+  background: #FFFFFF;
+  outline: none;
+}
+
+.emotion-6:focus {
+  box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #D01E29;
+}
+
+.emotion-1 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #24252E;
+  font-weight: bold;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0;
+}
+
+.emotion-2 {
+  margin: 0.5rem 0 0;
+}
+
+.emotion-5 {
+  margin: 0.5rem 0 0;
+  padding-left: 1.75rem;
+}
+
+.emotion-5 li + li {
+  margin-top: 0.25rem;
+}
+
+.emotion-0 {
+  fill: currentColor;
+  font-size: 1.25rem;
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  color: #D01E29;
+}
+
+.emotion-3 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: #5E7300;
+  font-weight: bold;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+  color: #D01E29;
+  font-weight: bold;
+  cursor: pointer;
+  outline: none;
+  -webkit-transition: box-shadow .2s ease;
+  transition: box-shadow .2s ease;
+}
+
+.emotion-3:hover {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+}
+
+.emotion-3:focus {
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  border-radius: 2px;
+  box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
+<div>
+  <div
+    aria-labelledby="error-summary-abc"
+    class="emotion-6"
+    role="alert"
+    tabindex="-1"
+  >
+    <h2
+      class="emotion-1"
+      id="error-summary-abc"
+    >
+      <svg
+        aria-hidden="true"
+        class="emotion-0"
+        height="1em"
+        role="img"
+        viewBox="0 0 24 24"
+        width="1em"
+      >
+        <path
+          d="M12.922 2.622l8.911 17.354c.453.88-.068 2.024-.922 2.024H3.09c-.854 0-1.375-1.144-.922-2.024l8.911-17.354c.426-.83 1.418-.83 1.844 0h-.001zM12 20a1.5 1.5 0 100-3 1.5 1.5 0 000 3zm-1-5.875c0 .583.334.875 1 .875.667 0 1-.292 1-.875v-5.25C13 8.29 12.667 8 12 8c-.666 0-1 .291-1 .875v5.25z"
+        />
+      </svg>
+      There is a problem
+    </h2>
+    <p
+      class="emotion-2"
+    >
+      Check the fields below before you continue.
+    </p>
+    <ul
+      class="emotion-5"
+    >
+      <li>
+        <a
+          class="emotion-3"
+          href="#email"
+        >
+          Enter your email address
+        </a>
+      </li>
+      <li>
+        <a
+          class="emotion-3"
+          href="#phone"
+        >
+          Enter a phone number with the area code
+        </a>
+      </li>
+    </ul>
+  </div>
+</div>
+`;

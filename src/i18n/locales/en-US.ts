@@ -41,6 +41,9 @@ const locale = {
   dateInput: {
     placeholder: 'mm/dd/yyyy',
   },
+  errorSummary: {
+    title: 'There is a problem',
+  },
   expandableText: {
     more: 'Show more',
     less: 'Show less',
@@ -87,6 +90,9 @@ const locale = {
     stars: 'stars',
     of: 'of',
   },
+  relativeTime: {
+    language: 'en-US',
+  },
   dateRangeField: {
     separator: 'until',
   },
@@ -103,10 +109,28 @@ const locale = {
     minimum: 'Minimum',
     maximum: 'Maximum',
   },
+  sortableList: {
+    move: 'Move {item}',
+    instructions: 'Press Space to pick the item up, the arrow keys to move it, Space to drop it and Escape to cancel.',
+    grabbed: '{item} picked up. Position {position} of {total}.',
+    moved: '{item} moved to position {position} of {total}.',
+    dropped: '{item} dropped at position {position} of {total}.',
+    cancelled: 'Move cancelled. {item} is back at position {position} of {total}.',
+  },
+  splitter: {
+    resize: 'Resize panels',
+  },
   stat: {
     increase: 'Up',
     decrease: 'Down',
     noChange: 'No change',
+  },
+  tour: {
+    step: 'Step {current} of {total}',
+    back: 'Back',
+    next: 'Next',
+    done: 'Done',
+    skip: 'Skip tour',
   },
   combobox: {
     showOptions: 'Show options',

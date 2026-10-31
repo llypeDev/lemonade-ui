@@ -1,0 +1,22 @@
+import { Demo } from '../../../components/Demo'
+
+# Tour
+
+O tour é um passeio guiado por uma tela: passos que apontam para as partes dela, uma de cada vez, com um destaque em cada parte, para apresentar uma tela ou um recurso novo.
+
+## Boas práticas
+
+- Mantenha-o curto, com três a cinco passos sobre o que é novo ou não é óbvio.
+- Deixe o usuário iniciá-lo, como por um botão "Fazer o tour", ou ofereça-o uma vez, e sempre deixe pulá-lo.
+- Escreva uma ideia por passo, com um título curto e uma ou duas frases.
+- Não o use para explicar uma tela confusa; melhore a tela.
+
+## Uso
+
+O `Tour` é controlado com `open` e `onClose`, que recebe `'skip'` quando o usuário o pula e `'done'` quando o conclui. Cada um dos `steps` tem um `title`, um `content` e um `target`: um seletor CSS, uma ref ou uma função que retorna o elemento. Um passo sem alvo, ou cujo alvo não está na página, aparece no meio da tela. O `placement` escolhe o lado do alvo, e o passo vai para outro lado quando falta espaço. O passo atual pode ser controlado com `step` e `onStepChange`, e o `defaultStep` define onde um tour não controlado começa cada vez que abre.
+
+<Demo src='pages/components/tour/Tour' />
+
+## Acessibilidade
+
+Cada passo é um diálogo com o nome do seu título e a descrição do seu texto, e recebe o foco, para os leitores de tela o lerem. A página em volta do destaque fica escurecida, mas continua utilizável. Escape e o botão de pular fecham o tour, e o foco volta para onde estava quando o tour abriu. Os textos, como "Passo 2 de 3", vêm dos textos de locale.

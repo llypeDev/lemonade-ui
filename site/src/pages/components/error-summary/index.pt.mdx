@@ -1,0 +1,24 @@
+import { Demo } from '../../../components/Demo'
+
+# Error summary
+
+O error summary lista os erros de um formulário no topo dele depois que o usuário o envia. Ele recebe o foco, e cada erro leva ao seu campo.
+
+## Boas práticas
+
+- Mostre-o só depois de um envio, junto com o erro abaixo de cada campo.
+- Use o mesmo texto no resumo e abaixo do campo, dizendo o que fazer, como "Informe seu e-mail".
+- Liste os erros na ordem dos campos na página.
+- Mantenha-o no topo do formulário, acima do primeiro campo.
+
+## Uso
+
+O `ErrorSummary` recebe os `errors`, cada um com uma `message` e o `fieldId` do seu campo, que transforma a mensagem em link. Um erro sem campo, como uma falha do servidor, aparece como texto. Ele não mostra nada quando não há erros. O `title` muda o título, e o `description` adiciona um texto antes da lista. O resumo recebe o foco quando aparece; passe o número de envios no `focusKey` para ele receber o foco de novo a cada envio, ou desligue com `autoFocus={false}`.
+
+Tente enviar o formulário abaixo com os campos vazios.
+
+<Demo src='pages/components/error-summary/ErrorSummary' />
+
+## Acessibilidade
+
+O resumo é um alerta com o nome do seu título, "Há um problema" por padrão, para os leitores de tela o lerem quando ele aparece e quando recebe o foco. Um link move o foco para o seu campo e rola o rótulo, ou a legenda de um grupo, para a área visível. Em um grupo, como botões de opção, o foco vai para o primeiro campo.

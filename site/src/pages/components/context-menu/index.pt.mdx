@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Context menu
+
+O context menu é um menu de ações que abre onde o usuário clica com o botão direito em um elemento, ou o pressiona por um tempo em uma tela de toque, como as ações de um arquivo. O teclado o abre com Shift + F10 ou a tecla de menu de contexto.
+
+## Boas práticas
+
+- Use-o como atalho: toda ação nele também deve estar acessível de outra forma, como um botão ou um `Dropdown`, já que muitos usuários nunca clicam com o botão direito.
+- Mantenha as ações sobre o elemento clicado, com as mais usadas primeiro e as destrutivas por último.
+- Mantenha o menu curto e separe grupos de ações com um `DropdownDivider`.
+
+## Uso
+
+O `ContextMenu` envolve o elemento que o abre e recebe os itens do menu em `menu`, como `DropdownItem` e `DropdownDivider`. Escolher um item fecha o menu, a não ser que o item esteja desabilitado. O `label` dá nome ao menu, o `onOpenChange` avisa quando ele abre e fecha, e o `disabled` mantém o menu do navegador. Torne o elemento focável, como com `tabIndex={0}`, para o teclado poder abrir o menu.
+
+<Demo src='pages/components/context-menu/ContextMenu' />
+
+## Acessibilidade
+
+O elemento informa seu atalho com `aria-keyshortcuts="Shift+F10"`. O menu abre abaixo do elemento quando aberto pelo teclado, e o foco vai para o primeiro item; as setas para cima e para baixo percorrem os itens, Enter escolhe um, e Escape fecha o menu e devolve o foco ao elemento. O menu também fecha com Tab, um clique fora, uma rolagem da página ou um redimensionamento da janela.

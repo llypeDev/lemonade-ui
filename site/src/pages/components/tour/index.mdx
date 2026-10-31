@@ -1,0 +1,22 @@
+import { Demo } from '../../../components/Demo'
+
+# Tour
+
+The tour is a guided walk through a screen: steps that point to its parts one at a time, with a spotlight on each part, to introduce a new screen or feature.
+
+## Best practices
+
+- Keep it short, with three to five steps about what is new or not obvious.
+- Let the user start it, such as with a "Take the tour" button, or offer it once, and always let them skip it.
+- Write one idea per step, with a short title and a sentence or two.
+- Do not use it to explain a confusing screen; fix the screen instead.
+
+## Usage
+
+`Tour` is controlled with `open` and `onClose`, which gets `'skip'` when the user skips it and `'done'` when they finish it. Each of the `steps` has a `title`, a `content` and a `target`: a CSS selector, a ref or a function that returns the element. A step without a target, or whose target is not on the page, shows in the middle of the screen. `placement` chooses the side of the target, and the step moves to another side when there is no room. The current step can be controlled with `step` and `onStepChange`, and `defaultStep` sets where an uncontrolled tour starts each time it opens.
+
+<Demo src='pages/components/tour/Tour' />
+
+## Accessibility
+
+Each step is a dialog named by its title and described by its text, and it takes the focus, so screen readers read it. The page around the spotlight is darkened but stays usable. Escape and the skip button close the tour, and the focus goes back to where it was when the tour opened. The texts, such as "Step 2 of 3", come from the locale strings.

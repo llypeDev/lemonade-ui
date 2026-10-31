@@ -43,6 +43,9 @@ const locale: LocaleConfiguration = {
   dateInput: {
     placeholder: 'dd/mm/aaaa',
   },
+  errorSummary: {
+    title: 'Há um problema',
+  },
   expandableText: {
     more: 'Ver mais',
     less: 'Ver menos',
@@ -89,6 +92,9 @@ const locale: LocaleConfiguration = {
     stars: 'estrelas',
     of: 'de',
   },
+  relativeTime: {
+    language: 'pt-BR',
+  },
   dateRangeField: {
     separator: 'até',
   },
@@ -105,10 +111,29 @@ const locale: LocaleConfiguration = {
     minimum: 'Mínimo',
     maximum: 'Máximo',
   },
+  sortableList: {
+    move: 'Mover {item}',
+    instructions:
+      'Pressione Espaço para pegar o item, as setas para movê-lo, Espaço para soltá-lo e Esc para cancelar.',
+    grabbed: '{item} pego. Posição {position} de {total}.',
+    moved: '{item} movido para a posição {position} de {total}.',
+    dropped: '{item} solto na posição {position} de {total}.',
+    cancelled: 'Movimento cancelado. {item} voltou para a posição {position} de {total}.',
+  },
+  splitter: {
+    resize: 'Redimensionar painéis',
+  },
   stat: {
     increase: 'Alta de',
     decrease: 'Queda de',
     noChange: 'Sem variação',
+  },
+  tour: {
+    step: 'Passo {current} de {total}',
+    back: 'Voltar',
+    next: 'Próximo',
+    done: 'Concluir',
+    skip: 'Pular tour',
   },
   combobox: {
     showOptions: 'Mostrar opções',
