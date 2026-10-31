@@ -1,0 +1,20 @@
+import { Demo } from '../../../components/Demo'
+
+# Highlight
+
+Highlight marks the words of a search in a text, such as in the results of a search field, so the user sees why each result matches.
+
+## Best practices
+
+- Use it in search results and filtered lists, on the text that was searched.
+- Mark the words as the user typed them, without other changes to the text.
+
+## Usage
+
+`Highlight` takes the `text` and the `words` to mark. Each word is found ignoring upper and lower case, and characters such as `(` or `+` are searched as typed. The text is always rendered as text, never as HTML, so it can come from the user.
+
+<Demo src='pages/components/highlight/Highlight' />
+
+## Accessibility
+
+The words are marked with the `mark` element, which some screen readers announce as "highlight". Since the mark is only a hint, the text reads the same with or without it.

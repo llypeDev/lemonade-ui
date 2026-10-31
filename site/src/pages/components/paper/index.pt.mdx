@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Paper
+
+O paper é uma superfície com borda, cantos arredondados e uma sombra opcional, usada para separar conteúdo da página, como um painel ou a caixa de um formulário.
+
+## Boas práticas
+
+- Use a sombra para mostrar o que está acima da página, como um painel flutuante; conteúdo que fica na página geralmente só precisa da borda.
+- Mantenha a mesma elevação para superfícies do mesmo tipo.
+- Para conteúdo com título e ações, use um `Card`.
+
+## Uso
+
+O `Paper` recebe qualquer conteúdo e as props de uma `div`. O `elevation` adiciona uma sombra do tema, de `10` a `240`; sem ele, o paper tem só a borda. Adicione o espaçamento interno com `style`.
+
+<Demo src='pages/components/paper/Paper' />
+
+## Acessibilidade
+
+O paper só muda a aparência do conteúdo. Quando ele guarda uma parte da página que os usuários procuram, como um painel de filtros, adicione um título dentro dele, ou um papel de landmark com nome, como `role='region'` e `aria-label`.

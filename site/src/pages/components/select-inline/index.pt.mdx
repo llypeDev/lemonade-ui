@@ -1,0 +1,30 @@
+import { Demo } from '../../../components/Demo'
+
+# Select inline
+
+O `SelectInline` está **obsoleto**: ele continua funcionando, mas telas novas devem usar um `Combobox` com `inline`, que o substitui.
+
+O select inline é um botão pequeno que mostra a opção escolhida e abre uma lista com busca, usado dentro de uma frase ou de uma barra de ferramentas, como "Mostrando pedidos dos Últimos 30 dias".
+
+## Boas práticas
+
+- Use-o onde um campo completo ocuparia espaço demais, como no cabeçalho de uma tabela ou de um gráfico.
+- Mantenha curto o texto do botão e faça dele a opção escolhida, para que a frase continue fazendo sentido.
+
+## Migrando para o Combobox
+
+Troque o `SelectInline` pelo `Combobox` com `inline`. As props principais mantêm os nomes: `items`, `value`, `onChange`, `itemToString` e `defaultButtonText`. O placeholder da caixa de busca passa para `searchBoxPlaceholder`.
+
+```jsx
+// Antes
+<SelectInline items={periods} value={period} onChange={setPeriod} itemToString={toLabel} defaultButtonText='Período' />
+
+// Depois
+<Combobox inline items={periods} value={period} onChange={setPeriod} itemToString={toLabel} defaultButtonText='Período' />
+```
+
+<Demo src='pages/components/select-inline/ComboboxInline' />
+
+## Acessibilidade
+
+O botão do `Combobox` com `inline` informa aos leitores de tela se a lista está aberta, e abri-lo leva o foco para a caixa de busca. Clicar em uma opção ou apertar Escape fecha a lista. Restam dois problemas conhecidos: as setas não percorrem as opções a partir da caixa de busca, e depois que a lista fecha o foco não volta para o botão. Até que sejam corrigidos, evite-o em fluxos usados principalmente pelo teclado.

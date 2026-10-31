@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Time field
+
+The time field is a text field for a time of day, in hours and minutes, such as the start of a meeting.
+
+## Best practices
+
+- Say in the label which time it is, such as "Start time".
+- Use the 24-hour format, as the field does, and tell the user the time zone when it matters.
+- For a date and a time together, use a `DateTimeField`.
+
+## Usage
+
+`TimeField` takes the props of a `TextField`. Its `value` is a text in the `hh:mm` format, and `onChange` receives the new text, or `null` when the field is cleared. The field accepts only digits, adds the colon and corrects impossible times, such as `25:00`. When the field loses the focus, the missing digits are filled with zeros, so `09:3` becomes `09:30` and `14` becomes `14:00`. `onInputChange` receives the original change event.
+
+<Demo src='pages/components/time-field/TimeField' />
+
+## Accessibility
+
+The placeholder `hh:mm` shows the format, but it goes away when the user types; repeat the format in the help text when the field is required. Use `label`, `error` and `required` as in a `TextField`, so screen readers announce them.

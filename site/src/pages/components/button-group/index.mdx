@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Button group
+
+The button group joins related buttons side by side, with shared borders, such as "Undo" and "Redo" or the buttons of a zoom.
+
+## Best practices
+
+- Group only buttons that act on the same thing, and keep the group short.
+- For a choice of one option among a few, use a `SegmentedControl`, which shows the selected option.
+- For buttons that turn something on and off, such as bold and italic, use `ToggleButton`s, inside a `Toolbar` when there are many.
+
+## Usage
+
+`ButtonGroup` takes `Button`s, or links styled as buttons, as its children, and joins their corners. Give the buttons the same `size` and `skin`.
+
+<Demo src='pages/components/button-group/ButtonGroup' />
+
+## Accessibility
+
+The group has the `group` role. Name it with `aria-label`, such as "Zoom", so screen readers say what the buttons are for. Buttons with only an icon need their own `aria-label`, such as "Zoom in". The keyboard moves through the buttons with Tab, as with any button.

@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Spinner
+
+O spinner é um pequeno círculo girando que mostra que algo está carregando, quando não dá para saber quanto tempo vai levar.
+
+## Boas práticas
+
+- Use-o para esperas curtas em uma área pequena, como dentro de um botão ou ao lado de um texto.
+- Para uma seção ou página inteira, use um `Skeleton`, que mostra o formato do que vem, ou um `LoadingOverlay`.
+- Quando souber o progresso, use uma barra `Progress` ou um `ProgressCircle`.
+
+## Uso
+
+O `Spinner` pega a cor do texto ao redor, então segue a cor do botão ou do texto em que está. O `size` é o tamanho em rem, `1` por padrão, e o `borderWidth` a largura da linha em pixels, `2` por padrão. Um `Button` com `loading` já mostra um spinner.
+
+<Demo src='pages/components/spinner/Spinner' />
+
+## Acessibilidade
+
+O spinner é só visual, e os leitores de tela não o percebem. Diga o que está carregando em um texto ao lado dele, como "Carregando pedidos…", dentro de um elemento com `role='status'` para que a mensagem seja anunciada. Em uma região que está carregando, adicione `aria-busy='true'`. A animação é curta e não pisca.

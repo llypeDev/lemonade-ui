@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Time field
+
+O time field é um campo de texto para um horário, em horas e minutos, como o início de uma reunião.
+
+## Boas práticas
+
+- Diga no rótulo qual é o horário, como "Horário de início".
+- Use o formato de 24 horas, como o campo faz, e informe o fuso horário quando ele importar.
+- Para uma data e um horário juntos, use um `DateTimeField`.
+
+## Uso
+
+O `TimeField` recebe as props de um `TextField`. O `value` é um texto no formato `hh:mm`, e o `onChange` recebe o novo texto, ou `null` quando o campo é limpo. O campo aceita só dígitos, adiciona os dois-pontos e corrige horários impossíveis, como `25:00`. Quando o campo perde o foco, os dígitos que faltam são preenchidos com zeros, então `09:3` vira `09:30` e `14` vira `14:00`. O `onInputChange` recebe o evento de mudança original.
+
+<Demo src='pages/components/time-field/TimeField' />
+
+## Acessibilidade
+
+O placeholder `hh:mm` mostra o formato, mas some quando o usuário digita; repita o formato no texto de ajuda quando o campo for obrigatório. Use `label`, `error` e `required` como em um `TextField`, para que os leitores de tela os anunciem.

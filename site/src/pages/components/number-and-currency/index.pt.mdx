@@ -1,0 +1,23 @@
+import { Demo } from '../../../components/Demo'
+
+# Number e Currency
+
+O `Number` e o `Currency` escrevem números e valores em dinheiro no formato do idioma do usuário, como 1,234,567 em inglês e 1.234.567 em português.
+
+## Boas práticas
+
+- Use-os para mostrar números; para digitar números, use um `NumberField` ou um `CurrencyField`.
+- Alinhe os números à direita em tabelas, para que os dígitos fiquem alinhados.
+- Abrevie números grandes só onde o espaço é curto, como em um `Stat`, e mostre o número completo em outros lugares.
+
+## Uso
+
+O `Number` recebe o `value` e o formata com `Intl.NumberFormat` no idioma do navegador. O `formatOptions` recebe as opções do `Intl.NumberFormat`, como uma porcentagem ou o número de casas decimais. O `abbrev` encurta números grandes, como 1,2m, com o número completo no title. O `prefix` e o `suffix` adicionam texto ao redor do número, como uma unidade, e o `placeholder` aparece quando o valor não é um número.
+
+O `Currency` é um `Number` para dinheiro: o `currency` recebe o código da moeda, como `BRL` ou `USD`, e o símbolo e as casas decimais o seguem.
+
+<Demo src='pages/components/number-and-currency/NumberAndCurrency' />
+
+## Acessibilidade
+
+Os números são texto simples, lidos pelos leitores de tela como estão escritos. Abreviações como "1,2m" podem ser lidas como "1,2 metros", e o title com o número completo não é lido por todos os leitores de tela, então prefira o número completo quando houver espaço. Escreva as unidades no `suffix` em vez de mostrá-las só em um ícone.

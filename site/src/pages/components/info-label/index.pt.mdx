@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Info label
+
+O info label mostra um valor com o nome dele acima, como o nome ou o email de uma pessoa em um perfil.
+
+## Boas práticas
+
+- Use-o para poucos valores lidos sozinhos, como no cabeçalho de um registro.
+- Para uma lista com muitos nomes e valores, use uma `DescriptionList`, que os mantém alinhados e diz aos leitores de tela que eles andam juntos.
+- Mostre um placeholder, como "Não informado", quando não houver valor, em vez de esconder o rótulo.
+
+## Uso
+
+O `InfoLabel` recebe o nome em `title` e o valor como filho. Quando não há filho, ele mostra o `placeholder`, ou um traço por padrão. `titleStyles` e `childStyles` mudam os estilos do nome e do valor.
+
+<Demo src='pages/components/info-label/InfoLabel' />
+
+## Acessibilidade
+
+O nome e o valor são lidos em ordem, como texto. O placeholder é desenhado com CSS, que alguns leitores de tela ignoram, então quando a falta do valor importar, passe o texto como filho.

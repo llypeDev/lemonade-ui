@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Paper
+
+Paper is a surface with a border, rounded corners and an optional shadow, used to group content apart from the page, such as a panel or the box of a form.
+
+## Best practices
+
+- Use the shadow to show what is above the page, such as a floating panel; content that stays in the page usually needs only the border.
+- Keep the same elevation for surfaces of the same kind.
+- For content with a title and actions, use a `Card`.
+
+## Usage
+
+`Paper` takes any content and the props of a `div`. `elevation` adds a shadow from the theme, from `10` to `240`; without it, the paper has only the border. Add the padding with `style`.
+
+<Demo src='pages/components/paper/Paper' />
+
+## Accessibility
+
+Paper only changes how the content looks. When it holds a part of the page that users look for, such as a filter panel, add a heading inside it, or a landmark role with a name, such as `role='region'` and `aria-label`.

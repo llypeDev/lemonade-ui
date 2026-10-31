@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Info label
+
+The info label shows a value with its name above it, such as the name or the email of a person on a profile.
+
+## Best practices
+
+- Use it for a few values read alone, such as in the header of a record.
+- For a list of many names and values, use a `DescriptionList`, which keeps them aligned and tells screen readers they belong together.
+- Show a placeholder, such as "Not informed", when there is no value, instead of hiding the label.
+
+## Usage
+
+`InfoLabel` takes the name in `title` and the value as its children. When there are no children, it shows `placeholder`, or a dash by default. `titleStyles` and `childStyles` change the styles of the name and the value.
+
+<Demo src='pages/components/info-label/InfoLabel' />
+
+## Accessibility
+
+The name and the value are read in order, as text. The placeholder is drawn with CSS, which some screen readers skip, so when the absence of a value matters, pass the text as the children instead.

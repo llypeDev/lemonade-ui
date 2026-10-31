@@ -1,0 +1,23 @@
+import { Demo } from '../../../components/Demo'
+
+# Number and Currency
+
+`Number` and `Currency` write numbers and amounts of money in the format of the user's language, such as 1,234,567 in English and 1.234.567 in Portuguese.
+
+## Best practices
+
+- Use them to show numbers; to type numbers, use a `NumberField` or a `CurrencyField`.
+- Align numbers to the right in tables, so the digits line up.
+- Abbreviate large numbers only where the space is tight, such as in a `Stat`, and show the full number elsewhere.
+
+## Usage
+
+`Number` takes the `value` and formats it with `Intl.NumberFormat` in the language of the browser. `formatOptions` takes the options of `Intl.NumberFormat`, such as a percentage or the number of decimals. `abbrev` shortens large numbers, such as 1.2m, with the full number as the title. `prefix` and `suffix` add text around the number, such as a unit, and `placeholder` is shown when the value is not a number.
+
+`Currency` is a `Number` for money: `currency` takes the code of the currency, such as `BRL` or `USD`, and the symbol and decimals follow it.
+
+<Demo src='pages/components/number-and-currency/NumberAndCurrency' />
+
+## Accessibility
+
+The numbers are plain text, read by screen readers as written. Abbreviations such as "1.2m" may be read as "1.2 meters", and the title with the full number is not read by every screen reader, so prefer the full number when there is room. Write units in the `suffix` instead of showing them only in an icon.
