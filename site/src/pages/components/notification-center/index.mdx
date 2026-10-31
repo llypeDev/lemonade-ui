@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Notification center
+
+The notification center is a bell with the number of unread notifications that opens a panel with the latest ones, usually in the header of an application.
+
+## Best practices
+
+- Notify only what the user needs to know or act on, and keep the title short, saying what happened.
+- Link each notification to what it is about, such as the order or the comment.
+- Show the latest notifications and link to a page with all of them in `footer`.
+
+## Usage
+
+`NotificationCenter` takes the `notifications`, each with an `id`, a `title`, a `date` and, optionally, a `description`, an `icon`, an `href` and `read`. `onNotificationClick` is called when the user opens one, which should then be marked as read, and `onMarkAllRead` shows a "Mark all as read" button. `title` changes the title of the panel, and `placement` chooses where it opens.
+
+<Demo src='pages/components/notification-center/NotificationCenter' />
+
+## Accessibility
+
+The bell is named with the number of unread notifications, such as "Notifications, 2 unread". The panel is a dialog named by its title; each unread notification starts with "Unread" for screen readers, and the date is a relative time, such as "5 minutes ago". Escape closes the panel and gives the focus back to the bell.

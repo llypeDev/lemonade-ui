@@ -12,3 +12,20 @@ Used to reveal a list of hidden options or commands. In the header, it’s usual
 ## Example
 
 <Demo src='pages/components/dropdown/DropdownExample' />
+
+## Icons, shortcuts, options and submenus
+
+A `DropdownItem` takes an `icon` and a `shortcut`, such as `['Ctrl', 'C']`; the shortcut is only shown, and the application handles the keys. `icon={null}` keeps the space of an icon, so texts line up.
+
+- `DropdownCheckboxItem` turns an option on and off with `checked` and `onCheckedChange`.
+- `DropdownRadioGroup`, with a `label`, a `value` and `onValueChange`, holds `DropdownRadioItem`s where only one is checked.
+- `DropdownGroup` puts items under a title.
+- `DropdownSubmenu` opens a menu beside an item, such as "Move to".
+
+Checkbox and radio items keep the menu open, so the user can change several options.
+
+<Demo src='pages/components/dropdown/DropdownItems' />
+
+## Accessibility
+
+The menu follows the ARIA menu pattern: the up and down arrows move through all kinds of items, Home and End go to the ends, and Enter or Space picks an item. Checkbox and radio items tell whether they are checked, and groups are named by their titles. On an item with a submenu, Enter, Space or the right arrow opens it and moves the focus into it; the left arrow and Escape close it and give the focus back to the item.

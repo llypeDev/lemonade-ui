@@ -1,8 +1,9 @@
 import { fireEvent, render } from '@testing-library/react'
 import React from 'react'
 
+import enUs from '../../../i18n/locales/en-US'
+
 import { DataTable, DataTableProps } from './DataTable'
-import { TableLoadingRow } from './TableLoadingRow'
 
 interface Row {
   id: number
@@ -59,7 +60,7 @@ it('should call onSortChange with right parameters when clicked over column titl
 })
 
 it('should render TableLoadingRow when loading prop is on', () => {
-  const queryText = TableLoadingRow.defaultProps.message
+  const queryText = enUs.dataTable.loading
   expect(render(<DataTable rows={[]} columns={[]} loading={false} />).queryAllByText(queryText).length).toEqual(0)
   expect(render(<DataTable rows={[]} columns={[]} loading={true} />).queryAllByText(queryText).length).toEqual(1)
 })

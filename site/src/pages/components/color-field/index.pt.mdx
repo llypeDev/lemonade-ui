@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Color field
+
+O color field escolhe uma cor, como a cor de uma etiqueta ou de uma categoria, de um conjunto de amostras ou pelo código hexadecimal.
+
+## Boas práticas
+
+- Ofereça um conjunto curto de amostras que combinem com o resto da interface, e dê um nome a cada uma.
+- Esconda a cor personalizada com `allowCustom={false}` quando só as amostras fazem sentido, como cores com significado.
+- Verifique o contraste do texto que fica sobre a cor escolhida.
+
+## Uso
+
+O `ColorField` recebe um `label` e a cor como `#RRGGBB` em `defaultValue` ou, controlado, em `value` com `onChange`. As `swatches` são as cores para escolher, como códigos ou objetos com `value` e `label`. Com o `allowCustom`, ligado por padrão, um campo recebe um código hexadecimal, como `#5E7300` ou `#abc`, e um botão abre o seletor de cores do navegador.
+
+<Demo src='pages/components/color-field/ColorField' />
+
+## Acessibilidade
+
+As amostras são botões de opção com o nome das cores, como "Azul": as setas movem entre elas e as escolhem, e só a marcada é alcançada com Tab. Uma amostra informada só como código recebe o nome do próprio código. Um código que não é uma cor mostra uma mensagem quando o campo perde o foco, e o campo é marcado como inválido.

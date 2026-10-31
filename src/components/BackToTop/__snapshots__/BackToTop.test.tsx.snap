@@ -1,0 +1,80 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`BackToTop should render correctly 1`] = `
+.emotion-1 {
+  position: fixed;
+  right: 1.5rem;
+  bottom: 1.5rem;
+  z-index: 1200;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  width: 3rem;
+  height: 3rem;
+  margin: 0;
+  padding: 0;
+  border: 1px solid #D3D4DD;
+  border-radius: 50%;
+  background: #FFFFFF;
+  color: #24252E;
+  box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2),0 1px 10px 0 rgba(0,0,0,0.12),0 4px 5px 0 rgba(0,0,0,0.14);
+  cursor: pointer;
+  outline: none;
+  -webkit-transition: background .2s,color .2s;
+  transition: background .2s,color .2s;
+}
+
+.emotion-1:hover {
+  background: #5E7300;
+  color: #FFFFFF;
+}
+
+.emotion-1:focus {
+  box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2),0 1px 10px 0 rgba(0,0,0,0.12),0 4px 5px 0 rgba(0,0,0,0.14),0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
+@media (max-width:600px) {
+  .emotion-1 {
+    right: 1rem;
+    bottom: 1rem;
+  }
+}
+
+.emotion-0 {
+  fill: currentColor;
+  font-size: 1.5rem;
+}
+
+<div>
+  <button
+    aria-label="Back to top"
+    class="emotion-1"
+    title="Back to top"
+    type="button"
+  >
+    <svg
+      aria-hidden="true"
+      class="emotion-0"
+      height="1em"
+      role="img"
+      viewBox="0 0 24 24"
+      width="1em"
+    >
+      <path
+        clip-rule="evenodd"
+        d="M13 7.414V19c0 .667-.333 1-1 1s-1-.333-1-1V7.414l-3.293 3.293a1 1 0 11-1.414-1.414l5-5a1 1 0 011.414 0l5.001 5.001a1 1 0 11-1.414 1.414L13 7.414z"
+        fill-rule="evenodd"
+      />
+    </svg>
+  </button>
+</div>
+`;

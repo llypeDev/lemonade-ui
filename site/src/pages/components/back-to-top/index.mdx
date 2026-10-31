@@ -1,0 +1,20 @@
+import { Demo } from '../../../components/Demo'
+
+# Back to top
+
+The back to top button floats at the corner of the screen and takes the user back to the top of a long page. It shows only after the page scrolls down.
+
+## Best practices
+
+- Use it on long pages, such as documentation, long lists or long forms, where going back to the top takes many scrolls.
+- Keep one per page, and make sure it does not cover other floating buttons.
+
+## Usage
+
+`BackToTop` shows after the page scrolls more than `threshold` pixels, 400 by default. `scrollContainer` is the element that scrolls, when it is not the page. `focusTarget` is a CSS selector of the element that gets the focus at the top, the `h1` by default, and `label` changes its name.
+
+<Demo src='pages/components/back-to-top/BackToTop' />
+
+## Accessibility
+
+The button is named "Back to top", from the locale strings. Since it goes away at the top of the page, it moves the focus to the main heading, so the keyboard and screen readers continue from the start of the content. The page scrolls without animation when the user prefers reduced motion.

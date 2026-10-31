@@ -10,12 +10,23 @@ export interface DropdownMenuProps extends Omit<React.HTMLAttributes<HTMLUListEl
   style?: ExternalStyles
 }
 
+/**
+ * Items of a menu that can take the focus: plain items, checkbox and radio items, and submenus
+ */
+export const menuItemSelector = '[role^="menuitem"]:not([aria-disabled="true"])'
+
 export function DropdownMenu(props: DropdownMenuProps) {
   const { innerRef, style, ...rest } = props
   const { css, classes } = useStyles(styles)
 
   const rootRef = useRovingTabIndex({
-    getItems: (root) => Array.from(root.querySelectorAll('[role="menuitem"]:not([aria-disabled="true"])')),
+    // The items of this menu, not those of its submenus; the left and right arrows open and close submenus
+    getItems: (root) =>
+      Array.from(root.querySelectorAll<HTMLElement>(menuItemSelector)).filter(
+        (item) => item.parentElement.closest('[role="menu"]') === root
+      ),
+    nextKeys: ['ArrowDown'],
+    prevKeys: ['ArrowUp'],
   })
 
   return <ul ref={composeRefs(innerRef, rootRef)} className={css(classes.root, style)} role='menu' {...rest} />

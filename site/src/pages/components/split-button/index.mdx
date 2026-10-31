@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Split button
+
+The split button shows a main action with a button beside it that opens related actions, such as "Save" with "Save as draft" and "Save and close".
+
+## Best practices
+
+- Use it when one action is the most common and the others are variations of it.
+- Keep the main action on the left, with a short verb, and few actions in the menu.
+- Do not use it for actions that are not related; use a `Dropdown` or separate buttons instead.
+
+## Usage
+
+`SplitButton` takes the main action as its children and `onClick`, and the related actions in `menu`, such as `DropdownItem`s. It takes the `kind`, `skin`, `size`, `disabled` and `loading` of a `Button`. `menuLabel` names the button that opens the menu, and `menuPlacement` chooses where the menu opens.
+
+<Demo src='pages/components/split-button/SplitButton' />
+
+## Accessibility
+
+The two buttons are a group. The button that opens the menu is named "More options" by default, from the locale strings, and tells whether the menu is open. The menu follows the ARIA menu pattern, and picking an action closes it.

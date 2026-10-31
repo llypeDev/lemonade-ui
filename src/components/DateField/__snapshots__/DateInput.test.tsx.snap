@@ -121,7 +121,7 @@ exports[`should render correctly 1`] = `
           <input
             autocomplete="off"
             class="emotion-0"
-            placeholder="mm/dd/yyyy"
+            placeholder="dd/mm/yyyy"
             type="text"
             value=""
           />

@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Carousel
+
+O carousel mostra slides um de cada vez, com botões para ir e voltar, como produtos em destaque ou os passos de uma tela de boas-vindas.
+
+## Boas práticas
+
+- Prefira mostrar o conteúdo lado a lado quando ele cabe: os usuários muitas vezes não veem os slides escondidos.
+- Mantenha poucos slides, cada um com uma mensagem e no máximo uma ação.
+- Evite trocar os slides sozinho; quando fizer isso, dê a cada slide tempo para ser lido.
+
+## Uso
+
+O `Carousel` recebe os slides como filhos e um `label` que diz o que ele mostra. O `autoPlay` troca os slides sozinho a cada `interval` milissegundos, 6000 por padrão. O `loop={false}` para no primeiro e no último slide. O slide mostrado pode ser controlado com `index` e `onIndexChange`, e o `defaultIndex` define onde um carousel não controlado começa. Em telas de toque, deslizar troca o slide.
+
+<Demo src='pages/components/carousel/Carousel' />
+
+## Acessibilidade
+
+O carousel segue o padrão ARIA de carrossel. Ele é uma região com o nome do `label`, e cada slide é um grupo com o nome da sua posição, como "2 de 3"; os slides escondidos ficam fora da ordem do teclado e dos leitores de tela. Com `autoPlay`, um botão pausa e retoma a troca, e vem primeiro para o teclado. A troca também pausa enquanto o ponteiro ou o foco estão no carousel, e começa pausada quando o usuário prefere menos movimento. As trocas feitas pelo usuário são anunciadas, e as feitas pelo tempo não.

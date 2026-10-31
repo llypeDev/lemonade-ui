@@ -1,33 +1,35 @@
 import React, { CSSProperties } from 'react'
 
+import { useLocale } from '../../../i18n'
 import { Theme, useStyles } from '../../../styles'
 import { Spinner } from '../../Spinner'
 import { TableCell, TableRow } from '../Table'
 
 export interface TableLoadingRowProps {
   colSpan: number
+
+  /**
+   * @default "Loading results", from the locale strings
+   */
   message?: string
 }
 
 export function TableLoadingRow(props: TableLoadingRowProps) {
   const { colSpan, message } = props
   const { classes } = useStyles(createStyles)
+  const locale = useLocale()
 
   return (
     <TableRow>
       <TableCell colSpan={colSpan} style={classes.cell}>
         <div className={classes.container}>
           <Spinner />
-          {message}
+          {message ?? locale.dataTable.loading}
         </div>
       </TableCell>
     </TableRow>
   )
 }
-
-TableLoadingRow.defaultProps = {
-  message: 'Carregando resultados',
-} as Partial<TableLoadingRowProps>
 
 const createStyles = (theme: Theme) => ({
   cell: {

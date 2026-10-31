@@ -298,7 +298,7 @@ exports[`DateRangePicker render should render correctly 1`] = `
                           autocomplete="off"
                           class="emotion-0"
                           name="startDate"
-                          placeholder="mm/dd/yyyy"
+                          placeholder="dd/mm/yyyy"
                           type="text"
                           value=""
                         />
@@ -333,7 +333,7 @@ exports[`DateRangePicker render should render correctly 1`] = `
                           autocomplete="off"
                           class="emotion-0"
                           name="endDate"
-                          placeholder="mm/dd/yyyy"
+                          placeholder="dd/mm/yyyy"
                           type="text"
                           value=""
                         />
@@ -678,7 +678,7 @@ exports[`DateRangePicker render should render correctly when disabled 1`] = `
                           class="emotion-0"
                           disabled=""
                           name="startDate"
-                          placeholder="mm/dd/yyyy"
+                          placeholder="dd/mm/yyyy"
                           type="text"
                           value=""
                         />
@@ -714,7 +714,7 @@ exports[`DateRangePicker render should render correctly when disabled 1`] = `
                           class="emotion-0"
                           disabled=""
                           name="endDate"
-                          placeholder="mm/dd/yyyy"
+                          placeholder="dd/mm/yyyy"
                           type="text"
                           value=""
                         />
@@ -1067,7 +1067,7 @@ exports[`DateRangePicker render should render correctly when invalid 1`] = `
                           autocomplete="off"
                           class="emotion-0"
                           name="startDate"
-                          placeholder="mm/dd/yyyy"
+                          placeholder="dd/mm/yyyy"
                           type="text"
                           value=""
                         />
@@ -1102,7 +1102,7 @@ exports[`DateRangePicker render should render correctly when invalid 1`] = `
                           autocomplete="off"
                           class="emotion-0"
                           name="endDate"
-                          placeholder="mm/dd/yyyy"
+                          placeholder="dd/mm/yyyy"
                           type="text"
                           value=""
                         />
@@ -1586,7 +1586,7 @@ exports[`DateRangePicker render should render correctly when opened 1`] = `
                           autocomplete="off"
                           class="emotion-0"
                           name="startDate"
-                          placeholder="mm/dd/yyyy"
+                          placeholder="dd/mm/yyyy"
                           type="text"
                           value=""
                         />
@@ -1621,7 +1621,7 @@ exports[`DateRangePicker render should render correctly when opened 1`] = `
                           autocomplete="off"
                           class="emotion-0"
                           name="endDate"
-                          placeholder="mm/dd/yyyy"
+                          placeholder="dd/mm/yyyy"
                           type="text"
                           value=""
                         />
@@ -2502,7 +2502,7 @@ exports[`DateRangePicker render should render correctyly when onlyWeeks 1`] = `
                           autocomplete="off"
                           class="emotion-0"
                           name="startDate"
-                          placeholder="mm/dd/yyyy"
+                          placeholder="dd/mm/yyyy"
                           type="text"
                           value=""
                         />
@@ -2537,7 +2537,7 @@ exports[`DateRangePicker render should render correctyly when onlyWeeks 1`] = `
                           autocomplete="off"
                           class="emotion-0"
                           name="endDate"
-                          placeholder="mm/dd/yyyy"
+                          placeholder="dd/mm/yyyy"
                           type="text"
                           value=""
                         />

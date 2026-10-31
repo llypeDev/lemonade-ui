@@ -1,0 +1,288 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`NotificationCenter should render correctly when open 1`] = `
+.emotion-1 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -webkit-justify-content: space-between;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.5rem 0.5rem 0.5rem 1rem;
+  border-bottom: 1px solid #D3D4DD;
+}
+
+.emotion-0 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.875rem;
+  line-height: 1.5;
+  color: #24252E;
+  font-weight: bold;
+  margin: 0;
+}
+
+.emotion-21 {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  max-height: 24rem;
+  overflow-y: auto;
+}
+
+.emotion-21 li + li {
+  border-top: 1px solid #D3D4DD;
+}
+
+.emotion-8 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: flex-start;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
+  gap: 0.75rem;
+  width: 100%;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0.75rem 1rem;
+  border: 0;
+  background: transparent;
+  color: #24252E;
+  font: inherit;
+  text-align: left;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  cursor: pointer;
+  outline: none;
+}
+
+.emotion-8:hover {
+  background: #F0F0F5;
+}
+
+.emotion-8:focus {
+  box-shadow: inset 0 0 0 2px #5E7300;
+}
+
+.emotion-2 {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-top: 0.375rem;
+  border-radius: 50%;
+  background: #5E7300;
+}
+
+.emotion-7 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  min-width: 0;
+}
+
+.emotion-17 {
+  overflow-wrap: anywhere;
+}
+
+.emotion-5 {
+  color: #696979;
+  overflow-wrap: anywhere;
+}
+
+.emotion-4 {
+  overflow-wrap: anywhere;
+  font-weight: bold;
+}
+
+.emotion-16 {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  width: 0.5rem;
+  height: 0.5rem;
+  margin-top: 0.375rem;
+  border-radius: 50%;
+  background: #5E7300;
+  background: transparent;
+}
+
+.emotion-22 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: #24252E;
+  z-index: 1200;
+  box-sizing: border-box;
+  max-width: calc(100vw - 2rem);
+  padding: 1rem;
+  border: 1px solid #D3D4DD;
+  border-radius: 2px;
+  background: #FFFFFF;
+  box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2),0 1px 10px 0 rgba(0,0,0,0.12),0 4px 5px 0 rgba(0,0,0,0.14);
+  outline: none;
+  width: 24rem;
+  padding: 0;
+}
+
+.emotion-3 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.emotion-6 {
+  white-space: nowrap;
+  margin-top: 0.25rem;
+  color: #696979;
+  font-size: 0.75rem;
+}
+
+<div
+  aria-labelledby="notification-center-abc"
+  class="emotion-22"
+  data-popper-escaped="true"
+  data-popper-placement="bottom-end"
+  data-popper-reference-hidden="true"
+  id="popover-abc"
+  role="dialog"
+  style="position: absolute; left: 0px; top: 0px; transform: translate(0px, 4px);"
+  tabindex="-1"
+>
+  <div
+    class="emotion-1"
+  >
+    <h2
+      class="emotion-0"
+      id="notification-center-abc"
+    >
+      Notifications
+    </h2>
+  </div>
+  <ul
+    class="emotion-21"
+  >
+    <li>
+      <button
+        class="emotion-8"
+        type="button"
+      >
+        <span
+          aria-hidden="true"
+          class="emotion-2"
+        />
+        <span
+          class="emotion-7"
+        >
+          <span
+            class="emotion-3"
+          >
+            Unread
+            : 
+          </span>
+          <span
+            class="emotion-4"
+          >
+            Order #1042 was paid
+          </span>
+          <span
+            class="emotion-5"
+          >
+            Ana Souza paid with a card
+          </span>
+          <time
+            class="emotion-6"
+            datetime="2024-05-10T09:00:00.000Z"
+          >
+            3 hours ago
+          </time>
+        </span>
+      </button>
+    </li>
+    <li>
+      <button
+        class="emotion-8"
+        type="button"
+      >
+        <span
+          aria-hidden="true"
+          class="emotion-2"
+        />
+        <span
+          class="emotion-7"
+        >
+          <span
+            class="emotion-3"
+          >
+            Unread
+            : 
+          </span>
+          <span
+            class="emotion-4"
+          >
+            New comment
+          </span>
+          <span
+            class="emotion-5"
+          >
+            Bruno: "Can we ship it today?"
+          </span>
+          <time
+            class="emotion-6"
+            datetime="2024-05-10T09:00:00.000Z"
+          >
+            3 hours ago
+          </time>
+        </span>
+      </button>
+    </li>
+    <li>
+      <a
+        class="emotion-8"
+        href="/exports/3"
+      >
+        <span
+          aria-hidden="true"
+          class="emotion-16"
+        />
+        <span
+          class="emotion-7"
+        >
+          <span
+            class="emotion-17"
+          >
+            Export ready
+          </span>
+          <time
+            class="emotion-6"
+            datetime="2024-05-10T09:00:00.000Z"
+          >
+            3 hours ago
+          </time>
+        </span>
+      </a>
+    </li>
+  </ul>
+</div>
+`;

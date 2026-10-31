@@ -9,6 +9,9 @@ const locale = {
   avatarGroup: {
     more: '{count} more',
   },
+  backToTop: {
+    label: 'Back to top',
+  },
   banner: {
     close: 'Close announcement',
   },
@@ -18,8 +21,22 @@ const locale = {
     nextYear: 'Next year',
     previousYear: 'Previous year',
   },
+  carousel: {
+    previous: 'Previous slide',
+    next: 'Next slide',
+    pause: 'Pause slide rotation',
+    play: 'Start slide rotation',
+    slide: '{current} of {total}',
+    goTo: 'Show slide {current} of {total}',
+  },
   codeBlock: {
     label: 'Code',
+  },
+  colorField: {
+    swatches: 'Colors',
+    hex: 'Hex code',
+    picker: 'Pick another color',
+    invalid: 'Enter a color as #RRGGBB, such as #5E7300',
   },
   commandPalette: {
     label: 'Command palette',
@@ -39,6 +56,8 @@ const locale = {
     failed: 'Could not copy',
   },
   dataTable: {
+    empty: 'No results found',
+    loading: 'Loading results',
     selectAll: 'Select all rows',
     selectRow: 'Select {row}',
     row: 'row {index}',
@@ -48,7 +67,7 @@ const locale = {
     bulkActions: 'Actions for the selected rows',
   },
   dateInput: {
-    placeholder: 'mm/dd/yyyy',
+    placeholder: 'dd/mm/yyyy',
   },
   dateTimeField: {
     date: 'Date',
@@ -91,6 +110,13 @@ const locale = {
   monthPaginator: {
     close: 'Close',
     show: 'Show months',
+  },
+  notificationCenter: {
+    label: 'Notifications',
+    unread: '{count} unread',
+    unreadItem: 'Unread',
+    markAllRead: 'Mark all as read',
+    empty: 'No notifications',
   },
   numberField: {
     increase: 'Increase',
@@ -140,6 +166,9 @@ const locale = {
     dropped: '{item} dropped at position {position} of {total}.',
     cancelled: 'Move cancelled. {item} is back at position {position} of {total}.',
   },
+  splitButton: {
+    more: 'More options',
+  },
   splitter: {
     resize: 'Resize panels',
   },
@@ -157,6 +186,9 @@ const locale = {
     invalid: 'not valid',
     added: '{tag} added.',
     removed: '{tag} removed.',
+  },
+  toggletip: {
+    label: 'More information',
   },
   transferList: {
     available: 'Available',

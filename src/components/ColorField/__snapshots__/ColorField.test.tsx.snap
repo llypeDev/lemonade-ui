@@ -1,0 +1,331 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`ColorField should render correctly 1`] = `
+.emotion-12 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: #24252E;
+}
+
+.emotion-5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-wrap: wrap;
+  -ms-flex-wrap: wrap;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+}
+
+.emotion-1 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  margin: 0;
+  padding: 0;
+  border: 1px solid rgba(0,0,0,0.16);
+  border-radius: 50%;
+  cursor: pointer;
+  outline: none;
+  -webkit-transition: -webkit-transform .15s;
+  -webkit-transition: transform .15s;
+  transition: transform .15s;
+}
+
+.emotion-1:hover:not(:disabled) {
+  -webkit-transform: scale(1.1);
+  -ms-transform: scale(1.1);
+  transform: scale(1.1);
+}
+
+.emotion-1:focus {
+  box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
+.emotion-1:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .emotion-1 {
+    -webkit-transition: none;
+    transition: none;
+  }
+}
+
+.emotion-11 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 0.5rem;
+  margin-top: 0.75rem;
+}
+
+.emotion-6 {
+  -webkit-flex-shrink: 0;
+  -ms-flex-negative: 0;
+  flex-shrink: 0;
+  width: 2rem;
+  height: 2rem;
+  box-sizing: border-box;
+  border: 1px solid #8F8FA2;
+  border-radius: 2px;
+  background-image: linear-gradient(45deg,#D3D4DD 25%,transparent 25%,transparent 75%,#D3D4DD 75%);
+  background-size: 0.5rem 0.5rem;
+}
+
+.emotion-7 {
+  width: 7rem;
+  box-sizing: border-box;
+  height: 2rem;
+  margin: 0;
+  padding: 0 0.5rem;
+  border: 1px solid #8F8FA2;
+  border-radius: 2px;
+  background: #FFFFFF;
+  color: #24252E;
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.8125rem;
+  text-transform: uppercase;
+  outline: none;
+}
+
+.emotion-7:focus {
+  box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
+.emotion-7:disabled {
+  border-color: #D3D4DD;
+  background: #F0F0F5;
+}
+
+.emotion-10 {
+  position: relative;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  border-radius: 4px;
+  color: #696979;
+  cursor: pointer;
+}
+
+.emotion-10:hover {
+  background: #F0F0F5;
+  color: #24252E;
+}
+
+.emotion-10:focus-within {
+  box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
+.emotion-9 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  opacity: 0;
+  cursor: inherit;
+}
+
+.emotion-15 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+}
+
+.emotion-14 {
+  display: inline-block;
+  margin-bottom: 0rem;
+  margin-top: 0rem;
+}
+
+.emotion-14:first-of-type {
+  margin-top: 0;
+}
+
+.emotion-14:last-of-type {
+  margin-bottom: 0;
+}
+
+.emotion-14:empty {
+  display: none;
+}
+
+.emotion-0 {
+  font-weight: bold;
+  display: block;
+  margin-bottom: 0.25rem;
+  line-height: 20px;
+}
+
+.emotion-8 {
+  fill: currentColor;
+  font-size: 1.25rem;
+}
+
+.emotion-2 {
+  fill: currentColor;
+  font-size: 1.25rem;
+  color: #FFFFFF;
+}
+
+<div>
+  <div
+    class="emotion-15"
+  >
+    <div
+      class="emotion-14"
+    >
+      <div
+        class="emotion-13"
+      >
+        <label
+          class="emotion-0"
+          id="label-abc"
+        >
+          Tag color
+        </label>
+        <div
+          aria-labelledby="label-abc"
+          class="emotion-12"
+          role="group"
+        >
+          <div
+            aria-label="Colors"
+            class="emotion-5"
+            role="radiogroup"
+          >
+            <button
+              aria-checked="false"
+              aria-label="Green"
+              class="emotion-1"
+              role="radio"
+              style="background: rgb(94, 115, 0);"
+              tabindex="-1"
+              title="Green"
+              type="button"
+            />
+            <button
+              aria-checked="true"
+              aria-label="Blue"
+              class="emotion-1"
+              role="radio"
+              style="background: rgb(0, 105, 208);"
+              tabindex="0"
+              title="Blue"
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                class="emotion-2"
+                height="1em"
+                role="img"
+                viewBox="0 0 24 24"
+                width="1em"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M18.294 6.293a1 1 0 111.414 1.414l-9 9a1 1 0 01-1.414 0l-5.001-5.001a1 1 0 011.414-1.414l4.294 4.294 8.293-8.293z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </button>
+            <button
+              aria-checked="false"
+              aria-label="Yellow"
+              class="emotion-1"
+              role="radio"
+              style="background: rgb(242, 201, 76);"
+              tabindex="-1"
+              title="Yellow"
+              type="button"
+            />
+          </div>
+          <div
+            class="emotion-11"
+          >
+            <span
+              aria-hidden="true"
+              class="emotion-6"
+              style="background: rgb(0, 105, 208);"
+            />
+            <input
+              aria-label="Hex code"
+              autocomplete="off"
+              class="emotion-7"
+              maxlength="7"
+              placeholder="#RRGGBB"
+              spellcheck="false"
+              type="text"
+              value="#0069D0"
+            />
+            <label
+              class="emotion-10"
+              title="Pick another color"
+            >
+              <svg
+                aria-hidden="true"
+                class="emotion-8"
+                height="1em"
+                role="img"
+                viewBox="0 0 24 24"
+                width="1em"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M17.005 2.755c.948-.94 1.89-.94 2.828-.001 1.407 1.409-.002-.004 1.408 1.408.94.94.94 1.883-.003 2.825l-2.83 2.83-4.232-4.233 2.829-2.83zm1.411 1.41L17.001 5.58l1.411 1.41 1.415-1.413-1.411-1.411v-.001zM12.929 6.81l4.233 4.233L7.088 21.117l-3.841.784a1.163 1.163 0 01-.89-.195c-.266-.186-.37-.516-.312-.993l.81-3.828L12.93 6.81h-.001zm0 2.84l-7.95 7.952-.71 2.12 2.12-.71 7.952-7.95-1.411-1.411-.001-.001z"
+                  fill-rule="evenodd"
+                />
+              </svg>
+              <input
+                aria-label="Pick another color"
+                class="emotion-9"
+                type="color"
+                value="#0069d0"
+              />
+            </label>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+`;

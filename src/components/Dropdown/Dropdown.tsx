@@ -4,7 +4,7 @@ import { usePopper } from 'react-popper'
 import { useClickOutside } from '../../hooks/useClickOutside'
 import { Theme, useStyles } from '../../styles'
 import { randomStr } from '../../util/string'
-import { DropdownMenu, DropdownMenuProps } from './DropdownMenu'
+import { DropdownMenu, DropdownMenuProps, menuItemSelector } from './DropdownMenu'
 
 export interface DropdownProps extends DropdownMenuProps {
   /**
@@ -94,7 +94,7 @@ export function Dropdown(props: DropdownProps) {
       setTimeout(() => {
         // Delay focus to preserve window scroll position
         if (menuRef) {
-          const firstItem = menuRef.querySelector('[role="menuitem"]:not([aria-disabled="true"])') as HTMLElement
+          const firstItem = menuRef.querySelector(menuItemSelector) as HTMLElement
 
           if (firstItem) {
             firstItem.focus()
