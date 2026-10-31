@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Transfer list
+
+The transfer list shows two lists side by side and buttons that move the checked items from one to the other, such as the permissions of a role or the columns shown in a report.
+
+## Best practices
+
+- Use it to pick many items from a long list when the user benefits from seeing both what is in and what is out.
+- For a few items, prefer checkboxes; for a short pick from a known list, prefer the `Combobox` with `multiple`.
+- Name the lists after what they hold, such as "Permissions" and "Granted to Support".
+
+## Usage
+
+`TransferList` takes the `items`, each with an `id`, a `label` and, optionally, a `description` and `disabled`. The ids in the second list come in `defaultValue` or, controlled, in `value` with `onChange`. `sourceLabel` and `targetLabel` name the lists, `searchable={false}` hides the search fields, and `listHeight` sets the height of the lists. Both lists keep the order of `items`, and "move all" moves the items that match the search.
+
+<Demo src='pages/components/transfer-list/TransferList' />
+
+## Accessibility
+
+Each list is a region named by its title, with a checkbox for each item and one that checks them all. The buttons are named after what they do, such as "Move the checked items to Selected", and each move is announced, such as "2 moved to Selected". On small screens, the lists stack and the arrows point down and up.

@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Tag input
+
+O tag input é um campo para uma lista de valores livres e curtos, como e-mails ou palavras-chave, mostrados como etiquetas.
+
+## Boas práticas
+
+- Use-o para valores que o usuário digita, como e-mails. Para escolher valores de uma lista conhecida, use o `Combobox` com `multiple`.
+- Valide cada valor e marque os que falham, para o usuário corrigir ou remover.
+- Diga no placeholder ou no rótulo quais são os valores e como adicioná-los.
+
+## Uso
+
+O `TagInput` recebe um `label` e os valores em `defaultValue` ou, controlado, em `value` com `onChange`. Enter, vírgula ou ponto e vírgula adicionam o texto digitado, e o `separators` muda as teclas. Colar uma lista adiciona cada item, Backspace com o campo vazio remove a última etiqueta, e sair do campo adiciona o que foi digitado. O `validate` marca os valores que falham, valores repetidos são ignorados a não ser que `allowDuplicates` esteja ligado, e o `max` limita a quantidade.
+
+<Demo src='pages/components/tag-input/TagInput' />
+
+## Acessibilidade
+
+O campo explica como adicionar e remover valores, e cada etiqueta tem um botão com o nome "Remover" e o valor. Cada valor adicionado ou removido é anunciado, e um valor que falha na validação é lido como "inválido". Enter sem texto não é interceptado, então ainda envia o formulário.

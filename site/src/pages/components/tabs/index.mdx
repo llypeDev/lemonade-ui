@@ -15,3 +15,13 @@ Tabs are used to quickly navigate between views within the same context, allowin
 ## Examples
 
 <Demo src='pages/components/tabs/Tab' />
+
+## Vertical tabs and panels
+
+`orientation='vertical'` stacks the tabs in a column beside their content, which fits many tabs or long labels, such as a settings page. `TabPanel` holds the content of a tab: give it an `id` that the `TabItem` points to with `aria-controls`, point back to the tab with `aria-labelledby`, and pass `active` to the panel of the active tab.
+
+<Demo src='pages/components/tabs/VerticalTabs' />
+
+## Accessibility
+
+The tabs form a `tablist`, and each `TabItem` tells whether it is selected (`aria-selected`) or disabled. Tab enters the list on the active tab, and the arrow keys, Home and End move between the tabs. A `TabPanel` can take the focus with Tab, so keyboard users reach its content even when it has no links or fields.

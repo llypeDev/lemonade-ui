@@ -1,10 +1,10 @@
 import { action } from '@storybook/addon-actions'
-import React from 'react'
+import React, { useState } from 'react'
 
 import { Button } from '../../Button'
 import { Icon } from '../../Icon'
 
-import { DataTable } from './DataTable'
+import { DataTable, DataTableRowId } from './DataTable'
 
 interface Row {
   id: number
@@ -49,3 +49,42 @@ export default {
 }
 
 export const Default = (args) => <DataTable {...args} rows={args.empty ? [] : rows} />
+
+const people: Row[] = [
+  ...rows,
+  { id: 4, name: 'CARLOS EDUARDO LIMA', age: 51 },
+  { id: 5, name: 'BEATRIZ SOUZA', age: 19 },
+]
+
+export const Selection = () => {
+  const [selected, setSelected] = useState<DataTableRowId[]>([2, 4])
+  const [list, setList] = useState(people)
+
+  return (
+    <DataTable<Row>
+      rows={list}
+      columns={[
+        { name: 'name', header: 'Name', render: (row) => row.name },
+        { name: 'age', header: 'Age', align: 'right', render: (row) => row.age },
+      ]}
+      selectedRows={selected}
+      onSelectedRowsChange={setSelected}
+      getRowLabel={(row) => row.name}
+      bulkActions={(selectedRows) => (
+        <>
+          <Button size='small'>Export</Button>
+          <Button
+            size='small'
+            kind='danger'
+            onClick={() => {
+              setList(list.filter((row) => !selectedRows.includes(row)))
+              setSelected([])
+            }}
+          >
+            Delete
+          </Button>
+        </>
+      )}
+    />
+  )
+}

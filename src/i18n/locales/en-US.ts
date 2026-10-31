@@ -38,8 +38,21 @@ const locale = {
     copied: 'Copied',
     failed: 'Could not copy',
   },
+  dataTable: {
+    selectAll: 'Select all rows',
+    selectRow: 'Select {row}',
+    row: 'row {index}',
+    selectedOne: '1 row selected',
+    selectedOther: '{count} rows selected',
+    clearSelection: 'Clear selection',
+    bulkActions: 'Actions for the selected rows',
+  },
   dateInput: {
     placeholder: 'mm/dd/yyyy',
+  },
+  dateTimeField: {
+    date: 'Date',
+    time: 'Time',
   },
   errorSummary: {
     title: 'There is a problem',
@@ -52,6 +65,16 @@ const locale = {
     edit: 'Edit',
     save: 'Save',
     cancel: 'Cancel',
+  },
+  imageViewer: {
+    label: 'Image viewer',
+    close: 'Close',
+    previous: 'Previous image',
+    next: 'Next image',
+    zoomIn: 'Zoom in',
+    zoomOut: 'Zoom out',
+    resetZoom: 'Fit to screen',
+    counter: '{current} of {total}',
   },
   monthInput: {
     placeholder: 'mm/yyyy',
@@ -120,10 +143,32 @@ const locale = {
   splitter: {
     resize: 'Resize panels',
   },
+  tableOfContents: {
+    label: 'On this page',
+  },
   stat: {
     increase: 'Up',
     decrease: 'Down',
     noChange: 'No change',
+  },
+  tagInput: {
+    instructions: 'Press Enter or comma to add. Backspace removes the last one.',
+    remove: 'Remove {tag}',
+    invalid: 'not valid',
+    added: '{tag} added.',
+    removed: '{tag} removed.',
+  },
+  transferList: {
+    available: 'Available',
+    selected: 'Selected',
+    search: 'Search in {list}',
+    selectAll: 'Select all in {list}',
+    moveSelected: 'Move the checked items to {list}',
+    moveAll: 'Move all items to {list}',
+    count: '{checked} of {total} checked',
+    empty: 'No items',
+    noResults: 'No results',
+    moved: '{count} moved to {list}.',
   },
   tour: {
     step: 'Step {current} of {total}',

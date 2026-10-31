@@ -1,0 +1,168 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TableOfContents should render correctly 1`] = `
+.emotion-6 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: #24252E;
+}
+
+.emotion-0 {
+  margin: 0 0 0.5rem;
+  font-weight: bold;
+}
+
+.emotion-5 {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  border-left: 2px solid #D3D4DD;
+}
+
+.emotion-1 {
+  display: block;
+  margin-left: -2px;
+  padding: 0.25rem 0.5rem 0.25rem 0.75rem;
+  border-left: 2px solid transparent;
+  color: #696979;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  outline: none;
+  -webkit-transition: color .2s,border-color .2s;
+  transition: color .2s,border-color .2s;
+}
+
+.emotion-1:hover {
+  color: #24252E;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.emotion-1:focus {
+  border-radius: 2px;
+  box-shadow: inset 0 0 0 2px #5E7300;
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .emotion-1 {
+    -webkit-transition: none;
+    transition: none;
+  }
+}
+
+.emotion-4 {
+  display: block;
+  margin-left: -2px;
+  padding: 0.25rem 0.5rem 0.25rem 0.75rem;
+  border-left: 2px solid transparent;
+  color: #696979;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  outline: none;
+  -webkit-transition: color .2s,border-color .2s;
+  transition: color .2s,border-color .2s;
+  border-left-color: #5E7300;
+  color: #5E7300;
+  font-weight: bold;
+}
+
+.emotion-4:hover {
+  color: #24252E;
+  -webkit-text-decoration: underline;
+  text-decoration: underline;
+}
+
+.emotion-4:focus {
+  border-radius: 2px;
+  box-shadow: inset 0 0 0 2px #5E7300;
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .emotion-4 {
+    -webkit-transition: none;
+    transition: none;
+  }
+}
+
+.emotion-4:hover {
+  color: #5E7300;
+}
+
+<div>
+  <nav
+    aria-labelledby="table-of-contents-abc"
+    class="emotion-6"
+  >
+    <p
+      class="emotion-0"
+      id="table-of-contents-abc"
+    >
+      On this page
+    </p>
+    <ul
+      class="emotion-5"
+    >
+      <li>
+        <a
+          class="emotion-1"
+          href="#overview"
+          style="padding-left: 0.75rem;"
+        >
+          Overview
+        </a>
+      </li>
+      <li>
+        <a
+          class="emotion-1"
+          href="#before-you-start"
+          style="padding-left: 1.75rem;"
+        >
+          Before you start
+        </a>
+      </li>
+      <li>
+        <a
+          class="emotion-1"
+          href="#acao-rapida"
+          style="padding-left: 0.75rem;"
+        >
+          Ação rápida
+        </a>
+      </li>
+      <li>
+        <a
+          aria-current="location"
+          class="emotion-4"
+          href="#faq"
+          style="padding-left: 0.75rem;"
+        >
+          FAQ
+        </a>
+      </li>
+    </ul>
+  </nav>
+  <main>
+    <h2
+      id="overview"
+    >
+      Overview
+    </h2>
+    <h3
+      id="before-you-start"
+    >
+      Before you start
+    </h3>
+    <h2
+      id="acao-rapida"
+    >
+      Ação rápida
+    </h2>
+    <h2
+      id="faq"
+    >
+      FAQ
+    </h2>
+  </main>
+</div>
+`;

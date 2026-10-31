@@ -15,6 +15,14 @@ A table that automatically generates rows based on `columns` prop and gives supp
 
 <Demo src='pages/components/table/DataTable' />
 
+## Row selection
+
+With `selectedRows` and `onSelectedRowsChange`, a checkbox at the start of each row selects it, and the one in the header selects all the rows on the screen, or shows a dash when only some are selected. Selecting all keeps the rows of other pages that were already selected. Rows are identified by their `id`, or by `getRowId`. `bulkActions` shows a bar above the table while rows are selected, with the number of selected rows, your actions and a button to clear the selection.
+
+<Demo src='pages/components/table/SelectionTable' />
+
+Each checkbox is named after its row, such as "Select Maria Machado", with `getRowLabel`; without it, the name is the row number. The number of selected rows is announced as it changes, and clicking a checkbox does not call `onRowClick`.
+
 ## Paged table
 
 A DataTable that includes a pagination component on the footer.

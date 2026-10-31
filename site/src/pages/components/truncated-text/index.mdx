@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Truncated text
+
+The truncated text cuts a text with an ellipsis when it does not fit in its width or in a number of lines, such as a long file name in a table. Only when the text is cut, it shows whole in a tooltip.
+
+## Best practices
+
+- Use it where space is tight and the start of the text is enough to recognize it, such as names in a list.
+- Avoid cutting text the user needs to read in full, such as error messages or instructions.
+- To let the user expand a long text in place, use the `ExpandableText`.
+
+## Usage
+
+`TruncatedText` takes the text as its children and `lines`, the number of lines shown, 1 by default. The tooltip shows the text of the children, and `tooltip` changes it, such as when the children have rich content. `component` changes the element, such as `p` for a paragraph. The text checks again whether it is cut when its size or its text changes.
+
+<Demo src='pages/components/truncated-text/TruncatedText' />
+
+## Accessibility
+
+The whole text stays in the page, so screen readers read it all. When the text is cut, it can take the focus, so keyboard users can open the tooltip too; when it fits, it has no tooltip and no extra stop for the keyboard.

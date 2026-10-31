@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Image viewer
+
+The image viewer shows images over the whole screen, such as the photos of a product or the attachments of a message, with zoom and the previous and next images.
+
+## Best practices
+
+- Open it from a thumbnail or a link that shows what will open, such as a small version of the image.
+- Write an `alt` for each image that says what it shows, and a `caption` when the image needs context.
+- Use it to look at images in detail; for images that are part of the content, show them in the page.
+
+## Usage
+
+`ImageViewer` is controlled with `open` and `onClose`. It takes the `images`, each with a `src`, an `alt` and, optionally, a `caption`. The image shown can be controlled with `index` and `onIndexChange`, and `defaultIndex` sets where an uncontrolled viewer starts each time it opens. The zoom goes up to 4×, with the buttons, the mouse wheel or a double click, and a zoomed image can be dragged.
+
+<Demo src='pages/components/image-viewer/ImageViewer' />
+
+## Accessibility
+
+The viewer is a modal dialog that keeps the focus inside and gives it back when it closes; the focus starts on the close button. The arrow keys go through the images, Home and End go to the first and the last, `+` and `-` zoom, `0` fits the image to the screen, and Escape closes. On a zoomed image, the arrows move the image instead. Each new image is announced with its position and its `alt`, such as "2 of 3. Side of the oak chair".

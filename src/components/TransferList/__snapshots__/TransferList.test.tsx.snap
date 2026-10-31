@@ -1,0 +1,844 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`TransferList should render correctly 1`] = `
+.emotion-61 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5;
+  color: #24252E;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 1rem;
+}
+
+@media (max-width:600px) {
+  .emotion-61 {
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+    -webkit-align-items: stretch;
+    -webkit-box-align: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+  }
+}
+
+.emotion-31 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  min-width: 0;
+  border: 1px solid #D3D4DD;
+  border-radius: 4px;
+  background: #FFFFFF;
+}
+
+.emotion-5 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  border-bottom: 1px solid #D3D4DD;
+}
+
+.emotion-3 {
+  -webkit-flex: 1;
+  -ms-flex: 1;
+  flex: 1;
+  font-weight: bold;
+}
+
+.emotion-4 {
+  color: #696979;
+  white-space: nowrap;
+}
+
+.emotion-10 {
+  padding: 0.5rem 1rem 0;
+}
+
+.emotion-30 {
+  list-style: none;
+  margin: 0;
+  padding: 0.5rem 0;
+  overflow-y: auto;
+}
+
+.emotion-17 {
+  padding: 0.25rem 1rem;
+}
+
+.emotion-17 label {
+  -webkit-align-items: flex-start;
+  -webkit-box-align: flex-start;
+  -ms-flex-align: flex-start;
+  align-items: flex-start;
+}
+
+.emotion-14 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  padding-top: 0.125rem;
+}
+
+.emotion-13 {
+  color: #696979;
+}
+
+.emotion-40 {
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-flex-direction: column;
+  -ms-flex-direction: column;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+@media (max-width:600px) {
+  .emotion-40 {
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-box-pack: center;
+    -webkit-justify-content: center;
+    -ms-flex-pack: center;
+    justify-content: center;
+  }
+}
+
+.emotion-2 {
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+}
+
+.emotion-1 {
+  background-color: #FFFFFF;
+  border: 1px solid #8F8FA2;
+  border-radius: 2px;
+  display: inline-block;
+  height: 24px;
+  position: relative;
+  -webkit-transition: all .2s ease;
+  transition: all .2s ease;
+  vertical-align: middle;
+  width: 24px;
+  min-width: 24px;
+}
+
+.emotion-15 {
+  margin-left: 0.5rem;
+}
+
+.emotion-0 {
+  opacity: 0;
+  margin-right: -13px;
+}
+
+.emotion-0:hover + .emotion-1 {
+  border-color: #7A7B8E;
+}
+
+.emotion-0:checked + .emotion-1 {
+  background-color: #5E7300;
+  border-color: #5E7300;
+}
+
+.emotion-0:checked + .emotion-1:after {
+  content: "";
+  border-right: 2px solid #FFFFFF;
+  border-bottom: 2px solid #FFFFFF;
+  position: absolute;
+  width: 8px;
+  height: 16px;
+  top: 0;
+  left: 7px;
+  opacity: 1;
+  -webkit-transform: rotate(45deg) scale(1);
+  -ms-transform: rotate(45deg) scale(1);
+  transform: rotate(45deg) scale(1);
+  -webkit-transition: opacity .2s ease;
+  transition: opacity .2s ease;
+}
+
+.emotion-0:indeterminate + .emotion-1 {
+  background-color: #FFFFFF;
+  border-color: #5E7300;
+}
+
+.emotion-0:indeterminate + .emotion-1:after {
+  content: "";
+  border-bottom: 3px solid #5E7300;
+  position: absolute;
+  top: -1px;
+  left: 4px;
+  width: 14px;
+  height: 14px;
+  opacity: 1;
+  -webkit-transition: opacity .2s ease;
+  transition: opacity .2s ease;
+}
+
+.emotion-0:focus + .emotion-1 {
+  box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
+.emotion-0:disabled + .emotion-1 {
+  opacity: 0.4;
+  cursor: not-allowed;
+}
+
+.emotion-0:disabled + .emotion-1 + .emotion-15 {
+  color: #AAAAB9;
+  cursor: not-allowed;
+}
+
+.emotion-9 {
+  position: relative;
+}
+
+.emotion-9 input {
+  padding-left: 2.5rem;
+}
+
+.emotion-8 {
+  position: absolute;
+  background-color: transparent;
+  display: -webkit-box;
+  display: -webkit-flex;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  padding: 0.25rem;
+  width: 2.5rem;
+  top: 1px;
+  bottom: 1px;
+  left: 1px;
+}
+
+.emotion-6 {
+  background-color: #FFFFFF;
+  border: solid 1px #8F8FA2;
+  border-radius: 2px;
+  color: #24252E;
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1rem;
+  margin: 0;
+  padding: calc(0.5rem - 1px) 0.5rem;
+  width: 100%;
+  -webkit-transition-property: box-shadow;
+  transition-property: box-shadow;
+  -webkit-transition-duration: .2s;
+  transition-duration: .2s;
+}
+
+.emotion-6[type="search"]::-webkit-search-decoration {
+  display: none;
+}
+
+.emotion-6[type="search"]::-webkit-search-cancel-button {
+  display: none;
+}
+
+.emotion-6[type="search"]::-webkit-search-results-button {
+  display: none;
+}
+
+.emotion-6[type="search"]::-webkit-search-results-decoration {
+  display: none;
+}
+
+.emotion-6:required {
+  box-shadow: none;
+}
+
+.emotion-6::-webkit-input-placeholder {
+  color: #696979;
+}
+
+.emotion-6::-moz-placeholder {
+  color: #696979;
+}
+
+.emotion-6:-ms-input-placeholder {
+  color: #696979;
+}
+
+.emotion-6::placeholder {
+  color: #696979;
+}
+
+.emotion-6:disabled {
+  border-color: #D3D4DD;
+  background-color: #F0F0F5;
+}
+
+.emotion-6:not(:disabled):hover {
+  border-color: #7A7B8E;
+}
+
+.emotion-6:not(:disabled):focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
+.emotion-6:not(:disabled):active {
+  border-color: #5E7300;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.09);
+}
+
+.emotion-7 {
+  fill: currentColor;
+  font-size: 1.5rem;
+  border-radius: inherit;
+}
+
+.emotion-7:focus {
+  box-shadow: none;
+}
+
+.emotion-28 {
+  cursor: pointer;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  cursor: not-allowed;
+}
+
+.emotion-33 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5rem;
+  color: #24252E;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #FFFFFF;
+  border: 1px solid #696979;
+  border-radius: 4px;
+  color: #24252E;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  font-size: 0.875rem;
+  padding: calc(0.25rem - 1px) calc(0.5rem - 1px);
+  cursor: not-allowed;
+  opacity: 0.5;
+}
+
+.emotion-33 > span {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.emotion-33:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
+}
+
+.emotion-33:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
+.emotion-33:not(:disabled):hover {
+  background-color: #F0F0F5;
+}
+
+.emotion-32 {
+  fill: currentColor;
+  font-size: 1.5rem;
+}
+
+@media (max-width:600px) {
+  .emotion-32 {
+    -webkit-transform: rotate(90deg);
+    -ms-transform: rotate(90deg);
+    transform: rotate(90deg);
+  }
+}
+
+.emotion-35 {
+  font-family: "IBM Plex Sans",sans-serif;
+  font-size: 0.8125rem;
+  line-height: 1.5rem;
+  color: #24252E;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-box-pack: center;
+  -webkit-justify-content: center;
+  -ms-flex-pack: center;
+  justify-content: center;
+  position: relative;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-transition: all .2s;
+  transition: all .2s;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: #FFFFFF;
+  border: 1px solid #696979;
+  border-radius: 4px;
+  color: #24252E;
+  -webkit-text-decoration: none;
+  text-decoration: none;
+  font-size: 0.875rem;
+  padding: calc(0.25rem - 1px) calc(0.5rem - 1px);
+}
+
+.emotion-35 > span {
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+}
+
+.emotion-35:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
+}
+
+.emotion-35:focus {
+  outline: none;
+  box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
+.emotion-35:not(:disabled):hover {
+  background-color: #F0F0F5;
+}
+
+.emotion-60 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+<div>
+  <div
+    class="emotion-61"
+  >
+    <section
+      aria-labelledby="transfer-list-abc-source"
+      class="emotion-31"
+    >
+      <div
+        class="emotion-5"
+      >
+        <label
+          class="emotion-2"
+        >
+          <input
+            aria-label="Select all in Available"
+            class="emotion-0"
+            type="checkbox"
+          />
+          <span
+            class="emotion-1"
+          />
+        </label>
+        <span
+          class="emotion-3"
+          id="transfer-list-abc-source"
+        >
+          Available
+        </span>
+        <span
+          class="emotion-4"
+        >
+          0 of 3 checked
+        </span>
+      </div>
+      <div
+        class="emotion-10"
+      >
+        <div
+          class="emotion-9"
+        >
+          <input
+            aria-label="Search in Available"
+            class="emotion-6"
+            type="text"
+            value=""
+          />
+          <span
+            class="emotion-8"
+          >
+            <svg
+              aria-hidden="true"
+              class="emotion-7"
+              height="1em"
+              role="img"
+              viewBox="0 0 24 24"
+              width="1em"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M14.605 13.194l7 6.998a1 1 0 01-1.414 1.414h-.001l-6.997-7a7 7 0 111.412-1.412zM9 14A5 5 0 109 4a5 5 0 000 10z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+      <ul
+        aria-labelledby="transfer-list-abc-source"
+        class="emotion-30"
+        style="height: 15rem;"
+      >
+        <li
+          class="emotion-17"
+        >
+          <label
+            class="emotion-2"
+          >
+            <input
+              class="emotion-0"
+              type="checkbox"
+            />
+            <span
+              class="emotion-1"
+            />
+            <span
+              class="emotion-15"
+            >
+              <span
+                class="emotion-14"
+              >
+                <span>
+                  Edit orders
+                </span>
+                <span
+                  class="emotion-13"
+                >
+                  Change items and prices
+                </span>
+              </span>
+            </span>
+          </label>
+        </li>
+        <li
+          class="emotion-17"
+        >
+          <label
+            class="emotion-2"
+          >
+            <input
+              class="emotion-0"
+              type="checkbox"
+            />
+            <span
+              class="emotion-1"
+            />
+            <span
+              class="emotion-15"
+            >
+              <span
+                class="emotion-14"
+              >
+                <span>
+                  Refund payments
+                </span>
+              </span>
+            </span>
+          </label>
+        </li>
+        <li
+          class="emotion-17"
+        >
+          <label
+            class="emotion-28"
+          >
+            <input
+              class="emotion-0"
+              disabled=""
+              type="checkbox"
+            />
+            <span
+              class="emotion-1"
+            />
+            <span
+              class="emotion-15"
+            >
+              <span
+                class="emotion-14"
+              >
+                <span>
+                  Manage users
+                </span>
+              </span>
+            </span>
+          </label>
+        </li>
+      </ul>
+    </section>
+    <div
+      class="emotion-40"
+    >
+      <button
+        aria-label="Move the checked items to Selected"
+        class="emotion-33"
+        disabled=""
+        title="Move the checked items to Selected"
+        type="button"
+      >
+        <span>
+          <svg
+            aria-hidden="true"
+            class="emotion-32"
+            height="1em"
+            role="img"
+            viewBox="0 0 24 24"
+            width="1em"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M8.294 7.707a1 1 0 111.414-1.414l5 5a1 1 0 010 1.414l-5 5.001a1 1 0 01-1.415-1.414L12.587 12 8.294 7.707z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+      </button>
+      <button
+        aria-label="Move all items to Selected"
+        class="emotion-35"
+        title="Move all items to Selected"
+        type="button"
+      >
+        <span>
+          <svg
+            aria-hidden="true"
+            class="emotion-32"
+            height="1em"
+            role="img"
+            viewBox="0 0 24 24"
+            width="1em"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M11.294 7.707a1 1 0 011.414-1.414l5 5a1 1 0 010 1.414l-5 5.001a1 1 0 11-1.415-1.414L15.587 12l-4.293-4.293zm-5 0a1 1 0 011.414-1.414l5 5a1 1 0 010 1.414l-5 5.001a1 1 0 01-1.415-1.414L10.587 12 6.294 7.707z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+      </button>
+      <button
+        aria-label="Move the checked items to Available"
+        class="emotion-33"
+        disabled=""
+        title="Move the checked items to Available"
+        type="button"
+      >
+        <span>
+          <svg
+            aria-hidden="true"
+            class="emotion-32"
+            height="1em"
+            role="img"
+            viewBox="0 0 24 24"
+            width="1em"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M14.707 16.294a1 1 0 11-1.414 1.414l-5-5a1 1 0 010-1.414l5.001-5.001a1 1 0 011.414 1.414l-4.294 4.294 4.293 4.293z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+      </button>
+      <button
+        aria-label="Move all items to Available"
+        class="emotion-35"
+        title="Move all items to Available"
+        type="button"
+      >
+        <span>
+          <svg
+            aria-hidden="true"
+            class="emotion-32"
+            height="1em"
+            role="img"
+            viewBox="0 0 24 24"
+            width="1em"
+          >
+            <path
+              clip-rule="evenodd"
+              d="M12.707 16.294a1 1 0 01-1.414 1.414l-5-5a1 1 0 010-1.414l5.001-5.001a1 1 0 011.414 1.414l-4.294 4.294 4.293 4.293zm5 0a1 1 0 01-1.414 1.414l-5-5a1 1 0 010-1.414l5.001-5.001a1 1 0 011.414 1.414l-4.294 4.294 4.293 4.293z"
+              fill-rule="evenodd"
+            />
+          </svg>
+        </span>
+      </button>
+    </div>
+    <section
+      aria-labelledby="transfer-list-abc-target"
+      class="emotion-31"
+    >
+      <div
+        class="emotion-5"
+      >
+        <label
+          class="emotion-2"
+        >
+          <input
+            aria-label="Select all in Selected"
+            class="emotion-0"
+            type="checkbox"
+          />
+          <span
+            class="emotion-1"
+          />
+        </label>
+        <span
+          class="emotion-3"
+          id="transfer-list-abc-target"
+        >
+          Selected
+        </span>
+        <span
+          class="emotion-4"
+        >
+          0 of 1 checked
+        </span>
+      </div>
+      <div
+        class="emotion-10"
+      >
+        <div
+          class="emotion-9"
+        >
+          <input
+            aria-label="Search in Selected"
+            class="emotion-6"
+            type="text"
+            value=""
+          />
+          <span
+            class="emotion-8"
+          >
+            <svg
+              aria-hidden="true"
+              class="emotion-7"
+              height="1em"
+              role="img"
+              viewBox="0 0 24 24"
+              width="1em"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M14.605 13.194l7 6.998a1 1 0 01-1.414 1.414h-.001l-6.997-7a7 7 0 111.412-1.412zM9 14A5 5 0 109 4a5 5 0 000 10z"
+                fill-rule="evenodd"
+              />
+            </svg>
+          </span>
+        </div>
+      </div>
+      <ul
+        aria-labelledby="transfer-list-abc-target"
+        class="emotion-30"
+        style="height: 15rem;"
+      >
+        <li
+          class="emotion-17"
+        >
+          <label
+            class="emotion-2"
+          >
+            <input
+              class="emotion-0"
+              type="checkbox"
+            />
+            <span
+              class="emotion-1"
+            />
+            <span
+              class="emotion-15"
+            >
+              <span
+                class="emotion-14"
+              >
+                <span>
+                  Read orders
+                </span>
+              </span>
+            </span>
+          </label>
+        </li>
+      </ul>
+    </section>
+    <span
+      class="emotion-60"
+      role="status"
+    />
+  </div>
+</div>
+`;

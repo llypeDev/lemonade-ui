@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Image viewer
+
+O image viewer mostra imagens na tela inteira, como as fotos de um produto ou os anexos de uma mensagem, com zoom e as imagens anterior e próxima.
+
+## Boas práticas
+
+- Abra-o a partir de uma miniatura ou de um link que mostre o que vai abrir, como uma versão pequena da imagem.
+- Escreva um `alt` para cada imagem dizendo o que ela mostra, e uma `caption` quando a imagem precisa de contexto.
+- Use-o para ver imagens em detalhe; para imagens que fazem parte do conteúdo, mostre-as na página.
+
+## Uso
+
+O `ImageViewer` é controlado com `open` e `onClose`. Ele recebe as `images`, cada uma com `src`, `alt` e, opcionalmente, `caption`. A imagem mostrada pode ser controlada com `index` e `onIndexChange`, e o `defaultIndex` define onde um visualizador não controlado começa cada vez que abre. O zoom vai até 4×, com os botões, a roda do mouse ou um duplo clique, e uma imagem com zoom pode ser arrastada.
+
+<Demo src='pages/components/image-viewer/ImageViewer' />
+
+## Acessibilidade
+
+O visualizador é um diálogo modal que mantém o foco dentro dele e o devolve quando fecha; o foco começa no botão de fechar. As setas percorrem as imagens, Home e End vão para a primeira e a última, `+` e `-` mudam o zoom, `0` ajusta a imagem à tela e Escape fecha. Em uma imagem com zoom, as setas movem a imagem. Cada nova imagem é anunciada com a posição e o `alt`, como "2 de 3. Side of the oak chair".

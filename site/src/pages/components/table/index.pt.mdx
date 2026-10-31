@@ -15,6 +15,14 @@ Uma tabela que gera automaticamente linhas com base na propriedade de `columns` 
 
 <Demo src='pages/components/table/DataTable' />
 
+## Seleção de linhas
+
+Com `selectedRows` e `onSelectedRowsChange`, um checkbox no início de cada linha a seleciona, e o do cabeçalho seleciona todas as linhas da tela, ou mostra um traço quando só algumas estão selecionadas. Selecionar todas mantém as linhas de outras páginas que já estavam selecionadas. As linhas são identificadas pelo `id`, ou pelo `getRowId`. O `bulkActions` mostra uma barra acima da tabela enquanto há linhas selecionadas, com o número de linhas selecionadas, as suas ações e um botão para limpar a seleção.
+
+<Demo src='pages/components/table/SelectionTable' />
+
+Cada checkbox recebe o nome da sua linha, como "Selecionar Maria Machado", com o `getRowLabel`; sem ele, o nome é o número da linha. O número de linhas selecionadas é anunciado quando muda, e clicar em um checkbox não chama o `onRowClick`.
+
 ## Tabela paginada
 
 Uma Tabela de dados que inclui um componente de paginação no rodapé.

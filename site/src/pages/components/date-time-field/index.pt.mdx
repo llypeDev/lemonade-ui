@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Date time field
+
+O date time field recebe uma data e uma hora em um só campo, como o início de um agendamento. O calendário escolhe o dia, e a hora é digitada como hh:mm.
+
+## Boas práticas
+
+- Use-o quando a hora importa, como em agendamentos e prazos. Para um dia apenas, use o `DateField`.
+- Use `minDate` e `maxDate` para manter o usuário nos dias que fazem sentido, como as próximas duas semanas.
+- Diga em qual fuso horário está a hora quando os usuários estão em lugares diferentes.
+
+## Uso
+
+O `DateTimeField` recebe um `label` e o momento como um único `Date` em `value`, com `onChange`. O valor é `null` enquanto a data ou a hora estão vazias ou incompletas, e cada parte mantém o que o usuário digitou nesse meio-tempo. O `minDate` e o `maxDate` limitam os dias do calendário, o `error` mostra uma mensagem abaixo das duas partes, e o `name` e o `id` recebem os sufixos `-date` e `-time`.
+
+<Demo src='pages/components/date-time-field/DateTimeField' />
+
+## Acessibilidade
+
+Os dois campos são um grupo com o nome do rótulo, e cada um tem o nome "Data" e "Hora", dos textos de locale. O erro fica ligado aos dois campos e os marca como inválidos.

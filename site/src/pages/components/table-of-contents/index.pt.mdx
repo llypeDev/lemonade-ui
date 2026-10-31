@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Table of contents
+
+O table of contents leva às seções de uma página longa e marca a que o usuário está lendo conforme a página rola.
+
+## Boas práticas
+
+- Use-o em páginas longas com várias seções, como documentação, políticas ou formulários longos.
+- Coloque-o ao lado do conteúdo, em uma coluna que fica presa no topo enquanto a página rola.
+- Liste no máximo dois níveis, para ele continuar curto.
+
+## Uso
+
+O `TableOfContents` encontra os títulos da página com o seletor `headings`, `h2, h3` por padrão, e dá um id aos títulos que não têm. O `items` informa as seções no lugar disso, cada uma com `id`, `label` e `level`. O `offset` é a altura do que cobre o topo da página, como um cabeçalho fixo, e o `scrollContainer` é o elemento que rola, quando não é a página. A demonstração abaixo lista as seções desta página: role a página para ver a seção atual mudar.
+
+<Demo src='pages/components/table-of-contents/TableOfContents' />
+
+## Acessibilidade
+
+Os links formam uma navegação com o nome "Nesta página", dos textos de locale, e o link da seção atual tem `aria-current="location"`. Um link move o foco para o título da sua seção, para o teclado e os leitores de tela continuarem dali, e a página rola sem animação quando o usuário prefere menos movimento.
