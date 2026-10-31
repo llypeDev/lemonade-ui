@@ -56,5 +56,7 @@ const createStyles = () => ({
     display: 'flex',
     flexDirection: 'column',
     maxWidth: '100%',
+    // Lets the content shrink beside the side navigation instead of growing as wide as its widest code or demo
+    minWidth: 0,
   } as React.CSSProperties,
 })

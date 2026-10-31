@@ -309,6 +309,7 @@ exports[`rendering renders correcly closed 1`] = `
     <div
       aria-busy="false"
       aria-labelledby="test-label-id"
+      aria-multiselectable="true"
       id="test-menu-id"
       role="listbox"
     />
@@ -782,6 +783,7 @@ exports[`rendering renders correcly opened 1`] = `
     <div
       aria-busy="false"
       aria-labelledby="test-label-id"
+      aria-multiselectable="true"
       id="test-menu-id"
       role="listbox"
     >
@@ -792,13 +794,13 @@ exports[`rendering renders correcly opened 1`] = `
         data-popper-reference-hidden="true"
         data-testid="menu"
         style="position: absolute; left: 0px; top: 0px; width: 0px; transform: translate(0px, 0px);"
-        tabindex="-1"
       >
         <ul
           class="emotion-69"
-          tabindex="-1"
+          role="presentation"
         >
           <li
+            aria-checked="false"
             aria-disabled="false"
             aria-selected="false"
             class="emotion-13"
@@ -808,23 +810,28 @@ exports[`rendering renders correcly opened 1`] = `
             <div
               class="emotion-12"
             >
-              <label
-                class="emotion-11"
+              <span
+                aria-hidden="true"
               >
-                <input
-                  class="emotion-9"
-                  readonly=""
-                  tabindex="-1"
-                  type="checkbox"
-                />
-                <span
-                  class="emotion-10"
-                />
-              </label>
+                <label
+                  class="emotion-11"
+                >
+                  <input
+                    class="emotion-9"
+                    readonly=""
+                    tabindex="-1"
+                    type="checkbox"
+                  />
+                  <span
+                    class="emotion-10"
+                  />
+                </label>
+              </span>
               Apple
             </div>
           </li>
           <li
+            aria-checked="false"
             aria-disabled="false"
             aria-selected="false"
             class="emotion-13"
@@ -834,23 +841,28 @@ exports[`rendering renders correcly opened 1`] = `
             <div
               class="emotion-12"
             >
-              <label
-                class="emotion-11"
+              <span
+                aria-hidden="true"
               >
-                <input
-                  class="emotion-9"
-                  readonly=""
-                  tabindex="-1"
-                  type="checkbox"
-                />
-                <span
-                  class="emotion-10"
-                />
-              </label>
+                <label
+                  class="emotion-11"
+                >
+                  <input
+                    class="emotion-9"
+                    readonly=""
+                    tabindex="-1"
+                    type="checkbox"
+                  />
+                  <span
+                    class="emotion-10"
+                  />
+                </label>
+              </span>
               Avocado
             </div>
           </li>
           <li
+            aria-checked="false"
             aria-disabled="false"
             aria-selected="false"
             class="emotion-13"
@@ -860,23 +872,28 @@ exports[`rendering renders correcly opened 1`] = `
             <div
               class="emotion-12"
             >
-              <label
-                class="emotion-11"
+              <span
+                aria-hidden="true"
               >
-                <input
-                  class="emotion-9"
-                  readonly=""
-                  tabindex="-1"
-                  type="checkbox"
-                />
-                <span
-                  class="emotion-10"
-                />
-              </label>
+                <label
+                  class="emotion-11"
+                >
+                  <input
+                    class="emotion-9"
+                    readonly=""
+                    tabindex="-1"
+                    type="checkbox"
+                  />
+                  <span
+                    class="emotion-10"
+                  />
+                </label>
+              </span>
               Banana
             </div>
           </li>
           <li
+            aria-checked="false"
             aria-disabled="false"
             aria-selected="false"
             class="emotion-13"
@@ -886,23 +903,28 @@ exports[`rendering renders correcly opened 1`] = `
             <div
               class="emotion-12"
             >
-              <label
-                class="emotion-11"
+              <span
+                aria-hidden="true"
               >
-                <input
-                  class="emotion-9"
-                  readonly=""
-                  tabindex="-1"
-                  type="checkbox"
-                />
-                <span
-                  class="emotion-10"
-                />
-              </label>
+                <label
+                  class="emotion-11"
+                >
+                  <input
+                    class="emotion-9"
+                    readonly=""
+                    tabindex="-1"
+                    type="checkbox"
+                  />
+                  <span
+                    class="emotion-10"
+                  />
+                </label>
+              </span>
               Blueberry
             </div>
           </li>
           <li
+            aria-checked="false"
             aria-disabled="false"
             aria-selected="false"
             class="emotion-13"
@@ -912,23 +934,28 @@ exports[`rendering renders correcly opened 1`] = `
             <div
               class="emotion-12"
             >
-              <label
-                class="emotion-11"
+              <span
+                aria-hidden="true"
               >
-                <input
-                  class="emotion-9"
-                  readonly=""
-                  tabindex="-1"
-                  type="checkbox"
-                />
-                <span
-                  class="emotion-10"
-                />
-              </label>
+                <label
+                  class="emotion-11"
+                >
+                  <input
+                    class="emotion-9"
+                    readonly=""
+                    tabindex="-1"
+                    type="checkbox"
+                  />
+                  <span
+                    class="emotion-10"
+                  />
+                </label>
+              </span>
               Coconut
             </div>
           </li>
           <li
+            aria-checked="false"
             aria-disabled="false"
             aria-selected="false"
             class="emotion-13"
@@ -938,23 +965,28 @@ exports[`rendering renders correcly opened 1`] = `
             <div
               class="emotion-12"
             >
-              <label
-                class="emotion-11"
+              <span
+                aria-hidden="true"
               >
-                <input
-                  class="emotion-9"
-                  readonly=""
-                  tabindex="-1"
-                  type="checkbox"
-                />
-                <span
-                  class="emotion-10"
-                />
-              </label>
+                <label
+                  class="emotion-11"
+                >
+                  <input
+                    class="emotion-9"
+                    readonly=""
+                    tabindex="-1"
+                    type="checkbox"
+                  />
+                  <span
+                    class="emotion-10"
+                  />
+                </label>
+              </span>
               Grape
             </div>
           </li>
           <li
+            aria-checked="false"
             aria-disabled="false"
             aria-selected="false"
             class="emotion-13"
@@ -964,23 +996,28 @@ exports[`rendering renders correcly opened 1`] = `
             <div
               class="emotion-12"
             >
-              <label
-                class="emotion-11"
+              <span
+                aria-hidden="true"
               >
-                <input
-                  class="emotion-9"
-                  readonly=""
-                  tabindex="-1"
-                  type="checkbox"
-                />
-                <span
-                  class="emotion-10"
-                />
-              </label>
+                <label
+                  class="emotion-11"
+                >
+                  <input
+                    class="emotion-9"
+                    readonly=""
+                    tabindex="-1"
+                    type="checkbox"
+                  />
+                  <span
+                    class="emotion-10"
+                  />
+                </label>
+              </span>
               Lemon
             </div>
           </li>
           <li
+            aria-checked="false"
             aria-disabled="false"
             aria-selected="false"
             class="emotion-13"
@@ -990,23 +1027,28 @@ exports[`rendering renders correcly opened 1`] = `
             <div
               class="emotion-12"
             >
-              <label
-                class="emotion-11"
+              <span
+                aria-hidden="true"
               >
-                <input
-                  class="emotion-9"
-                  readonly=""
-                  tabindex="-1"
-                  type="checkbox"
-                />
-                <span
-                  class="emotion-10"
-                />
-              </label>
+                <label
+                  class="emotion-11"
+                >
+                  <input
+                    class="emotion-9"
+                    readonly=""
+                    tabindex="-1"
+                    type="checkbox"
+                  />
+                  <span
+                    class="emotion-10"
+                  />
+                </label>
+              </span>
               Mango
             </div>
           </li>
           <li
+            aria-checked="false"
             aria-disabled="false"
             aria-selected="false"
             class="emotion-13"
@@ -1016,23 +1058,28 @@ exports[`rendering renders correcly opened 1`] = `
             <div
               class="emotion-12"
             >
-              <label
-                class="emotion-11"
+              <span
+                aria-hidden="true"
               >
-                <input
-                  class="emotion-9"
-                  readonly=""
-                  tabindex="-1"
-                  type="checkbox"
-                />
-                <span
-                  class="emotion-10"
-                />
-              </label>
+                <label
+                  class="emotion-11"
+                >
+                  <input
+                    class="emotion-9"
+                    readonly=""
+                    tabindex="-1"
+                    type="checkbox"
+                  />
+                  <span
+                    class="emotion-10"
+                  />
+                </label>
+              </span>
               Melon
             </div>
           </li>
           <li
+            aria-checked="false"
             aria-disabled="false"
             aria-selected="false"
             class="emotion-13"
@@ -1042,23 +1089,28 @@ exports[`rendering renders correcly opened 1`] = `
             <div
               class="emotion-12"
             >
-              <label
-                class="emotion-11"
+              <span
+                aria-hidden="true"
               >
-                <input
-                  class="emotion-9"
-                  readonly=""
-                  tabindex="-1"
-                  type="checkbox"
-                />
-                <span
-                  class="emotion-10"
-                />
-              </label>
+                <label
+                  class="emotion-11"
+                >
+                  <input
+                    class="emotion-9"
+                    readonly=""
+                    tabindex="-1"
+                    type="checkbox"
+                  />
+                  <span
+                    class="emotion-10"
+                  />
+                </label>
+              </span>
               Orange
             </div>
           </li>
           <li
+            aria-checked="false"
             aria-disabled="false"
             aria-selected="false"
             class="emotion-13"
@@ -1068,23 +1120,28 @@ exports[`rendering renders correcly opened 1`] = `
             <div
               class="emotion-12"
             >
-              <label
-                class="emotion-11"
+              <span
+                aria-hidden="true"
               >
-                <input
-                  class="emotion-9"
-                  readonly=""
-                  tabindex="-1"
-                  type="checkbox"
-                />
-                <span
-                  class="emotion-10"
-                />
-              </label>
+                <label
+                  class="emotion-11"
+                >
+                  <input
+                    class="emotion-9"
+                    readonly=""
+                    tabindex="-1"
+                    type="checkbox"
+                  />
+                  <span
+                    class="emotion-10"
+                  />
+                </label>
+              </span>
               Peach
             </div>
           </li>
           <li
+            aria-checked="false"
             aria-disabled="false"
             aria-selected="false"
             class="emotion-13"
@@ -1094,19 +1151,23 @@ exports[`rendering renders correcly opened 1`] = `
             <div
               class="emotion-12"
             >
-              <label
-                class="emotion-11"
+              <span
+                aria-hidden="true"
               >
-                <input
-                  class="emotion-9"
-                  readonly=""
-                  tabindex="-1"
-                  type="checkbox"
-                />
-                <span
-                  class="emotion-10"
-                />
-              </label>
+                <label
+                  class="emotion-11"
+                >
+                  <input
+                    class="emotion-9"
+                    readonly=""
+                    tabindex="-1"
+                    type="checkbox"
+                  />
+                  <span
+                    class="emotion-10"
+                  />
+                </label>
+              </span>
               Pear
             </div>
           </li>
@@ -1647,6 +1708,7 @@ exports[`rendering renders correcly opened and loading 1`] = `
     <div
       aria-busy="true"
       aria-labelledby="test-label-id"
+      aria-multiselectable="true"
       id="test-menu-id"
       role="listbox"
     >
@@ -1657,14 +1719,16 @@ exports[`rendering renders correcly opened and loading 1`] = `
         data-popper-reference-hidden="true"
         data-testid="menu"
         style="position: absolute; left: 0px; top: 0px; width: 0px; transform: translate(0px, 0px);"
-        tabindex="-1"
       >
         <ul
           class="emotion-71"
-          tabindex="-1"
+          role="presentation"
         >
           <li
+            aria-disabled="true"
+            aria-selected="false"
             class="emotion-10"
+            role="option"
           >
             Loading...
             <span
@@ -1672,6 +1736,7 @@ exports[`rendering renders correcly opened and loading 1`] = `
             />
           </li>
           <li
+            aria-checked="false"
             aria-disabled="false"
             aria-selected="false"
             class="emotion-15"
@@ -1681,23 +1746,28 @@ exports[`rendering renders correcly opened and loading 1`] = `
             <div
               class="emotion-14"
             >
-              <label
-                class="emotion-13"
+              <span
+                aria-hidden="true"
               >
-                <input
-                  class="emotion-11"
-                  readonly=""
-                  tabindex="-1"
-                  type="checkbox"
-                />
-                <span
-                  class="emotion-12"
-                />
-              </label>
+                <label
+                  class="emotion-13"
+                >
+                  <input
+                    class="emotion-11"
+                    readonly=""
+                    tabindex="-1"
+                    type="checkbox"
+                  />
+                  <span
+                    class="emotion-12"
+                  />
+                </label>
+              </span>
               Apple
             </div>
           </li>
           <li
+            aria-checked="false"
             aria-disabled="false"
             aria-selected="false"
             class="emotion-15"
@@ -1707,23 +1777,28 @@ exports[`rendering renders correcly opened and loading 1`] = `
             <div
               class="emotion-14"
             >
-              <label
-                class="emotion-13"
+              <span
+                aria-hidden="true"
               >
-                <input
-                  class="emotion-11"
-                  readonly=""
-                  tabindex="-1"
-                  type="checkbox"
-                />
-                <span
-                  class="emotion-12"
-                />
-              </label>
+                <label
+                  class="emotion-13"
+                >
+                  <input
+                    class="emotion-11"
+                    readonly=""
+                    tabindex="-1"
+                    type="checkbox"
+                  />
+                  <span
+                    class="emotion-12"
+                  />
+                </label>
+              </span>
               Avocado
             </div>
           </li>
           <li
+            aria-checked="false"
             aria-disabled="false"
             aria-selected="false"
             class="emotion-15"
@@ -1733,23 +1808,28 @@ exports[`rendering renders correcly opened and loading 1`] = `
             <div
               class="emotion-14"
             >
-              <label
-                class="emotion-13"
+              <span
+                aria-hidden="true"
               >
-                <input
-                  class="emotion-11"
-                  readonly=""
-                  tabindex="-1"
-                  type="checkbox"
-                />
-                <span
-                  class="emotion-12"
-                />
-              </label>
+                <label
+                  class="emotion-13"
+                >
+                  <input
+                    class="emotion-11"
+                    readonly=""
+                    tabindex="-1"
+                    type="checkbox"
+                  />
+                  <span
+                    class="emotion-12"
+                  />
+                </label>
+              </span>
               Banana
             </div>
           </li>
           <li
+            aria-checked="false"
             aria-disabled="false"
             aria-selected="false"
             class="emotion-15"
@@ -1759,23 +1839,28 @@ exports[`rendering renders correcly opened and loading 1`] = `
             <div
               class="emotion-14"
             >
-              <label
-                class="emotion-13"
+              <span
+                aria-hidden="true"
               >
-                <input
-                  class="emotion-11"
-                  readonly=""
-                  tabindex="-1"
-                  type="checkbox"
-                />
-                <span
-                  class="emotion-12"
-                />
-              </label>
+                <label
+                  class="emotion-13"
+                >
+                  <input
+                    class="emotion-11"
+                    readonly=""
+                    tabindex="-1"
+                    type="checkbox"
+                  />
+                  <span
+                    class="emotion-12"
+                  />
+                </label>
+              </span>
               Blueberry
             </div>
           </li>
           <li
+            aria-checked="false"
             aria-disabled="false"
             aria-selected="false"
             class="emotion-15"
@@ -1785,23 +1870,28 @@ exports[`rendering renders correcly opened and loading 1`] = `
             <div
               class="emotion-14"
             >
-              <label
-                class="emotion-13"
+              <span
+                aria-hidden="true"
               >
-                <input
-                  class="emotion-11"
-                  readonly=""
-                  tabindex="-1"
-                  type="checkbox"
-                />
-                <span
-                  class="emotion-12"
-                />
-              </label>
+                <label
+                  class="emotion-13"
+                >
+                  <input
+                    class="emotion-11"
+                    readonly=""
+                    tabindex="-1"
+                    type="checkbox"
+                  />
+                  <span
+                    class="emotion-12"
+                  />
+                </label>
+              </span>
               Coconut
             </div>
           </li>
           <li
+            aria-checked="false"
             aria-disabled="false"
             aria-selected="false"
             class="emotion-15"
@@ -1811,23 +1901,28 @@ exports[`rendering renders correcly opened and loading 1`] = `
             <div
               class="emotion-14"
             >
-              <label
-                class="emotion-13"
+              <span
+                aria-hidden="true"
               >
-                <input
-                  class="emotion-11"
-                  readonly=""
-                  tabindex="-1"
-                  type="checkbox"
-                />
-                <span
-                  class="emotion-12"
-                />
-              </label>
+                <label
+                  class="emotion-13"
+                >
+                  <input
+                    class="emotion-11"
+                    readonly=""
+                    tabindex="-1"
+                    type="checkbox"
+                  />
+                  <span
+                    class="emotion-12"
+                  />
+                </label>
+              </span>
               Grape
             </div>
           </li>
           <li
+            aria-checked="false"
             aria-disabled="false"
             aria-selected="false"
             class="emotion-15"
@@ -1837,23 +1932,28 @@ exports[`rendering renders correcly opened and loading 1`] = `
             <div
               class="emotion-14"
             >
-              <label
-                class="emotion-13"
+              <span
+                aria-hidden="true"
               >
-                <input
-                  class="emotion-11"
-                  readonly=""
-                  tabindex="-1"
-                  type="checkbox"
-                />
-                <span
-                  class="emotion-12"
-                />
-              </label>
+                <label
+                  class="emotion-13"
+                >
+                  <input
+                    class="emotion-11"
+                    readonly=""
+                    tabindex="-1"
+                    type="checkbox"
+                  />
+                  <span
+                    class="emotion-12"
+                  />
+                </label>
+              </span>
               Lemon
             </div>
           </li>
           <li
+            aria-checked="false"
             aria-disabled="false"
             aria-selected="false"
             class="emotion-15"
@@ -1863,23 +1963,28 @@ exports[`rendering renders correcly opened and loading 1`] = `
             <div
               class="emotion-14"
             >
-              <label
-                class="emotion-13"
+              <span
+                aria-hidden="true"
               >
-                <input
-                  class="emotion-11"
-                  readonly=""
-                  tabindex="-1"
-                  type="checkbox"
-                />
-                <span
-                  class="emotion-12"
-                />
-              </label>
+                <label
+                  class="emotion-13"
+                >
+                  <input
+                    class="emotion-11"
+                    readonly=""
+                    tabindex="-1"
+                    type="checkbox"
+                  />
+                  <span
+                    class="emotion-12"
+                  />
+                </label>
+              </span>
               Mango
             </div>
           </li>
           <li
+            aria-checked="false"
             aria-disabled="false"
             aria-selected="false"
             class="emotion-15"
@@ -1889,23 +1994,28 @@ exports[`rendering renders correcly opened and loading 1`] = `
             <div
               class="emotion-14"
             >
-              <label
-                class="emotion-13"
+              <span
+                aria-hidden="true"
               >
-                <input
-                  class="emotion-11"
-                  readonly=""
-                  tabindex="-1"
-                  type="checkbox"
-                />
-                <span
-                  class="emotion-12"
-                />
-              </label>
+                <label
+                  class="emotion-13"
+                >
+                  <input
+                    class="emotion-11"
+                    readonly=""
+                    tabindex="-1"
+                    type="checkbox"
+                  />
+                  <span
+                    class="emotion-12"
+                  />
+                </label>
+              </span>
               Melon
             </div>
           </li>
           <li
+            aria-checked="false"
             aria-disabled="false"
             aria-selected="false"
             class="emotion-15"
@@ -1915,23 +2025,28 @@ exports[`rendering renders correcly opened and loading 1`] = `
             <div
               class="emotion-14"
             >
-              <label
-                class="emotion-13"
+              <span
+                aria-hidden="true"
               >
-                <input
-                  class="emotion-11"
-                  readonly=""
-                  tabindex="-1"
-                  type="checkbox"
-                />
-                <span
-                  class="emotion-12"
-                />
-              </label>
+                <label
+                  class="emotion-13"
+                >
+                  <input
+                    class="emotion-11"
+                    readonly=""
+                    tabindex="-1"
+                    type="checkbox"
+                  />
+                  <span
+                    class="emotion-12"
+                  />
+                </label>
+              </span>
               Orange
             </div>
           </li>
           <li
+            aria-checked="false"
             aria-disabled="false"
             aria-selected="false"
             class="emotion-15"
@@ -1941,23 +2056,28 @@ exports[`rendering renders correcly opened and loading 1`] = `
             <div
               class="emotion-14"
             >
-              <label
-                class="emotion-13"
+              <span
+                aria-hidden="true"
               >
-                <input
-                  class="emotion-11"
-                  readonly=""
-                  tabindex="-1"
-                  type="checkbox"
-                />
-                <span
-                  class="emotion-12"
-                />
-              </label>
+                <label
+                  class="emotion-13"
+                >
+                  <input
+                    class="emotion-11"
+                    readonly=""
+                    tabindex="-1"
+                    type="checkbox"
+                  />
+                  <span
+                    class="emotion-12"
+                  />
+                </label>
+              </span>
               Peach
             </div>
           </li>
           <li
+            aria-checked="false"
             aria-disabled="false"
             aria-selected="false"
             class="emotion-15"
@@ -1967,19 +2087,23 @@ exports[`rendering renders correcly opened and loading 1`] = `
             <div
               class="emotion-14"
             >
-              <label
-                class="emotion-13"
+              <span
+                aria-hidden="true"
               >
-                <input
-                  class="emotion-11"
-                  readonly=""
-                  tabindex="-1"
-                  type="checkbox"
-                />
-                <span
-                  class="emotion-12"
-                />
-              </label>
+                <label
+                  class="emotion-13"
+                >
+                  <input
+                    class="emotion-11"
+                    readonly=""
+                    tabindex="-1"
+                    type="checkbox"
+                  />
+                  <span
+                    class="emotion-12"
+                  />
+                </label>
+              </span>
               Pear
             </div>
           </li>
@@ -2449,6 +2573,7 @@ exports[`rendering renders correcly with custom components correctly 1`] = `
     <div
       aria-busy="false"
       aria-labelledby="test-label-id"
+      aria-multiselectable="true"
       id="test-menu-id"
       role="listbox"
     >
@@ -2459,11 +2584,10 @@ exports[`rendering renders correcly with custom components correctly 1`] = `
         data-popper-reference-hidden="true"
         data-testid="menu"
         style="position: absolute; left: 0px; top: 0px; width: 0px; transform: translate(0px, 0px);"
-        tabindex="-1"
       >
         <ul
           class="emotion-36"
-          tabindex="-1"
+          role="presentation"
         >
           <div
             style="background: rgb(240, 240, 245); padding: 0.25rem 0.5rem; cursor: initial;"

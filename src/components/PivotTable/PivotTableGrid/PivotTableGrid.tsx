@@ -7,6 +7,11 @@ import { buildTable } from './buildTable'
 
 const SCROLL_LEFT_SHADOW_MARGIN = 10
 
+/**
+ * Table of a pivot table, with the values grouped by the row and column keys and their totals. Wrap it in a
+ * `PivotTableProvider`, which colors the cells by their value. Build the trees with `buildPivotTableTrees`, or get
+ * them from a server.
+ */
 export function PivotTableGrid<T extends object>(props: PivotTableProps<T>) {
   const { rowKeys, columnKeys, keysMapping, defaultTree, complementaryTree } = props
   const tableContainerRef = useRef<HTMLDivElement>(null)

@@ -34,7 +34,7 @@
   "scripts": {
     "start": "yarn clean && tsc --watch",
     "clean": "rm -rf lib",
-    "build": "yarn clean && tsc && tsc -p tsconfig.phosphor-esm.json && webpack --mode=production",
+    "build": "yarn clean && tsc -p tsconfig.build.json && tsc -p tsconfig.phosphor-esm.json && webpack --mode=production",
     "prepublishOnly": "yarn build",
     "test": "yarn lint && TZ=UTC jest",
     "test:loki": "STORYBOOK_LOKI=true storybook build && loki --requireReference --reactUri file:./storybook-static",

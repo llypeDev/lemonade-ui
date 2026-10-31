@@ -79,9 +79,19 @@ export const ComboboxMultiselectMenuItem = React.forwardRef(
     const { classes, css } = useStyles(createStyles)
 
     return (
-      <li ref={ref} className={css(classes.item, highlighted && classes.selected, style)} {...rest}>
+      <li
+        ref={ref}
+        className={css(classes.item, highlighted && classes.selected, style)}
+        role='option'
+        aria-selected={!!highlighted}
+        aria-checked={!!selected}
+        {...rest}
+      >
         <HFlow hSpacing={0.5} alignItems='center'>
-          <Checkbox style={{ pointerEvents: 'none' }} checked={selected} tabIndex={-1} readOnly />
+          {/* The option tells screen readers whether it is checked, so the checkbox is only drawn */}
+          <span aria-hidden='true'>
+            <Checkbox style={{ pointerEvents: 'none' }} checked={selected} tabIndex={-1} readOnly />
+          </span>
           {children ?? itemToString(item)}
         </HFlow>
       </li>
@@ -121,7 +131,13 @@ export function ComboboxLoadingItem(props: ComboboxMenuItemProps) {
   const locale = useLocale()
 
   return (
-    <li className={css(classes.item, classes.loadingItem, style)} {...rest}>
+    <li
+      role='option'
+      aria-disabled='true'
+      aria-selected='false'
+      className={css(classes.item, classes.loadingItem, style)}
+      {...rest}
+    >
       {locale.combobox.loadingItem}
       <Spinner style={classes.loadingSpinner} />
     </li>
@@ -135,7 +151,7 @@ export function ComboboxEmptyItem(props: ComboboxMenuItemProps) {
   const { classes, css } = useStyles(createStyles)
 
   return (
-    <li className={css(classes.item, style)} {...rest}>
+    <li role='option' aria-disabled='true' aria-selected='false' className={css(classes.item, style)} {...rest}>
       {locale.combobox.emptyItem}
     </li>
   )
@@ -148,7 +164,7 @@ export function ComboboxCreateItem(props: ComboboxMenuItemProps) {
   const { classes, css } = useStyles(createStyles)
 
   return (
-    <li className={css(classes.item, style)} {...rest}>
+    <li role='option' aria-disabled='true' aria-selected='false' className={css(classes.item, style)} {...rest}>
       {locale.combobox.createItem}
     </li>
   )

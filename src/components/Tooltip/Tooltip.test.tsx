@@ -3,6 +3,9 @@ import React from 'react'
 
 import { Tooltip, TooltipProps } from './Tooltip'
 
+// Lets pending updates, such as popper positions and debounced loads, settle inside act
+const flush = () => act(async () => undefined)
+
 jest.mock('../../util/string')
 
 beforeEach(() => render(<div id='portal-root' />))
@@ -35,6 +38,7 @@ it('should render correctly', async () => {
 
   fireEvent.focus(getByText('Testing'))
   expect(document.body).toMatchSnapshot()
+  await flush()
 })
 
 it('should not render tooltip if text if null or empty', async () => {
@@ -47,6 +51,7 @@ it('should not render tooltip if text if null or empty', async () => {
   expect(document.getElementById('portal-root')?.innerHTML).toEqual('')
 
   expect(getByTestId('tooltip-inner-span').getAttribute('aria-describedby')).toBeFalsy()
+  await flush()
 })
 
 it('should show tooltip when pointer enters component', async () => {
@@ -55,6 +60,7 @@ it('should show tooltip when pointer enters component', async () => {
   fireEvent.pointerOver(getByText('Testing'))
   expect(document.body.querySelector('[role="tooltip"]')).not.toBeNull()
   expect(document.body.querySelector('[role="tooltip"]')?.getAttribute('aria-hidden')).toEqual('false')
+  await flush()
 })
 
 it('should show tooltip when focus component', async () => {
@@ -63,6 +69,7 @@ it('should show tooltip when focus component', async () => {
   fireEvent.focus(getByText('Testing'))
   expect(document.body.querySelector('[role="tooltip"]')).not.toBeNull()
   expect(document.body.querySelector('[role="tooltip"]')?.getAttribute('aria-hidden')).toEqual('false')
+  await flush()
 })
 
 it('should hide tooltip when pointer leaves component', async () => {
@@ -71,6 +78,7 @@ it('should hide tooltip when pointer leaves component', async () => {
   fireEvent.pointerOver(document)
   expect(document.body.querySelector('[role="tooltip"]')).not.toBeNull()
   expect(document.body.querySelector('[role="tooltip"]')?.getAttribute('aria-hidden')).toEqual('true')
+  await flush()
 })
 
 it('should hide tooltip when blur component', async () => {
@@ -79,6 +87,7 @@ it('should hide tooltip when blur component', async () => {
   fireEvent.blur(getByText('Testing'))
   expect(document.body.querySelector('[role="tooltip"]')).not.toBeNull()
   expect(document.body.querySelector('[role="tooltip"]')?.getAttribute('aria-hidden')).toEqual('true')
+  await flush()
 })
 
 it('should compose onPointerEnter, onPointerLeave, onFocus and onBlur functions', async () => {
@@ -112,6 +121,7 @@ it('should compose onPointerEnter, onPointerLeave, onFocus and onBlur functions'
   expect(pointerEnter).toHaveBeenCalledTimes(1)
   expect(document.body.querySelector('[role="tooltip"]')).not.toBeNull()
   expect(document.body.querySelector('[role="tooltip"]')?.getAttribute('aria-hidden')).toEqual('false')
+  await flush()
 })
 
 it('should switch "title" and "aria-describedby" props on target element when tooltip is visible/invisible', async () => {
@@ -127,4 +137,5 @@ it('should switch "title" and "aria-describedby" props on target element when to
 
   expect(target.getAttribute('aria-describedby')).toEqual('tooltip-abc')
   expect(target.getAttribute('title')).toEqual(null)
+  await flush()
 })

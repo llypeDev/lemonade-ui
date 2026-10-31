@@ -100,10 +100,16 @@ export function ComboboxMultiselect<T = DefaultComboboxItemType>(props: Combobox
     },
   })
 
-  const valueDiffsSelectedItems = value?.length && value !== selectedItems
+  // The value is applied when it changes, compared with the last value applied. Comparing it with the selection
+  // instead made a controlled combobox loop forever: after the user changed the selection, the old value was applied
+  // again in the same render that sent the new one to onChange
+  const appliedValue = useRef<readonly T[]>(EMPTY_ARRAY)
   useEffect(() => {
-    if (valueDiffsSelectedItems) setSelectedItems(value)
-  }, [value, valueDiffsSelectedItems, setSelectedItems])
+    if (value && !hasSameItems(value, appliedValue.current, itemIsEqual)) {
+      appliedValue.current = value
+      setSelectedItems(value)
+    }
+  }, [value, itemIsEqual, setSelectedItems])
 
   const { classes, css } = useStyles(createStyles, props, !!selectedItems.length)
   const isSelected = useCallback((item: T) => selectedItems.some((selectedItem) => itemIsEqual(item, selectedItem)), [
@@ -165,7 +171,7 @@ export function ComboboxMultiselect<T = DefaultComboboxItemType>(props: Combobox
     })
   )
   const { id: internalLabelId, ...downshiftLabelProps } = getLabelProps()
-  const downshiftMenuProps = getMenuProps()
+  const downshiftMenuProps = getMenuProps({ 'aria-multiselectable': true })
   const { ref: toggleButtonRef, ...downshiftToggleButtonProps } = getToggleButtonProps()
 
   const {
@@ -186,7 +192,7 @@ export function ComboboxMultiselect<T = DefaultComboboxItemType>(props: Combobox
       isSelected(item) ? removeSelectedItem(item) : addSelectedItem(item)
       clearFilterOnSelect && setInputValue('')
     },
-    [isSelected, removeSelectedItem, addSelectedItem]
+    [isSelected, removeSelectedItem, addSelectedItem, clearFilterOnSelect, setInputValue]
   )
   const handleItemRemove = useCallback(
     (item: T) => (e: React.MouseEvent<HTMLSpanElement>) => {
@@ -261,12 +267,15 @@ export function ComboboxMultiselect<T = DefaultComboboxItemType>(props: Combobox
             itemToString={itemToString}
             items={loadedItems}
             loading={isLoading}
-            tabIndex={-1}
           />
         )}
       </div>
     </>
   )
+}
+
+function hasSameItems<T>(a: readonly T[], b: readonly T[], itemIsEqual: (a: T, b: T) => boolean) {
+  return a.length === b.length && a.every((item, index) => itemIsEqual(item, b[index]))
 }
 
 function comboboxMultiselectStateReducer<T>(

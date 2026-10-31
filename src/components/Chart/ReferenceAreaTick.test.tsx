@@ -20,9 +20,15 @@ const defaultReferenceAreaWithPercents: ReferenceAreaWithPercents<string> = {
   areaPercents: [{ x: 'x', percent: 10 }],
 }
 
+// The tick draws SVG elements, which React only knows inside an <svg>
+const renderInSvg = (ui: React.ReactElement) =>
+  render(ui, {
+    container: document.body.appendChild(document.createElementNS('http://www.w3.org/2000/svg', 'svg')) as any,
+  })
+
 describe('ReferenceAreaTick', () => {
   it('should renders correctly with the default props', () => {
-    const { container } = render(
+    const { container } = renderInSvg(
       <ReferenceAreaTick
         refTicks={new Map([[1, defaultReferenceAreaWithPercents]])}
         {...defaultReferenceAreaTickProps}
@@ -32,7 +38,7 @@ describe('ReferenceAreaTick', () => {
   })
 
   it('should renders correctly when label alignment is central', () => {
-    const { container } = render(
+    const { container } = renderInSvg(
       <ReferenceAreaTick
         refTicks={
           new Map([
@@ -52,7 +58,7 @@ describe('ReferenceAreaTick', () => {
   })
 
   it('should renders correctly when label alignment is central and name or description has more than one line', () => {
-    const { container } = render(
+    const { container } = renderInSvg(
       <ReferenceAreaTick
         refTicks={
           new Map([
@@ -72,7 +78,7 @@ describe('ReferenceAreaTick', () => {
   })
 
   it('should renders correctly when set label color', () => {
-    const { container } = render(
+    const { container } = renderInSvg(
       <ReferenceAreaTick
         refTicks={
           new Map([[1, { ...defaultReferenceAreaWithPercents, label: { name: 'name', color: colors.red.c10 } }]])
@@ -84,7 +90,7 @@ describe('ReferenceAreaTick', () => {
   })
 
   it('should renders correctly when tick kind is horizontal', () => {
-    const { container } = render(
+    const { container } = renderInSvg(
       <ReferenceAreaTick
         refTicks={new Map([[1, { ...defaultReferenceAreaWithPercents, tick: { kind: 'horizontal' } }]])}
         {...defaultReferenceAreaTickProps}

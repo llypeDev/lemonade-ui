@@ -1,0 +1,43 @@
+import { Demo } from '../../../components/Demo'
+
+# Combobox
+
+The combobox is a field where the user picks one or more options from a list, typing to filter them. It replaces the `Select`, `MultiSelect` and `SelectInline`, which are deprecated.
+
+## Best practices
+
+- Use it for lists with more than a handful of options; for two to five options, show them all with `Radio` buttons or a `SegmentedControl`.
+- Order the options by how often they are used, or alphabetically.
+- Load the options from a server when there are too many to send to the page, as in the async example.
+
+## Single option
+
+`Combobox` takes the `items`, `itemToString`, which writes an item as text, the `value` and `onChange`. Typing filters the options; `filter` changes how.
+
+<Demo src='pages/components/combobox/Combobox' />
+
+## Multiple options
+
+With `multiple`, the value is a list and the picked options show as tags in the field. `itemIsEqual` tells when two items are the same, and `clearFilterOnSelect` clears the typed text after each pick.
+
+<Demo src='pages/components/combobox/ComboboxMultiple' />
+
+## Options from a server
+
+`items` can be a function that receives the typed text and returns a promise with the options. The combobox waits for the user to pause, `debounceMilliseconds` (350 ms by default), and shows a loading message meanwhile. When the user types faster than the server answers, only the answer for the latest text is shown.
+
+<Demo src='pages/components/combobox/ComboboxAsync' />
+
+## Suggestions
+
+With `createNewItem`, the user can also type a value that is not in the list: when the field loses the focus, the function turns the typed text into an item.
+
+<Demo src='pages/components/combobox/ComboboxSuggestion' />
+
+## Inline
+
+With `inline`, the combobox is a small button inside a sentence or a toolbar, with a search box in its list. See it on the [Select inline](/components/select-inline) page.
+
+## Accessibility
+
+The field follows the ARIA combobox pattern: it tells screen readers whether the list is open and which option is highlighted, the arrow keys move through the options, Enter picks one and Escape closes the list. The list only holds options, and the loading and empty messages are announced as disabled options. With `multiple`, the list tells screen readers that it takes several options and whether each one is checked, and the picked options show as tags: with the list closed and the field empty, Backspace removes the last tag and the left arrow moves the focus to the tags, where the arrows move between them and Delete or Backspace removes the focused one. The × of each tag removes it with the mouse.

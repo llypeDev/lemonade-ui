@@ -814,7 +814,7 @@ exports[`should render correctly when status is inactive 1`] = `
   font-size: 0.8125rem;
   line-height: 1.5;
   color: #24252E;
-  color: #AAAAB9;
+  color: #696979;
   font-weight: bold;
   -webkit-transition: all .4s ease;
   transition: all .4s ease;

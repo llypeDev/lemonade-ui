@@ -89,6 +89,7 @@ exports[`FilterDraggable render should render correctly with all values of selec
     <button
       aria-haspopup="true"
       class="emotion-3"
+      data-key="name"
       type="button"
     >
       <span>
@@ -220,6 +221,7 @@ exports[`FilterDraggable render should render correctly with no values of select
     <button
       aria-haspopup="true"
       class="emotion-3"
+      data-key="name"
       type="button"
     >
       <span>
@@ -351,6 +353,7 @@ exports[`FilterDraggable render should render correctly with some values of sele
     <button
       aria-haspopup="true"
       class="emotion-3"
+      data-key="name"
       type="button"
     >
       <span>

@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { forwardRef, useState } from 'react'
 import { act, render, fireEvent, getByTestId, waitFor } from '@testing-library/react'
 import matchSorter from 'match-sorter'
 import waait from 'waait'
@@ -8,9 +8,18 @@ import { useTheme } from '../../styles'
 import { HFlow } from '../HFlow'
 import { Button } from '../Button'
 import locale from '../../i18n/locales/en-US'
-import { ComboboxMenuItem } from './ComboboxMenuComponents'
+import { ComboboxMenuItem, ComboboxItemProps } from './ComboboxMenuComponents'
 import { Combobox } from './Combobox'
 import { ComboboxSingleselect, ComboboxSingleselectProps } from './ComboboxSingleselect'
+
+// Lets pending updates settle inside act. Each wait starts after the previous one ends, so the debounce, the
+// simulated load and its update all finish first, even when timers run late on a busy machine
+const flush = () =>
+  act(async () => {
+    for (let round = 0; round < 3; round++) {
+      await new Promise<void>((resolve) => setTimeout(resolve, 20))
+    }
+  })
 
 const TOGGLE_BUTTON_ID = 'test-toggle-button-id'
 const MENU_ID = 'test-menu-id'
@@ -93,9 +102,11 @@ function CustomComponent(props: React.HTMLAttributes<HTMLDivElement>) {
   )
 }
 
-const ComboboxWithCustomComponentsTest = (
-  props: Partial<ComboboxSingleselectProps<Fruit>> & { action?: () => void }
-) => (
+// The action is used by the custom item, not passed to the component
+const ComboboxWithCustomComponentsTest = ({
+  action,
+  ...props
+}: Partial<ComboboxSingleselectProps<Fruit>> & { action?: () => void }) => (
   <ComboboxSingleselect<typeof fruits[0]>
     label='Fruit'
     name='fruit'
@@ -110,11 +121,11 @@ const ComboboxWithCustomComponentsTest = (
     toggleButtonId={TOGGLE_BUTTON_ID}
     getItemId={(index) => `test-item-id-${index}`}
     components={{
-      Item: (props) => (
-        <ComboboxMenuItem {...props}>
+      Item: forwardRef<HTMLLIElement, ComboboxItemProps<Fruit>>((props, ref) => (
+        <ComboboxMenuItem ref={ref} {...props}>
           <Text color='success'>Custom {props.itemToString(props.item)}</Text>
         </ComboboxMenuItem>
-      ),
+      )),
       PrependItem: () => <CustomComponent>Prepend item</CustomComponent>,
       EmptyItem: () => <CustomComponent>Empty item</CustomComponent>,
       CreateItem: () => <CustomComponent>Create item</CustomComponent>,
@@ -126,7 +137,7 @@ const ComboboxWithCustomComponentsTest = (
               Lorem ipsum dolor sit amet, consectetur adipisicing elit. Maxime quod modi, inventore quasi aut sed beatae
               corrupti repellendus minima voluptatem debitis, quibusdam repudiandae totam voluptatum odit.
             </Text>
-            <Button kind='primary' size='small' data-testid='action-btn' onClick={() => props.action?.()}>
+            <Button kind='primary' size='small' data-testid='action-btn' onClick={() => action?.()}>
               New item
             </Button>
           </HFlow>
@@ -172,12 +183,13 @@ test.each`
   fireEvent.click(dropdownButton)
 
   expect(combobox).toHaveAttribute('aria-expanded', 'true')
-  await waitFor(() => expect(listbox.querySelector('[aria-selected]')).toBeTruthy())
+  await waitFor(() => expect(listbox.querySelector('[role="option"]:not([aria-disabled="true"])')).toBeTruthy())
 
   fireEvent.keyDown(combobox, { key: 'ArrowDown' })
 
   await waitFor(() => expect(listbox.querySelector('[aria-selected="true"]')?.textContent).toBe(fruits[0].label))
   expect(combobox).toHaveAttribute('aria-activedescendant', listbox.querySelector('[aria-selected="true"]')?.id)
+  await flush()
 })
 
 test.each`
@@ -200,6 +212,7 @@ test.each`
   fireEvent.click(iconButton)
 
   expect(baseElement.querySelector('ul')).toBeFalsy()
+  await flush()
 })
 
 test.each`
@@ -227,6 +240,7 @@ test.each`
   // focus input and now menu should not be open
   fireEvent.focus(input)
   expect(baseElement.querySelector('ul')).toBeFalsy()
+  await flush()
 })
 
 it('shows placeholder when specified', async () => {
@@ -236,6 +250,7 @@ it('shows placeholder when specified', async () => {
   const input = baseElement.querySelector('input')
 
   expect(input).toHaveAttribute('placeholder', placeholder)
+  await flush()
 })
 
 it('does not show placeholder when not specified', async () => {
@@ -243,6 +258,7 @@ it('does not show placeholder when not specified', async () => {
   const input = baseElement.querySelector('input')
 
   expect(input).not.toHaveAttribute('placeholder')
+  await flush()
 })
 
 it.each`
@@ -282,6 +298,7 @@ it.each`
     expect(onChange).toBeCalledWith(null)
     expect(onClear).toBeCalledTimes(1)
   })
+  await flush()
 })
 
 it('enters error state', async () => {
@@ -295,6 +312,7 @@ it('enters error state', async () => {
 
   const errorMessageContainer = baseElement.querySelector(`#${input.getAttribute('aria-errormessage')}`)
   expect(errorMessageContainer).toHaveTextContent(errorMessage)
+  await flush()
 })
 
 it('respects menu min-width', async () => {
@@ -307,6 +325,7 @@ it('respects menu min-width', async () => {
   const menu = getByTestId(baseElement, 'menu')
 
   expect(menu).toHaveStyle('min-width: 1000px')
+  await flush()
 })
 
 it.each`
@@ -329,6 +348,7 @@ it.each`
   fireEvent.click(option)
 
   expect(selection).toBe(fruits[0])
+  await flush()
 })
 
 it.each`
@@ -346,6 +366,7 @@ it.each`
   fireEvent.change(input, { target: { value: 'filter' } })
 
   expect(filter).toBe('filter')
+  await flush()
 })
 
 it('should trigger onFocus', async () => {
@@ -355,6 +376,7 @@ it('should trigger onFocus', async () => {
   const input = baseElement.querySelector('input')!
   fireEvent.focus(input)
   expect(onFocus).toBeCalled()
+  await flush()
 })
 
 it('should trigger onBlur', async () => {
@@ -365,6 +387,7 @@ it('should trigger onBlur', async () => {
   fireEvent.focus(input)
   fireEvent.blur(input)
   expect(onBlur).toBeCalled()
+  await flush()
 })
 
 it.each`
@@ -379,6 +402,7 @@ it.each`
   fireEvent.change(input, { target: { value: 'not a fruit' } })
   fireEvent.blur(input)
   expect(input).not.toHaveValue()
+  await flush()
 })
 
 it.each`
@@ -405,6 +429,7 @@ it.each`
   fireEvent.blur(input)
 
   expect(input).not.toHaveValue()
+  await flush()
 })
 
 it.each`
@@ -467,6 +492,7 @@ it.each`
   const option = await waitForOption(baseElement)
 
   expect(option.textContent).toEqual(itemToString(fruits[1]))
+  await flush()
 })
 
 it('should accept actions inside children component', async () => {
@@ -479,6 +505,7 @@ it('should accept actions inside children component', async () => {
   fireEvent.click(await findByTestId('action-btn'))
 
   expect(click).toHaveBeenCalledTimes(1)
+  await flush()
 })
 
 test.each`
@@ -510,12 +537,14 @@ test.each`
   //click dropdown button
   fireEvent.click(dropdownButton)
   expect(baseElement.querySelector('ul')).toBeFalsy()
+  await flush()
 })
 
 describe('rendering', () => {
   it('renders correcly closed', async () => {
     const { baseElement } = render(<ComboboxTest label='Fruits' />)
     expect(baseElement).toMatchSnapshot()
+    await flush()
   })
 
   it('renders correcly opened', async () => {
@@ -524,6 +553,7 @@ describe('rendering', () => {
     fireEvent.click(dropdownButton)
     await act(() => waait(asyncDelay))
     expect(baseElement).toMatchSnapshot()
+    await flush()
   })
 
   it('renders correcly opened and loading', async () => {
@@ -532,6 +562,7 @@ describe('rendering', () => {
     fireEvent.click(dropdownButton)
     await act(() => waait(asyncDelay))
     expect(baseElement).toMatchSnapshot()
+    await flush()
   })
 
   it('renders correcly opened with add-item', async () => {
@@ -542,6 +573,7 @@ describe('rendering', () => {
     fireEvent.click(dropdownButton)
     await act(() => waait(asyncDelay))
     expect(baseElement).toMatchSnapshot()
+    await flush()
   })
 
   it.each`
@@ -549,7 +581,7 @@ describe('rendering', () => {
     ${null}
     ${undefined}
     ${[]}
-  `('renders correcly when items is empty (items: $items)', ({ items }) => {
+  `('renders correcly when items is empty (items: $items)', async ({ items }) => {
     const { container, queryByText } = render(<ComboboxTest items={items} />)
 
     const input = container.querySelector('input')!
@@ -557,6 +589,7 @@ describe('rendering', () => {
 
     expect(queryByText(en.select.emptyItem)).toBeTruthy()
     expect(container).toMatchSnapshot()
+    await flush()
   })
 
   it('renders correcly with custom components', async () => {
@@ -565,6 +598,7 @@ describe('rendering', () => {
     fireEvent.click(dropdownButton)
     await act(() => waait(asyncDelay))
     expect(baseElement).toMatchSnapshot()
+    await flush()
   })
 })
 
@@ -573,6 +607,7 @@ describe('async loading', () => {
     const loadItems = jest.fn(() => Promise.resolve(['Item 1', 'Item 2']))
     render(<Combobox items={loadItems} />)
     expect(loadItems).not.toHaveBeenCalledWith()
+    await flush()
   })
 
   it('should call "loadItems" on first interaction', async () => {
@@ -585,6 +620,7 @@ describe('async loading', () => {
 
     await act(() => waait(300))
     expect(loadItems).toHaveBeenCalledWith('')
+    await flush()
   })
 })
 
@@ -598,6 +634,7 @@ describe('select custom components', () => {
     const dropdown = await findByTestId('menu')
     const ul = dropdown.firstElementChild!
     expect(ul.childElementCount).toBe(fruits.length)
+    await flush()
   })
 
   it('should render PrependItem component and list only', async () => {
@@ -617,6 +654,7 @@ describe('select custom components', () => {
     const ul = dropdown.firstElementChild!
     expect(ul.childElementCount).toBe(fruits.length + 1)
     expect(ul.firstElementChild?.getAttribute('data-testid')).toEqual('prepend-item')
+    await flush()
   })
 
   it('should render AppendItem component and list only', async () => {
@@ -636,6 +674,7 @@ describe('select custom components', () => {
     const ul = dropdown.firstElementChild!
     expect(ul.childElementCount).toBe(fruits.length + 1)
     expect(ul.lastElementChild?.getAttribute('data-testid')).toEqual('append-item')
+    await flush()
   })
 
   it('should render both AppendItem and PrependItem components and list', async () => {
@@ -657,6 +696,7 @@ describe('select custom components', () => {
     expect(ul.childElementCount).toBe(fruits.length + 2)
     expect(ul.firstElementChild?.getAttribute('data-testid')).toEqual('prepend-item')
     expect(ul.lastElementChild?.getAttribute('data-testid')).toEqual('append-item')
+    await flush()
   })
 })
 
@@ -672,19 +712,71 @@ describe('emptyItem', () => {
     fireEvent.focus(input)
 
     await waitFor(() => expect(queryByText(en.select.emptyItem)).toBeFalsy())
+    await flush()
   })
-  it('should NOT render when createNewItem is set', () => {
+  it('should NOT render when createNewItem is set', async () => {
     const createNewItem = jest.fn((text) => ({ value: -1, label: text }))
     const { queryByText } = render(<ComboboxTest createNewItem={createNewItem} open />)
 
     expect(queryByText(en.select.emptyItem)).toBeFalsy()
+    await flush()
   })
-  it('should NOT render when loading is true', () => {
+  it('should NOT render when loading is true', async () => {
     const { container, queryByText } = render(<ComboboxTest loading />)
 
     const input = container.querySelector('input')!
     fireEvent.focus(input)
 
     expect(queryByText(en.select.emptyItem)).toBeFalsy()
+    await flush()
+  })
+})
+
+describe('controlled value', () => {
+  // Keeps the value in state, as an application does
+  function ControlledCombobox(props: Partial<ComboboxSingleselectProps<Fruit>> & { initialValue: Fruit }) {
+    const { initialValue, onChange, ...rest } = props
+    const [value, setValue] = useState(initialValue)
+    const handleChange = (newValue: Fruit) => {
+      onChange?.(newValue)
+      setValue(newValue)
+    }
+
+    return <ComboboxTest {...rest} value={value} onChange={handleChange} />
+  }
+
+  it('keeps the typed text of an item created by "createNewItem"', async () => {
+    const onChange = jest.fn()
+    const createNewItem = (input: string) => ({ value: 100, label: input })
+    const { baseElement } = render(
+      <ControlledCombobox initialValue={null} createNewItem={createNewItem} onChange={onChange} />
+    )
+    const input = baseElement.querySelector('input')!
+
+    fireEvent.focus(input)
+    fireEvent.change(input, { target: { value: 'Starfruit' } })
+    await flush()
+    fireEvent.blur(input)
+    await flush()
+
+    expect(onChange).toHaveBeenLastCalledWith({ value: 100, label: 'Starfruit' })
+    expect(input).toHaveValue('Starfruit')
+  })
+
+  it('keeps the picked item while the user types over it, until the field loses the focus', async () => {
+    const onChange = jest.fn()
+    const { baseElement } = render(<ControlledCombobox initialValue={fruits[2]} onChange={onChange} />)
+    const input = baseElement.querySelector('input')!
+
+    fireEvent.focus(input)
+    fireEvent.change(input, { target: { value: 'Ban' } })
+    await flush()
+    expect(input).toHaveAttribute('aria-expanded', 'true')
+
+    fireEvent.blur(input)
+    await flush()
+
+    expect(onChange).not.toHaveBeenCalled()
+    expect(input).toHaveValue(fruits[2].label)
   })
 })

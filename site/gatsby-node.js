@@ -7,6 +7,9 @@ exports.onCreateWebpackConfig = ({ actions }) => {
         // due to broken linking react hooks
         // https://github.com/facebook/react/issues/13991#issuecomment-463486871
         react: path.resolve(path.join(__dirname, './node_modules/react')),
+        // Separate entry points, such as the pivot table, are imported as the package publishes them. They point to
+        // the same copy as `@lemonade/ui`, so the site has one copy of the library and of its theme and locale
+        '@lemonade/ui/lib': path.resolve(path.join(__dirname, './node_modules/@lemonade/ui')),
       },
     },
   })

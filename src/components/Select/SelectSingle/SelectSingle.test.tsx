@@ -1,8 +1,11 @@
-import { fireEvent, render } from '@testing-library/react'
+import { fireEvent, render, act } from '@testing-library/react'
 import { resetIdCounter } from 'downshift'
 import React from 'react'
 import en from '../../../i18n/locales/en-US'
 import { DefaultItemType, SelectSingle, SelectSingleProps } from './SelectSingle'
+
+// Lets pending updates, such as popper positions and debounced loads, settle inside act
+const flush = () => act(async () => undefined)
 
 jest.mock('../../../util/string')
 
@@ -27,58 +30,66 @@ function SelectTest(props: Partial<SelectSingleProps>) {
 
 beforeEach(() => resetIdCounter())
 
-it('should render correctly when closed', () => {
+it('should render correctly when closed', async () => {
   const { container } = render(<SelectTest />)
   expect(container).toMatchSnapshot()
+  await flush()
 })
 
-it('should render correctly when opened', () => {
+it('should render correctly when opened', async () => {
   const { container } = render(<SelectTest isOpen={true} />)
   expect(container).toMatchSnapshot()
+  await flush()
 })
 
-it('should accept value prop', () => {
+it('should accept value prop', async () => {
   const { container } = render(<SelectTest value={items[4]} />)
   expect(container.querySelector('input').value).toEqual(items[4].label)
+  await flush()
 })
 
-it('should open the select menu when input is focused', () => {
+it('should open the select menu when input is focused', async () => {
   const { container } = render(<SelectTest />)
   expect(container.querySelector('ul')).toBeFalsy()
   fireEvent.focus(container.querySelector('input'))
   expect(container.querySelector('ul')).toBeTruthy()
+  await flush()
 })
 
-it('should respect the specified menu min-width', () => {
+it('should respect the specified menu min-width', async () => {
   const { container } = render(<SelectTest menuMinWidth={577} isOpen={true} />)
   expect(container).toMatchSnapshot()
+  await flush()
 })
 
-it('should call the onChange event when an item is clicked', () => {
+it('should call the onChange event when an item is clicked', async () => {
   const onChange = jest.fn()
   const { getByText } = render(<SelectTest onChange={onChange} isOpen={true} />)
   expect(onChange).not.toHaveBeenCalled()
   fireEvent.click(getByText(items[2].label))
   expect(onChange).toHaveBeenLastCalledWith(items[2], expect.anything())
+  await flush()
 })
 
-it('should call the onChange event with target.value empty when text input is cleared', () => {
+it('should call the onChange event with target.value empty when text input is cleared', async () => {
   const onChange = jest.fn()
   const { container } = render(<SelectTest onChange={onChange} value={items[0]} />)
 
   fireEvent.change(container.querySelector('input'), { target: { value: '' } })
   expect(onChange).toHaveBeenLastCalledWith(null, expect.anything())
+  await flush()
 })
 
-it('should render current value and allow changes via prop', () => {
+it('should render current value and allow changes via prop', async () => {
   const { container, rerender } = render(<SelectTest />)
   const input = container.querySelector('input')
   expect(input.value).toEqual('')
   rerender(<SelectTest value={{ value: 42, label: 'Foo' }} />)
   expect(input.value).toEqual('Foo')
+  await flush()
 })
 
-it('should preserve external onBlur and onFocus event handlers', () => {
+it('should preserve external onBlur and onFocus event handlers', async () => {
   const blur = jest.fn()
   const focus = jest.fn()
   const { container } = render(<SelectTest onBlur={blur} onFocus={focus} />)
@@ -87,9 +98,10 @@ it('should preserve external onBlur and onFocus event handlers', () => {
   fireEvent.blur(input)
   expect(blur).toHaveBeenCalledTimes(1)
   expect(focus).toHaveBeenCalledTimes(1)
+  await flush()
 })
 
-it('should open menu and focus input when input icon is clicked', () => {
+it('should open menu and focus input when input icon is clicked', async () => {
   const { container } = render(<SelectTest />)
   const iconButton = container.querySelector('button')
   const input = container.querySelector('input')
@@ -99,10 +111,11 @@ it('should open menu and focus input when input icon is clicked', () => {
   expect(document.activeElement).toEqual(input)
   fireEvent.click(iconButton)
   expect(container.querySelector('ul')).toBeFalsy()
+  await flush()
 })
 
 describe('clear button', () => {
-  it('should clear the input value', () => {
+  it('should clear the input value', async () => {
     const { container, getByTitle } = render(<SelectTest value={items[0]} />)
     const input = container.querySelector('input')
     const clearButton = getByTitle('Clear')
@@ -112,8 +125,9 @@ describe('clear button', () => {
     fireEvent.click(clearButton)
 
     expect(input.value).toEqual('')
+    await flush()
   })
-  it('should call onChange with null value', () => {
+  it('should call onChange with null value', async () => {
     const onChange = jest.fn()
     const { getByTitle } = render(<SelectTest onChange={onChange} value={items[0]} />)
     const clearButton = getByTitle('Clear')
@@ -121,8 +135,9 @@ describe('clear button', () => {
     expect(onChange).not.toHaveBeenCalled()
     fireEvent.click(clearButton)
     expect(onChange).toHaveBeenLastCalledWith(null, expect.anything())
+    await flush()
   })
-  it('should call prop onClear if exists', () => {
+  it('should call prop onClear if exists', async () => {
     const onClear = jest.fn()
     const { getByTitle } = render(<SelectTest onClear={onClear} value={items[0]} />)
     const clearButton = getByTitle('Clear')
@@ -130,51 +145,58 @@ describe('clear button', () => {
     expect(onClear).not.toHaveBeenCalled()
     fireEvent.click(clearButton)
     expect(onClear).toHaveBeenCalled()
+    await flush()
   })
 })
 
 describe('error', () => {
-  it('should render the error text', () => {
+  it('should render the error text', async () => {
     const { queryByText } = render(<SelectTest error='Some error' />)
     expect(queryByText('Some error')).toBeTruthy()
+    await flush()
   })
 
-  it('input should have an "aria-invalid=true" attribute when "error" is provided', () => {
+  it('input should have an "aria-invalid=true" attribute when "error" is provided', async () => {
     const { container } = render(<SelectTest error='Some error' />)
     expect(container.querySelector('input').getAttribute('aria-invalid')).toEqual('true')
+    await flush()
   })
 
-  it('input should have an "aria-errormessage" attribute when "error" is provided', () => {
+  it('input should have an "aria-errormessage" attribute when "error" is provided', async () => {
     const { container } = render(<SelectTest error='Some error' />)
     expect(container.querySelector('input').getAttribute('aria-errormessage')).toEqual('error-abc')
     expect(container.querySelector('#error-abc').textContent).toEqual('Some error')
+    await flush()
   })
 })
 
 describe('input label', () => {
-  it('label should have a htmlFor prop equals to the used id', () => {
+  it('label should have a htmlFor prop equals to the used id', async () => {
     const { container } = render(<SelectTest id='foo' label='Foo' />)
 
     expect(container.querySelector('label').getAttribute('for')).toEqual('foo')
     expect(container).toMatchSnapshot()
+    await flush()
   })
 
-  it('should use aria-labelledby equals to an auto-assigned label id, if "id" is not provided', () => {
+  it('should use aria-labelledby equals to an auto-assigned label id, if "id" is not provided', async () => {
     const { container } = render(<SelectTest label='test' />)
 
     expect(container.querySelector('label').getAttribute('id')).toEqual('label-abc')
     expect(container.querySelector('input').getAttribute('aria-labelledby')).toEqual('label-abc')
     expect(container).toMatchSnapshot()
+    await flush()
   })
 
-  it('should not have aria description if "label" prop is not provided', () => {
+  it('should not have aria description if "label" prop is not provided', async () => {
     const { container } = render(<SelectTest />)
     expect(container.querySelector('input').getAttribute('aria-labelledby')).toBeFalsy()
+    await flush()
   })
 })
 
 describe('createNewItem', () => {
-  it('should allow selectedItem to become whatever is typed on text input', () => {
+  it('should allow selectedItem to become whatever is typed on text input', async () => {
     const createNewItem = jest.fn((text) => ({ value: -1, label: text }))
     const change = jest.fn()
     const { container } = render(<SelectTest id='foo' createNewItem={createNewItem} onChange={change} />)
@@ -183,29 +205,34 @@ describe('createNewItem', () => {
 
     expect(createNewItem).toHaveBeenCalledWith('my item')
     expect(change).toHaveBeenCalledWith({ value: -1, label: 'my item' }, expect.anything())
+    await flush()
   })
-  it('should render CreateItemSelect message', () => {
+  it('should render CreateItemSelect message', async () => {
     const createNewItem = jest.fn((text) => ({ value: -1, label: text }))
     const { queryByText } = render(<SelectTest id='foo' createNewItem={createNewItem} isOpen />)
     expect(queryByText(en.select.createItem)).toBeTruthy()
+    await flush()
   })
-  it('should NOT render CreateItemSelect message when suggestion list is empty', () => {
+  it('should NOT render CreateItemSelect message when suggestion list is empty', async () => {
     const createNewItem = jest.fn((text) => ({ value: -1, label: text }))
     const { container, queryByText } = render(<SelectTest id='foo' createNewItem={createNewItem} isOpen />)
     fireEvent.change(container.querySelector('input'), { target: { value: 'empty suggestion' } })
     expect(queryByText(en.select.createItem)).toBeFalsy()
+    await flush()
   })
-  it('should NOT open select when focus by default', () => {
+  it('should NOT open select when focus by default', async () => {
     const createNewItem = jest.fn((text) => ({ value: -1, label: text }))
     const { container } = render(<SelectTest id='foo' createNewItem={createNewItem} />)
     fireEvent.focus(container.querySelector('input'))
     expect(container.querySelector('ul')).toBeFalsy()
+    await flush()
   })
-  it('should open select when focus and openOnFocus is true', () => {
+  it('should open select when focus and openOnFocus is true', async () => {
     const createNewItem = jest.fn((text) => ({ value: -1, label: text }))
     const { container } = render(<SelectTest id='foo' createNewItem={createNewItem} openOnFocus />)
     fireEvent.focus(container.querySelector('input'))
     expect(container.querySelector('ul')).toBeTruthy()
+    await flush()
   })
   it('should call "createNewItem" only when change type is "changeInput"', async () => {
     const createNewItem = jest.fn((text) => ({ label: text } as any))
@@ -216,20 +243,24 @@ describe('createNewItem', () => {
       <SelectTest id='foo' createNewItem={createNewItem} value={{ ...items[0], label: 'a' }} onChange={jest.fn()} />
     )
     expect(createNewItem).not.toHaveBeenCalled()
+    await flush()
   })
-  it('should NOT render when loading is true', () => {
+  it('should NOT render when loading is true', async () => {
     const createNewItem = jest.fn((text) => ({ value: -1, label: text }))
     const { queryByText } = render(<SelectTest createNewItem={createNewItem} isOpen loading={true} />)
     expect(queryByText(en.select.createItem)).toBeFalsy()
+    await flush()
   })
-  it('should NOT render when items is empty', () => {
+  it('should NOT render when items is empty', async () => {
     const createNewItem = jest.fn((text) => ({ value: -1, label: text }))
     const { queryByText } = render(<SelectTest createNewItem={createNewItem} isOpen items={[]} />)
     expect(queryByText(en.select.createItem)).toBeFalsy()
+    await flush()
   })
-  it('should NOT render when items is NULL', () => {
+  it('should NOT render when items is NULL', async () => {
     const createNewItem = jest.fn((text) => ({ value: -1, label: text }))
     const { queryByText } = render(<SelectTest createNewItem={createNewItem} isOpen items={null} />)
     expect(queryByText(en.select.createItem)).toBeFalsy()
+    await flush()
   })
 })

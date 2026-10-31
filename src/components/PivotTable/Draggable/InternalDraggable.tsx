@@ -29,6 +29,7 @@ export function InternalDraggable<T extends object, TOrigin = string>(props: Dra
       <Button
         style={[classes.button, 'padding-right: 1.25rem;']}
         onKeyDown={handleKeyDown(name)}
+        data-key={String(name)}
         size='small'
         kind='primary'
         skin='ghost'

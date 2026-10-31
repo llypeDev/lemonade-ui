@@ -1547,7 +1547,7 @@ exports[`DateRangePicker render should render correctly when opened 1`] = `
   padding: 0.25rem 0;
   display: inline-block;
   border-radius: 50%;
-  color: #AAAAB9;
+  color: #696979;
 }
 
 .emotion-31:hover {

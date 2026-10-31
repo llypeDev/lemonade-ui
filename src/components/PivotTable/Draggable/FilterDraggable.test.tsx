@@ -1,4 +1,4 @@
-import { createEvent, fireEvent, render } from '@testing-library/react'
+import { createEvent, fireEvent, render, act } from '@testing-library/react'
 import React from 'react'
 import { DndProvider, useDrop } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
@@ -7,6 +7,9 @@ import enUS from '../../../i18n/locales/en-US'
 import { KeyMapping } from './types/KeyMapping'
 import { FilterDraggable, FilterDraggableProps } from './FilterDraggable'
 import { useDraggableKeyNavigation } from './useDraggableNavigation'
+
+// Lets pending updates, such as popper positions and debounced loads, settle inside act
+const flush = () => act(async () => undefined)
 
 jest.mock('./useDraggableNavigation')
 const mockedUseDraggableKeyNavigation = useDraggableKeyNavigation as jest.Mock
@@ -72,37 +75,42 @@ describe('FilterDraggable', () => {
   })
 
   describe('render', () => {
-    it('should render correctly with no values of selectedItems', () => {
+    it('should render correctly with no values of selectedItems', async () => {
       const { container } = render(createFilterComponent())
       expect(container).toMatchSnapshot()
+      await flush()
     })
 
-    it('should render correctly with all values of selectedItems', () => {
+    it('should render correctly with all values of selectedItems', async () => {
       const { container } = render(createFilterComponent({ selectedItems: new Set<string>(keys.get(key)) }))
       expect(container).toMatchSnapshot()
+      await flush()
     })
 
-    it('should render correctly with some values of selectedItems', () => {
+    it('should render correctly with some values of selectedItems', async () => {
       const { container } = render(
         createFilterComponent({ selectedItems: new Set<string>(['Bebel']) })
       )
       expect(container).toMatchSnapshot()
+      await flush()
     })
   })
 
-  it('should throw an error when the prop filterItems is empty', () => {
+  it('should throw an error when the prop filterItems is empty', async () => {
     expect(() => {
       render(createFilterComponent({ filterItems: [] }))
     }).toThrowError()
+    await flush()
   })
 
-  it('should throw an error when the prop selectedItems contains an item that does not belong to the filterItems', () => {
+  it('should throw an error when the prop selectedItems contains an item that does not belong to the filterItems', async () => {
     expect(() => {
       render(createFilterComponent({ selectedItems: new Set<string>('Mel') }))
     }).toThrowError()
+    await flush()
   })
 
-  it('should show the drop down menu when the user clicks on component', () => {
+  it('should show the drop down menu when the user clicks on component', async () => {
     const { getByRole, getAllByRole, getByText } = render(createFilterComponent())
 
     const button = getByRole('button')
@@ -117,9 +125,10 @@ describe('FilterDraggable', () => {
     expect(getByText('Bebel')).toBeDefined()
     expect(getByText('Foguete')).toBeDefined()
     expect(getByText('Scooby-Doo')).toBeDefined()
+    await flush()
   })
 
-  it('should close the dropdown menu when the user clicks on the component when it is open', () => {
+  it('should close the dropdown menu when the user clicks on the component when it is open', async () => {
     const { getByRole, getAllByRole } = render(createFilterComponent())
 
     const button = getByRole('button')
@@ -133,11 +142,12 @@ describe('FilterDraggable', () => {
     expect(() => {
       getAllByRole('checkbox')
     }).toThrowError()
+    await flush()
   })
 
   describe('handleFilterUpdate', () => {
     describe('handleSelectAll', () => {
-      it('should pass a empty set when the user uncheck "all items" checkbox', () => {
+      it('should pass a empty set when the user uncheck "all items" checkbox', async () => {
         const onFilterUpdate = jest.fn()
         const { getByRole, getAllByRole } = render(
           createFilterComponent({ onFilterUpdate: onFilterUpdate, selectedItems: new Set<string>(keys.get(key)) })
@@ -152,9 +162,10 @@ describe('FilterDraggable', () => {
         fireEvent.click(allItemsCheckbox)
 
         expect(onFilterUpdate).toBeCalledWith('name', new Set<string>(new Set<string>()))
+        await flush()
       })
 
-      it('should pass all values in a set when the user check "all items" checkbox', () => {
+      it('should pass all values in a set when the user check "all items" checkbox', async () => {
         const onFilterUpdate = jest.fn()
         const { getByRole, getAllByRole } = render(createFilterComponent({ onFilterUpdate: onFilterUpdate }))
 
@@ -170,11 +181,12 @@ describe('FilterDraggable', () => {
           'name',
           new Set<string>(['Bebel', 'Foguete', 'Scooby-Doo'])
         )
+        await flush()
       })
     })
 
     describe('handleSelect', () => {
-      it('should return a set with "Bebel" when the user check its checkbox', () => {
+      it('should return a set with "Bebel" when the user check its checkbox', async () => {
         const onFilterUpdate = jest.fn()
         const { getByRole, getAllByRole } = render(createFilterComponent({ onFilterUpdate: onFilterUpdate }))
 
@@ -190,9 +202,10 @@ describe('FilterDraggable', () => {
           'name',
           new Set<string>(['Bebel'])
         )
+        await flush()
       })
 
-      it('should return an empty set when the user uncheck "Bebel" checkbox', () => {
+      it('should return an empty set when the user uncheck "Bebel" checkbox', async () => {
         const onFilterUpdate = jest.fn()
         const { getByRole, getAllByRole } = render(
           createFilterComponent({
@@ -210,9 +223,10 @@ describe('FilterDraggable', () => {
         fireEvent.click(checkbox)
 
         expect(onFilterUpdate).toBeCalledWith('name', new Set<string>())
+        await flush()
       })
 
-      it('should return all options when the user check the "Foguete" checkbox', () => {
+      it('should return all options when the user check the "Foguete" checkbox', async () => {
         const onFilterUpdate = jest.fn()
 
         const { getByRole, getAllByRole } = render(
@@ -231,12 +245,13 @@ describe('FilterDraggable', () => {
         fireEvent.click(checkbox)
 
         expect(onFilterUpdate).toBeCalledWith('name', new Set<string>(keys.get(key)))
+        await flush()
       })
     })
   })
 
   describe('handleSearch', () => {
-    it('should show only Scooby-Doo checkbox when the user types "Sco" ', () => {
+    it('should show only Scooby-Doo checkbox when the user types "Sco" ', async () => {
       const { getByRole, getByPlaceholderText, getAllByRole } = render(createFilterComponent())
 
       const button = getByRole('button')
@@ -250,9 +265,10 @@ describe('FilterDraggable', () => {
       expect(getByRole('checkbox').title).toEqual('Scooby-Doo')
 
       expect(getAllByRole('checkbox')).toHaveLength(1)
+      await flush()
     })
 
-    it('should show an empty list when the user types "Mel" ', () => {
+    it('should show an empty list when the user types "Mel" ', async () => {
       const { getByRole, getByPlaceholderText, getAllByRole } = render(createFilterComponent())
 
       const button = getByRole('button')
@@ -266,11 +282,12 @@ describe('FilterDraggable', () => {
       expect(() => {
         getAllByRole('checkbox')
       }).toThrowError()
+      await flush()
     })
   })
 
   describe('events', () => {
-    it('should prevent and not propagate the mouse down event when the user make this event on checkbox', () => {
+    it('should prevent and not propagate the mouse down event when the user make this event on checkbox', async () => {
       const { getByRole, getAllByRole } = render(createFilterComponent())
 
       const button = getByRole('button')
@@ -288,9 +305,10 @@ describe('FilterDraggable', () => {
       expect(mouseDownEvent.defaultPrevented).toBeTruthy()
 
       expect(spy).toBeCalled()
+      await flush()
     })
 
-    it('should not propagate the blur event when the user remove the focus on drop down area', () => {
+    it('should not propagate the blur event when the user remove the focus on drop down area', async () => {
       const { getByRole } = render(createFilterComponent())
 
       const button = getByRole('button')
@@ -308,10 +326,11 @@ describe('FilterDraggable', () => {
       fireEvent(dropDownArea, blurEvent)
 
       expect(spy).toBeCalled()
+      await flush()
     })
   })
 
-  it('should not show invalid values on drop down menu', () => {
+  it('should not show invalid values on drop down menu', async () => {
     const { getByRole, getAllByRole } = render(
       createFilterComponent({ filterItems: new Array<string>(undefined, '', null) })
     )
@@ -321,10 +340,11 @@ describe('FilterDraggable', () => {
     fireEvent.click(button)
 
     expect(getAllByRole('checkbox')).toHaveLength(1) // only the 'All items' checkbox
+    await flush()
   })
 
   describe('Drag and drop', () => {
-    it('should call onDragEnd when the drag event ends', () => {
+    it('should call onDragEnd when the drag event ends', async () => {
       const onDragEnd = jest.fn()
       const { container } = render(
         <DndProvider backend={HTML5Backend}>
@@ -344,11 +364,12 @@ describe('FilterDraggable', () => {
       fireEvent.dragEnd(draggable)
 
       expect(onDragEnd).toHaveBeenCalled()
+      await flush()
     })
   })
 
   describe('Keyboard navigation', () => {
-    it('should call useDraggableKeyNavigation with correct params and trigger its returned function on key down', () => {
+    it('should call useDraggableKeyNavigation with correct params and trigger its returned function on key down', async () => {
       const onDragEnd = jest.fn()
       const onKeyNav = jest.fn()
 
@@ -364,6 +385,7 @@ describe('FilterDraggable', () => {
       expect(mockedUseDraggableKeyNavigation).toHaveBeenCalledWith(onDragEnd, origin, onKeyNav)
       expect(mockHandleKeyDown).toHaveBeenCalledWith(key)
       expect(mockKeyDownHandler).toHaveBeenCalledTimes(1)
+      await flush()
     })
   })
 })

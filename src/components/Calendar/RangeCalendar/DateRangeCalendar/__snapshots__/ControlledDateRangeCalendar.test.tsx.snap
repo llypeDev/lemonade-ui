@@ -130,7 +130,7 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
   padding: 0.25rem 0;
   display: inline-block;
   border-radius: 50%;
-  color: #AAAAB9;
+  color: #696979;
 }
 
 .emotion-11:hover {
@@ -808,7 +808,7 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
   padding: 0.25rem 0;
   display: inline-block;
   border-radius: 50%;
-  color: #AAAAB9;
+  color: #696979;
 }
 
 .emotion-11:hover {

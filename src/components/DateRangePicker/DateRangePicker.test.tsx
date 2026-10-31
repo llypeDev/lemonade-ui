@@ -1,4 +1,4 @@
-import { render, fireEvent, waitFor } from '@testing-library/react'
+import { render, fireEvent, waitFor, act } from '@testing-library/react'
 import React from 'react'
 
 import * as DateFieldModule from '../DateField/DateField'
@@ -8,32 +8,40 @@ import { disableByRange } from '../DateField/DateField'
 import { DateRangePicker, disableByWeekRange } from './DateRangePicker'
 import { DateRange } from './BaseDateRangeInput'
 
+// Lets pending updates, such as popper positions and debounced loads, settle inside act
+const flush = () => act(async () => undefined)
+
 describe('DateRangePicker', () => {
   describe('render', () => {
-    it('should render correctly', () => {
+    it('should render correctly', async () => {
       const { container } = render(<DateRangePicker />)
       expect(container).toMatchSnapshot()
+      await flush()
     })
 
-    it('should render correctly when opened', () => {
+    it('should render correctly when opened', async () => {
       const { container } = render(<DateRangePicker calendarProps={{ visibleDate: new Date('2018-10-01') }} />)
       fireEvent.focus(container.querySelector('input'))
       expect(container).toMatchSnapshot()
+      await flush()
     })
 
-    it('should render correctly when disabled', () => {
+    it('should render correctly when disabled', async () => {
       const { container } = render(<DateRangePicker disabled />)
       expect(container).toMatchSnapshot()
+      await flush()
     })
 
-    it('should render correctly when invalid', () => {
+    it('should render correctly when invalid', async () => {
       const { container } = render(<DateRangePicker invalid />)
       expect(container).toMatchSnapshot()
+      await flush()
     })
 
-    it('should render correctyly when onlyWeeks', () => {
+    it('should render correctyly when onlyWeeks', async () => {
       const { container } = render(<DateRangePicker onlyWeeks />)
       expect(container).toMatchSnapshot()
+      await flush()
     })
 
     it('should call onFocus and onBlur when one of the inputs has and lose focus', async () => {
@@ -48,16 +56,18 @@ describe('DateRangePicker', () => {
 
       expect(focus).toHaveBeenCalledTimes(1)
       expect(blur).toHaveBeenCalledTimes(1)
+      await flush()
     })
 
-    it('should show calendar correctly when inputs are cleaned', () => {
+    it('should show calendar correctly when inputs are cleaned', async () => {
       const { container } = render(<DateRangePicker calendarProps={{ visibleDate: new Date('2018-10-01') }} />)
 
       fireEvent.focus(container.querySelector('input'))
       expect(container.querySelector('[data-date="2018-10-01"] span')).toMatchSnapshot()
+      await flush()
     })
 
-    it('should show calendar correctly when only startDate is defined and is focused', () => {
+    it('should show calendar correctly when only startDate is defined and is focused', async () => {
       const { container } = render(
         <DateRangePicker value={{ startDate: new Date('2018-10-01'), endDate: undefined }} />
       )
@@ -66,9 +76,10 @@ describe('DateRangePicker', () => {
       fireEvent.focus(inputs[0])
       expect(container.querySelector('[data-date="2018-10-01"] span')).toMatchSnapshot()
       expect(container.querySelector('[data-date="2018-11-15"] span')).toMatchSnapshot()
+      await flush()
     })
 
-    it('should show calendar correctly when only endDate is defined and is focused', () => {
+    it('should show calendar correctly when only endDate is defined and is focused', async () => {
       const { container } = render(
         <DateRangePicker value={{ startDate: undefined, endDate: new Date('2018-10-01') }} />
       )
@@ -77,9 +88,10 @@ describe('DateRangePicker', () => {
       fireEvent.focus(inputs[1])
       expect(container.querySelector('[data-date="2018-10-01"] span')).toMatchSnapshot()
       expect(container.querySelector('[data-date="2018-11-15"] span')).toMatchSnapshot()
+      await flush()
     })
 
-    it('should show calendar correctly when startDate and endDate are defined and startDate is focused', () => {
+    it('should show calendar correctly when startDate and endDate are defined and startDate is focused', async () => {
       const { container } = render(
         <DateRangePicker value={{ startDate: new Date('2018-10-01'), endDate: new Date('2018-11-15') }} />
       )
@@ -88,9 +100,10 @@ describe('DateRangePicker', () => {
       fireEvent.focus(inputs[0])
       expect(container.querySelector('[data-date="2018-10-01"] span')).toMatchSnapshot()
       expect(container.querySelector('[data-date="2018-11-15"] span')).toMatchSnapshot()
+      await flush()
     })
 
-    it('should show calendar correctly when startDate and endDate are defined and endDate is focused', () => {
+    it('should show calendar correctly when startDate and endDate are defined and endDate is focused', async () => {
       const { container } = render(
         <DateRangePicker value={{ startDate: new Date('2018-10-01'), endDate: new Date('2018-11-15') }} />
       )
@@ -99,12 +112,13 @@ describe('DateRangePicker', () => {
       fireEvent.focus(inputs[1])
       expect(container.querySelector('[data-date="2018-10-01"] span')).toMatchSnapshot()
       expect(container.querySelector('[data-date="2018-11-15"] span')).toMatchSnapshot()
+      await flush()
     })
   })
 
   describe('onChange calls', () => {
     describe('typing on the inputs', () => {
-      it('should call onChange when a date is typed (in startDate or endDate)', () => {
+      it('should call onChange when a date is typed (in startDate or endDate)', async () => {
         const change = jest.fn()
         const { container } = render(
           <DateRangePicker onChange={change} calendarProps={{ visibleDate: new Date('2018-10-01') }} />
@@ -122,11 +136,12 @@ describe('DateRangePicker', () => {
           startDate: undefined,
           endDate: new Date('2018-11-01'),
         } as DateRange)
+        await flush()
       })
     })
 
     describe('clicking on the calendar', () => {
-      it('should call onchange with only startDate defined when startDate input has focus and a date is select on calendar', () => {
+      it('should call onchange with only startDate defined when startDate input has focus and a date is select on calendar', async () => {
         const change = jest.fn()
         const { container, getByText } = render(
           <DateRangePicker onChange={change} calendarProps={{ visibleDate: new Date('2018-10-01') }} />
@@ -139,11 +154,12 @@ describe('DateRangePicker', () => {
           startDate: new Date('2018-10-05'),
           endDate: undefined,
         } as DateRange)
+        await flush()
       })
     })
 
     describe('clicking on the calendar', () => {
-      it('should call onchange with only endDate defined when endDate input has focus and a date is select on calendar', () => {
+      it('should call onchange with only endDate defined when endDate input has focus and a date is select on calendar', async () => {
         const change = jest.fn()
         const { container, getByText } = render(
           <DateRangePicker onChange={change} calendarProps={{ visibleDate: new Date('2018-10-01') }} />
@@ -156,9 +172,10 @@ describe('DateRangePicker', () => {
           startDate: undefined,
           endDate: new Date('2018-10-05'),
         } as DateRange)
+        await flush()
       })
 
-      it('should call onchange with only startDate defined when startDate input has focus and the selected date is after endDate value', () => {
+      it('should call onchange with only startDate defined when startDate input has focus and the selected date is after endDate value', async () => {
         const change = jest.fn()
         const { container, getByText, getByTitle } = render(
           <DateRangePicker
@@ -175,9 +192,10 @@ describe('DateRangePicker', () => {
           startDate: new Date('2018-11-20'),
           endDate: undefined,
         } as DateRange)
+        await flush()
       })
 
-      it('should call onchange with only startDate defined when endDate input has focus and the selected date is before startDate value', () => {
+      it('should call onchange with only startDate defined when endDate input has focus and the selected date is before startDate value', async () => {
         const change = jest.fn()
         const { container, getByText, getByTitle } = render(
           <DateRangePicker
@@ -194,9 +212,10 @@ describe('DateRangePicker', () => {
           startDate: new Date('2018-10-05'),
           endDate: undefined,
         } as DateRange)
+        await flush()
       })
 
-      it('should call onchange with a new endDate when endDate input has focus and the selected date is after his value', () => {
+      it('should call onchange with a new endDate when endDate input has focus and the selected date is after his value', async () => {
         const change = jest.fn()
         const { container, getByText } = render(
           <DateRangePicker
@@ -212,9 +231,10 @@ describe('DateRangePicker', () => {
           startDate: new Date('2018-10-01'),
           endDate: new Date('2018-11-20'),
         } as DateRange)
+        await flush()
       })
 
-      it('should call onchange with a new startDate when startDate input has focus and the selected date is before his value', () => {
+      it('should call onchange with a new startDate when startDate input has focus and the selected date is before his value', async () => {
         const change = jest.fn()
         const { container, getByText } = render(
           <DateRangePicker
@@ -230,9 +250,10 @@ describe('DateRangePicker', () => {
           startDate: new Date('2018-10-05'),
           endDate: new Date('2018-11-15'),
         } as DateRange)
+        await flush()
       })
 
-      it('should call onchange with switched dates when endDate input has focus and the selected date is before startDate', () => {
+      it('should call onchange with switched dates when endDate input has focus and the selected date is before startDate', async () => {
         const change = jest.fn()
         const { container, getByText } = render(
           <DateRangePicker
@@ -249,9 +270,10 @@ describe('DateRangePicker', () => {
           startDate: new Date('2018-09-10'),
           endDate: new Date('2018-10-10'),
         } as DateRange)
+        await flush()
       })
 
-      it('should call onchange with switched dates when startDate input has focus and the selected date is after endDate', () => {
+      it('should call onchange with switched dates when startDate input has focus and the selected date is after endDate', async () => {
         const change = jest.fn()
         const { container, getByText } = render(
           <DateRangePicker
@@ -268,13 +290,14 @@ describe('DateRangePicker', () => {
           startDate: new Date('2018-09-10'),
           endDate: new Date('2018-10-10'),
         } as DateRange)
+        await flush()
       })
     })
   })
 })
 
 describe('test min and max', () => {
-  it('should call the disableByRange when not choose onlyWeeks', () => {
+  it('should call the disableByRange when not choose onlyWeeks', async () => {
     const spy = jest.spyOn(DateFieldModule, 'disableByRange')
     const { container } = render(
       <DateRangePicker
@@ -285,8 +308,9 @@ describe('test min and max', () => {
     )
     fireEvent.focus(container.querySelector('input'))
     expect(spy).toHaveBeenCalledWith(new Date('2018-10-01'), new Date('2018-10-15'))
+    await flush()
   })
-  it('should call the disableByWeekRange when choose onlyWeeks', () => {
+  it('should call the disableByWeekRange when choose onlyWeeks', async () => {
     const spy = jest.spyOn(DateRangePickerModule, 'disableByWeekRange')
     const { container } = render(
       <DateRangePicker
@@ -298,8 +322,9 @@ describe('test min and max', () => {
     )
     fireEvent.focus(container.querySelector('input'))
     expect(spy).toHaveBeenCalledWith(new Date('2021-01-03'), new Date('2021-01-16'))
+    await flush()
   })
-  it('should set the disabled modifier when using minDate and maxDate props', () => {
+  it('should set the disabled modifier when using minDate and maxDate props', async () => {
     const spy = jest.spyOn(DateFieldModule, 'disableByRange')
     const { container } = render(
       <DateRangePicker
@@ -318,64 +343,73 @@ describe('test min and max', () => {
     expect(container.querySelector('[data-date="2018-10-15"] span').className).not.toEqual(
       container.querySelector('[data-date="2018-10-16"] span').className
     )
+    await flush()
   })
 })
 
 describe('disableByRange', () => {
-  it('should return a predicate that disables date by range', () => {
+  it('should return a predicate that disables date by range', async () => {
     const isDisabled = disableByRange(new Date('2018-10-10'), new Date('2018-10-15'))
     expect(isDisabled(new Date('2018-10-13'))).toBeFalsy()
     expect(isDisabled(new Date('2018-10-10'))).toBeFalsy()
     expect(isDisabled(new Date('2018-10-09'))).toBeTruthy()
     expect(isDisabled(new Date('2018-10-15'))).toBeFalsy()
     expect(isDisabled(new Date('2018-10-16'))).toBeTruthy()
+    await flush()
   })
-  it('should return a predicate that disables date by minDate', () => {
+  it('should return a predicate that disables date by minDate', async () => {
     const isDisabled = disableByRange(new Date('2018-10-10'), null)
     expect(isDisabled(new Date('2200-10-13'))).toBeFalsy()
     expect(isDisabled(new Date('2018-10-10'))).toBeFalsy()
     expect(isDisabled(new Date('2018-10-09'))).toBeTruthy()
     expect(isDisabled(new Date('1970-10-09'))).toBeTruthy()
+    await flush()
   })
-  it('should return a predicate that disables date by maxDate', () => {
+  it('should return a predicate that disables date by maxDate', async () => {
     const isDisabled = disableByRange(null, new Date('2018-10-15'))
     expect(isDisabled(new Date('2200-10-13'))).toBeTruthy()
     expect(isDisabled(new Date('2018-10-16'))).toBeTruthy()
     expect(isDisabled(new Date('2018-10-09'))).toBeFalsy()
     expect(isDisabled(new Date('1970-10-09'))).toBeFalsy()
+    await flush()
   })
-  it('should disconsider time when comparing maxDate and minDate', () => {
+  it('should disconsider time when comparing maxDate and minDate', async () => {
     const isDisabled = disableByRange(new Date('2018-10-01T20:59:00'), new Date('2018-10-01T20:59:30'))
     expect(isDisabled(new Date('2018-10-01T12:00:00'))).toBeFalsy()
     expect(isDisabled(new Date('2018-10-01T23:00:00'))).toBeFalsy()
+    await flush()
   })
 })
 
 describe('disabledByWeekRange', () => {
-  it('should return a predicate that disables by range', () => {
+  it('should return a predicate that disables by range', async () => {
     const isDisabled = disableByWeekRange(new Date('2020-12-27'), new Date('2021-01-16'))
     expect(isDisabled({ start: new Date('2020-12-27'), end: new Date('2021-01-02') })).toBeFalsy()
     expect(isDisabled({ start: new Date('2021-01-03'), end: new Date('2021-01-08') })).toBeFalsy()
     expect(isDisabled({ start: new Date('2020-12-20'), end: new Date('2020-12-26') })).toBeTruthy()
     expect(isDisabled({ start: new Date('2021-01-17'), end: new Date('2021-01-23') })).toBeTruthy()
+    await flush()
   })
-  it('should return a predicate that disables date by minDate', () => {
+  it('should return a predicate that disables date by minDate', async () => {
     const isDisabled = disableByWeekRange(new Date('2020-12-27'), null)
     expect(isDisabled({ start: new Date('2020-12-27'), end: new Date('2021-01-02') })).toBeFalsy()
     expect(isDisabled({ start: new Date('2021-01-03'), end: new Date('2021-01-08') })).toBeFalsy()
     expect(isDisabled({ start: new Date('2020-12-20'), end: new Date('2020-12-26') })).toBeTruthy()
     expect(isDisabled({ start: new Date('2020-12-13'), end: new Date('2020-12-19') })).toBeTruthy()
+    await flush()
   })
-  it('should return a predicate that disables date by maxDate', () => {
+  it('should return a predicate that disables date by maxDate', async () => {
     const isDisabled = disableByWeekRange(null, new Date('2021-01-16'))
     expect(isDisabled({ start: new Date('2020-12-27'), end: new Date('2021-01-02') })).toBeFalsy()
     expect(isDisabled({ start: new Date('2021-01-03'), end: new Date('2021-01-08') })).toBeFalsy()
     expect(isDisabled({ start: new Date('2021-01-17'), end: new Date('2021-01-23') })).toBeTruthy()
     expect(isDisabled({ start: new Date('2021-02-07'), end: new Date('2021-02-13') })).toBeTruthy()
+    await flush()
   })
-  it('should disconsider time when comparing maxDate and minDate', () => {
+  it('should disconsider time when comparing maxDate and minDate', async () => {
     const isDisabled = disableByWeekRange(new Date('2020-12-27T20:59:00'), new Date('2021-01-16T20:59:30'))
     expect(isDisabled({ start: new Date('2020-12-27T12:00:00'), end: new Date('2021-01-02T12:00:00') })).toBeFalsy()
     expect(isDisabled({ start: new Date('2021-01-10T12:00:00'), end: new Date('2021-01-16T12:00:00') })).toBeFalsy()
+    await flush()
   })
 })

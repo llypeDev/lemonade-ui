@@ -122,6 +122,8 @@ export function ComboboxInline<T>(props: ComboboxInlineProps<T>) {
     getItemProps,
     closeMenu,
     openMenu,
+    selectItem,
+    setHighlightedIndex,
   } = useSelect<T>({
     selectedItem: value,
     items: loadedItems,
@@ -152,18 +154,57 @@ export function ComboboxInline<T>(props: ComboboxInlineProps<T>) {
   const formControlProps = getFormControlProps()
   const invalid = !!formControlProps.error
   const downshiftLabelProps = getLabelProps()
-  const downshiftMenuProps = getMenuProps({
+  const { ref: downshiftMenuRef, ...downshiftMenuProps } = getMenuProps({
     tabIndex: -1,
     'aria-invalid': invalid,
     'aria-errormessage': formControlProps.errorId,
   })
-  const { ref: downshiftToggleButtonRef, ...downshiftToggleButtonProps } = getToggleButtonProps({
-    role: null,
+  const {
+    ref: downshiftToggleButtonRef,
+    'aria-activedescendant': activeDescendant,
+    ...downshiftToggleButtonProps
+  } = getToggleButtonProps({
+    // With a search box, the focus moves into the menu: the search box is the combobox, and the toggle a button
+    ...(showSearchBox ? { role: 'button' } : {}),
     onClick,
     onFocus,
     onBlur,
     onKeyDown,
   })
+  const toggleButtonProps = showSearchBox
+    ? downshiftToggleButtonProps
+    : { ...downshiftToggleButtonProps, 'aria-activedescendant': activeDescendant }
+
+  const handleSearchBoxKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+    const count = loadedItems?.length ?? 0
+    if (e.key === 'ArrowDown' || e.key === 'ArrowUp') {
+      e.preventDefault()
+      if (count) {
+        const next = e.key === 'ArrowDown' ? highlightedIndex + 1 : highlightedIndex - 1
+        setHighlightedIndex(Math.max(0, Math.min(count - 1, next)))
+      }
+    } else if (e.key === 'Enter' && highlightedIndex >= 0 && highlightedIndex < count) {
+      e.preventDefault()
+      selectItem(loadedItems[highlightedIndex])
+      closeMenu()
+    } else if (e.key === 'Escape') {
+      e.preventDefault()
+      closeMenu()
+    }
+    onKeyDown?.(e)
+  }
+
+  // The search box goes away with the menu, so the focus goes back to the toggle instead of the page
+  const wasOpen = useRef(false)
+  useEffect(() => {
+    if (wasOpen.current && !isOpen) {
+      const active = document.activeElement
+      if (!active || active === document.body || menuRef.current?.contains(active)) {
+        toggleButtonRef.current?.focus()
+      }
+    }
+    wasOpen.current = isOpen
+  }, [isOpen])
 
   const {
     styles: { popper: popperStyles },
@@ -197,7 +238,7 @@ export function ComboboxInline<T>(props: ComboboxInlineProps<T>) {
           kind={invalid ? 'danger' : 'normal'}
           size='small'
           component='div'
-          {...downshiftToggleButtonProps}
+          {...toggleButtonProps}
           {...rest}
         >
           {/*By the ARIA definition, the label element is mandatory*/}
@@ -214,32 +255,37 @@ export function ComboboxInline<T>(props: ComboboxInlineProps<T>) {
         </Button>
       </FormControl>
 
-      {/*By the ARIA definition, the menu element should always be in the DOM*/}
-      <div aria-busy={isLoading} {...downshiftMenuProps}>
-        {isOpen && (
-          <div
-            data-testid='menu'
-            ref={menuRef}
-            className={classes.menu}
-            style={{
-              ...popperStyles,
-              width: toggleButtonRef.current?.clientWidth,
-              minWidth: menuMinWidth,
-            }}
-            {...popperAttributes}
-          >
-            {showSearchBox && (
-              <div className={classes.searchBoxContainer}>
-                <SearchBox
-                  ref={setSearchBoxRef}
-                  placeholder={searchBoxPlaceholder}
-                  onChange={onSearchBoxValueChange}
-                  onKeyDown={downshiftToggleButtonProps.onKeyDown}
-                  onBlur={downshiftToggleButtonProps.onBlur}
-                />
-              </div>
-            )}
+      {/* The menu stays in the DOM, as downshift requires. It holds the search box beside the listbox, since a
+          listbox may only hold options */}
+      <div
+        ref={composeRefs(menuRef, downshiftMenuRef)}
+        data-testid={isOpen ? 'menu' : undefined}
+        className={isOpen ? classes.menu : undefined}
+        style={
+          isOpen ? { ...popperStyles, width: toggleButtonRef.current?.clientWidth, minWidth: menuMinWidth } : undefined
+        }
+        {...(isOpen ? popperAttributes : {})}
+      >
+        {isOpen && showSearchBox && (
+          <div className={classes.searchBoxContainer}>
+            <SearchBox
+              ref={setSearchBoxRef}
+              role='combobox'
+              aria-expanded={isOpen}
+              aria-controls={downshiftMenuProps.id}
+              aria-activedescendant={activeDescendant || undefined}
+              aria-autocomplete='list'
+              aria-labelledby={downshiftLabelProps.id}
+              placeholder={searchBoxPlaceholder}
+              onChange={onSearchBoxValueChange}
+              onKeyDown={handleSearchBoxKeyDown}
+              onBlur={downshiftToggleButtonProps.onBlur}
+            />
+          </div>
+        )}
 
+        <div aria-busy={isLoading} className={classes.listBox} {...downshiftMenuProps}>
+          {isOpen && (
             <ListBox<T>
               components={componentsInner}
               getItemProps={getItemProps}
@@ -247,11 +293,9 @@ export function ComboboxInline<T>(props: ComboboxInlineProps<T>) {
               itemToString={itemToString}
               items={loadedItems}
               loading={isLoading}
-              className={classes.listBox}
-              tabIndex={-1}
             />
-          </div>
-        )}
+          )}
+        </div>
       </div>
     </>
   )
@@ -264,8 +308,10 @@ export const createStyles = (theme: Theme) => ({
   },
 
   listBox: {
+    flex: 1,
+    minHeight: 0,
     overflow: 'auto',
-  },
+  } as CSSProperties,
 
   toggleIcon: {
     marginLeft: '0.5rem',

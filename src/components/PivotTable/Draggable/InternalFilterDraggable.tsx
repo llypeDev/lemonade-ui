@@ -95,6 +95,7 @@ export function InternalFilterDraggable<T extends object, TOrigin = string>(prop
         innerRef={setButtonRef}
         onClick={handleClick}
         onKeyDown={handleKeyDown(name)}
+        data-key={String(name)}
         size='small'
         kind='primary'
         skin='ghost'
@@ -141,16 +142,19 @@ export function InternalFilterDraggable<T extends object, TOrigin = string>(prop
             </DropdownItem>
           )}
 
-          {searchedFilterSet.map((value) => (
-            <DraggableRow<T>
-              key={value}
-              value={value}
-              name={name}
-              selected={selectedItems.has(value)}
-              handleSelect={handleSelect}
-              formatter={formatter}
-            />
-          ))}
+          {/* Empty values have no row, and no key to identify one */}
+          {searchedFilterSet
+            .filter((value) => value && value.length > 0)
+            .map((value) => (
+              <DraggableRow<T>
+                key={value}
+                value={value}
+                name={name}
+                selected={selectedItems.has(value)}
+                handleSelect={handleSelect}
+                formatter={formatter}
+              />
+            ))}
         </div>
       </Dropdown>
     </DraggableWrapper>

@@ -75,6 +75,8 @@ export function Calendar(props: CalendarProps) {
     [allModifiers, onVisibleDateChange, props]
   )
 
+  const isDayDisabled = useCallback((day: Date) => !!allModifiers.disabled(day, props), [allModifiers, props])
+
   const handleWeekClick = useCallback(
     (week: Week) => {
       if (!allModifiers.disabled(week, props)) {
@@ -97,6 +99,7 @@ export function Calendar(props: CalendarProps) {
         {...rest}
         onDayClick={handleDayClick}
         isDaySelected={isDaySelected}
+        isDayDisabled={isDayDisabled}
         onWeekClick={handleWeekClick}
         onlyWeeks={onlyWeeks}
       />
@@ -161,7 +164,8 @@ export const defaultModifierStyles: ModifierStyleMap = {
     },
   }),
   adjacentMonth: (theme: Theme) => ({
-    color: theme.pallete.text.disabled,
+    // These days can still be picked, so they keep a readable contrast; disabled days use text.disabled
+    color: theme.pallete.text.secondary,
   }),
 }
 

@@ -19,9 +19,11 @@ it('should return "entered" state when "enter" is true', () => {
 })
 
 it('should change to "entering" state when "enter" changes to "true"', () => {
-  const { container, rerender } = render(<TestComponent enter={false} />)
+  const { container, rerender, unmount } = render(<TestComponent enter={false} />)
   rerender(<TestComponent enter={true} />)
   expect(container.textContent).toEqual('entering')
+  // Unmounting clears the transition timer, which would otherwise fire after the test
+  unmount()
 })
 
 it('should change to "entered" state when "enter" changes and "enterTimeout" has fired', () => {
@@ -41,9 +43,11 @@ it('should change to "entered" state when "enter" changes and "enterTimeout" has
 })
 
 it('should change to "exiting" state when "enter" changes to "false"', () => {
-  const { container, rerender } = render(<TestComponent enter={true} />)
+  const { container, rerender, unmount } = render(<TestComponent enter={true} />)
   rerender(<TestComponent enter={false} />)
   expect(container.textContent).toEqual('exiting')
+  // Unmounting clears the transition timer, which would otherwise fire after the test
+  unmount()
 })
 
 it('should change to "exited" state when "enter" changes and "exitTimeout" has fired', () => {

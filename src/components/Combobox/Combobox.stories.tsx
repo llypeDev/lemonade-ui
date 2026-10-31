@@ -188,3 +188,40 @@ Inline.args = {
   showSearchBox: true,
   label: '',
 }
+
+// Open lists for the visual tests. The debounce is zero because the visual tests freeze the clock, which keeps a
+// debounce from ever firing.
+export const OpenList = (args) => (
+  <div style={{ minHeight: '22rem' }}>
+    <Combobox<Fruit> {...args} value={fruits[2]} open debounceMilliseconds={0} itemToString={(item) => item?.label} />
+  </div>
+)
+
+export const OpenMultiSelect = (args) => (
+  <div style={{ minHeight: '22rem' }}>
+    <Combobox<Fruit>
+      {...args}
+      multiple
+      value={[fruits[0], fruits[3]]}
+      open
+      debounceMilliseconds={0}
+      itemIsEqual={(a, b) => a.value === b.value}
+      itemToString={(item) => item?.label}
+    />
+  </div>
+)
+
+export const OpenInline = (args) => (
+  <div style={{ minHeight: '22rem' }}>
+    <Combobox<Fruit>
+      {...args}
+      inline
+      value={fruits[2]}
+      open
+      debounceMilliseconds={0}
+      defaultButtonText='Fruit'
+      searchBoxPlaceholder='Search...'
+      itemToString={(item) => item?.label}
+    />
+  </div>
+)

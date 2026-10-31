@@ -65,7 +65,7 @@ it('should apply primary color when status is active', () => {
   expect(getComputedStyle(stepLabel).color).toBe('rgb(94, 115, 0)')
 })
 
-it('should apply disabled text color when status is inactive', () => {
+it('should apply a readable secondary text color when status is inactive', () => {
   const mockContextValue = createMockStepperContext()
 
   const { getByText } = render(
@@ -76,7 +76,8 @@ it('should apply disabled text color when status is inactive', () => {
 
   const stepLabel = getByText('Step 1')
 
-  expect(getComputedStyle(stepLabel).color).toBe('rgb(170, 170, 185)')
+  // text.secondary, about 5.5:1 on white; text.disabled was about 2.3:1
+  expect(getComputedStyle(stepLabel).color).toBe('rgb(105, 105, 121)')
 })
 
 it('should apply main text color when status is completed', () => {
