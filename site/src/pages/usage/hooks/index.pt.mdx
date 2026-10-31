@@ -1,0 +1,33 @@
+import { Demo } from '../../../components/Demo'
+
+# Hooks
+
+O Lemonade exporta alguns hooks para necessidades comuns das telas feitas com os seus componentes. Eles são importados de `@lemonade/ui`, como os componentes.
+
+## useDisclosure
+
+Guarda se algo está aberto, como um modal, um drawer ou um popover. Ele retorna `open`, `setOpen` e as funções `onOpen`, `onClose` e `onToggle`, que continuam as mesmas entre as renderizações. Ele recebe o estado inicial, `false` por padrão.
+
+<Demo src='pages/usage/hooks/UseDisclosure' />
+
+## useDebounce
+
+Retorna um valor só depois que ele para de mudar por um tempo, 300 ms por padrão, como o texto de um campo de busca. Use-o para que a busca rode quando o usuário pausa, e não a cada tecla.
+
+<Demo src='pages/usage/hooks/UseDebounce' />
+
+## useLocalStorage
+
+Guarda um valor no `localStorage` do navegador, como uma preferência do usuário, para que ele sobreviva ao recarregar a página. Ele funciona como o `useState`, com uma chave e um valor inicial, e retorna uma terceira função que remove o valor. O valor é salvo como JSON e acompanha as mudanças feitas em outras abas. Quando o armazenamento está bloqueado ou cheio, o valor continua funcionando na página atual.
+
+<Demo src='pages/usage/hooks/UseLocalStorage' />
+
+## useHotkeys
+
+Roda uma função quando o usuário aperta um atalho de teclado, como `mod+k` ou `?`. Ele recebe um atalho ou uma lista deles. Os modificadores são `ctrl`, `alt`, `shift`, `meta` e `mod`, que é ⌘ nos dispositivos Apple e Ctrl nos outros; as teclas com nome incluem `esc`, `enter`, `space`, `up` e `delete`.
+
+Por padrão, os atalhos não rodam enquanto o foco está em um campo de texto, onde o usuário digita essas teclas; o `enableOnFormFields` muda isso. O `enabled` desliga um atalho, o `target` o limita a uma parte da página, e o `preventDefault: false` mantém a ação do navegador.
+
+<Demo src='pages/usage/hooks/UseHotkeys' />
+
+Os atalhos não devem ser o único jeito de fazer algo. Liste-os onde o usuário possa encontrá-los, como com o componente `Kbd`, e evite teclas únicas que os leitores de tela usam, a não ser que o usuário possa desligá-las.

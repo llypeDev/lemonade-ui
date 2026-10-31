@@ -39,3 +39,21 @@ O componente indica ao usuário o progresso do _upload_ e fornece feedbacks sobr
     </tr>
   </tbody>
 </table>
+
+## Uso
+
+O `FileUploader` aceita arquivos clicados ou arrastados sobre ele. O `onDropAccepted` recebe os arquivos aceitos, e `accept`, `maxSize` e `multiple` escolhem quais arquivos ele aceita. O `file` mostra o progresso de um único upload. O texto vem dos textos de locale por padrão, e o `text` o troca.
+
+<Demo src='pages/components/file-uploader/FileUploader' />
+
+## Vários arquivos
+
+Com `multiple`, mostre os arquivos em um `FileList`. Cada arquivo tem um `id`, um `name`, seu `size` e um `status`: `uploading`, com seu `progress`, `done` ou `error`, com o motivo em `error`. O `onRemove` adiciona um botão para remover cada arquivo, e o `onRetry` um botão para enviar de novo os arquivos que falharam.
+
+<Demo src='pages/components/file-uploader/FileList' />
+
+Os arquivos que o uploader recusa, como um arquivo maior que o `maxSize` ou de um tipo fora do `accept`, aparecem abaixo dele com o motivo, como "foto.png · Não adicionado: Maior que 5 MB". O `showRejections={false}` esconde essa lista, para aplicações que mostram suas próprias mensagens.
+
+## Acessibilidade
+
+O uploader é um botão que abre o seletor de arquivos pelo teclado. Os arquivos recusados são anunciados quando aparecem. No `FileList`, o status de cada arquivo é escrito, não só indicado pelo ícone, e os botões têm o nome do seu arquivo, como "Remover contract.pdf".

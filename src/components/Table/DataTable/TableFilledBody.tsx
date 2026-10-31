@@ -12,10 +12,17 @@ export interface TableFilledBodyProps extends Pick<DataTableProps, 'columns' | '
    * Highlights the selected rows
    */
   isRowSelected?(row: any): boolean
+
+  /**
+   * Details of a row, shown in a row below it when `isRowExpanded` says so
+   */
+  renderExpanded?(row: any): React.ReactNode
+  isRowExpanded?(row: any): boolean
+  getDetailsId?(row: any): string
 }
 
 export function TableFilledBody(props: TableFilledBodyProps) {
-  const { columns, rows, loading, onRowClick, isRowSelected } = props
+  const { columns, rows, loading, onRowClick, isRowSelected, renderExpanded, isRowExpanded, getDetailsId } = props
   const { classes, css } = useStyles(createStyles)
 
   const handleClick = (row) => (e) => onRowClick(row)
@@ -29,23 +36,41 @@ export function TableFilledBody(props: TableFilledBodyProps) {
       {!loading && isEmpty() && <TablePlaceholderRow colSpan={columns.length} />}
 
       {rows.map((row, idx) => (
-        <TableRow
-          key={idx}
-          onClick={onRowClick && handleClick(row)}
-          style={isRowSelected && isRowSelected(row) && classes.selected}
-        >
-          {columns.map((col, colIdx) => (
-            <TableCell key={colIdx} style={css(defaultColumnStyles(col), col.style)}>
-              {col.render(row)}
-            </TableCell>
-          ))}
-        </TableRow>
+        <React.Fragment key={idx}>
+          <TableRow
+            onClick={onRowClick && handleClick(row)}
+            style={isRowSelected && isRowSelected(row) && classes.selected}
+          >
+            {columns.map((col, colIdx) => (
+              <TableCell key={colIdx} style={css(defaultColumnStyles(col), col.style)}>
+                {col.render(row)}
+              </TableCell>
+            ))}
+          </TableRow>
+          {renderExpanded && isRowExpanded && isRowExpanded(row) && (
+            <TableRow style={classes.detailsRow}>
+              <TableCell colSpan={columns.length} id={getDetailsId && getDetailsId(row)} style={classes.details}>
+                {renderExpanded(row)}
+              </TableCell>
+            </TableRow>
+          )}
+        </React.Fragment>
       ))}
     </TableBody>
   )
 }
 
 const createStyles = (theme: Theme) => ({
+  detailsRow: {
+    // The details belong to the row above, so the hover of the table leaves them alone
+    '&& td, &&:hover td': {
+      background: theme.pallete.surface.background,
+    },
+  } as CSSProperties,
+  details: {
+    height: 'auto',
+    padding: '1rem 1rem 1rem 3rem',
+  } as CSSProperties,
   selected: {
     // Stronger than the hover of the table, so a selected row keeps its color under the pointer
     '&& td': {

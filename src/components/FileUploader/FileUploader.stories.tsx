@@ -1,6 +1,7 @@
 import { action } from '@storybook/addon-actions'
-import React from 'react'
+import React, { useState } from 'react'
 
+import { FileList, FileListItem } from './FileList'
 import { FileUploader } from './FileUploader'
 
 export default {
@@ -54,3 +55,39 @@ export const Completed = () => (
     onDragLeave={action('onDragLeave')}
   />
 )
+
+export const MultipleFiles = () => {
+  const [files, setFiles] = useState<FileListItem[]>([
+    { id: '1', name: 'contract.pdf', size: 245000, status: 'done' },
+    { id: '2', name: 'photo.jpg', size: 1800000, status: 'uploading', progress: 42 },
+    { id: '3', name: 'notes.docx', size: 12000, status: 'error', error: 'The server did not answer' },
+  ])
+
+  return (
+    <div style={{ maxWidth: '32rem' }}>
+      <FileUploader
+        multiple
+        accept='application/pdf,image/*'
+        maxSize={5000000}
+        onDropAccepted={(accepted) =>
+          setFiles([
+            ...files,
+            ...accepted.map((file, index) => ({
+              id: `${Date.now()}-${index}`,
+              name: file.name,
+              size: file.size,
+              status: 'done' as const,
+            })),
+          ])
+        }
+      />
+      <FileList
+        files={files}
+        onRemove={(id) => setFiles(files.filter((file) => file.id !== id))}
+        onRetry={(id) =>
+          setFiles(files.map((file) => (file.id === id ? { ...file, status: 'uploading', progress: 0 } : file)))
+        }
+      />
+    </div>
+  )
+}

@@ -15,6 +15,9 @@ const locale = {
   banner: {
     close: 'Close announcement',
   },
+  bottomNavigation: {
+    label: 'Main',
+  },
   calendar: {
     nextMonth: 'Next month',
     previousMonth: 'Previous month',
@@ -65,6 +68,9 @@ const locale = {
     selectedOther: '{count} rows selected',
     clearSelection: 'Clear selection',
     bulkActions: 'Actions for the selected rows',
+    expand: 'Show details of {row}',
+    collapse: 'Hide details of {row}',
+    columns: 'Columns',
   },
   dateInput: {
     placeholder: 'dd/mm/yyyy',
@@ -80,10 +86,36 @@ const locale = {
     more: 'Show more',
     less: 'Show less',
   },
+  fileUploader: {
+    text: 'Click or drag files here to upload',
+    tooLarge: 'Larger than {size}',
+    wrongType: 'This type of file is not accepted',
+    tooMany: 'Too many files',
+    rejected: 'Not added',
+    remove: 'Remove {file}',
+    retry: 'Try again',
+    uploading: 'Uploading',
+    done: 'Uploaded',
+    failed: 'Upload failed',
+  },
+  filterBar: {
+    search: 'Search',
+    active: 'Active filters',
+    remove: 'Remove filter {filter}',
+    clear: 'Clear filters',
+    resultsOne: '1 result',
+    resultsOther: '{count} results',
+  },
   inlineEdit: {
     edit: 'Edit',
     save: 'Save',
     cancel: 'Cancel',
+  },
+  loadMore: {
+    button: 'Load more',
+    showing: 'Showing {loaded} of {total}',
+    all: 'All {total} items are shown',
+    loaded: '{count} more items loaded.',
   },
   imageViewer: {
     label: 'Image viewer',
@@ -201,6 +233,12 @@ const locale = {
     empty: 'No items',
     noResults: 'No results',
     moved: '{count} moved to {list}.',
+  },
+  wizard: {
+    step: 'Step {current} of {total}',
+    back: 'Back',
+    next: 'Next',
+    finish: 'Finish',
   },
   tour: {
     step: 'Step {current} of {total}',

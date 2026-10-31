@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Hover card
+
+O hover card mostra uma prévia quando o ponteiro para sobre um elemento ou o teclado o foca, como o perfil de uma pessoa sobre o nome dela ou um resumo da página para onde um link leva.
+
+## Boas práticas
+
+- Use-o só para acrescentar informação; tudo o que está no card também precisa ser alcançável seguindo o elemento, já que quem usa toque ou teclado pode nunca vê-lo.
+- Mantenha o conteúdo curto e sem ações; para conteúdo com botões, use um `Popover` ou um `Toggletip`.
+- Para o nome curto de um ícone, use um `Tooltip`.
+
+## Uso
+
+O `HoverCard` envolve um elemento, geralmente um `Link`, e recebe a prévia em `content`. O card aparece depois de `openDelay`, 500 ms por padrão, e some `closeDelay` depois que o ponteiro sai, 300 ms por padrão, para que o ponteiro possa entrar no card. O `placement` escolhe onde o card abre.
+
+<Demo src='pages/components/hover-card/HoverCard' />
+
+## Acessibilidade
+
+O card também aparece quando o elemento recebe o foco do teclado, e o elemento é descrito pelo card enquanto ele está aberto. O Escape esconde o card. Como o card não tem conteúdo focável, o foco fica no elemento.

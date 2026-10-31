@@ -36,3 +36,21 @@ File Uploader shows the progress of the upload and provides feedback on the uplo
     </tr>
   </tbody>
 </table>
+
+## Usage
+
+`FileUploader` accepts files clicked or dropped on it. `onDropAccepted` receives the accepted files, and `accept`, `maxSize` and `multiple` choose which files it takes. `file` shows the progress of a single upload. The text comes from the locale strings by default, and `text` changes it.
+
+<Demo src='pages/components/file-uploader/FileUploader' />
+
+## Multiple files
+
+With `multiple`, show the files in a `FileList`. Each file has an `id`, a `name`, its `size` and a `status`: `uploading`, with its `progress`, `done` or `error`, with the reason in `error`. `onRemove` adds a button to remove each file, and `onRetry` a button to upload again the files that failed.
+
+<Demo src='pages/components/file-uploader/FileList' />
+
+Files the uploader rejects, such as a file larger than `maxSize` or of a type not in `accept`, are listed below it with the reason, such as "photo.png · Not added: Larger than 5 MB". `showRejections={false}` hides that list, for applications that show their own messages.
+
+## Accessibility
+
+The uploader is a button that opens the file picker with the keyboard. The rejected files are announced when they appear. In the `FileList`, the status of each file is written, not only shown by its icon, and the buttons are named after their file, such as "Remove contract.pdf".

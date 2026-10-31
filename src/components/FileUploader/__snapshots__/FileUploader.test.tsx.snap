@@ -166,7 +166,9 @@ exports[`should render correct without extension 1`] = `
           </svg>
           <span
             class="emotion-1"
-          />
+          >
+            Click or drag files here to upload
+          </span>
         </div>
       </div>
     </div>
@@ -307,7 +309,9 @@ exports[`should render correctly at initial state 1`] = `
           </svg>
           <span
             class="emotion-1"
-          />
+          >
+            Click or drag files here to upload
+          </span>
         </div>
       </div>
     </div>
@@ -503,7 +507,9 @@ exports[`should render correctly at uploading state 1`] = `
           </svg>
           <span
             class="emotion-1"
-          />
+          >
+            Click or drag files here to upload
+          </span>
         </div>
       </div>
     </div>
@@ -709,7 +715,9 @@ exports[`should render correctly complete state 1`] = `
           </svg>
           <span
             class="emotion-1"
-          />
+          >
+            Click or drag files here to upload
+          </span>
         </div>
       </div>
     </div>

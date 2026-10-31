@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Load more
+
+O load more é um botão no fim de uma lista que carrega os próximos itens, com o número de itens mostrados. É uma alternativa acessível à rolagem infinita: o usuário decide quando carregar, os novos itens são anunciados e o foco vai para o primeiro deles.
+
+## Boas práticas
+
+- Use-o para feeds e listas longas em que as pessoas navegam; para listas em que se procura um item específico, use um `Paginator` ou uma busca.
+- Mostre quantos itens existem quando souber.
+- Mantenha alcançável o que vem depois da lista, como o rodapé; a rolagem infinita o esconde.
+
+## Uso
+
+O `LoadMore` recebe o número de itens na tela em `loaded` e, quando você souber, o `total`. O `onLoadMore` carrega os próximos itens; enquanto uma promise retornada está pendente, o botão mostra um spinner, ou use `loading` para um carregamento controlado pela sua aplicação. O botão some quando `loaded` chega ao `total`, ou quando `hasMore` é `false`. Com `listRef`, o elemento cujos filhos são os itens, o foco vai para o primeiro item novo depois de um carregamento.
+
+<Demo src='pages/components/load-more/LoadMore' />
+
+## Acessibilidade
+
+O botão informa que está ocupado enquanto carrega. Depois de um carregamento, uma mensagem de status diz quantos itens foram carregados, e o foco vai para o primeiro item novo, ou para o primeiro link ou botão dentro dele, para que quem usa teclado continue dali.

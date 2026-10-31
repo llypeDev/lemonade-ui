@@ -1,0 +1,24 @@
+import { Demo } from '../../../components/Demo'
+
+# Wizard
+
+The wizard splits a long form in steps, such as signing up or placing an order. It shows the steps above the content, checks each step before going forward and has buttons to go back and forward.
+
+## Best practices
+
+- Use it when a form is long and its parts follow an order; a short form fits on one page.
+- Keep the steps few, with short titles, and let the user go back without losing what they typed.
+- Show the errors of a step in the step itself, next to the fields.
+- Let the user review everything before the last button, and name that button after what it does, such as "Create account".
+
+## Usage
+
+`Wizard` takes the `steps`, each with an `id`, a `title`, its `content` and an optional `validate`, which returns `false` to stay on the step. A promise keeps the next button busy until it resolves. `onFinish` runs on the last step; `finishLabel` changes its button. The wizard keeps its own step, or follows `step` and `onStepChange`.
+
+Only the current step is on the page, so keep the values of the form outside the steps, as in the demo.
+
+<Demo src='pages/components/wizard/Wizard' />
+
+## Accessibility
+
+The content is a region named after the step, such as "Step 2 of 3 Plan". When the step changes, the focus moves to its title, so screen readers say where the user is. The buttons say "Back", "Next" and "Finish" by default, from the locale strings.

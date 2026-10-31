@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Load more
+
+Load more is a button at the end of a list that loads the next items, with the number of items shown. It is an accessible alternative to infinite scrolling: the user decides when to load, the new items are announced and the focus moves to the first of them.
+
+## Best practices
+
+- Use it for feeds and long lists where people browse; for lists where people look for a given item, use a `Paginator` or a search.
+- Show how many items there are when you know it.
+- Keep what comes after the list, such as the footer, reachable; infinite scrolling hides it.
+
+## Usage
+
+`LoadMore` takes the number of items on the screen in `loaded` and, when you know it, the `total`. `onLoadMore` loads the next items; while a returned promise is pending, the button shows a spinner, or use `loading` for loading controlled by your application. The button hides when `loaded` reaches `total`, or when `hasMore` is `false`. With `listRef`, the element whose children are the items, the focus moves to the first new item after a load.
+
+<Demo src='pages/components/load-more/LoadMore' />
+
+## Accessibility
+
+The button tells it is busy while loading. After a load, a status message says how many items were loaded, and the focus moves to the first new item, or to the first link or button in it, so keyboard users continue from there.

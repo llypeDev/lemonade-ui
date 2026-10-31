@@ -17,6 +17,11 @@ export interface ListProps extends Omit<React.HTMLAttributes<HTMLUListElement>, 
   bordered?: boolean
 
   children?: React.ReactNode
+  /**
+   * Ref of the list element, such as for the `listRef` of a `LoadMore`
+   */
+  innerRef?: React.Ref<HTMLUListElement>
+
   style?: ExternalStyles
 }
 
@@ -25,10 +30,10 @@ export interface ListProps extends Omit<React.HTMLAttributes<HTMLUListElement>, 
  * and items with a picture, a description and actions.
  */
 export function List(props: ListProps) {
-  const { divided = true, bordered = false, style, ...rest } = props
+  const { divided = true, bordered = false, innerRef, style, ...rest } = props
   const { classes, css } = useStyles(createStyles, divided)
 
-  return <ul className={css(classes.list, bordered && classes.bordered, style)} {...rest} />
+  return <ul ref={innerRef} className={css(classes.list, bordered && classes.bordered, style)} {...rest} />
 }
 
 const createStyles = (theme: Theme, divided: boolean) => ({

@@ -1,0 +1,21 @@
+import { Demo } from '../../../components/Demo'
+
+# Filter bar
+
+The filter bar holds the search, the filters and the active filters of a list or a table, with the number of results. Each filter opens its controls in a popover, and each active filter shows as a tag that can be removed.
+
+## Best practices
+
+- Put the filters people use most first, and keep the bar to a few of them.
+- Write the active filters with their name and value, such as "Status: Paid", so they make sense alone.
+- Show the number of results, and an empty state with a way to clear the filters when nothing matches.
+
+## Usage
+
+`FilterBar` shows a search field when it has `onSearchChange`, with `search` as its text. Each item of `filters` has an `id`, a `label`, the `content` of its popover, such as checkboxes, and an optional `count` of picked values. `activeFilters` are the tags, removed with `onRemoveFilter`; `onClearFilters` adds a button that removes all of them. `resultCount` shows the number of results, and `actions` holds buttons at the end of the bar.
+
+<Demo src='pages/components/filter-bar/FilterBar' />
+
+## Accessibility
+
+The search field is a search landmark. The number of results is a status message, announced when it changes. The tags are a group named "Active filters", and each remove button is named after its filter, such as "Remove filter Status: Paid".

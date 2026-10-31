@@ -1,0 +1,23 @@
+import { Demo } from '../../../components/Demo'
+
+# Currency field
+
+O currency field é um campo de texto para um valor em dinheiro, como um preço ou um pagamento. Os dígitos preenchem o valor a partir dos centavos, como nos aplicativos de banco: digitar 1, 2, 3 e 4 mostra R\$ 12,34.
+
+## Boas práticas
+
+- Use-o para valores em dinheiro; para outros números, como quantidades, use um `NumberField`.
+- Diga no rótulo qual é o valor, como "Preço" ou "Valor da transferência".
+- Informe os limites no texto de ajuda quando houver um mínimo e um máximo.
+
+## Uso
+
+O `CurrencyField` recebe as props de um `TextField`. O `value` é um número, como `12.34`, ou `null` quando o campo está vazio, e o `onChange` recebe o novo número. `currency`, `decimalSeparator`, `thousandsSeparator` e `decimals` escolhem como o valor é escrito, e são `R$`, `,`, `.` e `2` por padrão. Com `allowNegative`, as teclas `-` e `+` trocam o sinal. `min` e `max` corrigem o valor quando o campo perde o foco.
+
+<Demo src='pages/components/currency-field/CurrencyField' />
+
+`formatCurrency(value)` escreve um valor como o campo o mostra, como em uma tabela de preços.
+
+## Acessibilidade
+
+O campo abre o teclado numérico nos celulares. O cursor fica no fim do valor, então cada dígito empurra os outros para a esquerda. Os leitores de tela leem o valor com a moeda, como escrito no campo.

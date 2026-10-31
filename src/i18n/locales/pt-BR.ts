@@ -17,6 +17,9 @@ const locale: LocaleConfiguration = {
   banner: {
     close: 'Fechar aviso',
   },
+  bottomNavigation: {
+    label: 'Principal',
+  },
   calendar: {
     nextMonth: 'Próximo mês',
     previousMonth: 'Mês anterior',
@@ -67,6 +70,9 @@ const locale: LocaleConfiguration = {
     selectedOther: '{count} linhas selecionadas',
     clearSelection: 'Limpar seleção',
     bulkActions: 'Ações para as linhas selecionadas',
+    expand: 'Mostrar detalhes de {row}',
+    collapse: 'Esconder detalhes de {row}',
+    columns: 'Colunas',
   },
   dateInput: {
     placeholder: 'dd/mm/aaaa',
@@ -82,10 +88,36 @@ const locale: LocaleConfiguration = {
     more: 'Ver mais',
     less: 'Ver menos',
   },
+  fileUploader: {
+    text: 'Clique ou arraste arquivos para enviar',
+    tooLarge: 'Maior que {size}',
+    wrongType: 'Este tipo de arquivo não é aceito',
+    tooMany: 'Arquivos demais',
+    rejected: 'Não adicionado',
+    remove: 'Remover {file}',
+    retry: 'Tentar de novo',
+    uploading: 'Enviando',
+    done: 'Enviado',
+    failed: 'Falha no envio',
+  },
+  filterBar: {
+    search: 'Pesquisar',
+    active: 'Filtros ativos',
+    remove: 'Remover o filtro {filter}',
+    clear: 'Limpar filtros',
+    resultsOne: '1 resultado',
+    resultsOther: '{count} resultados',
+  },
   inlineEdit: {
     edit: 'Editar',
     save: 'Salvar',
     cancel: 'Cancelar',
+  },
+  loadMore: {
+    button: 'Carregar mais',
+    showing: 'Mostrando {loaded} de {total}',
+    all: 'Todos os {total} itens estão na tela',
+    loaded: 'Mais {count} itens carregados.',
   },
   imageViewer: {
     label: 'Visualizador de imagens',
@@ -204,6 +236,12 @@ const locale: LocaleConfiguration = {
     empty: 'Nenhum item',
     noResults: 'Nenhum resultado',
     moved: '{count} movidos para {list}.',
+  },
+  wizard: {
+    step: 'Etapa {current} de {total}',
+    back: 'Voltar',
+    next: 'Avançar',
+    finish: 'Concluir',
   },
   tour: {
     step: 'Passo {current} de {total}',
