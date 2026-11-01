@@ -4,7 +4,7 @@ import { ExternalStyles, focusBoxShadow, Theme, useStyles } from '../../styles'
 import { Spinner } from '../Spinner'
 import Times from '../Icon/generated/TimesDefault'
 import { HFlow } from '../HFlow'
-import { Checkbox } from '../Checkbox'
+import { CheckboxMark } from '../Checkbox/Checkbox'
 import { ComboboxProps } from './Combobox'
 
 export interface ComboboxComponents<T> {
@@ -88,10 +88,8 @@ export const ComboboxMultiselectMenuItem = React.forwardRef(
         {...rest}
       >
         <HFlow hSpacing={0.5} alignItems='center'>
-          {/* The option tells screen readers whether it is checked, so the checkbox is only drawn */}
-          <span aria-hidden='true'>
-            <Checkbox style={{ pointerEvents: 'none' }} checked={selected} tabIndex={-1} readOnly />
-          </span>
+          {/* The option tells screen readers whether it is checked, so the box is only drawn, without an input */}
+          <CheckboxMark checked={selected} style={classes.checkboxMark} />
           {children ?? itemToString(item)}
         </HFlow>
       </li>
@@ -207,6 +205,11 @@ const createStyles = (theme: Theme) => ({
       boxShadow: focusBoxShadow(theme, 'primary', 'inset'),
     },
   },
+
+  checkboxMark: {
+    // The same space the input of a Checkbox leaves before its box, so the options keep their alignment
+    marginLeft: 4,
+  } as CSSProperties,
 
   loadingItem: {
     background: theme.pallete.surface.background,

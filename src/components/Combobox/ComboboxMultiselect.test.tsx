@@ -799,5 +799,13 @@ it('tells screen readers which options are checked', async () => {
   expect(updatedOptions[0]).toHaveAttribute('aria-checked', 'false')
   expect(updatedOptions[1]).toHaveAttribute('aria-checked', 'true')
   expect(baseElement.querySelector('[role="listbox"]')).toHaveAttribute('aria-multiselectable', 'true')
-  expect(updatedOptions[1].querySelector('input').closest('[aria-hidden="true"]')).toBeTruthy()
+})
+
+it('draws the check of each option without an input inside the option', async () => {
+  const { baseElement } = render(<ComboboxTest open />)
+  await waitForOptions(baseElement)
+
+  baseElement.querySelectorAll('[role="option"]').forEach((option) => {
+    expect(option.querySelector('input')).toBeNull()
+  })
 })
