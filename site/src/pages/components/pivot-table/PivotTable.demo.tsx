@@ -76,6 +76,7 @@ function PivotTableDemo() {
         numberKeys={['total']}
         isBuilding={false}
         initialFields={initialFields}
+        headingLevel={3}
         onSubmit={handleSubmit}
         onReset={() => setTable(null)}
         aggregator={{ value: aggregator, onChange: setAggregator, key: aggregatorKey, onKeyChange: setAggregatorKey }}

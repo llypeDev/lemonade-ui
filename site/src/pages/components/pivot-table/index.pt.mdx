@@ -25,7 +25,7 @@ import {
 
 Ela tem três partes:
 
-- O `PivotTableBoard` é o painel. O `keys` guarda os valores de cada chave que o usuário pode arrastar, o `keyMapping` seus nomes, formatadores e ordens, e o `numberKeys` as chaves numéricas que agregadores como a média leem. O `aggregator` guarda o agregador escolhido pelo usuário. O `onSubmit` recebe as chaves das linhas, as das colunas e os valores que ficaram em cada filtro quando o usuário pede a tabela, e o `onReset` é chamado quando o usuário a limpa.
+- O `PivotTableBoard` é o painel. O `keys` guarda os valores de cada chave que o usuário pode arrastar, o `keyMapping` seus nomes, formatadores e ordens, e o `numberKeys` as chaves numéricas que agregadores como a média leem. O `aggregator` guarda o agregador escolhido pelo usuário. O `onSubmit` recebe as chaves das linhas, as das colunas e os valores que ficaram em cada filtro quando o usuário pede a tabela, e o `onReset` é chamado quando o usuário a limpa. Os títulos das quatro áreas do painel são títulos `h4`; use o `headingLevel` para que sigam os títulos da página.
 - O `PivotTableGrid` desenha a tabela a partir de duas árvores, com os valores agrupados pelas chaves das linhas e das colunas e seus totais.
 - O `PivotTableProvider` envolve a grade e colore cada célula pelo seu valor, até `maxValue`, com um `suffix` como `%`.
 
