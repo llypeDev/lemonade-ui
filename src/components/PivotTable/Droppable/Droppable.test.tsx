@@ -109,6 +109,13 @@ describe('Droppable', () => {
   })
 
   describe('Checks', () => {
+    // These renders throw on purpose, and React and jsdom report each error on the console
+    let consoleError: jest.SpyInstance
+    beforeEach(() => {
+      consoleError = jest.spyOn(console, 'error').mockImplementation(() => undefined)
+    })
+    afterEach(() => consoleError.mockRestore())
+
     it('should throw an error when the filter keys are empty', () => {
       expect(() => {
         render(createFilterComponent({ filter: { ...filter, keys: new Map<keyof Fruit, string[]>() } }))
