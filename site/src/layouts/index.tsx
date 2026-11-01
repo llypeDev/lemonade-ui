@@ -1,3 +1,6 @@
+import { LocaleContext } from '@lemonade/ui'
+import enUs from '@lemonade/ui/i18n/locales/en-US'
+import ptBr from '@lemonade/ui/i18n/locales/pt-BR'
 import { MDXProvider } from '@mdx-js/react'
 import React from 'react'
 import { Helmet } from 'react-helmet'
@@ -5,6 +8,9 @@ import { Helmet } from 'react-helmet'
 import * as MDXComponents from '../components/mdx'
 
 export default function Layout({ children, pageContext }) {
+  // The texts inside the components, such as "Loading...", follow the language of the page
+  const locale = pageContext.intl.language === 'pt' ? ptBr : enUs
+
   return (
     <MDXProvider components={mdxComponents}>
       <Helmet
@@ -21,7 +27,7 @@ export default function Layout({ children, pageContext }) {
         <link rel='stylesheet' href='//cdnjs.cloudflare.com/ajax/libs/prism/1.17.1/themes/prism-okaidia.min.css' />
       </Helmet>
 
-      {children}
+      <LocaleContext.Provider value={locale}>{children}</LocaleContext.Provider>
     </MDXProvider>
   )
 }
