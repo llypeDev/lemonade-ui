@@ -201,7 +201,8 @@ const createStyles = (theme: Theme, length: number) => ({
   root: {
     position: 'relative',
     display: 'inline-grid',
-    gridTemplateColumns: `repeat(${length}, 2.5rem)`,
+    // The boxes get narrower when the field has less room than they need, as on small phones
+    gridTemplateColumns: `repeat(${length}, minmax(0, 2.5rem))`,
     gap: '0.5rem',
     maxWidth: '100%',
   } as CSSProperties,

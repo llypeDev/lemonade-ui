@@ -134,7 +134,8 @@ const createStyles = (theme: Theme) => ({
     fontSize: theme.typography.sizes.button,
     fontWeight: 'bold',
     lineHeight: '1.5rem',
-    whiteSpace: 'nowrap',
+    // Long labels break into lines when the options do not fit side by side, as on small phones
+    textAlign: 'center',
     cursor: 'pointer',
     userSelect: 'none',
     border: `1px solid ${theme.pallete.gray.c40}`,
