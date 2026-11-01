@@ -1,9 +1,9 @@
-import { HFlow, Tag } from '@lemonade/ui'
+import { Tag } from '@lemonade/ui'
 import React from 'react'
 
 function TagRemovable() {
   return (
-    <HFlow>
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
       <Tag removable onRemove={console.log}>
         Normal
       </Tag>
@@ -19,7 +19,7 @@ function TagRemovable() {
       <Tag type='success' removable onRemove={console.log}>
         Success
       </Tag>
-    </HFlow>
+    </div>
   )
 }
 

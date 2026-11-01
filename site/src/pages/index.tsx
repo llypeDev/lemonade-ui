@@ -109,7 +109,8 @@ const createStyles = (theme: Theme, shine = '') => ({
     fontSize: 24,
   } as React.CSSProperties,
   animatedTitle: {
-    fontSize: 132,
+    // Shrinks with narrow screens, so the word fits beside the page padding
+    fontSize: 'min(132px, 16vw)',
     lineHeight: 1,
     fontWeight: 'bold',
     background: `linear-gradient(80deg, ${theme.pallete.primary.c40} 20%, ${theme.pallete.primary.c60} 40%, ${theme.pallete.primary.c70} 60%, ${theme.pallete.primary.c40} 80%)`,

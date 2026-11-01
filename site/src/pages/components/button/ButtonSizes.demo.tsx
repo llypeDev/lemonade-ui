@@ -1,10 +1,10 @@
-import { Button, HFlow, VFlow } from '@lemonade/ui'
+import { Button, VFlow } from '@lemonade/ui'
 import React from 'react'
 
 function ButtonSizes() {
   return (
     <VFlow>
-      <HFlow alignItems='flex-end'>
+      <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-end', gap: '1rem' }}>
         <Button kind='primary' size='large'>
           Large
         </Button>
@@ -14,7 +14,7 @@ function ButtonSizes() {
         <Button kind='primary' size='small'>
           Small
         </Button>
-      </HFlow>
+      </div>
       <Button kind='primary' block>
         Block button
       </Button>

@@ -1,9 +1,9 @@
-import { HFlow, Tag } from '@lemonade/ui'
+import { Tag } from '@lemonade/ui'
 import React from 'react'
 
 function TagIcon() {
   return (
-    <HFlow>
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
       <Tag icon='userFilled'>Normal</Tag>
       <Tag type='alert' icon='exclamationTriangleFilled'>
         Alert
@@ -17,7 +17,7 @@ function TagIcon() {
       <Tag type='success' icon='checkCircleFilled'>
         Success
       </Tag>
-    </HFlow>
+    </div>
   )
 }
 

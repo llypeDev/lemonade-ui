@@ -1,6 +1,7 @@
-import { Heading, Link as UiLink, Text, Theme, useStyles } from '@lemonade/ui'
+import { focusBoxShadow, Heading, Link as UiLink, Text, Theme, useStyles } from '@lemonade/ui'
 import { gray } from '@lemonade/ui/styles/colors'
-import React from 'react'
+import { useIntl } from 'gatsby-plugin-intl'
+import React, { useEffect, useRef, useState } from 'react'
 import { CSSProperties } from 'react'
 
 import { Image as UiImage } from '../Image'
@@ -44,7 +45,32 @@ export function Blockquote(props: any) {
 
 export function Table(props: any) {
   const { classes } = useStyles(createStyles)
-  return <table className={classes.table} {...props} />
+  const intl = useIntl()
+  const wrapperRef = useRef<HTMLDivElement>(null)
+  const [scrollable, setScrollable] = useState(false)
+
+  // A wide table scrolls inside its own box instead of making the whole page wider. While it scrolls, the box takes
+  // the focus, so keyboard users can scroll it with the arrow keys.
+  useEffect(() => {
+    const wrapper = wrapperRef.current
+    const check = () => setScrollable(wrapper.scrollWidth > wrapper.clientWidth)
+    const observer = new ResizeObserver(check)
+    observer.observe(wrapper)
+    observer.observe(wrapper.firstElementChild)
+    return () => observer.disconnect()
+  }, [])
+
+  return (
+    <div
+      ref={wrapperRef}
+      className={classes.tableWrapper}
+      role={scrollable ? 'region' : undefined}
+      aria-label={scrollable ? intl.formatMessage({ id: 'scrollable-table' }) : undefined}
+      tabIndex={scrollable ? 0 : undefined}
+    >
+      <table className={classes.table} {...props} />
+    </div>
+  )
 }
 
 export function Pre(props: any) {
@@ -97,11 +123,18 @@ const createStyles = (theme: Theme) => ({
       borderTop: `2px solid ${theme.pallete.primary.c80}`,
     },
   } as CSSProperties,
+  tableWrapper: {
+    overflowX: 'auto',
+    marginBottom: '2rem',
+    '&:focus': {
+      outline: 'none',
+      boxShadow: focusBoxShadow(theme),
+    },
+  } as CSSProperties,
   table: {
     fontSize: '1rem',
     borderCollapse: 'collapse',
     width: '100%',
-    marginBottom: '2rem',
 
     'td, th': {
       borderBottom: `1px solid ${theme.pallete.divider}`,
