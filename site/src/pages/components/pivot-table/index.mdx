@@ -25,7 +25,7 @@ import {
 
 It has three parts:
 
-- `PivotTableBoard` is the board. `keys` holds the values of each key the user can drag, `keyMapping` their names, formatters and orders, and `numberKeys` the numeric keys that aggregators such as the average read. `aggregator` holds the aggregator the user picked. `onSubmit` receives the row keys, the column keys and the values left in each filter when the user asks for the table, and `onReset` is called when the user clears it.
+- `PivotTableBoard` is the board. `keys` holds the values of each key the user can drag, `keyMapping` their names, formatters and orders, and `numberKeys` the numeric keys that aggregators such as the average read. `aggregator` holds the aggregator the user picked. `onSubmit` receives the row keys, the column keys and the values left in each filter when the user asks for the table, and `onReset` is called when the user clears it. The titles of the four areas of the board are `h4` headings; set `headingLevel` so they follow the headings of the page.
 - `PivotTableGrid` draws the table from two trees, with the values grouped by the row keys and the column keys and their totals.
 - `PivotTableProvider` wraps the grid and colors each cell by its value, up to `maxValue`, with a `suffix` such as `%`.
 

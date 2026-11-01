@@ -14,6 +14,8 @@ exports[`PivotTable - Box render should render correctly 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
+  margin: 0;
+  font-size: 0.875rem;
 }
 
 .emotion-1 {
@@ -78,6 +80,8 @@ exports[`PivotTable - Box render should render correctly with children and its s
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
+  margin: 0;
+  font-size: 0.875rem;
 }
 
 .emotion-2 {
@@ -220,6 +224,8 @@ exports[`PivotTable - Box render should render correctly with icon 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
+  margin: 0;
+  font-size: 0.875rem;
 }
 
 .emotion-2 {
@@ -306,6 +312,8 @@ exports[`PivotTable - Box render should render correctly with rotated icon 1`] =
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
+  margin: 0;
+  font-size: 0.875rem;
 }
 
 .emotion-2 {

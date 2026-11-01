@@ -77,6 +77,11 @@ export interface PivotTableBoardProps<T extends object> {
    * Keys that start in the rows, in the columns or with filters
    */
   initialFields?: Array<BoardField<T>>
+
+  /**
+   * Level of the headings of the four areas of the board, so they follow the headings of the page. Defaults to 4.
+   */
+  headingLevel?: 1 | 2 | 3 | 4 | 5 | 6
 }
 
 /**
@@ -85,7 +90,17 @@ export interface PivotTableBoardProps<T extends object> {
  * the filters, and the application draws a `PivotTableGrid`, such as with `buildPivotTableTrees`.
  */
 export function PivotTableBoard<T extends object>(props: PivotTableBoardProps<T>) {
-  const { keys, keyMapping, onSubmit, numberKeys, isBuilding, onReset, aggregator, initialFields } = props
+  const {
+    keys,
+    keyMapping,
+    onSubmit,
+    numberKeys,
+    isBuilding,
+    onReset,
+    aggregator,
+    initialFields,
+    headingLevel = 4,
+  } = props
 
   const { pivotTableBoard: pivotTableBoardLabels } = useLocale()
 
@@ -196,7 +211,7 @@ export function PivotTableBoard<T extends object>(props: PivotTableBoardProps<T>
       <div ref={boardRef}>
         <Grid>
           <Cell md={6} sm={12} xs={12}>
-            <Box label={pivotTableBoardLabels.availableFields}>
+            <Box label={pivotTableBoardLabels.availableFields} headingLevel={headingLevel}>
               <Droppable<T, PivotTableBoardOrigin>
                 data-testid='droppable-available'
                 keyState={availableKeys}
@@ -210,7 +225,7 @@ export function PivotTableBoard<T extends object>(props: PivotTableBoardProps<T>
             </Box>
           </Cell>
           <Cell md={6} sm={12} xs={12}>
-            <Box label={pivotTableBoardLabels.columns} icon='hamburguerMenu' rotation='90'>
+            <Box label={pivotTableBoardLabels.columns} icon='hamburguerMenu' rotation='90' headingLevel={headingLevel}>
               <Droppable<T, PivotTableBoardOrigin>
                 data-testid='droppable-column'
                 keyState={columnKeys}
@@ -224,7 +239,7 @@ export function PivotTableBoard<T extends object>(props: PivotTableBoardProps<T>
             </Box>
           </Cell>
           <Cell md={6} sm={12} xs={12}>
-            <Box label={pivotTableBoardLabels.rows} icon='hamburguerMenu'>
+            <Box label={pivotTableBoardLabels.rows} icon='hamburguerMenu' headingLevel={headingLevel}>
               <Droppable<T, PivotTableBoardOrigin>
                 data-testid='droppable-row'
                 keyState={rowKeys}
@@ -238,7 +253,7 @@ export function PivotTableBoard<T extends object>(props: PivotTableBoardProps<T>
             </Box>
           </Cell>
           <Cell md={6} sm={12} xs={12}>
-            <Box label={pivotTableBoardLabels.kindOfPresentation}>
+            <Box label={pivotTableBoardLabels.kindOfPresentation} headingLevel={headingLevel}>
               <div className={classes.aggregatorsContainer}>
                 <Aggregators
                   numberKeys={numberKeys}

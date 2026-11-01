@@ -59,6 +59,8 @@ exports[`PivotTable - PivotTableBoard should render correctly 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
+  margin: 0;
+  font-size: 0.875rem;
 }
 
 .emotion-1 {
@@ -1035,6 +1037,8 @@ exports[`PivotTable - PivotTableBoard should render with initial fields 1`] = `
   -webkit-justify-content: center;
   -ms-flex-pack: center;
   justify-content: center;
+  margin: 0;
+  font-size: 0.875rem;
 }
 
 .emotion-1 {
