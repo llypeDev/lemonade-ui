@@ -317,6 +317,24 @@ describe('PivotTable - PivotTableBoard', () => {
     await flush()
   })
 
+  it('should use the heading level given for the titles of the four areas', async () => {
+    const { container } = render(
+      <PivotTableBoard<Test>
+        keys={keys}
+        keyMapping={keyMapping}
+        numberKeys={[]}
+        onSubmit={jest.fn()}
+        onReset={jest.fn()}
+        aggregator={aggregator}
+        isBuilding={false}
+        headingLevel={3}
+      />
+    )
+    expect(container.querySelectorAll('h3')).toHaveLength(4)
+    expect(container.querySelector('h4')).toBeNull()
+    await flush()
+  })
+
   describe('onKeyNav', () => {
     it('should move Size from Columns to Available and call handleFilterUpdate when the user presses left arrow key', async () => {
       // Lets pending updates, such as popper positions and debounced loads, settle inside act

@@ -56,4 +56,24 @@ describe('PivotTable - Box', () => {
       expect(container).toMatchSnapshot()
     })
   })
+
+  describe('heading', () => {
+    it('should show the label in an h4 by default', () => {
+      const { getByRole } = render(
+        <Box label='Box'>
+          <div />
+        </Box>
+      )
+      expect(getByRole('heading', { name: 'Box' }).tagName).toBe('H4')
+    })
+
+    it('should show the label in a heading of the level given', () => {
+      const { getByRole } = render(
+        <Box label='Box' headingLevel={3}>
+          <div />
+        </Box>
+      )
+      expect(getByRole('heading', { name: 'Box' }).tagName).toBe('H3')
+    })
+  })
 })
