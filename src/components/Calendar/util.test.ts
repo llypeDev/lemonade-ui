@@ -73,6 +73,24 @@ describe('isBelongingAWeek', () => {
       isBelongingAWeek(new Date('2020-01-21'), { start: new Date('2021-01-17'), end: new Date('2021-01-23') })
     ).toBeFalsy()
   })
+
+  it('compares only the days, whatever the times of the dates', () => {
+    // A week built from a Sunday afternoon starts at that time, as createWeekArray(new Date()) does
+    const week = createWeekArray(new Date(2026, 10, 1, 15, 30))
+    const sundayMorning = new Date(2026, 10, 1, 9, 0)
+    const saturdayNight = new Date(2026, 10, 7, 23, 59)
+
+    expect(isBelongingAWeek(sundayMorning, { start: week[0], end: week[6] })).toBeTruthy()
+    expect(isBelongingAWeek(saturdayNight, { start: week[0], end: week[6] })).toBeTruthy()
+    expect(isBelongingAWeek(new Date(2026, 10, 8, 0, 0), { start: week[0], end: week[6] })).toBeFalsy()
+    expect(isBelongingAWeek(new Date(2026, 9, 31, 23, 59), { start: week[0], end: week[6] })).toBeFalsy()
+  })
+
+  it('does not change the dates it receives', () => {
+    const day = new Date(2026, 10, 1, 9, 0)
+    isBelongingAWeek(day, { start: new Date(2026, 10, 1), end: new Date(2026, 10, 7) })
+    expect(day.getHours()).toBe(9)
+  })
 })
 
 describe('isValidReferenceMonth', () => {

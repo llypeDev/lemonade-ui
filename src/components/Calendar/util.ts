@@ -79,16 +79,19 @@ export const isSameDay = (d1: Date, d2: Date): boolean => {
   return d1.getDate() === d2.getDate() && d1.getMonth() === d2.getMonth() && d1.getFullYear() === d2.getFullYear()
 }
 
+const startOfDay = (date: Date) => new Date(date.getFullYear(), date.getMonth(), date.getDate())
+
 /**
- * Check if the day belongs to the week
+ * Check if the day belongs to the week. Only the days are compared, so the times of the dates do not matter, and the
+ * dates are not changed.
  *
  * @param day A day to check
  * @param week A week
  * @returns Whether the day belongs to the week
  */
 export const isBelongingAWeek = (day: Date, week: Week): boolean => {
-  day.setHours(0, 0, 0, 0)
-  return day >= week.start && day <= week.end
+  const target = startOfDay(day)
+  return target >= startOfDay(week.start) && target <= startOfDay(week.end)
 }
 
 /**
