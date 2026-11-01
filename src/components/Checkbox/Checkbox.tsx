@@ -31,6 +31,31 @@ export function Checkbox(props: CheckboxProps) {
   )
 }
 
+export interface CheckboxMarkProps extends Omit<React.HTMLAttributes<HTMLSpanElement>, 'style'> {
+  checked?: boolean
+  indeterminate?: boolean
+  style?: ExternalStyles
+}
+
+/**
+ * Draws only the box of a checkbox, without an input. Use it inside an element that already tells assistive
+ * technologies whether it is checked, such as an option with `aria-checked`, where a real checkbox would be a
+ * control inside another control.
+ */
+export function CheckboxMark(props: CheckboxMarkProps) {
+  const { checked, indeterminate, style, ...rest } = props
+  const { classes, css } = useStyles(createStyles)
+  const { classes: markClasses } = useStyles(createMarkStyles)
+
+  return (
+    <span
+      aria-hidden='true'
+      className={css(classes.check, checked && markClasses.checked, indeterminate && markClasses.indeterminate, style)}
+      {...rest}
+    />
+  )
+}
+
 export const createStyles = (theme: Theme) => ({
   wrapper: {
     cursor: 'pointer',
@@ -57,6 +82,46 @@ export const createStyles = (theme: Theme) => ({
   } as CSSProperties,
 })
 
+const createCheckedStyles = (theme: Theme) => ({
+  backgroundColor: theme.pallete.primary.main,
+  borderColor: theme.pallete.primary.main,
+  ':after': {
+    content: '""',
+    borderRight: '2px solid ' + theme.pallete.surface.main,
+    borderBottom: '2px solid ' + theme.pallete.surface.main,
+    position: 'absolute',
+    width: 8,
+    height: 16,
+    top: 0,
+    left: 7,
+    opacity: 1,
+    transform: 'rotate(45deg) scale(1)',
+    transition: 'opacity .2s ease',
+  },
+})
+
+const createIndeterminateStyles = (theme: Theme) => ({
+  backgroundColor: theme.pallete.surface.main,
+  borderColor: theme.pallete.primary.main,
+  ':after': {
+    content: '""',
+    borderBottom: '3px solid ' + theme.pallete.primary.main,
+    position: 'absolute',
+    top: -1,
+    left: 4,
+    width: 14,
+    height: 14,
+    opacity: 1,
+    transition: 'opacity .2s ease',
+  },
+})
+
+// The same look a checked or indeterminate input gives to the box next to it
+const createMarkStyles = (theme: Theme) => ({
+  checked: createCheckedStyles(theme) as CSSProperties,
+  indeterminate: createIndeterminateStyles(theme) as CSSProperties,
+})
+
 export const createInputStyles = (theme: Theme, classes: ClassNames<'check' | 'label'>) => ({
   input: {
     opacity: 0,
@@ -64,38 +129,8 @@ export const createInputStyles = (theme: Theme, classes: ClassNames<'check' | 'l
     [`&:hover + .${classes.check}`]: {
       borderColor: theme.pallete.gray.c50,
     },
-    [`&:checked + .${classes.check}`]: {
-      backgroundColor: theme.pallete.primary.main,
-      borderColor: theme.pallete.primary.main,
-      ':after': {
-        content: '""',
-        borderRight: '2px solid ' + theme.pallete.surface.main,
-        borderBottom: '2px solid ' + theme.pallete.surface.main,
-        position: 'absolute',
-        width: 8,
-        height: 16,
-        top: 0,
-        left: 7,
-        opacity: 1,
-        transform: 'rotate(45deg) scale(1)',
-        transition: 'opacity .2s ease',
-      },
-    },
-    [`&:indeterminate + .${classes.check}`]: {
-      backgroundColor: theme.pallete.surface.main,
-      borderColor: theme.pallete.primary.main,
-      ':after': {
-        content: '""',
-        borderBottom: '3px solid ' + theme.pallete.primary.main,
-        position: 'absolute',
-        top: -1,
-        left: 4,
-        width: 14,
-        height: 14,
-        opacity: 1,
-        transition: 'opacity .2s ease',
-      },
-    },
+    [`&:checked + .${classes.check}`]: createCheckedStyles(theme),
+    [`&:indeterminate + .${classes.check}`]: createIndeterminateStyles(theme),
     [`&:focus + .${classes.check}`]: {
       boxShadow: focusBoxShadow(theme),
     },
