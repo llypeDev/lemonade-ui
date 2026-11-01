@@ -4,6 +4,7 @@ import { useIntl } from 'gatsby-plugin-intl'
 import React, { useEffect, useRef, useState } from 'react'
 import { CSSProperties } from 'react'
 
+import { codeTokenColors } from '../codeTokenColors'
 import { Image as UiImage } from '../Image'
 
 export function Paragraph(props: any) {
@@ -150,6 +151,7 @@ const createStyles = (theme: Theme) => ({
     marginBottom: '2rem !important',
     border: `1px solid ${theme.pallete.divider} !important`,
     background: `${gray.c10} !important`,
+    ...codeTokenColors,
   } as CSSProperties,
   code: {
     fontSize: '15px !important',
