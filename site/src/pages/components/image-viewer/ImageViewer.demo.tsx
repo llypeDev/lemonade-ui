@@ -1,4 +1,4 @@
-import { Flow, ImageViewer, ImageViewerImage } from '@lemonade/ui'
+import { ImageViewer, ImageViewerImage } from '@lemonade/ui'
 import React, { useState } from 'react'
 
 const picture = (label: string, from: string, to: string) =>
@@ -25,7 +25,7 @@ function ImageViewerDemo() {
 
   return (
     <>
-      <Flow direction='horizontal' gap={0.5}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0.5rem' }}>
         {photos.map((photo, photoIndex) => (
           <button
             key={photo.src}
@@ -40,7 +40,7 @@ function ImageViewerDemo() {
             <img src={photo.src} alt='' width={120} height={80} style={{ borderRadius: 3 }} />
           </button>
         ))}
-      </Flow>
+      </div>
       <ImageViewer images={photos} open={open} index={index} onIndexChange={setIndex} onClose={() => setOpen(false)} />
     </>
   )

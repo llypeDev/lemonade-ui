@@ -1,9 +1,9 @@
-import { Button, HFlow, Icon, Text } from '@lemonade/ui'
+import { Button, Icon, Text } from '@lemonade/ui'
 import React from 'react'
 
 function ButtonIcons() {
   return (
-    <HFlow alignItems='flex-end'>
+    <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'flex-end', gap: '1rem' }}>
       <Button kind='primary'>
         <Icon icon='rocket' style={{ marginRight: '0.5rem' }} />
         <Text color='inherit'>Launch</Text>
@@ -16,7 +16,7 @@ function ButtonIcons() {
         <Icon icon='rocket' style={{ marginRight: '0.5rem' }} />
         <Text color='inherit'>Launch</Text>
       </Button>
-    </HFlow>
+    </div>
   )
 }
 

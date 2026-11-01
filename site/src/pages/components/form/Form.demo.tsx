@@ -18,7 +18,7 @@ function FormDemo() {
   const handleChange = (name: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
     const el = e.target
 
-    setFormState(state => ({
+    setFormState((state) => ({
       ...state,
       [name]: el.type === 'checkbox' ? el.checked : el.value,
     }))
@@ -61,11 +61,11 @@ function FormDemo() {
           </Cell>
           <Cell xs={6}>
             <FormControl label='Favorite color'>
-              <HFlow>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: '1rem' }}>
                 <Radio name='color' value='red' label='Red' onChange={handleChange('color')} />
                 <Radio name='color' value='green' label='Green' onChange={handleChange('color')} />
                 <Radio name='color' value='blue' label='Blue' onChange={handleChange('color')} />
-              </HFlow>
+              </div>
             </FormControl>
           </Cell>
           <Cell xs={12}>
