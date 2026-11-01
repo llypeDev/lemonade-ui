@@ -29,8 +29,11 @@ it('should return provided context values when inside ModalContextProvider', () 
 
 it('should throw an error when used outside StepperContextProvider', () => {
   const renderWithoutProvider = () => render(<TestComponent />)
+  // The render throws on purpose, and React and jsdom report the error on the console
+  const consoleError = jest.spyOn(console, 'error').mockImplementation(() => undefined)
 
   expect(renderWithoutProvider).toThrow(
     'Stepper subcomponents (like Step, StepLabel, StepConnector and StepContent) must be used inside <Stepper>'
   )
+  consoleError.mockRestore()
 })
