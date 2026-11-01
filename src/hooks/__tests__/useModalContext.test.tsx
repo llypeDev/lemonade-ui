@@ -37,8 +37,11 @@ it('should return provided context values when inside ModalContextProvider', () 
 
 it('should throw an error when used outside ModalContextProvider', () => {
   const renderWithoutProvider = () => render(<TestComponent />)
+  // The render throws on purpose, and React and jsdom report the error on the console
+  const consoleError = jest.spyOn(console, 'error').mockImplementation(() => undefined)
 
   expect(renderWithoutProvider).toThrow(
     'Modal subcomponents (ModalHeader, ModalBody, ModalContainer, ModalFooter, ModalCloseButton) must be used inside <Modal>'
   )
+  consoleError.mockRestore()
 })

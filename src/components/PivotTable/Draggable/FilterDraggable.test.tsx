@@ -97,16 +97,22 @@ describe('FilterDraggable', () => {
   })
 
   it('should throw an error when the prop filterItems is empty', async () => {
+    // The render throws on purpose, and React and jsdom report the error on the console
+    const consoleError = jest.spyOn(console, 'error').mockImplementation(() => undefined)
     expect(() => {
       render(createFilterComponent({ filterItems: [] }))
     }).toThrowError()
+    consoleError.mockRestore()
     await flush()
   })
 
   it('should throw an error when the prop selectedItems contains an item that does not belong to the filterItems', async () => {
+    // The render throws on purpose, and React and jsdom report the error on the console
+    const consoleError = jest.spyOn(console, 'error').mockImplementation(() => undefined)
     expect(() => {
       render(createFilterComponent({ selectedItems: new Set<string>('Mel') }))
     }).toThrowError()
+    consoleError.mockRestore()
     await flush()
   })
 
