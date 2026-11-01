@@ -8,6 +8,8 @@ import React, { CSSProperties } from 'react'
 
 import demos from '../demos'
 
+import { codeTokenColors } from './codeTokenColors'
+
 export interface DemoProps {
   src: string
 }
@@ -50,6 +52,7 @@ const createStyles = (theme: Theme) => ({
       borderTopRightRadius: 0,
       borderTop: `1px solid ${theme.pallete.divider}`,
       background: `${gray.c10}`,
+      ...codeTokenColors,
     },
 
     'code[class*=language-]': {
