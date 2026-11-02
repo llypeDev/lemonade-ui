@@ -48,10 +48,13 @@ export function DateField(props: DateFieldProps) {
     setVisibleDate(isValidDate(value) ? value : new Date())
   }, [value])
 
+  // The placement of popperProps wins over the default one
   const {
     styles: { popper: popperStyle },
-    attributes: { placement },
-  } = usePopper(inputRef, popupRef, { ...popperProps, placement: 'bottom-start' })
+    attributes: { popper: popperAttributes },
+  } = usePopper(inputRef, popupRef, { placement: 'bottom-start', ...popperProps })
+
+  const isOutOfRange = disableByRange(minDate, maxDate)
 
   const handleDayClick = (day: Date) => {
     inputRef.focus()
@@ -82,18 +85,22 @@ export function DateField(props: DateFieldProps) {
         <div
           ref={setPopupRef}
           className={css(classes.root, popperStyle as any)}
-          data-placement={placement}
+          data-placement={popperAttributes?.['data-popper-placement']}
           tabIndex={-1}
         >
           <Calendar
             visibleDate={visibleDate}
             onVisibleDateChange={handleVisibleDateChange}
             onDayClick={handleDayClick}
-            modifiers={{
-              selected: (day) => value && isSameDay(day, value),
-              disabled: disableByRange(props.minDate, props.maxDate),
-            }}
             {...calendarProps}
+            // Merged, so that other modifiers of calendarProps do not remove these ones
+            modifiers={{
+              ...calendarProps?.modifiers,
+              selected: (day) => value && isSameDay(day, value),
+              // calendarProps may disable more days, but never enable those out of minDate and maxDate
+              disabled: (day, monthViewProps) =>
+                isOutOfRange(day) || !!calendarProps?.modifiers?.disabled?.(day, monthViewProps),
+            }}
           />
         </div>
       )}

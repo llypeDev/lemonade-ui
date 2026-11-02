@@ -48,6 +48,24 @@ describe('MonthRangePicker', () => {
       await flush()
     })
 
+    it('should open without a value', async () => {
+      const { container } = render(<MonthRangePicker onChange={jest.fn()} />)
+      fireEvent.focus(container.querySelector('input'))
+      expect(container.querySelector('button[title="January"]')).not.toBeNull()
+      await flush()
+    })
+
+    it('should expose the placement of the popper, which popperProps can change', async () => {
+      const { container, rerender } = render(createComponent())
+      fireEvent.focus(container.querySelector('input'))
+      await flush()
+      expect(container.querySelector('[data-placement]')).toHaveAttribute('data-placement', 'bottom')
+
+      rerender(createComponent({ popperProps: { placement: 'top-end' } as any }))
+      await flush()
+      expect(container.querySelector('[data-placement]')).toHaveAttribute('data-placement', 'top-end')
+    })
+
     it('should call onFocus and onBlur when one of the inputs has and lose focus', async () => {
       const focus = jest.fn()
       const blur = jest.fn()
@@ -338,6 +356,21 @@ describe('MonthRangePicker', () => {
         } as DateRange)
         await flush()
       })
+    })
+
+    it('should call onChange with switched months when only the start is defined and a month before it is picked as the end', async () => {
+      // As DateRangePicker does, so that the range is never inverted
+      const change = jest.fn()
+      const { container } = render(
+        createComponent({ onChange: change, value: { start: { month: 2, year: 2021 }, end: undefined } })
+      )
+      fireEvent.focus(container.querySelectorAll('input')[SECOND])
+      fireEvent.click(container.querySelector('button[title="January"]'))
+      expect(change).toHaveBeenLastCalledWith({
+        startDate: new Date(2021, 0, 1),
+        endDate: new Date(2021, 3, 0),
+      } as DateRange)
+      await flush()
     })
 
     describe('clearing the inputs', () => {

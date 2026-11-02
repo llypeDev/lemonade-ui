@@ -4,6 +4,7 @@ import React, { useEffect, useRef, useState } from 'react'
 import { usePopper } from 'react-popper'
 import { Theme, useStyles } from '../../styles'
 
+import { isValidDate } from '../Calendar/util'
 import { disableByRange } from '../DateField/DateField'
 import { FocusManagerContainer } from '../FocusManagerContainer'
 import { IconImage } from '../Icon'
@@ -71,13 +72,20 @@ export function DateRangePicker(props: DateRangePickerProps) {
       }
     }
 
-    setVisibleDate(point)
+    // The calendar cannot show the month of an invalid date
+    setVisibleDate(() => {
+      const date = point()
+      return isValidDate(date) ? date : new Date()
+    })
   }, [dateRangeInputFocus, value])
 
+  // The placement of popperProps wins over the default one
   const {
     styles: { popper: popperStyle },
-    attributes: { placement },
-  } = usePopper(anchorRef, popupRef, { ...popperProps, placement: 'bottom' })
+    attributes: { popper: popperAttributes },
+  } = usePopper(anchorRef, popupRef, { placement: 'bottom', ...popperProps })
+
+  const isOutOfRange = onlyWeeks ? disableByWeekRange(minDate, maxDate) : disableByRange(minDate, maxDate)
 
   const handleInputFocus = (inputOnFocus: number) => setDateRangeInputFocus(inputOnFocus)
 
@@ -125,7 +133,7 @@ export function DateRangePicker(props: DateRangePickerProps) {
         <div
           ref={setPopupRef}
           className={css(classes.root, popperStyle as any)}
-          data-placement={placement}
+          data-placement={popperAttributes?.['data-popper-placement']}
           tabIndex={-1}
         >
           <ControlledDateRangeCalendar
@@ -137,11 +145,15 @@ export function DateRangePicker(props: DateRangePickerProps) {
             onVisibleDateChange={handleOnVisibleDateChange}
             minDate={minDate}
             maxDate={maxDate}
-            modifiers={{
-              disabled: onlyWeeks ? disableByWeekRange(minDate, maxDate) : disableByRange(minDate, maxDate),
-            }}
             onlyWeeks={onlyWeeks}
             {...calendarProps}
+            // Merged, so that other modifiers of calendarProps do not remove this one
+            modifiers={{
+              ...calendarProps?.modifiers,
+              // calendarProps may disable more dates, but never enable those out of minDate and maxDate
+              disabled: (element, monthViewProps) =>
+                isOutOfRange(element) || !!calendarProps?.modifiers?.disabled?.(element, monthViewProps),
+            }}
           />
         </div>
       )}

@@ -176,6 +176,42 @@ describe('BaseDateRangeInput', () => {
       fireEvent.change(inputs[FIRST_INPUT], { target: { value: '10/02/2019' } })
       expect(change).toHaveBeenLastCalledWith({ startDate: new Date('2019-02-10'), endDate: undefined } as DateRange)
     })
+
+    it('should accept the day of minDate when minDate has a time', () => {
+      // Like minDate={new Date()} in the afternoon: the calendar lets today be picked, so typing it must work too
+      const change = jest.fn()
+      const { container } = render(<BaseDateRangeInput onChange={change} minDate={new Date(2019, 0, 10, 14, 0)} />)
+      const inputs = container.querySelectorAll('input')
+
+      fireEvent.change(inputs[FIRST_INPUT], { target: { value: '10/01/2019' } })
+      expect(change).toHaveBeenLastCalledWith({ startDate: new Date(2019, 0, 10), endDate: undefined } as DateRange)
+
+      fireEvent.change(inputs[FIRST_INPUT], { target: { value: '09/01/2019' } })
+      expect(change).toHaveBeenLastCalledWith({ startDate: undefined, endDate: undefined } as DateRange)
+    })
+
+    it('should switch the dates when only startDate is defined and an endDate before it is typed', () => {
+      // As the calendar of DateRangePicker does, so that the range is never inverted
+      const change = jest.fn()
+      const { container } = render(
+        <BaseDateRangeInput onChange={change} value={{ startDate: new Date(2026, 10, 10), endDate: undefined }} />
+      )
+      const inputs = container.querySelectorAll('input')
+
+      fireEvent.change(inputs[SECOND_INPUT], { target: { value: '05/11/2026' } })
+      expect(change).toHaveBeenLastCalledWith({ startDate: new Date(2026, 10, 5), endDate: new Date(2026, 10, 10) })
+    })
+
+    it('should call onChange with only the new startDate when only endDate is defined and a startDate after it is typed', () => {
+      const change = jest.fn()
+      const { container } = render(
+        <BaseDateRangeInput onChange={change} value={{ startDate: undefined, endDate: new Date(2026, 10, 5) }} />
+      )
+      const inputs = container.querySelectorAll('input')
+
+      fireEvent.change(inputs[FIRST_INPUT], { target: { value: '10/11/2026' } })
+      expect(change).toHaveBeenLastCalledWith({ startDate: new Date(2026, 10, 10), endDate: undefined })
+    })
   })
 
   describe('clear actions', () => {
@@ -257,6 +293,17 @@ describe('BaseDateRangeInput', () => {
       )
       expect(container.querySelector('strong').textContent).toEqual('separator')
       expect(container).toMatchSnapshot()
+    })
+
+    it('should give each input its own id and placeholder', () => {
+      const { container } = render(<BaseDateRangeInput id='period' startPlaceholder='Start' finalPlaceholder='End' />)
+      const inputs = container.querySelectorAll('input')
+
+      expect(inputs[FIRST_INPUT]).toHaveAttribute('id', 'period')
+      expect(inputs[SECOND_INPUT]).toHaveAttribute('id', 'period-end')
+      expect(inputs[FIRST_INPUT]).toHaveAttribute('placeholder', 'Start')
+      expect(inputs[SECOND_INPUT]).toHaveAttribute('placeholder', 'End')
+      expect(container.querySelector('[startplaceholder], [finalplaceholder]')).toBeNull()
     })
 
     it('should be possible to set a name to inputs', () => {

@@ -116,6 +116,59 @@ describe('DateRangePicker', () => {
     })
   })
 
+  describe('props', () => {
+    it('should render an invalid date as an empty input and open the calendar on the current month', async () => {
+      const { container } = render(<DateRangePicker value={{ startDate: new Date('invalid'), endDate: undefined }} />)
+      const inputs = container.querySelectorAll('input')
+      expect(inputs[0].value).toEqual('')
+
+      fireEvent.focus(inputs[0])
+      const today = new Date()
+      const todayCell = `[data-date="${today.getFullYear()}-${('0' + (today.getMonth() + 1)).slice(-2)}-${(
+        '0' + today.getDate()
+      ).slice(-2)}"]`
+      expect(container.querySelector(todayCell)).not.toBeNull()
+      await flush()
+    })
+
+    it('should keep the disabled modifier when calendarProps has other modifiers', async () => {
+      const { container } = render(
+        <DateRangePicker
+          minDate={new Date(2018, 9, 5)}
+          calendarProps={{
+            visibleDate: new Date(2018, 9, 1),
+            modifiers: { holiday: (day: Date) => day.getDate() === 12 },
+            modifierStyles: { holiday: () => ({ color: 'red' }) },
+          }}
+        />
+      )
+      fireEvent.focus(container.querySelector('input'))
+      expect(container.querySelector('[data-date="2018-10-04"] span')).toHaveAttribute('aria-disabled', 'true')
+      expect(container.querySelector('[data-date="2018-10-12"] span')).toHaveStyleRule('color', 'red')
+      await flush()
+    })
+
+    it('should give the inputs distinct ids, the label pointing to the first one', async () => {
+      const { container, getByLabelText } = render(<DateRangePicker id='period' label='Period' />)
+      const inputs = container.querySelectorAll('input')
+      expect(container.querySelectorAll('#period')).toHaveLength(1)
+      expect(getByLabelText('Period')).toBe(inputs[0])
+      expect(inputs[1]).toHaveAttribute('id', 'period-end')
+      await flush()
+    })
+
+    it('should expose the placement of the popper, which popperProps can change', async () => {
+      const { container, rerender } = render(<DateRangePicker />)
+      fireEvent.focus(container.querySelector('input'))
+      await flush()
+      expect(container.querySelector('[data-placement]')).toHaveAttribute('data-placement', 'bottom')
+
+      rerender(<DateRangePicker popperProps={{ placement: 'top-end' } as any} />)
+      await flush()
+      expect(container.querySelector('[data-placement]')).toHaveAttribute('data-placement', 'top-end')
+    })
+  })
+
   describe('onChange calls', () => {
     describe('typing on the inputs', () => {
       it('should call onChange when a date is typed (in startDate or endDate)', async () => {

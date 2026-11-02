@@ -1,7 +1,9 @@
 import React, { useCallback } from 'react'
 import createAutoCorrectedDatePipe from 'text-mask-addons/dist/createAutoCorrectedDatePipe'
 import { useLocale } from '../../i18n'
+import { composeHandlers } from '../../util/react'
 import { Omit } from '../../util/types'
+import { isValidDate } from '../Calendar/util'
 import { MaskedTextField, MaskedTextFieldProps } from '../MaskedTextField'
 
 export interface DateInputProps extends Omit<MaskedTextFieldProps, 'onChange' | 'value'> {
@@ -17,8 +19,19 @@ const formatter = new Intl.DateTimeFormat('pt-br', {
   year: 'numeric',
 })
 
+/**
+ * Creates the typed date, or undefined when the month does not have the day: Date would roll 29/02/2023 over to
+ * 01/03/2023.
+ */
+const createTypedDate = (year: number, month: number, day: number): Date | undefined => {
+  const date = new Date(year, month, day)
+  // new Date() takes the years 0 to 99 as 1900 to 1999, setFullYear does not
+  date.setFullYear(year, month, day)
+  return date.getDate() === day && date.getMonth() === month ? date : undefined
+}
+
 export function DateInput(props: DateInputProps) {
-  const { value, onInputChange, onChange, transformTwoYearDigit, ...rest } = props
+  const { value, onInputChange, onChange, onKeyDown, transformTwoYearDigit, ...rest } = props
   const locale = useLocale()
 
   const handleChange = useCallback(
@@ -30,8 +43,8 @@ export function DateInput(props: DateInputProps) {
 
       const targetValue = e.target.value
       const match: RegExpMatchArray = targetValue.match(/^(\d{2})\/(\d{2})\/(\d{4})$/)
-      if (match) {
-        const date = new Date(parseInt(match[3], 10), parseInt(match[2], 10) - 1, parseInt(match[1], 10))
+      const date = match && createTypedDate(parseInt(match[3], 10), parseInt(match[2], 10) - 1, parseInt(match[1], 10))
+      if (date) {
         onChange(date)
       }
 
@@ -59,12 +72,14 @@ export function DateInput(props: DateInputProps) {
           const resultYear: string =
             yearInTwoDigits <= currentYearInTwoDigits ? `20${yearPartClean}` : `19${yearPartClean}`
 
-          const resultDate: Date = new Date(
+          const resultDate = createTypedDate(
             parseInt(resultYear, 10),
             parseInt(match[2], 10) - 1,
             parseInt(match[1], 10)
           )
-          onChange(resultDate)
+          if (resultDate) {
+            onChange(resultDate)
+          }
         }
       }
     },
@@ -73,13 +88,13 @@ export function DateInput(props: DateInputProps) {
 
   return (
     <MaskedTextField
-      value={value ? formatter.format(value) : null}
+      value={isValidDate(value) ? formatter.format(value) : null}
       mask={[/\d/, /\d/, '/', /\d/, /\d/, '/', /\d/, /\d/, /\d/, /\d/]}
       placeholder={locale.dateInput.placeholder}
       pipe={createAutoCorrectedDatePipe('dd/mm/yyyy')}
       autoComplete='off'
       onChange={handleChange}
-      onKeyDown={handleKeyDown}
+      onKeyDown={composeHandlers(handleKeyDown, onKeyDown)}
       {...rest}
     />
   )

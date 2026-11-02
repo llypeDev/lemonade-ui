@@ -46,7 +46,14 @@ export const createWeekArray = (target: Date): Date[] => {
  * @param target The target month to create.
  * @returns A new array of array of dates containing all month dates.
  */
-export const createMonthMatrix = (target: Date): Date[][] => {
+export const createMonthMatrix = (visibleDate: Date): Date[][] => {
+  // An invalid date never passes the last day of the month, so the loop below would never end
+  if (!isValidDate(visibleDate)) {
+    return []
+  }
+
+  // Works on a copy: the visible date is often the value of the caller, which must not change
+  const target = new Date(visibleDate)
   target.setHours(0, 0, 0, 0)
   const firstDayOfMonth = getFirstDayOfMonth(target)
   const lastDayOfMonth = getLastDayOfMonth(target)
@@ -79,7 +86,10 @@ export const isSameDay = (d1: Date, d2: Date): boolean => {
   return d1.getDate() === d2.getDate() && d1.getMonth() === d2.getMonth() && d1.getFullYear() === d2.getFullYear()
 }
 
-const startOfDay = (date: Date) => new Date(date.getFullYear(), date.getMonth(), date.getDate())
+/**
+ * Creates a new date at the start of the day of the date, which is not changed.
+ */
+export const startOfDay = (date: Date) => new Date(date.getFullYear(), date.getMonth(), date.getDate())
 
 /**
  * Check if the day belongs to the week. Only the days are compared, so the times of the dates do not matter, and the
