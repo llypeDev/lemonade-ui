@@ -756,7 +756,7 @@ exports[`should render correctly when total elements is bigger than sizeOption 1
           <span
             class="emotion-28"
           >
-            Mostrar:
+            Show:
           </span>
           <button
             aria-haspopup="true"

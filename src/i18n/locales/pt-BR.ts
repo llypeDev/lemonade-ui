@@ -265,6 +265,7 @@ const locale: LocaleConfiguration = {
       one: 'resultado',
       other: 'resultados',
     },
+    pageSize: 'Mostrar:',
   },
   aggregators: {
     count: 'Contagem',

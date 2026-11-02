@@ -48,7 +48,7 @@ export function TableFooter(props: TableFooterProps) {
       {showPagination() && (
         <div className={classes.pagination}>
           <HFlow alignItems='center' hSpacing={0.5}>
-            <Text>Mostrar:</Text>
+            <Text>{locale.tableFooter.pageSize}</Text>
             <TableSizeDropdown options={sizeOptions} size={pageSize} onChange={onSizeChange} />
           </HFlow>
           <Paginator page={page} total={totalPages} onChange={onPageChange} />
