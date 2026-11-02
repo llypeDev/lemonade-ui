@@ -1,9 +1,10 @@
-import { css } from 'emotion'
+import { css, Interpolation } from 'emotion'
 import React from 'react'
 
 import { ExternalStyles, Theme, useTheme } from '../../styles'
 import { Omit } from '../../util'
 import { ExpandableHeader, ExpandableHeadingLevel } from '../Accordion/ExpandableHeader'
+import { collapseStyles, useCollapse } from '../Accordion/useCollapse'
 import { useExpandable, UseExpandableProps } from '../Accordion/useExpandable'
 
 import { CardVariant, createBaseStyles, createVariantStyles } from './cardVariants'
@@ -66,6 +67,7 @@ export function ExpandableCard(props: ExpandableCardProps) {
     onChange,
   })
 
+  const collapse = useCollapse(expanded)
   const theme = useTheme()
   const styles = createStyles(theme, variant, disabled, invalid, style)
 
@@ -82,8 +84,15 @@ export function ExpandableCard(props: ExpandableCardProps) {
       >
         {title}
       </ExpandableHeader>
-      <div id={contentId} role='region' aria-labelledby={headerId} hidden={!expanded} className={styles.content}>
-        {children}
+      <div
+        ref={collapse.ref}
+        id={contentId}
+        role='region'
+        aria-labelledby={headerId}
+        hidden={collapse.hidden}
+        className={styles.region}
+      >
+        <div className={styles.content}>{children}</div>
       </div>
     </div>
   )
@@ -109,6 +118,7 @@ const createStyles = (
       externalStyles
     ),
     header: css({ padding: '1rem' }),
+    region: css(collapseStyles as Interpolation),
     content: css({ padding: '0 1rem 1rem' }, disabled && baseStyles.innerDisabled),
   }
 }

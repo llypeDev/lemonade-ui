@@ -1,12 +1,18 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`Accordion should render correctly 1`] = `
-.emotion-6 {
+.emotion-7 {
   border-top: 1px solid #D3D4DD;
 }
 
-.emotion-5 {
+.emotion-6 {
   border-bottom: 1px solid #D3D4DD;
+}
+
+@media print {
+  .emotion-5[hidden] {
+    display: block;
+  }
 }
 
 .emotion-4 {
@@ -88,10 +94,10 @@ exports[`Accordion should render correctly 1`] = `
 
 <div>
   <div
-    class="emotion-6"
+    class="emotion-7"
   >
     <div
-      class="emotion-5"
+      class="emotion-6"
     >
       <h3
         class="emotion-3"
@@ -127,12 +133,16 @@ exports[`Accordion should render correctly 1`] = `
       </h3>
       <div
         aria-labelledby="expandable-header-abc"
-        class="emotion-4"
+        class="emotion-5"
         hidden=""
         id="expandable-content-abc"
         role="region"
       >
-        Content
+        <div
+          class="emotion-4"
+        >
+          Content
+        </div>
       </div>
     </div>
   </div>
