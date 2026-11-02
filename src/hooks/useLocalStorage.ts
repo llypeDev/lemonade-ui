@@ -1,4 +1,7 @@
-import { useCallback, useEffect, useRef, useState } from 'react'
+import { useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
+
+// Runs before the browser paints, and only as an effect on the server, where layout effects warn
+const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect
 
 const getStorage = (): Storage | null => {
   try {
@@ -35,17 +38,17 @@ export function useLocalStorage<T>(key: string, initialValue: T): UseLocalStorag
   const initialRef = useRef(initialValue)
   initialRef.current = initialValue
 
-  const [value, setStateValue] = useState<T>(() => read(key, initialValue))
+  // The server has no storage, so the first render in the browser also shows the initial value, as the page that
+  // the server rendered, and the saved value comes right after, before the browser paints
+  const [value, setStateValue] = useState<T>(initialValue)
   const valueRef = useRef(value)
   valueRef.current = value
 
-  // A different key reads its own value
-  const keyRef = useRef(key)
-  useEffect(() => {
-    if (keyRef.current !== key) {
-      keyRef.current = key
-      setStateValue(read(key, initialRef.current))
-    }
+  // Reads the saved value, and the value of a different key
+  useIsomorphicLayoutEffect(() => {
+    const stored = read(key, initialRef.current)
+    valueRef.current = stored
+    setStateValue(stored)
   }, [key])
 
   useEffect(() => {

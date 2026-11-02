@@ -155,3 +155,30 @@ it('should allow override of navigation keys', () => {
   fireEvent.keyDown(ul, { key: '[' })
   expect(document.activeElement).toEqual(li[0])
 })
+
+it('should use only the navigation keys given, without the default ones', () => {
+  const { container, getByTestId } = render(createComponent({ nextKeys: ['ArrowDown'], prevKeys: ['ArrowUp'] }))
+  const ul = getByTestId('roving-tabindex-ul')
+  const li = container.querySelectorAll('li')
+  li[0].focus()
+
+  // A menu leaves the right and left arrows to its submenus
+  expect(fireEvent.keyDown(ul, { key: 'ArrowRight' })).toBe(true)
+  expect(document.activeElement).toEqual(li[0])
+
+  fireEvent.keyDown(ul, { key: 'ArrowDown' })
+  expect(document.activeElement).toEqual(li[1])
+  expect(fireEvent.keyDown(ul, { key: 'ArrowLeft' })).toBe(true)
+  expect(document.activeElement).toEqual(li[1])
+})
+
+it('should keep the tab stop on the focused item when the list renders again', () => {
+  const { container, rerender } = render(createComponent())
+  const li = container.querySelectorAll('li')
+  li[2].focus()
+
+  rerender(createComponent())
+  expect(li[0].getAttribute('tabindex')).toEqual('-1')
+  expect(li[1].getAttribute('tabindex')).toEqual('-1')
+  expect(li[2].getAttribute('tabindex')).toEqual('0')
+})

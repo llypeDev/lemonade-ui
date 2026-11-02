@@ -21,6 +21,17 @@ describe('Observable', () => {
       unsubscribe2()
       expect(ob['listeners']).toEqual([listener1, listener3])
     })
+    it('should not remove other subscribers when unsubscribing twice', () => {
+      const ob = new Observable<string>()
+      const listener1 = () => null
+      const listener2 = () => null
+      const unsubscribe1 = ob.subscribe(listener1)
+      ob.subscribe(listener2)
+
+      unsubscribe1()
+      unsubscribe1()
+      expect(ob['listeners']).toEqual([listener2])
+    })
   })
   describe('notify', () => {
     it('should notify all listeners with the provided value', () => {
@@ -36,6 +47,24 @@ describe('Observable', () => {
       ob.notify('foo')
       expect(listener1).toHaveBeenCalledWith('foo')
       expect(listener2).toHaveBeenCalledWith('foo')
+    })
+    it('should notify every listener when one unsubscribes while notified', () => {
+      const ob = new Observable<string>()
+      const listener2 = jest.fn()
+      const unsubscribe1 = ob.subscribe(() => unsubscribe1())
+      ob.subscribe(listener2)
+
+      ob.notify('foo')
+      expect(listener2).toHaveBeenCalledWith('foo')
+    })
+    it('should not notify a listener removed by an earlier one', () => {
+      const ob = new Observable<string>()
+      const listener2 = jest.fn()
+      ob.subscribe(() => unsubscribe2())
+      const unsubscribe2 = ob.subscribe(listener2)
+
+      ob.notify('foo')
+      expect(listener2).not.toHaveBeenCalled()
     })
   })
 })

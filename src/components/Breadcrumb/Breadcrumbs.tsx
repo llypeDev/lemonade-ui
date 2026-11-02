@@ -12,16 +12,19 @@ export function Breadcrumbs(props: BreadcrumbsProps) {
   const { children } = props
 
   const rootRef = useRovingTabIndex({
-    getItems: root => Array.from(root.querySelectorAll('a')),
+    getItems: (root) => Array.from(root.querySelectorAll('a')),
   })
 
   const { classes, css } = useStyles(createStyles)
 
+  // Leaves out null and false, such as from `{isAdmin && <Link />}`
+  const items = React.Children.toArray(children)
+
   return (
     <nav ref={rootRef} aria-label='Breadcrumbs'>
       <ol className={classes.list}>
-        {React.Children.map(children, (child, idx) => {
-          const isLastItem = idx === React.Children.count(children) - 1
+        {items.map((child, idx) => {
+          const isLastItem = idx === items.length - 1
 
           return (
             <Fragment key={idx}>

@@ -214,6 +214,9 @@ const locale = {
     decrease: 'Down',
     noChange: 'No change',
   },
+  tag: {
+    remove: 'Remove',
+  },
   tagInput: {
     instructions: 'Press Enter or comma to add. Backspace removes the last one.',
     remove: 'Remove {tag}',

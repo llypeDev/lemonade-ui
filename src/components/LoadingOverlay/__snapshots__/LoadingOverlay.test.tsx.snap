@@ -122,10 +122,10 @@ exports[`LoadingOverlay should render correctly 1`] = `
 
 <div>
   <div
-    aria-busy="true"
     class="emotion-8"
   >
     <div
+      aria-busy="true"
       class="emotion-0"
       inert=""
     >

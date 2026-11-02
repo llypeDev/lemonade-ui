@@ -14,7 +14,8 @@ export interface StickyContainerProps extends Omit<React.HTMLAttributes<HTMLDivE
 export function StickyContainer(props: StickyContainerProps) {
   const { top, left, style, ...rest } = props
   const scroll = useScrollPosition()
-  const position = scroll.scrollY > top ? 'fixed' : 'absolute'
+  // Without `top`, the container is fixed as soon as the window scrolls
+  const position = scroll.scrollY > (top ?? 0) ? 'fixed' : 'absolute'
   const { classes, css } = useStyles(createStyles, props, position)
 
   return <div className={css(classes.container, style)} {...rest} />

@@ -88,6 +88,59 @@ describe('ErrorSummary', () => {
     expect(getByRole('radio', { name: 'Basic' })).toHaveFocus()
   })
 
+  describe('scroll', () => {
+    const rects = new Map<string, number>()
+    const scrolled: Element[] = []
+    const { scrollIntoView } = Element.prototype
+
+    beforeEach(() => {
+      rects.clear()
+      scrolled.length = 0
+      Element.prototype.scrollIntoView = function (this: Element) {
+        scrolled.push(this)
+      }
+      jest.spyOn(Element.prototype, 'getBoundingClientRect').mockImplementation(function (this: Element) {
+        const top = rects.get(this.id || this.tagName) ?? 0
+        return { top, bottom: top + 40, height: 40 } as DOMRect
+      })
+    })
+
+    afterEach(() => {
+      Element.prototype.scrollIntoView = scrollIntoView
+      jest.restoreAllMocks()
+    })
+
+    const renderForm = () =>
+      render(
+        <>
+          <ErrorSummary errors={[{ fieldId: 'city', message: 'Enter the city' }]} />
+          <fieldset>
+            <legend>Address</legend>
+            <label htmlFor='city'>City</label>
+            <input id='city' />
+          </fieldset>
+        </>
+      )
+
+    it('should scroll the legend of the group when the field also fits in the window', () => {
+      rects.set('LEGEND', 0).set('city', 300)
+      const { getByRole, getByText } = renderForm()
+
+      fireEvent.click(getByRole('link', { name: 'Enter the city' }))
+      expect(scrolled).toEqual([getByText('Address')])
+      expect(getByRole('textbox', { name: 'City' })).toHaveFocus()
+    })
+
+    it('should scroll the label when the legend is too far above the field', () => {
+      rects.set('LEGEND', 0).set('city', window.innerHeight * 3)
+      const { getByRole, getByText } = renderForm()
+
+      fireEvent.click(getByRole('link', { name: 'Enter the city' }))
+      expect(scrolled).toEqual([getByText('City')])
+      expect(getByRole('textbox', { name: 'City' })).toHaveFocus()
+    })
+  })
+
   it('should show errors without a field as text', () => {
     const { getByText, queryByRole } = render(
       <ErrorSummary errors={[{ message: 'The server did not answer. Try again.' }]} />
