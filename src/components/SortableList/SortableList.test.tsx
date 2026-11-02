@@ -161,6 +161,69 @@ describe('SortableList', () => {
     expect(onOrder.mock.calls[0][0].map((task: Task) => task.id)).toEqual([2, 3, 1])
   })
 
+  it('should keep the dragged item under the pointer', () => {
+    const { container, getByRole } = render(<Controlled />)
+    container.querySelector('ul').getBoundingClientRect = () => ({ top: 0, bottom: 150, height: 150 } as DOMRect)
+    const items = container.querySelectorAll('li')
+    items.forEach((li, index) => {
+      li.getBoundingClientRect = () => ({ top: index * 50, height: 50, bottom: index * 50 + 50 } as DOMRect)
+    })
+
+    // Held 25px below its top, the item follows the pointer down to 60px: its top goes from 0 to 35
+    fireEvent.pointerDown(getByRole('button', { name: 'Move Write the brief' }), { button: 0, clientY: 25 })
+    fireEvent.pointerMove(document, { clientY: 60 })
+    expect(items[0].style.transform).toBe('translateY(35px)')
+
+    // It does not leave the list
+    fireEvent.pointerMove(document, { clientY: 400 })
+    expect(items[0].style.transform).toBe('translateY(100px)')
+
+    fireEvent.pointerUp(document, { clientY: 400 })
+    expect(items[0].style.transform).toBe('')
+  })
+
+  it('should scroll the page while the dragged item is held near the bottom of the screen', () => {
+    const frames: FrameRequestCallback[] = []
+    const { requestAnimationFrame, cancelAnimationFrame } = window
+    window.requestAnimationFrame = (callback) => frames.push(callback)
+    window.cancelAnimationFrame = jest.fn()
+    const page = (document.scrollingElement as HTMLElement) || document.documentElement
+    let scrollTop = 0
+    Object.defineProperty(page, 'scrollTop', {
+      configurable: true,
+      get: () => scrollTop,
+      set: (value: number) => (scrollTop = Math.max(0, value)),
+    })
+
+    try {
+      const { container, getByRole } = render(<Controlled />)
+      container.querySelectorAll('li').forEach((li, index) => {
+        li.getBoundingClientRect = () => ({ top: index * 50, height: 50, bottom: index * 50 + 50 } as DOMRect)
+      })
+
+      fireEvent.pointerDown(getByRole('button', { name: 'Move Write the brief' }), { button: 0, clientY: 25 })
+      fireEvent.pointerMove(document, { clientY: window.innerHeight - 4 })
+      act(() => frames.shift()(0))
+      expect(scrollTop).toBeGreaterThan(0)
+
+      // It keeps scrolling while the item is held there
+      const scrolled = scrollTop
+      act(() => frames.shift()(0))
+      expect(scrollTop).toBeGreaterThan(scrolled)
+
+      // Away from the edges, it stops
+      fireEvent.pointerMove(document, { clientY: 300 })
+      act(() => frames.shift()(0))
+      expect(frames).toHaveLength(0)
+
+      fireEvent.pointerUp(document, { clientY: 300 })
+    } finally {
+      window.requestAnimationFrame = requestAnimationFrame
+      window.cancelAnimationFrame = cancelAnimationFrame
+      delete (page as any).scrollTop
+    }
+  })
+
   it('should work with a list of strings and a custom render', () => {
     const { getByRole, getByText } = render(
       <SortableList

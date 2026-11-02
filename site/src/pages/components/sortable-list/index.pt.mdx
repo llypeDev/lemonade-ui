@@ -14,6 +14,8 @@ O sortable list é uma lista que o usuário põe em ordem arrastando a alça de 
 
 O `SortableList` recebe os `items` e o `onChange`, que recebe os itens na nova ordem depois de soltar um item. Os itens podem ser textos ou objetos com `id` e `label`; para outros formatos, o `getKey` e o `getLabel` dão a chave e o texto de um item. O `renderItem` mostra um conteúdo mais rico. Dê um nome à lista com `aria-label`.
 
+Com o mouse ou o dedo, o item segue o ponteiro e os outros itens deslizam para abrir espaço. Segurado perto do topo ou do fim da tela, ou da caixa que rola a lista, o item a rola, então ele pode ir para um lugar fora da vista, como no celular, onde arrastar não rola a página. Nada desliza quando o usuário pede movimento reduzido.
+
 <Demo src='pages/components/sortable-list/SortableList' />
 
 ## Acessibilidade
