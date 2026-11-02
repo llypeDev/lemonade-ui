@@ -1,6 +1,9 @@
 import { fireEvent, render } from '@testing-library/react'
 import React from 'react'
 
+import { LocaleContext } from '../../i18n'
+import ptBR from '../../i18n/locales/pt-BR'
+
 import { Tag } from './Tag'
 
 it('should render correctly', () => {
@@ -45,4 +48,30 @@ it('should call onRemove when remove icon is clicked', () => {
   expect(remove).not.toHaveBeenCalled()
   fireEvent.click(container.querySelector('svg'))
   expect(remove).toHaveBeenCalled()
+})
+
+it('should remove with a button that takes the focus', () => {
+  const remove = jest.fn()
+  const { getByRole, getByTestId } = render(
+    <Tag removable onRemove={remove}>
+      Removable
+    </Tag>
+  )
+  const button = getByRole('button', { name: 'Remove' })
+
+  expect(button).toHaveAttribute('type', 'button')
+  expect(getByTestId('remove-tag-button')).toBe(button)
+  button.focus()
+  expect(button).toHaveFocus()
+  fireEvent.click(button)
+  expect(remove).toHaveBeenCalledTimes(1)
+})
+
+it('should name the remove button with the locale strings', () => {
+  const { getByRole } = render(
+    <LocaleContext.Provider value={ptBR}>
+      <Tag removable>Removable</Tag>
+    </LocaleContext.Provider>
+  )
+  expect(getByRole('button', { name: 'Remover' })).toBeInTheDocument()
 })

@@ -15,12 +15,14 @@ export interface NumberProps {
 export function Number(props: NumberProps) {
   const { value, placeholder, title, abbrev, prefix, suffix, formatOptions } = props
 
+  const hasValue = typeof value === 'number' && !isNaN(value)
+
   const renderTitle = () => {
-    return title || (abbrev && numberUtil.format(value))
+    return title || (abbrev && hasValue ? numberUtil.format(value, formatOptions) : undefined)
   }
 
   const renderNumber = () => {
-    if (typeof value !== 'number' || isNaN(value)) {
+    if (!hasValue) {
       return placeholder
     }
 

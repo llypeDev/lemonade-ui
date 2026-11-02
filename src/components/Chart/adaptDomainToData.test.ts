@@ -95,6 +95,19 @@ describe('adaptDomainToDataRange', () => {
 
       expect(result).toEqual(valueRangeDomain)
     })
+
+    it('should round negative data to the step below and above it', () => {
+      expect(adaptDomainToDataRange({ init: 0, end: 10, step: 5 }, [-7, 3])).toEqual({ init: -10, end: 10, step: 5 })
+      expect(adaptDomainToDataRange({ init: -20, end: -10, step: 5 }, [-3, -15])).toEqual({
+        init: -20,
+        end: 0,
+        step: 5,
+      })
+    })
+
+    it('should adapt a domain without step', () => {
+      expect(adaptDomainToDataRange({ init: 0, end: 10 }, [-2.5, 12.5])).toEqual({ init: -3, end: 13 })
+    })
   })
 
   describe('dateRangeDomain', () => {
@@ -152,6 +165,15 @@ describe('adaptDomainToDataRange', () => {
       const result = adaptDomainToDataRange(domain, data, hasOutlier)
 
       expect(result).toEqual(dateRangeDomain)
+    })
+
+    it('should adapt a date range domain without step by days', () => {
+      const domain: DateRange = { init: new Date('2020-04-13'), end: new Date('2020-04-14') }
+
+      const adaptedDomain = adaptDomainToDataRange(domain, [new Date('2020-04-12T12:00:00Z')]) as DateRange
+
+      expect(adaptedDomain.init).toEqual(new Date('2020-04-12'))
+      expect(adaptedDomain.end).toEqual(new Date('2020-04-14'))
     })
   })
 })

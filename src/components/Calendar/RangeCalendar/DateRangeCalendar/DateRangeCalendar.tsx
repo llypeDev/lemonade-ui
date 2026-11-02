@@ -2,7 +2,7 @@ import * as React from 'react'
 
 import { Theme } from '../../../../styles'
 import { CalendarProps } from '../../Calendar'
-import { isSameDay } from '../../util'
+import { isSameDay, startOfDay } from '../../util'
 import { GenericRangeCalendar } from '../GenericRangeCalendar/GenericRangeCalendar'
 import { DateRange } from '../../../DateRangePicker'
 
@@ -14,55 +14,63 @@ export interface DateRangeCalendarProps extends CalendarProps {
 }
 
 export function DateRangeCalendar({ value, inputOnFocus, maxDate, minDate, ...rest }: DateRangeCalendarProps) {
-  const handleIsInTheRange = (day: Date): boolean => {
-    value?.startDate?.setHours(0, 0, 0, 0)
-    value?.endDate?.setHours(0, 0, 0, 0)
-    day?.setHours(0, 0, 0, 0)
+  // Only the days are compared, so the times are dropped on copies: the dates of the value belong to the caller
+  const startDate = value?.startDate && startOfDay(value.startDate)
+  const endDate = value?.endDate && startOfDay(value.endDate)
 
-    if (!value?.startDate) {
-      if (value?.endDate) {
-        return isSameDay(day, value?.endDate)
+  const handleIsInTheRange = (day: Date): boolean => {
+    if (!startDate) {
+      if (endDate) {
+        return isSameDay(day, endDate)
       } else {
         return false
       }
     }
-    if (!value.endDate) {
-      return isSameDay(day, value?.startDate)
+    if (!endDate) {
+      return isSameDay(day, startDate)
     }
-    if ((value?.startDate <= day && day <= value?.endDate) || (value?.endDate <= day && day <= value?.startDate)) {
+    day = startOfDay(day)
+    if ((startDate <= day && day <= endDate) || (endDate <= day && day <= startDate)) {
       return true
     }
     return false
   }
 
   const hoverControl = (day: Date, hoverDate: Date) => {
-    if (!value?.startDate && !value?.endDate) {
+    day = startOfDay(day)
+    hoverDate = startOfDay(hoverDate)
+
+    if (!startDate && !endDate) {
       return isSameDay(day, hoverDate)
     } else if (inputOnFocus) {
-      if (!value?.startDate && value?.endDate) {
+      if (!startDate && endDate) {
         if (inputOnFocus === 1) {
-          return (value?.endDate < day && hoverDate >= day) || (value?.endDate > day && hoverDate <= day)
+          return (endDate < day && hoverDate >= day) || (endDate > day && hoverDate <= day)
         } else {
           return isSameDay(day, hoverDate)
         }
-      } else if (value?.startDate && !value?.endDate) {
+      } else if (startDate && !endDate) {
         if (inputOnFocus === 2) {
-          return (value?.startDate < day && hoverDate >= day) || (value?.startDate > day && hoverDate <= day)
+          return (startDate < day && hoverDate >= day) || (startDate > day && hoverDate <= day)
         } else {
           return isSameDay(day, hoverDate)
         }
       } else {
         if (inputOnFocus === 1) {
-          return (value?.startDate > day && hoverDate <= day) || (value?.endDate < day && isSameDay(day, hoverDate))
+          return (startDate > day && hoverDate <= day) || (endDate < day && isSameDay(day, hoverDate))
         } else if (inputOnFocus === 2) {
-          return (value?.endDate < day && hoverDate >= day) || (value?.endDate > day && isSameDay(day, hoverDate))
+          return (endDate < day && hoverDate >= day) || (endDate > day && isSameDay(day, hoverDate))
         }
       }
     }
   }
 
+  // By day, as the disabled modifier does: with minDate={new Date()}, today is clickable, so it is hovered too
   const isInHoverRange = (day: Date, hoverDate: Date) =>
-    hoverDate && (!minDate || day >= minDate) && (!maxDate || day <= maxDate) && hoverControl(day, hoverDate)
+    hoverDate &&
+    (!minDate || startOfDay(day) >= startOfDay(minDate)) &&
+    (!maxDate || startOfDay(day) <= startOfDay(maxDate)) &&
+    hoverControl(day, hoverDate)
 
   return (
     <GenericRangeCalendar

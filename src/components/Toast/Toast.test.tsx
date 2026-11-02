@@ -142,6 +142,36 @@ describe('ToastProvider', () => {
     expect(queryByText('Uploading...')).not.toBeInTheDocument()
   })
 
+  it('should call onClose once, outside the state update, when toasts close together', () => {
+    const onCloseFirst = jest.fn()
+    const onCloseSecond = jest.fn()
+    // StrictMode runs state updaters twice; it also warns about the findDOMNode of Tooltip, which is not tested here
+    const originalError = console.error
+    const consoleError = jest.spyOn(console, 'error').mockImplementation((message, ...args) => {
+      if (![message, ...args].join(' ').includes('findDOMNode')) {
+        originalError(message, ...args)
+      }
+    })
+    render(
+      <React.StrictMode>
+        <ToastProvider>
+          <Trigger />
+        </ToastProvider>
+      </React.StrictMode>
+    )
+    const first = show({ message: 'First', duration: 0, onClose: onCloseFirst })
+    const second = show({ message: 'Second', duration: 0, onClose: onCloseSecond })
+
+    act(() => {
+      toast.close(first)
+      toast.close(second)
+      toast.close(second)
+    })
+    expect(onCloseFirst).toHaveBeenCalledTimes(1)
+    expect(onCloseSecond).toHaveBeenCalledTimes(1)
+    consoleError.mockRestore()
+  })
+
   it('should stack several toasts', () => {
     const { getByText } = renderProvider()
     show({ message: 'First' })

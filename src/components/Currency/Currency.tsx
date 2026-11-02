@@ -7,8 +7,8 @@ export interface CurrencyProps extends NumberProps {
 }
 
 export function Currency(props: CurrencyProps) {
-  const { currency, ...rest } = props
-  return <Number formatOptions={{ style: 'currency', currency }} {...rest} />
+  const { currency, formatOptions, ...rest } = props
+  return <Number {...rest} formatOptions={{ style: 'currency', currency, ...formatOptions }} />
 }
 
 Currency.defaultProps = {

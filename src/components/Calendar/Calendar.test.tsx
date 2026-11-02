@@ -46,7 +46,7 @@ describe('Calendar', () => {
 
     expect(visibleDateChange).not.toHaveBeenCalled()
     fireEvent.click(nextYearButton)
-    expect(visibleDateChange).toHaveBeenCalledWith(new Date('2019-10-26'))
+    expect(visibleDateChange).toHaveBeenCalledWith(new Date(2019, 9, 1))
   })
 
   it('should change visibleDate when month is changed', () => {
@@ -58,7 +58,7 @@ describe('Calendar', () => {
 
     expect(visibleDateChange).not.toHaveBeenCalled()
     fireEvent.click(nextMonthButton)
-    expect(visibleDateChange).toHaveBeenCalledWith(new Date('2018-11-26'))
+    expect(visibleDateChange).toHaveBeenCalledWith(new Date(2018, 10, 1))
   })
 
   it('should change visibleDate when day is clicked', () => {

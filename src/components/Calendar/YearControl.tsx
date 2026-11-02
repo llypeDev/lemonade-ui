@@ -16,17 +16,10 @@ export function YearControl(props: YearControlProps) {
   const { visibleDate, onChange, renderYear } = props
   const locale = useLocale()
 
-  const handleNext = () => {
-    const next = new Date(visibleDate)
-    next.setFullYear(visibleDate.getFullYear() + 1)
-    return onChange(next)
-  }
+  // Goes to the first day: from February 29, setFullYear would roll over to March
+  const handleNext = () => onChange(new Date(visibleDate.getFullYear() + 1, visibleDate.getMonth(), 1))
 
-  const handlePrev = () => {
-    const prev = new Date(visibleDate)
-    prev.setFullYear(prev.getFullYear() - 1)
-    return onChange(prev)
-  }
+  const handlePrev = () => onChange(new Date(visibleDate.getFullYear() - 1, visibleDate.getMonth(), 1))
 
   return (
     <HFlow alignItems='center' hSpacing={0.5}>
@@ -42,7 +35,7 @@ export function YearControl(props: YearControlProps) {
 }
 
 YearControl.defaultProps = {
-  renderYear: date => {
+  renderYear: (date) => {
     const formatter = new Intl.DateTimeFormat(getUserLocale(), { year: 'numeric' })
     return formatter.format(date)
   },

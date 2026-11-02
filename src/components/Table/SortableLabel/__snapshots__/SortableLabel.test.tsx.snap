@@ -11,6 +11,19 @@ exports[`SortableLabel should render correctly 1`] = `
   -ms-flex-align: center;
   align-items: center;
   cursor: pointer;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+}
+
+.emotion-3:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
 }
 
 .emotion-2 {
@@ -20,11 +33,14 @@ exports[`SortableLabel should render correctly 1`] = `
 }
 
 <div>
-  <span
+  <button
     class="emotion-3"
+    type="button"
   >
     <svg
+      aria-hidden="true"
       class="emotion-2"
+      focusable="false"
       height="1em"
       viewBox="0 0 24 24"
       width="1em"
@@ -38,7 +54,7 @@ exports[`SortableLabel should render correctly 1`] = `
         points="12 19.06 7.05 14.11 5.64 15.53 12 21.89 18.36 15.53 16.95 14.11 12 19.06"
       />
     </svg>
-  </span>
+  </button>
 </div>
 `;
 
@@ -53,6 +69,19 @@ exports[`SortableLabel should render correctly 2`] = `
   -ms-flex-align: center;
   align-items: center;
   cursor: pointer;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+}
+
+.emotion-3:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
 }
 
 .emotion-2 {
@@ -66,11 +95,14 @@ exports[`SortableLabel should render correctly 2`] = `
 }
 
 <div>
-  <span
+  <button
     class="emotion-3"
+    type="button"
   >
     <svg
+      aria-hidden="true"
       class="emotion-2"
+      focusable="false"
       height="1em"
       viewBox="0 0 24 24"
       width="1em"
@@ -84,7 +116,7 @@ exports[`SortableLabel should render correctly 2`] = `
         points="12 19.06 7.05 14.11 5.64 15.53 12 21.89 18.36 15.53 16.95 14.11 12 19.06"
       />
     </svg>
-  </span>
+  </button>
 </div>
 `;
 
@@ -99,6 +131,19 @@ exports[`SortableLabel should render correctly 3`] = `
   -ms-flex-align: center;
   align-items: center;
   cursor: pointer;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  font: inherit;
+  color: inherit;
+  text-align: inherit;
+}
+
+.emotion-3:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
 }
 
 .emotion-2 {
@@ -112,11 +157,14 @@ exports[`SortableLabel should render correctly 3`] = `
 }
 
 <div>
-  <span
+  <button
     class="emotion-3"
+    type="button"
   >
     <svg
+      aria-hidden="true"
       class="emotion-2"
+      focusable="false"
       height="1em"
       viewBox="0 0 24 24"
       width="1em"
@@ -130,6 +178,6 @@ exports[`SortableLabel should render correctly 3`] = `
         points="12 19.06 7.05 14.11 5.64 15.53 12 21.89 18.36 15.53 16.95 14.11 12 19.06"
       />
     </svg>
-  </span>
+  </button>
 </div>
 `;

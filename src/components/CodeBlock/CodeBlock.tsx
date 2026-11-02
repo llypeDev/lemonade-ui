@@ -1,8 +1,9 @@
-import React, { CSSProperties } from 'react'
+import React, { CSSProperties, useMemo } from 'react'
 
 import { useLocale } from '../../i18n'
 import { ExternalStyles, focusBoxShadow, Theme, useStyles } from '../../styles'
 import { Omit } from '../../util'
+import { randomStr } from '../../util/string'
 import { CopyButton } from '../CopyButton'
 import { monospaceFontFamily } from '../Kbd/Kbd'
 
@@ -67,22 +68,30 @@ export function CodeBlock(props: CodeBlockProps) {
 
   const locale = useLocale()
   const { classes, css } = useStyles(createStyles, wrap, maxHeight)
+  const titleId = useMemo(() => `code-block-title-${randomStr()}`, [])
   const heading = title ?? language
   const lines = code.replace(/\n$/, '').split('\n')
+  // The header shows a text title, which names the code
+  const named = typeof heading === 'string' && heading !== ''
 
   return (
     <div className={css(classes.root, style)} {...rest}>
       {(heading || copyable) && (
         <div className={classes.header}>
-          <span className={classes.title}>{heading}</span>
+          <span id={named ? titleId : undefined} className={classes.title}>
+            {heading}
+          </span>
           {copyable && <CopyButton text={code} size='small' skin='ghost' />}
         </div>
       )}
-      {/* The code can scroll, so it takes the focus to scroll by keyboard */}
+      {/* The code can scroll, so it takes the focus to scroll by keyboard. A pre has no role of its own, so the
+          group role lets screen readers read its name. */}
       <pre
         className={classes.pre}
         tabIndex={0}
-        aria-label={typeof heading === 'string' ? heading : locale.codeBlock.label}
+        role='group'
+        aria-labelledby={named ? titleId : undefined}
+        aria-label={named ? undefined : locale.codeBlock.label}
         data-language={language}
       >
         <code className={css(classes.code, showLineNumbers && classes.numbered)}>

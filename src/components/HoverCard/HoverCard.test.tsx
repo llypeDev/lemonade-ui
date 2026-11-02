@@ -86,6 +86,24 @@ describe('HoverCard', () => {
     expect(link).not.toHaveAttribute('aria-describedby')
   })
 
+  it('should add the card to the descriptions of the element', async () => {
+    const { getByRole } = render(
+      <HoverCard content={<p>Ana Souza, product designer in São Paulo</p>}>
+        <a href='/people/ana' aria-describedby='role'>
+          Ana Souza
+        </a>
+      </HoverCard>
+    )
+    const link = getByRole('link')
+
+    fireEvent.focus(link)
+    await advance(500)
+    expect(link).toHaveAttribute('aria-describedby', 'role hover-card-abc')
+
+    fireEvent.keyDown(document, { key: 'Escape' })
+    expect(link).toHaveAttribute('aria-describedby', 'role')
+  })
+
   it('should keep the handlers of the element', () => {
     const onMouseEnter = jest.fn()
     const { getByRole } = renderCard(onMouseEnter)

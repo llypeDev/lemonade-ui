@@ -1,4 +1,4 @@
-import React, { CSSProperties, useContext } from 'react'
+import React, { CSSProperties, useContext, useEffect, useState } from 'react'
 
 import { useRovingTabIndex } from '../../hooks/useRovingTabIndex'
 import { ExternalStyles, Theme, useStyles } from '../../styles'
@@ -20,21 +20,26 @@ const TabsContext = React.createContext<TabsOrientation>('horizontal')
 
 export const useTabsOrientation = () => useContext(TabsContext)
 
-const isTabItem = (child: React.ReactNode): child is React.ReactElement =>
-  React.isValidElement(child) && typeof child.props === 'object'
+const getTabs = (root: HTMLElement): HTMLElement[] => Array.from(root.querySelectorAll(`[role="tab"]:not(.disabled)`))
 
 export function Tabs(props: TabsProps) {
   const { orientation = 'horizontal', style, children, ...rest } = props
   const { classes, css } = useStyles(createStyles)
 
-  // The keyboard enters the list on the active tab, as the ARIA tabs pattern asks
-  const enabled = React.Children.toArray(children).filter((child) => isTabItem(child) && !child.props.disabled)
-  const activeIndex = enabled.findIndex((child) => isTabItem(child) && child.props.active)
+  // The keyboard enters the list on the active tab, as the ARIA tabs pattern asks. It is found among the rendered
+  // tabs, the same list the roving tabindex counts, since a tab can be inside another component.
+  const [activeIndex, setActiveIndex] = useState(0)
 
   const rootRef = useRovingTabIndex({
-    initialIndex: Math.max(0, activeIndex),
-    getItems: (root) => Array.from(root.querySelectorAll(`[role="tab"]:not(.disabled)`)),
+    initialIndex: activeIndex,
+    // A new function on each render, so the tabindex of tabs added later is set too
+    getItems: (root) => getTabs(root),
   })
+
+  useEffect(() => {
+    const index = getTabs(rootRef.current).findIndex((tab) => tab.getAttribute('aria-selected') === 'true')
+    setActiveIndex(Math.max(0, index))
+  }, [children, rootRef])
 
   return (
     <TabsContext.Provider value={orientation}>

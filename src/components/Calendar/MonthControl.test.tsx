@@ -18,7 +18,7 @@ it('should call onChange function with next month when clicked on next button', 
 
   expect(change).not.toHaveBeenCalled()
   fireEvent.click(nextButton)
-  expect(change).toHaveBeenCalledWith(new Date('2018-11-26'))
+  expect(change).toHaveBeenCalledWith(new Date(2018, 10, 1))
 })
 
 it('should call onChange function with previous month when clicked on prev button', () => {
@@ -28,7 +28,21 @@ it('should call onChange function with previous month when clicked on prev butto
 
   expect(change).not.toHaveBeenCalled()
   fireEvent.click(prevButton)
-  expect(change).toHaveBeenCalledWith(new Date('2018-09-26'))
+  expect(change).toHaveBeenCalledWith(new Date(2018, 8, 1))
+})
+
+it('should go to the next and previous months from the end of a month', () => {
+  const change = jest.fn()
+  const { getByTitle, rerender } = render(<MonthControl visibleDate={new Date(2019, 0, 31)} onChange={change} />)
+
+  // January 31 + 1 month would roll over to March
+  fireEvent.click(getByTitle('Next month'))
+  expect(change).toHaveBeenLastCalledWith(new Date(2019, 1, 1))
+
+  // March 31 - 1 month would roll over to March again
+  rerender(<MonthControl visibleDate={new Date(2019, 2, 31)} onChange={change} />)
+  fireEvent.click(getByTitle('Previous month'))
+  expect(change).toHaveBeenLastCalledWith(new Date(2019, 1, 1))
 })
 
 it('should allow message customization via locale context', () => {

@@ -37,6 +37,7 @@ export function BaseMonthRangeInput(props: BaseMonthRangeInputProps) {
     disabled,
     divRef,
     icon,
+    id,
     initialInputRef,
     finalInputRef,
     minMonth,
@@ -48,6 +49,8 @@ export function BaseMonthRangeInput(props: BaseMonthRangeInputProps) {
     rangeSeparator,
     value,
     style,
+    startPlaceholder,
+    finalPlaceholder,
     ...rest
   } = props
 
@@ -71,7 +74,8 @@ export function BaseMonthRangeInput(props: BaseMonthRangeInputProps) {
 
   const onChangeStart = (refMonth: ReferenceMonth) => {
     const start = handleMinmaxMonth(refMonth)
-    const end = value?.start && value?.end && start && isGreaterThan(start, value?.end) ? undefined : value?.end
+    // A start after the end clears the end, as the month calendar does, even when there was no start
+    const end = value?.end && start && isGreaterThan(start, value?.end) ? undefined : value?.end
     const aux = {
       start,
       end,
@@ -85,12 +89,11 @@ export function BaseMonthRangeInput(props: BaseMonthRangeInputProps) {
 
   const onChangeFinal = (refMonth: ReferenceMonth) => {
     const auxFinalMonth = handleMinmaxMonth(refMonth)
-    const start =
-      value?.start && value?.end && auxFinalMonth && isLessThan(auxFinalMonth, value?.start)
-        ? auxFinalMonth
-        : value?.start
-    const end =
-      value?.start && value?.end && auxFinalMonth && isLessThan(auxFinalMonth, value?.start) ? undefined : auxFinalMonth
+    const isBeforeStart = value?.start && auxFinalMonth && isLessThan(auxFinalMonth, value?.start)
+    const start = isBeforeStart ? auxFinalMonth : value?.start
+    // As the month calendar does: an end before the start becomes the start, and the old start the end when there
+    // was no end
+    const end = isBeforeStart ? (value?.end ? undefined : value?.start) : auxFinalMonth
 
     const aux = {
       start,
@@ -130,10 +133,11 @@ export function BaseMonthRangeInput(props: BaseMonthRangeInputProps) {
             clearable={clearable}
             name={name ? `${name}.start` : 'start'}
             disabled={disabled}
+            id={id}
             inputRef={composeRefs(firstFieldRef, initialInputRef) as any}
             onChange={onChangeStart}
             onClear={onClearStart}
-            placeholder={locale.monthInput.placeholder}
+            placeholder={startPlaceholder || locale.monthInput.placeholder}
             style={classes.monthField}
             value={value?.start}
             onFocus={onInputOnFocusInicial}
@@ -148,10 +152,11 @@ export function BaseMonthRangeInput(props: BaseMonthRangeInputProps) {
             clearable={clearable}
             name={name ? `${name}.end` : 'end'}
             disabled={disabled}
+            id={id && `${id}-end`}
             inputRef={composeRefs(secondFieldRef, finalInputRef) as any}
             onChange={onChangeFinal}
             onClear={onClearFinal}
-            placeholder={locale.monthInput.placeholder}
+            placeholder={finalPlaceholder || locale.monthInput.placeholder}
             style={classes.monthField}
             value={value?.end}
             onFocus={onInputOnFocusFinal}

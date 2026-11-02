@@ -325,6 +325,28 @@ describe('DateRangeCalendar', () => {
       })
     })
 
+    it('should not change the dates of the value', () => {
+      const value = { startDate: new Date(2019, 1, 11, 15, 30), endDate: new Date(2019, 1, 13, 9, 45) }
+      const { getByText } = render(createComponent({ value, inputOnFocus: 2 }))
+      fireEvent.mouseOver(getByText('14'))
+
+      expect(value.startDate).toEqual(new Date(2019, 1, 11, 15, 30))
+      expect(value.endDate).toEqual(new Date(2019, 1, 13, 9, 45))
+      expect(getByText('11').getAttribute('aria-selected')).toBe('true')
+      expect(getByText('13').getAttribute('aria-selected')).toBe('true')
+    })
+
+    it('should apply the hover style to the day of minDate, whatever its time', () => {
+      // Like minDate={new Date()}: today can be clicked, so it must also be hovered
+      const { getByText } = render(createComponent({ minDate: new Date(2019, 1, 14, 14, 0) }))
+      const expectedStyle = dayHoverStyle(theme)
+
+      fireEvent.mouseOver(getByText('14'))
+      iterateObjectFields(expectedStyle, (fieldName: string, fieldValue: any) =>
+        expect(getByText('14')).toHaveStyleRule(normalizeCssClassNames(fieldName), fieldValue)
+      )
+    })
+
     it('The comparisons for which days belong to the selected range should be correct', () => {
       const { getByText, rerender } = render(
         createComponent({

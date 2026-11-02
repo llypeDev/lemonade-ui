@@ -162,7 +162,7 @@ exports[`input label label should have a htmlFor prop equals to the used id 1`] 
             <input
               aria-autocomplete="list"
               class="emotion-1"
-              id="downshift-0-input"
+              id="foo"
               placeholder="Select a value..."
               type="text"
               value=""

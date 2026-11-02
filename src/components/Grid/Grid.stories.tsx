@@ -25,12 +25,13 @@ const alignSelfOptions: AlignSelf[] = ['auto', 'flex-start', 'flex-end', 'center
 const directionOptions: Direction[] = ['row', 'row-reverse', 'column', 'column-reverse']
 
 function CurrentBreakpoint() {
-  const { innerWidth } = useWindowSize()
+  // Null on the first render
+  const size = useWindowSize()
   const breakpoint = useBreakpoint()
 
   return (
     <>
-      width: {innerWidth}px | breakpoint: <strong>{breakpoint}</strong>
+      width: {size?.innerWidth}px | breakpoint: <strong>{breakpoint}</strong>
     </>
   )
 }

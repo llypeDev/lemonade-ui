@@ -14,6 +14,7 @@ import {
   SeriesType,
   TooltipRenderer,
 } from './model'
+import { getOutlierSeriesName } from './util'
 
 export function renderSeries<XDomain>(
   chartType: SeriesType,
@@ -56,6 +57,8 @@ export function renderReferenceAreas(refArea: ReferenceArea<any>, index: number,
       connectNulls={true}
       isRange={true}
       legendType='none'
+      // Recharts takes it, though its types do not have it
+      {...{ tooltipType: 'none' }}
     />
   )
 }
@@ -143,9 +146,14 @@ function renderArea<XDomain>(
 }
 
 interface BarShapeProps<XDomain> extends RectangleProps {
-  payload?: { x: XDomain }
-  value?: number
+  payload?: { x: XDomain; [key: string]: any }
+  value?: number | number[]
 }
+
+// A stacked bar gets [base, top] as its value, and an outlier the placeholder drawn at the end of the axis,
+// so the tooltip takes the value of the series from the data row
+const getBarValue = (props: BarShapeProps<any>, seriesName: string): number =>
+  props.payload?.[getOutlierSeriesName(seriesName)]?.value ?? props.payload?.[seriesName] ?? (props.value as number)
 
 function renderColumn<XDomain>(
   index: number,
@@ -169,11 +177,15 @@ function renderColumn<XDomain>(
         <ChartTooltip
           labelDomain={xDomain}
           label={props.payload?.x}
-          value={props.value}
+          value={getBarValue(props, name)}
+          seriesName={name}
           showTooltip={showTooltip}
           renderer={tooltipRenderer}
         >
-          <Rectangle {...props} />
+          {/* The Rectangle drops the handlers and attributes the tooltip adds, so a group takes them */}
+          <g>
+            <Rectangle {...props} />
+          </g>
         </ChartTooltip>
       )}
       label={{ fill: color, position: 'top' }}
@@ -202,15 +214,18 @@ export function renderBar<YDomain>(
       {...getDefaultRenderProps(name, color)}
       stackId={stacked ? 'stackId' : undefined}
       yAxisId='data'
-      shape={(props) => (
+      shape={(props: BarShapeProps<YDomain>) => (
         <ChartTooltip
           labelDomain={yDomain}
-          label={(props as any).payload.x}
-          value={(props as any).value}
+          label={props.payload?.x}
+          value={getBarValue(props, name)}
+          seriesName={name}
           showTooltip={showTooltip}
           renderer={tooltipRenderer}
         >
-          <Rectangle {...props} />
+          <g>
+            <Rectangle {...props} />
+          </g>
         </ChartTooltip>
       )}
       label={{ fill: color, position: 'right' }}

@@ -90,6 +90,18 @@ it('should label the page size in the language of the locale', () => {
   expect(getByText('Mostrar:')).toBeInTheDocument()
 })
 
+it('should name the page size button with its label and the size', () => {
+  const { getByRole, rerender } = render(<TableFooterTest pageSize={30} />)
+  expect(getByRole('button', { name: 'Show: 30' })).toBeInTheDocument()
+
+  rerender(
+    <LocaleContext.Provider value={ptBr}>
+      <TableFooterTest pageSize={30} />
+    </LocaleContext.Provider>
+  )
+  expect(getByRole('button', { name: 'Mostrar: 30' })).toBeInTheDocument()
+})
+
 describe('page size menu', () => {
   // Popper places the menu asynchronously, and the blur of the menu is handled after a timeout
   const flush = () => act(async () => new Promise((resolve) => setTimeout(resolve)))
@@ -101,7 +113,7 @@ describe('page size menu', () => {
         <input data-testid='after' />
       </>
     )
-    fireEvent.click(result.getByRole('button', { name: '10' }))
+    fireEvent.click(result.getByRole('button', { name: 'Show: 10' }))
     await flush()
     expect(result.getByRole('menuitem', { name: '10' })).toHaveFocus()
     return result
@@ -114,7 +126,7 @@ describe('page size menu', () => {
     await flush()
 
     expect(queryByRole('menu')).not.toBeInTheDocument()
-    expect(getByRole('button', { name: '10' })).toHaveFocus()
+    expect(getByRole('button', { name: 'Show: 10' })).toHaveFocus()
   })
 
   it('should let the focus leave with Tab', async () => {

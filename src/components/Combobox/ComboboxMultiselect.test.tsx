@@ -2,6 +2,7 @@ import React, { forwardRef, useRef, useState } from 'react'
 import { act, render, fireEvent, getByTestId, waitFor } from '@testing-library/react'
 import matchSorter from 'match-sorter'
 import waait from 'waait'
+import en from '../../i18n/locales/en-US'
 import { Text } from '../Text'
 import { useTheme } from '../../styles'
 import { HFlow } from '../HFlow'
@@ -807,5 +808,180 @@ it('draws the check of each option without an input inside the option', async ()
 
   baseElement.querySelectorAll('[role="option"]').forEach((option) => {
     expect(option.querySelector('input')).toBeNull()
+  })
+})
+
+it('unchecks an option of a value built apart from the items', async () => {
+  const onChange = jest.fn()
+  const { baseElement, queryByTestId } = render(
+    <ComboboxTest value={[{ value: 1, label: 'Apple' }]} onChange={onChange} open />
+  )
+  const options = await waitForOptions(baseElement)
+  await flush()
+  expect(options[0]).toHaveAttribute('aria-checked', 'true')
+
+  fireEvent.click(options[0])
+  await flush()
+
+  expect(onChange).toHaveBeenLastCalledWith([])
+  expect(baseElement.querySelectorAll('[role="option"]')[0]).toHaveAttribute('aria-checked', 'false')
+  expect(queryByTestId('Apple')).toBeNull()
+})
+
+describe('typed filter', () => {
+  // The focus really moves, as with Tab, so downshift handles the blur as it does in a browser
+  it('does not pick the highlighted option when the field loses the focus', async () => {
+    const onChange = jest.fn()
+    const { baseElement, queryByTestId } = render(<ComboboxTest onChange={onChange} />)
+    const input = baseElement.querySelector('input')!
+
+    act(() => input.focus())
+    fireEvent.change(input, { target: { value: 'ban' } })
+    await flush()
+    act(() => input.blur())
+    await flush()
+
+    expect(onChange).not.toHaveBeenCalled()
+    expect(queryByTestId('Banana')).toBeNull()
+    expect(input).toHaveValue('')
+  })
+
+  it('keeps the typed filter when Enter picks an option, and the option when the field loses the focus', async () => {
+    const onChange = jest.fn()
+    const { baseElement, queryByTestId } = render(<ComboboxTest onChange={onChange} />)
+    const input = baseElement.querySelector('input')!
+
+    act(() => input.focus())
+    fireEvent.change(input, { target: { value: 'ban' } })
+    await flush()
+    fireEvent.keyDown(input, { key: 'Enter' })
+    await flush()
+
+    expect(onChange).toHaveBeenLastCalledWith([fruits[2]])
+    expect(input).toHaveValue('ban')
+
+    act(() => input.blur())
+    await flush()
+
+    expect(onChange).toHaveBeenCalledTimes(1)
+    expect(queryByTestId('Banana')).toBeTruthy()
+  })
+})
+
+it('neither opens nor clears the value when disabled', async () => {
+  const onChange = jest.fn()
+  const { baseElement, queryByTestId, queryByTitle } = render(
+    <ComboboxTest value={[fruits[0]]} onChange={onChange} clearable disabled />
+  )
+  await flush()
+  onChange.mockClear()
+
+  fireEvent.click(baseElement.querySelector(`#${TOGGLE_BUTTON_ID}`))
+  await flush()
+
+  expect(baseElement.querySelector('ul')).toBeFalsy()
+  expect(queryByTitle('Clear')).toBeNull()
+  expect(queryByTestId('Apple')).toBeTruthy()
+  expect(onChange).not.toHaveBeenCalled()
+})
+
+describe('items', () => {
+  it('shows the items that arrive while the menu is open', async () => {
+    function LoadingCombobox() {
+      const [data, setData] = useState<Fruit[]>()
+      return (
+        <>
+          <ComboboxTest items={data ?? []} loading={!data} />
+          <button onClick={() => setData(fruits)}>Load</button>
+        </>
+      )
+    }
+    const { baseElement, getByText } = render(<LoadingCombobox />)
+
+    fireEvent.focus(baseElement.querySelector('input'))
+    await flush()
+    fireEvent.click(getByText('Load'))
+    await flush()
+
+    expect(baseElement.querySelectorAll('[role="option"]')).toHaveLength(fruits.length)
+  })
+
+  // Each load restarts the debounce, so loading again on each render of the parent could keep the list from loading
+  it('does not load again an inline array of the same items when the parent renders', async () => {
+    const filter = jest.fn((items: readonly Fruit[]) => [...items])
+    const { baseElement, rerender } = render(<ComboboxTest items={[...fruits]} filter={filter} open />)
+    await flush()
+    for (let render = 0; render < 3; render++) {
+      rerender(<ComboboxTest items={[...fruits]} filter={filter} open />)
+      await flush()
+    }
+
+    expect(filter).toHaveBeenCalledTimes(1)
+    expect(baseElement.querySelectorAll('[role="option"]')).toHaveLength(fruits.length)
+  })
+
+  it.each`
+    items
+    ${null}
+    ${undefined}
+  `('shows the empty item when items is $items', async ({ items }) => {
+    const { baseElement, queryByText } = render(<ComboboxTest items={items} />)
+
+    fireEvent.focus(baseElement.querySelector('input'))
+    await flush()
+
+    expect(queryByText(en.combobox.emptyItem)).toBeTruthy()
+  })
+})
+
+it.each`
+  emptyValue
+  ${undefined}
+  ${null}
+`('removes the items when the value becomes $emptyValue', async ({ emptyValue }) => {
+  function ResettableCombobox() {
+    const [value, setValue] = useState<Fruit[]>([fruits[0]])
+    return (
+      <>
+        <ComboboxTest value={value} onChange={setValue} />
+        <button onClick={() => setValue(emptyValue)}>Reset</button>
+      </>
+    )
+  }
+  const { getByText, queryByTestId } = render(<ResettableCombobox />)
+  await flush()
+  expect(queryByTestId('Apple')).toBeTruthy()
+
+  fireEvent.click(getByText('Reset'))
+  await flush()
+
+  expect(queryByTestId('Apple')).toBeNull()
+})
+
+describe('label', () => {
+  it('does not point to a label that is not shown', async () => {
+    const { baseElement } = render(<ComboboxTest />)
+
+    expect(baseElement.querySelector('label')).toBeNull()
+    expect(baseElement.querySelector('input')).not.toHaveAttribute('aria-labelledby')
+    expect(baseElement.querySelector('[role="listbox"]')).not.toHaveAttribute('aria-labelledby')
+    await flush()
+  })
+
+  it('names the input of an `id`', async () => {
+    const { baseElement } = render(<ComboboxTest label='Fruits' id='fruits-field' inputId={undefined} />)
+
+    expect(baseElement.querySelector('input')).toHaveAttribute('id', 'fruits-field')
+    expect(baseElement.querySelector('label')).toHaveAttribute('for', 'fruits-field')
+    await flush()
+  })
+
+  it('does not pass the label and the error to the input', async () => {
+    const { baseElement } = render(<ComboboxTest label='Fruits' error='Pick a fruit' />)
+    const input = baseElement.querySelector('input')
+
+    expect(input).not.toHaveAttribute('label')
+    expect(input).not.toHaveAttribute('error')
+    await flush()
   })
 })

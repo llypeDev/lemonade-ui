@@ -34,6 +34,14 @@ export const formatDecimalOrInteger = (value: number): string => {
   return format(value, formatOptions)
 }
 
+const ABBREV_UNITS: [number, string][] = [
+  [1, ''],
+  [1e3, 'k'],
+  [1e6, 'm'],
+  [1e9, 'b'],
+  [1e12, 't'],
+]
+
 /**
  * Abrreviates a number to its compact representation.
  * Example: 1000000 is abbreviated to '1m'
@@ -43,25 +51,19 @@ export const formatDecimalOrInteger = (value: number): string => {
  * @return The abbreviated value.
  */
 export function abbrev(value: number, options?: Intl.NumberFormatOptions) {
-  if (!value) {
+  if (typeof value !== 'number' || isNaN(value)) {
     return value
   }
 
-  if (value >= 1e12) {
-    return format(value / 1e12, { minimumFractionDigits: 0, maximumFractionDigits: 1, ...options }) + 't'
+  const formatOptions: Intl.NumberFormatOptions = { minimumFractionDigits: 0, maximumFractionDigits: 1, ...options }
+  const fractionDigits = formatOptions.maximumFractionDigits ?? 1
+
+  // The next unit is taken while the rounded value reaches a thousand, so 999999 is "1m" and not "1,000k"
+  let unit = 0
+  while (unit < ABBREV_UNITS.length - 1 && Math.abs(+(value / ABBREV_UNITS[unit][0]).toFixed(fractionDigits)) >= 1e3) {
+    unit++
   }
 
-  if (value >= 1e9) {
-    return format(value / 1e9, { minimumFractionDigits: 0, maximumFractionDigits: 1, ...options }) + 'b'
-  }
-
-  if (value >= 1e6) {
-    return format(value / 1e6, { minimumFractionDigits: 0, maximumFractionDigits: 1, ...options }) + 'm'
-  }
-
-  if (value >= 1e3) {
-    return format(value / 1e3, { minimumFractionDigits: 0, maximumFractionDigits: 1, ...options }) + 'k'
-  }
-
-  return format(value, { minimumFractionDigits: 0, maximumFractionDigits: 1, ...options })
+  const [size, suffix] = ABBREV_UNITS[unit]
+  return format(value / size, formatOptions) + suffix
 }

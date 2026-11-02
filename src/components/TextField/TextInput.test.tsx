@@ -47,13 +47,18 @@ describe('icon', () => {
 
 describe('clear icon', () => {
   it('should call "onChange" when clear icon is clicked', () => {
-    const change = jest.fn(event => event.persist())
+    const change = jest.fn((event) => event.persist())
     const { queryByTitle } = render(<TextInput defaultValue='Test' onChange={change} />)
 
     fireEvent.click(queryByTitle('Clear'))
 
     expect(change).toHaveBeenCalledTimes(1)
     expect(change.mock.calls[0][0].target.value).toEqual('')
+  })
+  it('should not render clear icon when the input is read only', () => {
+    const change = jest.fn()
+    const { queryByTitle } = render(<TextInput defaultValue='Test' readOnly onChange={change} />)
+    expect(queryByTitle('Clear')).toBeFalsy()
   })
   it('should not render clear icon when clearable prop is false', () => {
     const { queryByTitle, rerender } = render(<TextInput defaultValue='Test' clearable={true} />)

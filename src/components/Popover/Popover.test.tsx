@@ -119,6 +119,68 @@ describe('Popover', () => {
     expect(queryByRole('dialog')).toBeNull()
   })
 
+  it('should keep its id, its styles and its focus handling with the props of the user', async () => {
+    const onBlur = jest.fn()
+    const { getByRole, queryByRole } = await renderPopover({
+      defaultOpen: true,
+      id: 'filters',
+      className: 'filters-popover',
+      onBlur,
+    })
+    const anchor = getByRole('button', { name: 'Filters' })
+    const dialog = getByRole('dialog', { name: 'Filters' })
+
+    expect(dialog).toHaveAttribute('id', 'filters')
+    expect(anchor).toHaveAttribute('aria-controls', 'filters')
+    expect(dialog).toHaveClass('filters-popover')
+    expect(dialog).toHaveStyle({ padding: '1rem' })
+
+    await run(() =>
+      fireEvent.blur(getByRole('button', { name: 'Apply' }), {
+        relatedTarget: getByRole('button', { name: 'Outside' }),
+      })
+    )
+    expect(onBlur).toHaveBeenCalledTimes(1)
+    expect(queryByRole('dialog')).toBeNull()
+  })
+
+  it('should remove the aria attributes from the anchor when it unmounts or the anchor changes', async () => {
+    function AnchorTest(props: { anchor: 'first' | 'second' | 'none' }) {
+      const [first, setFirst] = useState<HTMLButtonElement>()
+      const [second, setSecond] = useState<HTMLButtonElement>()
+      return (
+        <>
+          <button ref={setFirst}>First</button>
+          <button ref={setSecond}>Second</button>
+          {props.anchor !== 'none' && (
+            <Popover anchorRef={props.anchor === 'first' ? first : second} open aria-label='Filters'>
+              <button>Apply</button>
+            </Popover>
+          )}
+        </>
+      )
+    }
+    let result: RenderResult
+    await act(async () => {
+      result = render(<AnchorTest anchor='first' />)
+    })
+    const { getByRole, rerender } = result
+    const first = getByRole('button', { name: 'First' })
+    const second = getByRole('button', { name: 'Second' })
+    expect(first).toHaveAttribute('aria-controls')
+
+    await run(() => rerender(<AnchorTest anchor='second' />))
+    expect(second).toHaveAttribute('aria-controls')
+    expect(first).not.toHaveAttribute('aria-controls')
+    expect(first).not.toHaveAttribute('aria-expanded')
+    expect(first).not.toHaveAttribute('aria-haspopup')
+
+    await run(() => rerender(<AnchorTest anchor='none' />))
+    expect(second).not.toHaveAttribute('aria-controls')
+    expect(second).not.toHaveAttribute('aria-expanded')
+    expect(second).not.toHaveAttribute('aria-haspopup')
+  })
+
   it('should stay open while the focus moves inside it', async () => {
     const { getByRole } = await renderPopover({ defaultOpen: true })
 

@@ -27,7 +27,10 @@ function CustomTooltip(props) {
   const { classes: sizeClasses } = useStyles(sizeStyles)
   const size = label && label.length > 60 ? 'big' : 'small'
 
-  const children = tooltipFormatter((payload ?? []).map((p) => ({ seriesName: p.name, x: label, y: p.value })))
+  // The reference areas are left out, as their Areas have tooltipType 'none'
+  const children = tooltipFormatter(
+    (payload ?? []).filter((p) => p.type !== 'none').map((p) => ({ seriesName: p.name, x: label, y: p.value }))
+  )
 
   return active && <div className={css(classes.tooltip, sizeClasses[size])}>{children}</div>
 }
@@ -50,12 +53,12 @@ function DefaultTooltip(props: DefaultTooltipProps) {
     points?.length && (
       <>
         {points?.map((p) => (
-          <Text component='p' style={{ color: theme.pallete.gray.c100 }} key={p.y}>
+          <Text component='p' style={{ color: theme.pallete.gray.c100 }} key={p.seriesName}>
             {`${p.seriesName}: ${p.y} ${yAxis?.unit ?? ''}`}
           </Text>
         ))}
         <Text component='p' style={{ color: theme.pallete.gray.c100 }}>
-          {`${xAxis.title}: ${
+          {`${xAxis?.title ? `${xAxis.title}: ` : ''}${
             isDateRange(xAxis?.domain)
               ? (xAxis.domain.format ?? defaultChartDateFormatter)(new Date(points[0].x))
               : points[0].x

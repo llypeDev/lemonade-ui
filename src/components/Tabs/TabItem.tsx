@@ -14,7 +14,7 @@ export interface TabItemProps extends Omit<HTMLAttributes<HTMLElement>, 'style'>
 }
 
 export function TabItem(props: TabItemProps) {
-  const { active, disabled, component, children, style, ...rest } = props
+  const { active, disabled, component, children, style, onClick, onKeyDown, ...rest } = props
   const { classes, css } = useStyles(createStyles)
   const vertical = useTabsOrientation() === 'vertical'
 
@@ -29,9 +29,38 @@ export function TabItem(props: TabItemProps) {
 
   const Cmp = component
 
+  const handleClick = (e: React.MouseEvent<HTMLElement>) => {
+    if (disabled) {
+      // Also keeps a disabled link from navigating
+      e.preventDefault()
+      return
+    }
+    onClick && onClick(e)
+  }
+
+  // Buttons and links already turn the keyboard into a click; other elements, such as the default span, do not
+  const handleKeyDown = (e: React.KeyboardEvent<HTMLElement>) => {
+    onKeyDown && onKeyDown(e)
+    const target = e.currentTarget
+    const native = target.tagName === 'BUTTON' || (target.tagName === 'A' && target.hasAttribute('href'))
+    if (!e.defaultPrevented && !native && (e.key === 'Enter' || e.key === ' ')) {
+      e.preventDefault()
+      target.click()
+    }
+  }
+
   return (
     <li role='presentation' className={css(classes.li, vertical && classes.verticalLi, style)}>
-      <Cmp role='tab' className={className} aria-selected={!!active} aria-disabled={disabled || undefined} {...rest}>
+      <Cmp
+        role='tab'
+        className={className}
+        aria-selected={!!active}
+        aria-disabled={disabled || undefined}
+        disabled={Cmp === 'button' ? disabled : undefined}
+        {...rest}
+        onClick={handleClick}
+        onKeyDown={handleKeyDown}
+      >
         {children}
       </Cmp>
     </li>

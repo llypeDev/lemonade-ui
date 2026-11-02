@@ -15,7 +15,8 @@ export function InternalDraggable<T extends object, TOrigin = string>(props: Dra
   const [{ isDragging }, drag] = useDrag({
     item: { type: type, name: name, origin },
     end: (_item, monitor) => {
-      if (monitor.getDropResult()['result']) onDragEnd()
+      // There is no drop result when the key is released outside the boxes or the drag is cancelled with Escape
+      if (monitor.getDropResult()?.result) onDragEnd()
     },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),

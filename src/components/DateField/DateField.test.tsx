@@ -1,6 +1,8 @@
 import { fireEvent, render, act } from '@testing-library/react'
 import React from 'react'
 
+import { createTheme } from '../../styles'
+
 import * as DateFieldModule from './DateField'
 import { DateField, disableByRange } from './DateField'
 
@@ -80,6 +82,55 @@ describe('DateField', () => {
     fireEvent.click(container.querySelector('input'))
     expect(container.querySelector('[data-date="2018-10-10"]')).not.toBeNull()
     await flush()
+  })
+  it('should not change the time of the value when the calendar opens', async () => {
+    const value = new Date(2018, 9, 10, 15, 30)
+    const { container } = render(<DateField value={value} />)
+    fireEvent.focus(container.querySelector('input'))
+    expect(value).toEqual(new Date(2018, 9, 10, 15, 30))
+    await flush()
+  })
+  it('should keep the selected and disabled modifiers when calendarProps has other modifiers', async () => {
+    const { container } = render(
+      <DateField
+        value={new Date(2018, 9, 10)}
+        minDate={new Date(2018, 9, 5)}
+        calendarProps={{
+          modifiers: { holiday: (day: Date) => day.getDate() === 12 },
+          modifierStyles: { holiday: () => ({ color: 'red' }) },
+        }}
+      />
+    )
+    fireEvent.focus(container.querySelector('input'))
+    const selectedBackground = createTheme().pallete.primary.main
+    expect(container.querySelector('[data-date="2018-10-10"] span')).toHaveStyleRule('background', selectedBackground)
+    expect(container.querySelector('[data-date="2018-10-04"] span')).toHaveAttribute('aria-disabled', 'true')
+    expect(container.querySelector('[data-date="2018-10-12"] span')).toHaveStyleRule('color', 'red')
+    await flush()
+  })
+  it('should let calendarProps disable more days, but not enable those out of the range', async () => {
+    const { container } = render(
+      <DateField
+        value={new Date(2018, 9, 10)}
+        minDate={new Date(2018, 9, 5)}
+        calendarProps={{ modifiers: { disabled: (day: Date) => day.getDate() === 12 } }}
+      />
+    )
+    fireEvent.focus(container.querySelector('input'))
+    expect(container.querySelector('[data-date="2018-10-04"] span')).toHaveAttribute('aria-disabled', 'true')
+    expect(container.querySelector('[data-date="2018-10-12"] span')).toHaveAttribute('aria-disabled', 'true')
+    expect(container.querySelector('[data-date="2018-10-11"] span')).not.toHaveAttribute('aria-disabled')
+    await flush()
+  })
+  it('should expose the placement of the popper, which popperProps can change', async () => {
+    const { container, rerender } = render(<DateField value={new Date(2018, 9, 10)} />)
+    fireEvent.focus(container.querySelector('input'))
+    await flush()
+    expect(container.querySelector('[data-placement]')).toHaveAttribute('data-placement', 'bottom-start')
+
+    rerender(<DateField value={new Date(2018, 9, 10)} popperProps={{ placement: 'top-end' } as any} />)
+    await flush()
+    expect(container.querySelector('[data-placement]')).toHaveAttribute('data-placement', 'top-end')
   })
 })
 

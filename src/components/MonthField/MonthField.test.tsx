@@ -3,6 +3,8 @@ import React from 'react'
 
 import { LocaleContext } from '../../i18n'
 import ptBR from '../../i18n/locales/pt-BR'
+import { createTheme } from '../../styles'
+import { ReferenceMonth } from '../MonthPicker'
 
 import { MonthField } from './MonthField'
 
@@ -66,7 +68,48 @@ describe('Component behavior', () => {
   })
 })
 
+describe('Without onChange', () => {
+  it('should not crash when a month is typed or picked', async () => {
+    const { container, getByText } = render(
+      <MonthField monthPickerProps={{ visibleMonth: { month: 6, year: 2016 } }} />
+    )
+
+    fireEvent.change(container.querySelector('input'), { target: { value: '08/2016' } })
+    fireEvent.focus(container.querySelector('input'))
+    fireEvent.click(getByText('Jan'))
+    await flush()
+  })
+})
+
 describe('Accessibility and props', () => {
+  it('should keep the selected modifier when monthPickerProps has other modifiers', async () => {
+    const { container } = render(
+      <MonthField
+        value={{ year: 2019, month: 1 }}
+        monthPickerProps={{
+          modifiers: { quarter: (month: ReferenceMonth) => month.month % 3 === 0 },
+          modifierStyles: { quarter: () => ({ color: 'red' }) },
+        }}
+      />
+    )
+    fireEvent.focus(container.querySelector('input'))
+    const selectedBackground = createTheme().pallete.primary.main
+    expect(container.querySelector('button[title="February"]')).toHaveStyleRule('background', selectedBackground)
+    expect(container.querySelector('button[title="April"]')).toHaveStyleRule('color', 'red')
+    await flush()
+  })
+
+  it('should expose the placement of the popper, which popperProps can change', async () => {
+    const { getByTestId, container, rerender } = render(<MonthField value={{ year: 2019, month: 1 }} />)
+    fireEvent.focus(container.querySelector('input'))
+    await flush()
+    expect(getByTestId('MonthField.popup')).toHaveAttribute('data-placement', 'bottom-start')
+
+    rerender(<MonthField value={{ year: 2019, month: 1 }} popperProps={{ placement: 'top-end' } as any} />)
+    await flush()
+    expect(getByTestId('MonthField.popup')).toHaveAttribute('data-placement', 'top-end')
+  })
+
   it('should name the calendar button and use the placeholder of the locale', async () => {
     const { getByRole, container } = render(
       <LocaleContext.Provider value={ptBR}>

@@ -336,6 +336,21 @@ describe('FilterDraggable', () => {
     })
   })
 
+  it('should give the search of each filter its own id', async () => {
+    const { getAllByText, getAllByPlaceholderText } = render(
+      <>
+        {createFilterComponent()}
+        {createFilterComponent()}
+      </>
+    )
+
+    getAllByText('Name').forEach((button) => fireEvent.click(button))
+
+    const [first, second] = getAllByPlaceholderText('Search')
+    expect(first.id).not.toEqual(second.id)
+    await flush()
+  })
+
   it('should not show invalid values on drop down menu', async () => {
     const { getByRole, getAllByRole } = render(
       createFilterComponent({ filterItems: new Array<string>(undefined, '', null) })
@@ -370,6 +385,33 @@ describe('FilterDraggable', () => {
       fireEvent.dragEnd(draggable)
 
       expect(onDragEnd).toHaveBeenCalled()
+      await flush()
+    })
+
+    it('should keep dragging after a drag released outside the boxes', async () => {
+      const onDragEnd = jest.fn()
+      const { container } = render(
+        <DndProvider backend={HTML5Backend}>
+          <DroppableDiv type='test'>{createFilterComponent({ onDragEnd })}</DroppableDiv>
+          <DroppableDiv type='test' />
+        </DndProvider>
+      )
+
+      const draggable = container.querySelectorAll('div[class*=droppable]')[0].firstChild
+      const secondDiv = container.querySelectorAll('div[class*=droppable]')[1]
+
+      // Released outside any box, or cancelled with Escape: there is no drop result
+      fireEvent.dragStart(draggable)
+      fireEvent.dragEnd(draggable)
+      expect(onDragEnd).not.toHaveBeenCalled()
+
+      fireEvent.dragStart(draggable)
+      fireEvent.dragEnter(secondDiv)
+      fireEvent.dragOver(secondDiv)
+      fireEvent.drop(secondDiv)
+      fireEvent.dragEnd(draggable)
+
+      expect(onDragEnd).toHaveBeenCalledTimes(1)
       await flush()
     })
   })

@@ -68,6 +68,24 @@ it('should start on the first tab when none is active', () => {
   expect(items[2]).toHaveAttribute('tabindex', '-1')
 })
 
+it('should start on the active tab when a disabled tab is wrapped in another component', () => {
+  const ArchivedTab = () => <TabItem disabled>Archived</TabItem>
+  const renderTabs = (active: string) => (
+    <Tabs>
+      <ArchivedTab />
+      <TabItem active={active === 'Active'}>Active</TabItem>
+      <TabItem active={active === 'Other'}>Other</TabItem>
+    </Tabs>
+  )
+  const { getByRole, rerender } = render(renderTabs('Active'))
+  expect(getByRole('tab', { name: 'Active' })).toHaveAttribute('tabindex', '0')
+  expect(getByRole('tab', { name: 'Other' })).toHaveAttribute('tabindex', '-1')
+
+  rerender(renderTabs('Other'))
+  expect(getByRole('tab', { name: 'Active' })).toHaveAttribute('tabindex', '-1')
+  expect(getByRole('tab', { name: 'Other' })).toHaveAttribute('tabindex', '0')
+})
+
 it('should tell which tab is selected or disabled', () => {
   const { getByRole } = render(
     <Tabs>

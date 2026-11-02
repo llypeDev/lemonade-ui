@@ -18,7 +18,7 @@ it('should call onChange function with next year when clicked on next button', (
 
   expect(change).not.toHaveBeenCalled()
   fireEvent.click(nextButton)
-  expect(change).toHaveBeenCalledWith(new Date('2019-10-26'))
+  expect(change).toHaveBeenCalledWith(new Date(2019, 9, 1))
 })
 
 it('should call onChange function with previous year when clicked on prev button', () => {
@@ -28,7 +28,19 @@ it('should call onChange function with previous year when clicked on prev button
 
   expect(change).not.toHaveBeenCalled()
   fireEvent.click(prevButton)
-  expect(change).toHaveBeenCalledWith(new Date('2017-10-26'))
+  expect(change).toHaveBeenCalledWith(new Date(2017, 9, 1))
+})
+
+it('should keep the month when the year changes from February 29', () => {
+  const change = jest.fn()
+  const { getByTitle } = render(<YearControl visibleDate={new Date(2028, 1, 29)} onChange={change} />)
+
+  // February 29, 2028 + 1 year would roll over to March 2029
+  fireEvent.click(getByTitle('Next year'))
+  expect(change).toHaveBeenLastCalledWith(new Date(2029, 1, 1))
+
+  fireEvent.click(getByTitle('Previous year'))
+  expect(change).toHaveBeenLastCalledWith(new Date(2027, 1, 1))
 })
 
 it('should allow message customization via locale context', () => {

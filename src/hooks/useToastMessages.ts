@@ -14,6 +14,9 @@ export interface ToastMessagesInterface {
   onClose?: () => void
 }
 
+// Toasts shown in the same millisecond still get different ids
+let lastToastId = 0
+
 /**
  * @deprecated Use `useToast` inside a `ToastProvider` instead.
  *
@@ -43,7 +46,7 @@ export function useToastMessages(): {
     const { message, newToast = false, title, buttonLabel, action, secondsVisible = 5, onClose } = props
 
     const toast = {
-      id: Date.now(),
+      id: ++lastToastId,
       message: message,
       action: action,
       title: title,

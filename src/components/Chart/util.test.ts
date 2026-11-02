@@ -110,6 +110,11 @@ describe('getOutlierStepFromDomain', () => {
     expect(result).toBe(5)
   })
 
+  it('should take a step of 1, as the axis ticks do, when the domain has none', () => {
+    expect(getOutlierStepFromDomain({ init: 0, end: 100 })).toBe(1)
+    expect(getOutlierStepFromDomain({ init: new Date(2020, 0, 1), end: new Date(2020, 0, 5) })).toBe(1)
+  })
+
   it('should return the amount of the step when domain is not a value range', () => {
     const domain: DateRange = {
       init: new Date('10-12-2024'),

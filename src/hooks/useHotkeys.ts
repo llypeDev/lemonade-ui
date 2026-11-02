@@ -75,9 +75,21 @@ export const parseHotkey = (hotkey: string): Hotkey => {
   }
 }
 
+const isLetterOrDigit = (key: string) => /^[a-z0-9]$/.test(key)
+
+/**
+ * Whether the event comes from the key of a letter or digit that typed another character, such as `alt+n` on macOS
+ * (a dead key), `shift+1` (`!`) or a layout of another alphabet. The physical key, `KeyN` or `Digit1`, matches then.
+ * A Latin letter or digit typed is kept as it is, so layouts such as AZERTY follow the characters on their keys.
+ */
+const matchesPhysicalKey = (event: KeyboardEvent, key: string, hotkeyKey: string) =>
+  isLetterOrDigit(hotkeyKey) &&
+  !isLetterOrDigit(key) &&
+  event.code === (/[0-9]/.test(hotkeyKey) ? `Digit${hotkeyKey}` : `Key${hotkeyKey.toUpperCase()}`)
+
 export const matchesHotkey = (event: KeyboardEvent, hotkey: Hotkey) => {
   const key = (event.key || '').toLowerCase()
-  if (key !== hotkey.key) {
+  if (key !== hotkey.key && !matchesPhysicalKey(event, key, hotkey.key)) {
     return false
   }
 

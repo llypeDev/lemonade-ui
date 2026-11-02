@@ -42,6 +42,16 @@ describe('CurrencyField', () => {
     )
   })
 
+  it('should round half cents up, even when the number is stored just below them', () => {
+    const brl = { currency: 'R$', decimalSeparator: ',', thousandsSeparator: '.', decimals: 2 }
+    // 1.005 * 100 is 100.49999999999999 in floating point
+    expect(formatCurrency(1.005, brl)).toBe('R$ 1,01')
+    expect(formatCurrency(-2.675, brl)).toBe('-R$ 2,68')
+    expect(formatCurrency(1234.565, brl)).toBe('R$ 1.234,57')
+    expect(formatCurrency(0.004, brl)).toBe('R$ 0,00')
+    expect(formatCurrency(999999999999.99, brl)).toBe('R$ 999.999.999.999,99')
+  })
+
   it('should fill the amount from the cents as the user types', () => {
     const onChange = jest.fn()
     const { getByRole } = render(<Controlled onChange={onChange} />)

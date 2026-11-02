@@ -6,8 +6,7 @@ import { useWindowSize } from './useWindowSize'
 /**
  * Current applied breakpoint, based on window's width.
  *
- * Note: it might return `null` on first render, if `window` object
- * is not defined (on server side rendering, for example).
+ * Note: it returns `null` on first render, as on the server, where the `window` object is not defined.
  */
 export function useBreakpoint(): Breakpoint | null {
   const theme = useTheme()
@@ -17,7 +16,8 @@ export function useBreakpoint(): Breakpoint | null {
     return null
   }
 
+  // Each breakpoint starts at its width, as `theme.breakpoints.up()`, which is `min-width`
   const sizes: Breakpoint[] = ['xl', 'lg', 'md', 'sm', 'xs']
-  const current = sizes.find(key => dimensions.innerWidth > theme.breakpoints.size[key])
+  const current = sizes.find((key) => dimensions.innerWidth >= theme.breakpoints.size[key])
   return current
 }

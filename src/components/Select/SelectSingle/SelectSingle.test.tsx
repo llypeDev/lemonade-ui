@@ -193,6 +193,37 @@ describe('input label', () => {
     expect(container.querySelector('input').getAttribute('aria-labelledby')).toBeFalsy()
     await flush()
   })
+
+  it('should give the input the "id", so the label names it', async () => {
+    const { container } = render(<SelectTest id='foo' label='Foo' />)
+
+    expect(container.querySelector('input')).toHaveAttribute('id', 'foo')
+    expect(container.querySelector('label')).toHaveAttribute('for', 'foo')
+    await flush()
+  })
+})
+
+it('should call the onKeyDown and onClick handlers of the input', async () => {
+  const onKeyDown = jest.fn()
+  const onClick = jest.fn()
+  const { container } = render(<SelectTest onKeyDown={onKeyDown} onClick={onClick} />)
+  const input = container.querySelector('input')
+
+  fireEvent.keyDown(input, { key: 'ArrowDown' })
+  fireEvent.click(input)
+
+  expect(onKeyDown).toHaveBeenCalledTimes(1)
+  expect(onClick).toHaveBeenCalledTimes(1)
+  await flush()
+})
+
+it('should give each option its own id, even for a repeated item', async () => {
+  const { container } = render(<SelectTest items={[items[0], items[0]]} isOpen />)
+  const ids = Array.from(container.querySelectorAll('[role="option"]')).map((option) => option.id)
+
+  expect(ids).toHaveLength(2)
+  expect(new Set(ids).size).toBe(2)
+  await flush()
 })
 
 describe('createNewItem', () => {

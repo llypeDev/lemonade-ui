@@ -11,6 +11,19 @@ it('should render correctly', () => {
   expect(container).toMatchSnapshot()
 })
 
+it('should name each day cell by its local date', () => {
+  // Out of UTC, such as in Europe/Berlin, the UTC date of a local midnight is the day before
+  const { container } = render(<MonthView visibleDate={new Date(2026, 10, 15)} />)
+  expect(container.querySelector('td[data-date="2026-11-15"]').textContent).toEqual('15')
+  expect(container.querySelector('td[data-date="2026-11-01"]').textContent).toEqual('01')
+})
+
+it('should not change the visible date it receives', () => {
+  const visibleDate = new Date(2018, 9, 26, 15, 30)
+  render(<MonthView visibleDate={visibleDate} />)
+  expect(visibleDate).toEqual(new Date(2018, 9, 26, 15, 30))
+})
+
 it('should call onDayClick with correct date when clicked on a date', () => {
   const click = jest.fn()
   const { container } = render(<MonthView visibleDate={new Date('2018-10-26')} onDayClick={click} />)

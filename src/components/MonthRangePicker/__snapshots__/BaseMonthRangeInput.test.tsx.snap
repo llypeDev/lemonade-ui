@@ -2824,6 +2824,7 @@ exports[`BaseMonthRangeInput render should render correctly when invalid 1`] = `
                 class="emotion-1"
               >
                 <input
+                  aria-invalid="true"
                   class="emotion-0"
                   name="start"
                   placeholder="mm/yyyy"
@@ -2858,6 +2859,7 @@ exports[`BaseMonthRangeInput render should render correctly when invalid 1`] = `
                 class="emotion-1"
               >
                 <input
+                  aria-invalid="true"
                   class="emotion-0"
                   name="end"
                   placeholder="mm/yyyy"

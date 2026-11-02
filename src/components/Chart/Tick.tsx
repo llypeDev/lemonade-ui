@@ -23,7 +23,7 @@ export interface TickProps {
   textAnchor?: string
   width?: number
   isOutlierIndicator?: boolean
-  domainMaxValue?: number | Date
+  domainMaxValue?: number | Date | string
   isAxisX?: boolean
 }
 

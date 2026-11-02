@@ -148,7 +148,17 @@ describe('MonthRangeCalendar', () => {
       })
     })
   })
-  describe('Hover', () => {})
+  describe('Hover', () => {
+    it('should render and hover months without a value', () => {
+      const { container } = render(createComponent({ value: undefined }))
+      const jan = container.querySelector('button[title="January"]')
+
+      fireEvent.mouseOver(jan)
+      iterateObjectFields(expectedHoverStyle, (fieldName: string, fieldValue: any) =>
+        expect(jan).toHaveStyleRule(normalizeCssClassNames(fieldName), fieldValue)
+      )
+    })
+  })
   describe('First input on focus', () => {
     it('should apply hover style only in the month pointed by the mouse if only the start month is defined', () => {
       const { container } = render(

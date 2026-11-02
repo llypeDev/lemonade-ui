@@ -42,6 +42,23 @@ it('should accept "gap" and "gapVertical" props', () => {
   expect(container).toMatchSnapshot()
 })
 
+it('should accept a responsive gap of 0', () => {
+  const { container } = render(
+    <Grid gap={{ xs: 2, md: 0 }} gapVertical={{ xs: 1, lg: 0 }}>
+      <Cell>1</Cell>
+    </Grid>
+  )
+  const grid = container.firstElementChild
+  const cell = grid.firstElementChild
+
+  expect(grid).toHaveStyleRule('margin-left', '-1rem')
+  expect(grid).toHaveStyleRule('margin-left', '0rem', { media: '(min-width:960px)' })
+  expect(grid).toHaveStyleRule('margin-top', '0rem', { media: '(min-width:1280px)' })
+  expect(cell).toHaveStyleRule('padding-left', '1rem')
+  expect(cell).toHaveStyleRule('padding-left', '0rem', { media: '(min-width:960px)' })
+  expect(cell).toHaveStyleRule('padding-top', '0rem', { media: '(min-width:1280px)' })
+})
+
 it('should accept responsive gaps', () => {
   const { container } = render(
     <Grid gap={{ xs: 1, sm: 2, md: 3, lg: 4, xl: 5 }} gapVertical={{ xs: 6, sm: 7, md: 8, lg: 9, xl: 10 }}>

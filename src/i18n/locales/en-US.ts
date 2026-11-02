@@ -71,6 +71,7 @@ const locale = {
     bulkActions: 'Actions for the selected rows',
     expand: 'Show details of {row}',
     collapse: 'Hide details of {row}',
+    details: 'Details',
     columns: 'Columns',
   },
   dateInput: {
@@ -213,12 +214,18 @@ const locale = {
     decrease: 'Down',
     noChange: 'No change',
   },
+  tag: {
+    remove: 'Remove',
+  },
   tagInput: {
     instructions: 'Press Enter or comma to add. Backspace removes the last one.',
     remove: 'Remove {tag}',
     invalid: 'not valid',
     added: '{tag} added.',
     removed: '{tag} removed.',
+  },
+  textArea: {
+    characters: 'characters',
   },
   toggletip: {
     label: 'More information',
@@ -292,6 +299,7 @@ const locale = {
     clearTableCancel: 'Cancel',
     clearTableConfirm: 'Clear',
     generateTable: 'Generate table',
+    aggregatorKey: 'Field to aggregate',
   },
 }
 

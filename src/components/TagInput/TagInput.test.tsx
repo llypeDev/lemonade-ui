@@ -66,6 +66,19 @@ describe('TagInput', () => {
     expect(fireEvent.keyDown(input, { key: 'Enter' })).toBe(true)
   })
 
+  it('should not add the text with the Enter that ends a composition', () => {
+    const onChange = jest.fn()
+    const { container, getByRole } = render(<Controlled onChange={onChange} />)
+    const input = getByRole('textbox')
+
+    fireEvent.change(input, { target: { value: 'にほん' } })
+    fireEvent.keyDown(input, { key: 'Enter', isComposing: true })
+
+    expect(onChange).not.toHaveBeenCalled()
+    expect(tagTexts(container)).toEqual([])
+    expect(input).toHaveValue('にほん')
+  })
+
   it('should remove the last tag with Backspace in an empty field', () => {
     const onChange = jest.fn()
     const { container, getByRole } = render(<Controlled defaultValue={['a', 'b']} onChange={onChange} />)

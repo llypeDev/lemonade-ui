@@ -1,4 +1,4 @@
-import { fireEvent, render } from '@testing-library/react'
+import { act, fireEvent, render } from '@testing-library/react'
 import React from 'react'
 import waait from 'waait'
 
@@ -119,13 +119,49 @@ it('shoud not emit a "setState while unmounted" react warning when component is 
     })
   }
 
-  const { container, unmount } = render(<Button onClick={delayedFunction}>Button</Button>)
+  const consoleError = jest.spyOn(console, 'error').mockImplementation(() => null)
+  try {
+    const { container, unmount } = render(<Button onClick={delayedFunction}>Button</Button>)
+    const button = container.querySelector('button')
+
+    fireEvent.click(button)
+    unmount()
+
+    await waait(20)
+    const warnings = consoleError.mock.calls.filter(([message]) => String(message).includes('unmounted component'))
+    expect(warnings).toEqual([])
+  } finally {
+    consoleError.mockRestore()
+  }
+})
+
+it('should keep the loading animation when "onLoadingChange" is given and call it too', async () => {
+  let resolve: () => void
+  const delayedFunction = () => new Promise<void>((r) => (resolve = r))
+  const click = jest.fn(delayedFunction)
+  const onLoadingChange = jest.fn()
+
+  const { container } = render(
+    <Button onClick={click} onLoadingChange={onLoadingChange}>
+      Button
+    </Button>
+  )
   const button = container.querySelector('button')
 
   fireEvent.click(button)
-  unmount()
+  expect(button.getAttribute('data-loading')).toEqual('true')
+  expect(onLoadingChange).toHaveBeenLastCalledWith(true)
 
-  await waait(20)
+  // A second click while loading does not run onClick again
+  fireEvent.click(button)
+  expect(click).toHaveBeenCalledTimes(1)
+
+  await act(async () => {
+    resolve()
+    await waait(0)
+  })
+  expect(onLoadingChange).toHaveBeenLastCalledWith(false)
+  expect(button.getAttribute('data-loading')).toBeFalsy()
 })
 
 it('should NOT have animation when onClick return is not a Promise', () => {

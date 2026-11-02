@@ -3,7 +3,7 @@ import React, { CSSProperties } from 'react'
 import { Theme, useStyles } from '../../../styles'
 import { TableBody, TableCell, TableRow } from '../Table'
 
-import { DataTableProps, defaultColumnStyles } from './DataTable'
+import { DataTableProps, DataTableRowId, defaultColumnStyles } from './DataTable'
 import { TableLoadingRow } from './TableLoadingRow'
 import { TablePlaceholderRow } from './TablePlaceholderRow'
 
@@ -19,15 +19,36 @@ export interface TableFilledBodyProps extends Pick<DataTableProps, 'columns' | '
   renderExpanded?(row: any): React.ReactNode
   isRowExpanded?(row: any): boolean
   getDetailsId?(row: any): string
+
+  /**
+   * Id of a row, which keeps the state of its cells with it when rows are removed or sorted
+   * @default the index of the row
+   */
+  getRowId?(row: any): DataTableRowId
 }
 
 export function TableFilledBody(props: TableFilledBodyProps) {
-  const { columns, rows, loading, onRowClick, isRowSelected, renderExpanded, isRowExpanded, getDetailsId } = props
+  const {
+    columns,
+    rows,
+    loading,
+    onRowClick,
+    isRowSelected,
+    renderExpanded,
+    isRowExpanded,
+    getDetailsId,
+    getRowId,
+  } = props
   const { classes, css } = useStyles(createStyles)
 
   const handleClick = (row) => (e) => onRowClick(row)
 
   const isEmpty = () => !rows || rows.length === 0
+
+  const rowKey = (row: any, idx: number) => {
+    const id = getRowId && getRowId(row)
+    return id === undefined || id === null ? `index-${idx}` : id
+  }
 
   return (
     <TableBody>
@@ -35,8 +56,8 @@ export function TableFilledBody(props: TableFilledBodyProps) {
 
       {!loading && isEmpty() && <TablePlaceholderRow colSpan={columns.length} />}
 
-      {rows.map((row, idx) => (
-        <React.Fragment key={idx}>
+      {(rows || []).map((row, idx) => (
+        <React.Fragment key={rowKey(row, idx)}>
           <TableRow
             onClick={onRowClick && handleClick(row)}
             style={isRowSelected && isRowSelected(row) && classes.selected}
