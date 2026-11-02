@@ -6,13 +6,28 @@ export interface PortalProps {
   children: React.ReactNode
 }
 
-// The server renders no portal. While React hydrates a page that the server rendered, which React 16 marks with
-// data-reactroot, a portal renders nothing on its first render too, so the page matches, and its content right
-// after. Effects run once the hydration is over, so from the first one on, portals render their content at once,
-// and the components that open them, such as Drawer, reach that content in their own first effects.
+// The server renders no portal. While React hydrates a page that the server rendered, a portal renders nothing on
+// its first render too, so the page matches, and its content right after. Otherwise it renders its content at
+// once, so the components that open one, such as Drawer, reach that content in their own first effects.
+//
+// React 16 and 17 mark the root element of a page rendered on the server with data-reactroot, and link that
+// element to React last, once all of its descendants are rendered, so the page is hydrating while it is not linked.
 let hydrated = false
 
-const isHydrating = () => !hydrated && !!document.querySelector('[data-reactroot]')
+const isLinkedToReact = (element: Element) =>
+  Object.keys(element).some((key) => key.startsWith('__reactInternalInstance$') || key.startsWith('__reactFiber$'))
+
+const isHydrating = () => {
+  if (hydrated) {
+    return false
+  }
+
+  const root = document.querySelector('[data-reactroot]')
+  if (root && isLinkedToReact(root)) {
+    hydrated = true
+  }
+  return !!root && !hydrated
+}
 
 export function Portal(props: PortalProps) {
   const { children, container } = props
