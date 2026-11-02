@@ -21,6 +21,17 @@ export interface TooltipState {
   visible: boolean
 }
 
+// A focus the browser does not show as coming from the keyboard, such as the one a dialog opened with a click
+// gives to its close button, does not open the tooltip: the pointer opens it on hover. Browsers without
+// :focus-visible always open it.
+const focusedWithoutKeyboard = (element: Element) => {
+  try {
+    return element.matches(':focus') && !element.matches(':focus-visible')
+  } catch (error) {
+    return false
+  }
+}
+
 export function Tooltip(props: TooltipProps) {
   const { text, offset, children, style: externalStyle, transitionDelay, container, ...rest } = props
   const child = React.Children.only(children)
@@ -37,17 +48,8 @@ export function Tooltip(props: TooltipProps) {
   const {
     styles: { popper: popperStyles },
   } = usePopper(rootRef.current, popperRef, {
-    modifiers: [
-      {
-        name: 'default',
-        options: {
-          offset: { offset: `0, ${theme.typography.sizes.html * offset}` },
-          preventOverflow: {
-            boundariesElement: 'window',
-          },
-        },
-      },
-    ],
+    // The space between the tooltip and its element, as Popper 2 takes it
+    modifiers: [{ name: 'offset', options: { offset: [0, theme.typography.sizes.html * offset] } }],
     ...rest,
   })
 
@@ -79,7 +81,9 @@ export function Tooltip(props: TooltipProps) {
 
   const handleFocus = useCallback(
     (e) => {
-      setVisible(true)
+      if (!focusedWithoutKeyboard(e.target)) {
+        setVisible(true)
+      }
       onFocus?.(e)
     },
     [onFocus]
