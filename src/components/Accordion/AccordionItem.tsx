@@ -4,6 +4,7 @@ import { ExternalStyles, Theme, useStyles } from '../../styles'
 import { Omit } from '../../util'
 
 import { ExpandableHeader, ExpandableHeadingLevel } from './ExpandableHeader'
+import { collapseStyles, useCollapse } from './useCollapse'
 import { useExpandable, UseExpandableProps } from './useExpandable'
 
 export interface AccordionItemProps
@@ -46,6 +47,7 @@ export function AccordionItem(props: AccordionItemProps) {
     defaultExpanded,
     onChange,
   })
+  const collapse = useCollapse(expanded)
   const { classes, css } = useStyles(createStyles)
 
   return (
@@ -60,8 +62,15 @@ export function AccordionItem(props: AccordionItemProps) {
       >
         {title}
       </ExpandableHeader>
-      <div id={contentId} role='region' aria-labelledby={headerId} hidden={!expanded} className={classes.content}>
-        {children}
+      <div
+        ref={collapse.ref}
+        id={contentId}
+        role='region'
+        aria-labelledby={headerId}
+        hidden={collapse.hidden}
+        className={classes.region}
+      >
+        <div className={classes.content}>{children}</div>
       </div>
     </div>
   )
@@ -71,6 +80,7 @@ const createStyles = (theme: Theme) => ({
   item: {
     borderBottom: `1px solid ${theme.pallete.divider}`,
   } as CSSProperties,
+  region: collapseStyles,
   content: {
     // Aligned with the header title: 1rem padding + 1.5rem icon + 0.5rem gap
     padding: '0 1rem 1rem 3rem',

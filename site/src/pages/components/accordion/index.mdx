@@ -2,7 +2,7 @@ import { Demo } from '../../../components/Demo'
 
 # Accordion
 
-An accordion is a clickable component that reveals or hide content associated with it. Allowing people to have control over the content by expanding it or deferring it for later lets them decide what to read and what to ignore.
+An accordion is a clickable component that reveals or hides content associated with it. Allowing people to have control over the content by expanding it or deferring it for later lets them decide what to read and what to ignore.
 Collapsing the page minimizes scrolling, and the headings serve as a mini-IA of the page, this allows users to form a mental model of the information available.
 
 ## Best practices
@@ -18,3 +18,5 @@ Group `AccordionItem`s inside an `Accordion`. Each item has a header button, wit
 <Demo src='pages/components/accordion/Accordion' />
 
 Items are uncontrolled by default (`defaultExpanded`). To control one, pass `expanded` and `onChange`.
+
+The content slides open and closed, except when the user asks for reduced motion. While collapsed, it is out of the page, the tab order and screen readers. Printed pages show the content of every item, collapsed or not.

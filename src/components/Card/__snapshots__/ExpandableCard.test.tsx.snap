@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should render correctly 1`] = `
-.emotion-5 {
+.emotion-6 {
   width: 100%;
   border: 0;
   border-radius: 2px;
@@ -12,6 +12,12 @@ exports[`should render correctly 1`] = `
   border: 1px solid #D3D4DD;
   border-radius: 2px;
   padding: 0;
+}
+
+@media print {
+  .emotion-5[hidden] {
+    display: block;
+  }
 }
 
 .emotion-4 {
@@ -93,7 +99,7 @@ exports[`should render correctly 1`] = `
 
 <div>
   <div
-    class="emotion-5"
+    class="emotion-6"
   >
     <h3
       class="emotion-3"
@@ -129,12 +135,16 @@ exports[`should render correctly 1`] = `
     </h3>
     <div
       aria-labelledby="expandable-header-abc"
-      class="emotion-4"
+      class="emotion-5"
       hidden=""
       id="expandable-content-abc"
       role="region"
     >
-      Content
+      <div
+        class="emotion-4"
+      >
+        Content
+      </div>
     </div>
   </div>
 </div>

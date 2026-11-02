@@ -33,7 +33,8 @@ describe('Accordion', () => {
   it('should link each header to its content', () => {
     const { getByRole, getByText } = render(<AccordionItem title='Second'>Second content</AccordionItem>)
     const header = getByRole('button', { name: 'Second' })
-    const content = getByText('Second content')
+    // The region holds the content, inside an element with its padding
+    const content = getByText('Second content').closest('[role="region"]')
 
     expect(header).toHaveAttribute('aria-controls', content.id)
     expect(content).toHaveAttribute('role', 'region')
@@ -124,5 +125,58 @@ describe('Accordion', () => {
 
     fireEvent.keyDown(first, { key: 'End' })
     expect(third).toHaveFocus()
+  })
+
+  describe('expand and collapse', () => {
+    const { matchMedia } = window
+    afterEach(() => {
+      window.matchMedia = matchMedia
+    })
+    const prefersReducedMotion = (reduce: boolean) => {
+      window.matchMedia = ((query: string) => ({ matches: reduce && query.includes('reduce') })) as any
+    }
+    const renderItem = () =>
+      render(
+        <Accordion>
+          <AccordionItem title='Item' defaultExpanded>
+            Content
+          </AccordionItem>
+        </Accordion>
+      )
+
+    it('should keep the content shown while it shrinks, and hide it when it ends', () => {
+      prefersReducedMotion(false)
+      const { getByRole, getByText } = renderItem()
+      const region = getByText('Content').closest('[role="region"]') as HTMLElement
+
+      fireEvent.click(getByRole('button', { name: 'Item' }))
+      expect(getByRole('button', { name: 'Item' })).toHaveAttribute('aria-expanded', 'false')
+      expect(region).not.toHaveAttribute('hidden')
+      expect(region.style.height).toBe('0px')
+
+      fireEvent.transitionEnd(region)
+      expect(region).toHaveAttribute('hidden')
+      expect(region.style.height).toBe('')
+    })
+
+    it('should hide the content at once with reduced motion', () => {
+      prefersReducedMotion(true)
+      const { getByRole, getByText } = renderItem()
+
+      fireEvent.click(getByRole('button', { name: 'Item' }))
+      expect(getByText('Content').closest('[role="region"]')).toHaveAttribute('hidden')
+    })
+
+    it('should print the content of collapsed items', () => {
+      const { getByText } = render(
+        <Accordion>
+          <AccordionItem title='Item'>Content</AccordionItem>
+        </Accordion>
+      )
+      expect(getByText('Content').closest('[role="region"]')).toHaveStyleRule('display', 'block', {
+        media: 'print',
+        target: '[hidden]',
+      })
+    })
   })
 })

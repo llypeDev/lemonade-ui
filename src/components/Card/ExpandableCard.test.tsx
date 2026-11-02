@@ -50,7 +50,8 @@ it('should link the header to its content', () => {
     </ExpandableCard>
   )
   const header = getByRole('button', { name: 'Details' })
-  const content = getByText('Content')
+  // The region holds the content, inside an element with its padding
+  const content = getByText('Content').closest('[role="region"]')
 
   expect(header).toHaveAttribute('aria-controls', content.id)
   expect(content).toHaveAttribute('aria-labelledby', header.id)
