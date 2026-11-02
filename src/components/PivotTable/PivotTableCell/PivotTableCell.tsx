@@ -1,5 +1,5 @@
 import { SerializedStyles } from '@emotion/serialize'
-import React, { useContext, useEffect, useMemo, useRef } from 'react'
+import React, { useContext, useMemo, useRef } from 'react'
 import { hexToRGB, useStyles } from '../../../styles'
 import { range } from '../../../util'
 import { formatDecimalOrInteger } from '../../../util/number'
@@ -55,12 +55,15 @@ export function PivotTableCell(props: PivotTableCellProps) {
 
   const relatedPivotTableCells = useRef<NodeListOf<HTMLElement>>()
 
-  useEffect(() => {
-    relatedPivotTableCells.current = selectPivotTableCellElements(rowStart, columnStart)
-  }, [rowStart, columnStart])
-
-  const handleMouseEnter = () => {
+  const handleMouseEnter = (event: React.MouseEvent<HTMLDivElement>) => {
     if (isValueOrEmpty) {
+      // Only the cells of this table, which are the children of its grid, as they are when the pointer enters,
+      // since the table can be built again
+      relatedPivotTableCells.current = selectPivotTableCellElements(
+        rowStart,
+        columnStart,
+        event.currentTarget.parentElement ?? document
+      )
       relatedPivotTableCells.current.forEach((element) => {
         let backgroundColor = window.getComputedStyle(element).getPropertyValue('background-color')
 
@@ -76,7 +79,7 @@ export function PivotTableCell(props: PivotTableCellProps) {
 
   const handleMouseLeave = () => {
     if (isValueOrEmpty) {
-      relatedPivotTableCells.current.forEach((element) => element.removeAttribute('style'))
+      relatedPivotTableCells.current?.forEach((element) => element.removeAttribute('style'))
     }
   }
 

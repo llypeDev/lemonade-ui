@@ -1,8 +1,11 @@
 import { render } from '@testing-library/react'
 import React from 'react'
+import { randomStr } from '../../../util/string'
 import { KeyMap } from '../model'
 import { Aggregators } from './Aggregators'
 import { Aggregator, AggregatorEnum } from './model'
+
+jest.mock('../../../util/string')
 
 describe('PivotTable - Aggregators', () => {
   type Test = {
@@ -48,5 +51,41 @@ describe('PivotTable - Aggregators', () => {
       />
     )
     expect(container).toMatchSnapshot()
+  })
+
+  it('should name the select of the key that the aggregator reads', () => {
+    const { getByRole } = render(
+      <Aggregators<Test>
+        numberKeys={['name']}
+        keyMapping={keyMapping}
+        handleAggregatorChange={handleAggregatorChange}
+        handleAggregatorKeyChange={handleAggregatorKeyChange}
+        aggregator={{ id: AggregatorEnum.AVERAGE, label: 'Average', value: undefined, keyDependent: true }}
+        aggregatorKey='name'
+      />
+    )
+    expect(getByRole('textbox', { name: 'Field to aggregate' })).toHaveValue('Name')
+  })
+
+  it('should keep the aggregators of two boards apart', () => {
+    ;(randomStr as jest.Mock).mockReturnValueOnce('first').mockReturnValueOnce('second')
+    const aggregators = (
+      <Aggregators<Test>
+        numberKeys={[]}
+        keyMapping={keyMapping}
+        handleAggregatorChange={handleAggregatorChange}
+        handleAggregatorKeyChange={handleAggregatorKeyChange}
+        aggregator={countAggregator}
+        aggregatorKey='name'
+      />
+    )
+    const { getAllByRole } = render(
+      <>
+        {aggregators}
+        {aggregators}
+      </>
+    )
+    const [first, second] = getAllByRole('radio', { name: 'Count' })
+    expect(first.getAttribute('name')).not.toEqual(second.getAttribute('name'))
   })
 })

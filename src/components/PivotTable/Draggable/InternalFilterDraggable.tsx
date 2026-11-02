@@ -1,9 +1,10 @@
-import React, { useState } from 'react'
+import React, { useMemo, useState } from 'react'
 import { useDrag } from 'react-dnd'
 import matchSorter from 'match-sorter'
 import { Button, Checkbox, Dropdown, DropdownItem, HFlow, Icon, TextField } from '../..'
 import { useStyles } from '../../../styles'
 import { useLocale } from '../../../i18n'
+import { randomStr } from '../../../util/string'
 import { FilterDraggableProps } from './FilterDraggable'
 import { ActualQuantity } from './types/ActualQuantity'
 import { getQuantityValue } from './util'
@@ -30,16 +31,20 @@ export function InternalFilterDraggable<T extends object, TOrigin = string>(prop
 
   const [open, setOpen] = useState(false)
 
-  const [all, setAll] = useState<ActualQuantity>(getQuantityValue(selectedItems, filterItems))
+  // Follows selectedItems, which the board also changes, such as when it clears the filters
+  const all = getQuantityValue(selectedItems, filterItems)
 
   const [buttonRef, setButtonRef] = useState<HTMLButtonElement>()
+
+  const searchId = useMemo(() => `pivot-table-search-${randomStr()}`, [])
 
   const { classes } = useStyles(draggableCreateStyles)
 
   const [{ isDragging }, drag] = useDrag({
     item: { type: type, name: name, origin },
     end: (_item, monitor) => {
-      if (monitor.getDropResult()['result']) onDragEnd()
+      // There is no drop result when the key is released outside the boxes or the drag is cancelled with Escape
+      if (monitor.getDropResult()?.result) onDragEnd()
     },
     collect: (monitor) => ({
       isDragging: !!monitor.isDragging(),
@@ -66,9 +71,10 @@ export function InternalFilterDraggable<T extends object, TOrigin = string>(prop
   }
 
   const handleSelect = (element: string) => (event: React.ChangeEvent<HTMLInputElement>) => {
-    selectedItems.has(element) ? selectedItems.delete(element) : selectedItems.add(element)
-    onFilterUpdate(name, new Set<string>(selectedItems))
-    setAll(getQuantityValue(selectedItems, filterItems))
+    // A copy, since the board keeps the same set for when the filters are cleared
+    const newSelectedItems = new Set<string>(selectedItems)
+    newSelectedItems.has(element) ? newSelectedItems.delete(element) : newSelectedItems.add(element)
+    onFilterUpdate(name, newSelectedItems)
   }
 
   const { handleKeyDown } = useDraggableKeyNavigation(onDragEnd, origin, onKeyNav)
@@ -80,10 +86,8 @@ export function InternalFilterDraggable<T extends object, TOrigin = string>(prop
 
   const handleSelectAll = () => () => {
     if (all === ActualQuantity.ALL) {
-      setAll(ActualQuantity.NONE)
       onFilterUpdate(name, new Set<string>(new Set<string>()))
     } else {
-      setAll(ActualQuantity.ALL)
       onFilterUpdate(name, new Set<string>(filterItems))
     }
   }
@@ -119,7 +123,7 @@ export function InternalFilterDraggable<T extends object, TOrigin = string>(prop
             <div className={classes.search}>
               <TextField
                 name='iconized'
-                id='iconized'
+                id={searchId}
                 placeholder={locale.draggable.search}
                 icon='zoomOutline'
                 onChange={handleSearch()}

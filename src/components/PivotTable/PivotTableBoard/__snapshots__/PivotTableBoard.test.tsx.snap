@@ -865,7 +865,7 @@ exports[`PivotTable - PivotTableBoard should render correctly 1`] = `
                         <input
                           checked=""
                           class="emotion-34"
-                          name="aggregator"
+                          name="aggregator-abc"
                           type="radio"
                           value="0"
                         />
@@ -887,7 +887,7 @@ exports[`PivotTable - PivotTableBoard should render correctly 1`] = `
                       >
                         <input
                           class="emotion-34"
-                          name="aggregator"
+                          name="aggregator-abc"
                           type="radio"
                           value="1"
                         />
@@ -1935,7 +1935,7 @@ exports[`PivotTable - PivotTableBoard should render with initial fields 1`] = `
                         <input
                           checked=""
                           class="emotion-33"
-                          name="aggregator"
+                          name="aggregator-abc"
                           type="radio"
                           value="0"
                         />
@@ -1957,7 +1957,7 @@ exports[`PivotTable - PivotTableBoard should render with initial fields 1`] = `
                       >
                         <input
                           class="emotion-33"
-                          name="aggregator"
+                          name="aggregator-abc"
                           type="radio"
                           value="1"
                         />

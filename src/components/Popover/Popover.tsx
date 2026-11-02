@@ -1,4 +1,5 @@
 import { Options as PopperOptions, Placement } from '@popperjs/core'
+import { cx } from 'emotion'
 import React, { CSSProperties, useCallback, useEffect, useMemo, useState } from 'react'
 import { usePopper } from 'react-popper'
 
@@ -72,12 +73,16 @@ export function Popover(props: PopoverProps) {
     popperProps,
     style,
     children,
+    id,
+    className,
+    onBlur,
     ...rest
   } = props
 
   const { classes, css, theme } = useStyles(createStyles)
   const [popoverRef, setPopoverRef] = useState<HTMLDivElement>()
-  const popoverId = useMemo(() => `popover-${randomStr()}`, [])
+  const generatedId = useMemo(() => `popover-${randomStr()}`, [])
+  const popoverId = id ?? generatedId
 
   const {
     styles: { popper: popperStyle },
@@ -105,6 +110,13 @@ export function Popover(props: PopoverProps) {
     if (open) {
       anchorRef.setAttribute('aria-controls', popoverId)
     } else {
+      anchorRef.removeAttribute('aria-controls')
+    }
+
+    // An anchor that the popover no longer opens, or one of a popover that unmounted
+    return () => {
+      anchorRef.removeAttribute('aria-haspopup')
+      anchorRef.removeAttribute('aria-expanded')
       anchorRef.removeAttribute('aria-controls')
     }
   }, [anchorRef, open, popoverId])
@@ -142,6 +154,7 @@ export function Popover(props: PopoverProps) {
   })
 
   const handleBlur = (e: React.FocusEvent<HTMLDivElement>) => {
+    onBlur?.(e)
     const next = e.relatedTarget as Node
 
     if (next && !popoverRef?.contains(next) && !anchorRef?.contains(next)) {
@@ -155,15 +168,15 @@ export function Popover(props: PopoverProps) {
 
   return (
     <div
+      {...rest}
       id={popoverId}
       ref={setPopoverRef}
       role='dialog'
       tabIndex={-1}
-      className={css(classes.popover, style)}
+      className={cx(css(classes.popover, style), className)}
       style={popperStyle}
       onBlur={handleBlur}
       {...popperAttributes}
-      {...rest}
     >
       {children}
     </div>

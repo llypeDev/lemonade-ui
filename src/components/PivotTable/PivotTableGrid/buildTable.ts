@@ -3,7 +3,6 @@ import { KeyMap } from '../model'
 import { GridArea } from '../PivotTableCell/classes/GridArea'
 import { PivotTableCellType } from '../PivotTableCell/model'
 import { PivotTableCellProps } from '../PivotTableCell/PivotTableCell'
-import { formatDecimalOrInteger } from '../../../util/number'
 import { PivotTableTreeNode } from './model'
 
 interface VerticalTableProps<T extends object> {
@@ -235,12 +234,12 @@ function buildVerticalValuesAndKeys<T extends object>(
     maxColumnEnd = columnEnd > maxColumnEnd ? columnStart : maxColumnEnd
 
     const valuesGridArea = new GridArea(rowStart, columnStart, rowEnd, columnEnd)
-    const formattedValue = typeof value === 'number' ? formatDecimalOrInteger(value) : value
 
     divs.push({
       gridArea: valuesGridArea,
       types: new Set(cell.key !== RESULT_PATH_KEY ? [PivotTableCellType.HEADER] : [PivotTableCellType.VALUE]),
-      children: formattedValue,
+      // The number itself, which colors the cell, and the cell formats it
+      children: value,
       isEndColumn: cell.key === RESULT_PATH_KEY && !mixedTable,
     })
 
@@ -319,7 +318,9 @@ function buildHorizontalValuesAndKeys<T extends object>(
         continue
       }
       if (mixedTable.rowResult && cell.key === RESULT_PATH_KEY) {
-        const rows = mixedTable.rowResult.filter((rx) => cell.path.indexOf(rx.path) !== -1)
+        // Whole keys of the path, so that a key such as '1' does not match '10'. The path of a value always goes on
+        // after the keys of its row, at least with RESULT_PATH_KEY.
+        const rows = mixedTable.rowResult.filter((rx) => cell.path.indexOf(rx.path + PATH_SEPARATOR) !== -1)
         rowStart = getCellInitialPosition(rows[rows.length - 1].initialPosition) + keys.length + 1
         columnStart = getCellInitialPosition(cell.initialPosition.parentInitialPosition) + columnHeaderSpace
         mixedTableStartRowCache.set(rows[rows.length - 1].path, rowStart)
@@ -333,11 +334,11 @@ function buildHorizontalValuesAndKeys<T extends object>(
     const gridArea = new GridArea(rowStart, columnStart, rowEnd, columnEnd)
 
     if (cell.key === RESULT_PATH_KEY) {
-      const formattedValue = typeof value === 'number' ? formatDecimalOrInteger(value) : value
       divs.push({
         types: new Set([PivotTableCellType.VALUE]),
         gridArea: gridArea,
-        children: formattedValue,
+        // The number itself, which colors the cell, and the cell formats it
+        children: value,
         isEndRow: mixedTable === undefined,
       })
     } else {

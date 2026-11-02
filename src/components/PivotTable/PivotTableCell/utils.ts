@@ -54,7 +54,11 @@ const steppedPercentage = (value: number, baseValue: number, step: number) =>
   Math.ceil(((value / baseValue) * 100) / step) * step
 
 /**
- * Selects all the elements that has the given row and column numbers as its 'data-rownumber' and 'data-columnnumber' attributes
+ * Selects all the elements inside root that has the given row and column numbers as its 'data-rownumber' and 'data-columnnumber' attributes
  */
-export const selectPivotTableCellElements = (row: number, column: number): NodeListOf<HTMLElement> =>
-  document.querySelectorAll(`div[data-rownumber~="${row}"], div[data-columnnumber~="${column}"]`)
+export const selectPivotTableCellElements = (
+  row: number,
+  column: number,
+  root: ParentNode = document
+): NodeListOf<HTMLElement> =>
+  root.querySelectorAll(`div[data-rownumber~="${row}"], div[data-columnnumber~="${column}"]`)
