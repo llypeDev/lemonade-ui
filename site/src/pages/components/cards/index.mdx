@@ -46,11 +46,11 @@ A card is a UI design pattern that groups related information in a flexible-size
 
 ## Usage
 
-Read-only cards use `Card`, and clickable cards use `ClickableCard`, which renders a `button`.
+Read-only cards use `Card`, and clickable cards use `ClickableCard`, which renders a `button`. A button cannot hold headings, so the title of a clickable card is a bold text, such as `<Text variant='h4'>`. In a read-only card, the title can be a heading of the level that follows the page, with the size of your choice.
 
 <Demo src='pages/components/cards/Card' />
 
-`ToggleCard` renders a native checkbox, so `name`, `value`, `checked`, `defaultChecked` and `onChange` work just like in a [Checkbox](/components/checkbox). The whole card is the click area.
+`ToggleCard` renders a native checkbox, so `name`, `value`, `checked`, `defaultChecked` and `onChange` work just like in a [Checkbox](/components/checkbox). The whole card is the click area. The card is a `label`, so its title is a bold text too.
 
 <Demo src='pages/components/cards/ToggleCard' />
 
