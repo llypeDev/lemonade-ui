@@ -118,7 +118,14 @@ export function SortableList<T>(props: SortableListProps<T>) {
   const previousTops = useRef<Map<Key, number>>(null)
 
   const byKey = new Map(items.map((item) => [getKey(item), item] as [Key, T]))
-  const keys = draft ?? items.map(getKey)
+
+  // The items may change while one is picked up: the order leaves out the ones removed and ends with the new ones
+  const reconcile = (order: Key[]) => {
+    const kept = order.filter((key) => byKey.has(key))
+    const known = new Set(kept)
+    return kept.concat(items.map(getKey).filter((key) => !known.has(key)))
+  }
+  const keys = draft ? reconcile(draft) : items.map(getKey)
 
   const recordTops = () => {
     const tops = new Map<Key, number>()
@@ -138,16 +145,24 @@ export function SortableList<T>(props: SortableListProps<T>) {
     announce(locale.sortableList.grabbed, key, order)
   }
 
+  const cancelScroll = () => {
+    if (scrollFrame.current !== null) {
+      cancelAnimationFrame(scrollFrame.current)
+      scrollFrame.current = null
+    }
+  }
+
   const drop = (keepFocus = true) => {
-    const order = draft
+    cancelScroll()
     recordTops()
     setDraft(null)
     setActive(null)
-    if (!order) {
+    if (!draft || !active) {
       return
     }
+    const order = reconcile(draft)
     restoreFocus.current = keepFocus ? active.key : null
-    announce(locale.sortableList.dropped, active.key, order)
+    byKey.has(active.key) && announce(locale.sortableList.dropped, active.key, order)
 
     const original = items.map(getKey)
     if (order.some((key, index) => key !== original[index])) {
@@ -156,18 +171,23 @@ export function SortableList<T>(props: SortableListProps<T>) {
   }
 
   const cancel = () => {
+    cancelScroll()
+    if (!active) {
+      return
+    }
     const key = active.key
     recordTops()
     setDraft(null)
     setActive(null)
     restoreFocus.current = key
-    announce(locale.sortableList.cancelled, key, items.map(getKey))
+    byKey.has(key) && announce(locale.sortableList.cancelled, key, items.map(getKey))
   }
 
   const moveTo = (key: Key, to: number) => {
     const from = keys.indexOf(key)
     const target = Math.max(0, Math.min(keys.length - 1, to))
-    if (from === target) {
+    // An item removed while it was picked up has no place to move from
+    if (from === -1 || from === target) {
       return
     }
 
@@ -258,6 +278,10 @@ export function SortableList<T>(props: SortableListProps<T>) {
 
   // The item goes to the place of the first other item whose middle is below the pointer
   const followPointer = () => {
+    // A scroll can come after the drop, before the listeners of the drag are removed
+    if (!active) {
+      return
+    }
     const key = active.key
     const others = keys.filter((other) => other !== key)
     const index = others.findIndex((other) => {
@@ -277,7 +301,7 @@ export function SortableList<T>(props: SortableListProps<T>) {
   const autoScroll = () => {
     scrollFrame.current = null
     const list = listRef.current
-    if (!list) {
+    if (!list || !active) {
       return
     }
     const box = scrollingBox(list)
@@ -301,6 +325,9 @@ export function SortableList<T>(props: SortableListProps<T>) {
   }
 
   const handlePointerMove = (e: PointerEvent) => {
+    if (!active) {
+      return
+    }
     pointer.current.y = e.clientY
     followPointer()
     if (scrollFrame.current === null) {

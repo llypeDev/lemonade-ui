@@ -132,6 +132,7 @@ exports[`should render correct without extension 1`] = `
 <div>
   <div
     class="emotion-5"
+    role="button"
     tabindex="0"
   >
     <input
@@ -275,6 +276,7 @@ exports[`should render correctly at initial state 1`] = `
 <div>
   <div
     class="emotion-5"
+    role="button"
     tabindex="0"
   >
     <input
@@ -473,6 +475,7 @@ exports[`should render correctly at uploading state 1`] = `
 <div>
   <div
     class="emotion-5"
+    role="button"
     tabindex="0"
   >
     <input
@@ -681,6 +684,7 @@ exports[`should render correctly complete state 1`] = `
 <div>
   <div
     class="emotion-5"
+    role="button"
     tabindex="0"
   >
     <input

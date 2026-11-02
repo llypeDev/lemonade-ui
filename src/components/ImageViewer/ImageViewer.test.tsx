@@ -1,5 +1,5 @@
 import { fireEvent, render } from '@testing-library/react'
-import React, { useState } from 'react'
+import React, { useLayoutEffect, useState } from 'react'
 
 import { LocaleContext } from '../../i18n'
 import ptBR from '../../i18n/locales/pt-BR'
@@ -128,6 +128,28 @@ describe('ImageViewer', () => {
     expect(getByRole('dialog')).toBeInTheDocument()
     fireEvent.click(image().parentElement)
     expect(queryByRole('dialog')).not.toBeInTheDocument()
+  })
+
+  it('should show the image of defaultIndex as soon as it opens', () => {
+    const shown: string[] = []
+    // The layout effect of the parent runs after the viewer is on the page, before the browser paints it
+    const Viewer = (props: Partial<ImageViewerProps>) => {
+      useLayoutEffect(() => {
+        image() && shown.push(image().getAttribute('alt'))
+      })
+      return <ImageViewer images={photos} open={false} onClose={jest.fn()} {...props} />
+    }
+    const { rerender } = render(<Viewer />)
+
+    rerender(<Viewer open defaultIndex={2} />)
+    expect(shown[0]).toBe('Back of the chair')
+    expect(shown).not.toContain('Front of the chair')
+    expect(image()).toHaveAttribute('alt', 'Back of the chair')
+  })
+
+  it('should not lock the scroll of the page without images', () => {
+    render(<ImageViewer images={[]} open onClose={jest.fn()} />)
+    expect(document.body.style.overflow).toBe('')
   })
 
   it('should hide the arrows and the counter for a single image', () => {

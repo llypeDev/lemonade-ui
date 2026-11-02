@@ -1,11 +1,13 @@
-import React, { CSSProperties, ElementType, HTMLAttributes, ReactNode, useEffect, useState } from 'react'
+import React, { CSSProperties, ElementType, HTMLAttributes, ReactNode } from 'react'
 
+import { useLocale } from '../../i18n'
 import { ExternalStyles, useStyles } from '../../styles'
 import { getComponents } from '../../util/overrides'
 
 import { VFlow } from '../VFlow'
+import { VisuallyHidden } from '../VisuallyHidden'
 import { useHeight } from '../../hooks/useMeasure'
-import { useStepperContext } from './useStepperContext'
+import { useStepIndex, useStepperContext } from './useStepperContext'
 import { StepperDirection } from './Stepper'
 import { StepConnector } from './StepConnector'
 import { StepContent } from './StepContent'
@@ -29,32 +31,26 @@ export function Step(props: StepProps) {
   const { status = 'incompleted', title, subtitle, overrides, children, style, ...rest } = props
   const { Root } = getComponents(overrides, defaultComponents)
 
-  const { direction, getNextStepStatus, incrementStep } = useStepperContext()
+  const locale = useLocale()
+  const { direction, getNextStepStatus } = useStepperContext()
+  const stepIndex = useStepIndex()
   const { classes, css } = useStyles(() => createStyles(direction))
 
   const [labelRef, labelHeight] = useHeight()
-  const [stepIndex, setStepIndex] = useState<number | null>(null)
 
   const nextStepStatus = getNextStepStatus(stepIndex)
   const isLastStep = nextStepStatus === undefined
 
-  useEffect(() => {
-    const index = incrementStep()
-    setStepIndex(index)
-  }, [incrementStep])
-
-  if (stepIndex === null) {
-    return null
-  }
-
   return (
-    <Root className={css(classes.step, style)} {...rest}>
+    <Root className={css(classes.step, style)} aria-current={status === 'active' ? 'step' : undefined} {...rest}>
       {!isLastStep && <StepConnector status={nextStepStatus} direction={direction} labelHeight={labelHeight} />}
 
       <VFlow vSpacing={0}>
         <div className={classes.labelContainer} ref={labelRef}>
           <StepIcon status={status} icon={overrides?.Icon} />
           <StepLabel status={status} title={title} subtitle={subtitle} />
+          {/* The icon and the colors show the status on the screen; screen readers say it */}
+          <VisuallyHidden>{locale.stepper[status]}</VisuallyHidden>
         </div>
 
         {children && <StepContent>{children}</StepContent>}

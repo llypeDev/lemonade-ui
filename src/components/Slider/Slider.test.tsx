@@ -147,6 +147,35 @@ describe('Slider', () => {
     expect(getByRole('slider')).toHaveAttribute('aria-valuenow', '50')
   })
 
+  it('should step from the shown value when the parent keeps a controlled slider where it is', () => {
+    const onChange = jest.fn()
+    const Clamped = () => {
+      const [value, setValue] = useState(60)
+      return (
+        <Slider
+          aria-label='Volume'
+          value={value}
+          onChange={(next) => {
+            onChange(next)
+            setValue(Math.min(next, 60))
+          }}
+        />
+      )
+    }
+    const { getByRole } = render(<Clamped />)
+    const slider = getByRole('slider')
+
+    fireEvent.keyDown(slider, { key: 'ArrowRight' })
+    fireEvent.keyDown(slider, { key: 'ArrowRight' })
+    fireEvent.keyDown(slider, { key: 'ArrowRight' })
+    expect(onChange.mock.calls).toEqual([[61], [61], [61]])
+    expect(slider).toHaveAttribute('aria-valuenow', '60')
+
+    fireEvent.keyDown(slider, { key: 'ArrowLeft' })
+    expect(onChange).toHaveBeenLastCalledWith(59)
+    expect(slider).toHaveAttribute('aria-valuenow', '59')
+  })
+
   it('should move the thumb with a pointer', () => {
     const onChange = jest.fn()
     const onChangeEnd = jest.fn()

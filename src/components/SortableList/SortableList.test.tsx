@@ -224,6 +224,77 @@ describe('SortableList', () => {
     }
   })
 
+  it('should keep the items added and removed while an item is picked up', () => {
+    const onChange = jest.fn()
+    const { container, getByRole, rerender } = render(
+      <SortableList aria-label='Tasks' items={tasks} onChange={onChange} />
+    )
+    const handle = getByRole('button', { name: 'Move Write the brief' })
+
+    handle.focus()
+    fireEvent.keyDown(handle, { key: ' ' })
+    fireEvent.keyDown(handle, { key: 'ArrowDown' })
+    // Someone else removes a task and adds another while the item is held
+    const added = { id: 4, label: 'Celebrate' }
+    rerender(<SortableList aria-label='Tasks' items={[tasks[0], tasks[1], added]} onChange={onChange} />)
+    expect(texts(container)).toEqual(['Review the layout', 'Write the brief', 'Celebrate'])
+
+    fireEvent.keyDown(handle, { key: ' ' })
+    expect(getByRole('status')).toHaveTextContent('Write the brief dropped at position 2 of 3.')
+    expect(onChange.mock.calls[0][0].map((task: Task) => task.id)).toEqual([2, 1, 4])
+  })
+
+  it('should ignore a scroll and a pending frame that come right after the drop', () => {
+    const frames = new Map<number, FrameRequestCallback>()
+    let lastFrame = 0
+    const { requestAnimationFrame, cancelAnimationFrame } = window
+    window.requestAnimationFrame = (callback) => {
+      lastFrame += 1
+      frames.set(lastFrame, callback)
+      return lastFrame
+    }
+    window.cancelAnimationFrame = (id) => frames.delete(id)
+    const page = (document.scrollingElement as HTMLElement) || document.documentElement
+    let scrollTop = 0
+    Object.defineProperty(page, 'scrollTop', {
+      configurable: true,
+      get: () => scrollTop,
+      set: (value: number) => (scrollTop = Math.max(0, value)),
+    })
+    // An error in a listener of the page reaches the window, not the test
+    const errors: unknown[] = []
+    const handleError = (e: ErrorEvent) => {
+      e.preventDefault()
+      errors.push(e.error)
+    }
+    window.addEventListener('error', handleError)
+
+    try {
+      const { container, getByRole } = render(<Controlled />)
+      container.querySelectorAll('li').forEach((li, index) => {
+        li.getBoundingClientRect = () => ({ top: index * 50, height: 50, bottom: index * 50 + 50 } as DOMRect)
+      })
+
+      fireEvent.pointerDown(getByRole('button', { name: 'Move Write the brief' }), { button: 0, clientY: 25 })
+      fireEvent.pointerMove(document, { clientY: window.innerHeight - 4 })
+      expect(frames.size).toBe(1)
+
+      // Outside act, the drop renders right away, and React removes the listeners of the drag only later
+      document.dispatchEvent(new PointerEvent('pointerup', { clientY: window.innerHeight - 4 }))
+      document.dispatchEvent(new Event('scroll'))
+      frames.forEach((callback) => callback(0))
+      act(() => undefined)
+
+      expect(errors).toEqual([])
+      expect(frames.size).toBe(0)
+    } finally {
+      window.removeEventListener('error', handleError)
+      window.requestAnimationFrame = requestAnimationFrame
+      window.cancelAnimationFrame = cancelAnimationFrame
+      delete (page as any).scrollTop
+    }
+  })
+
   it('should work with a list of strings and a custom render', () => {
     const { getByRole, getByText } = render(
       <SortableList

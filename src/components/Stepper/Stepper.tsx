@@ -5,15 +5,14 @@ import React, {
   HTMLAttributes,
   isValidElement,
   ReactElement,
-  useCallback,
+  ReactNode,
   useMemo,
-  useRef,
 } from 'react'
 
 import { ExternalStyles, Theme, useStyles } from '../../styles'
 import { isNil, Omit } from '../../util'
 import { getComponents } from '../../util/overrides'
-import { StepperContextProvider, StepperContextValue } from './useStepperContext'
+import { StepIndexProvider, StepperContextProvider, StepperContextValue } from './useStepperContext'
 import { StepProps } from './Step'
 
 export type StepperDirection = 'horizontal' | 'vertical'
@@ -42,43 +41,37 @@ export function Stepper(props: StepperProps) {
   const { direction = 'horizontal', gap, style, overrides, children, ...rest } = props
   const { Root } = getComponents(overrides, defaultComponents)
 
-  const stepCounterRef = useRef(0)
-
-  const steps = useMemo(
-    () =>
-      Children.toArray(children).filter(
-        (child): child is ReactElement<StepProps> => isValidElement(child) && typeof child.type === 'function'
-      ),
-    [children]
-  )
+  const steps = useMemo(() => Children.toArray(children).filter(isStep), [children])
   const stepStatuses = useMemo(() => steps.map((child) => child.props.status ?? 'incompleted'), [steps])
 
   const { classes, css } = useStyles(createStyles, direction, gap, steps.length)
-
-  const incrementStep = useCallback(() => {
-    const currentIndex = stepCounterRef.current
-    stepCounterRef.current += 1
-    return currentIndex
-  }, [])
 
   const stepperContextValue: StepperContextValue = useMemo(
     () => ({
       direction,
       gap,
-      incrementStep,
       getNextStepStatus: (currentIndex: number) => stepStatuses[currentIndex + 1],
     }),
-    [gap, direction, incrementStep, stepStatuses]
+    [gap, direction, stepStatuses]
+  )
+
+  // Each step takes its place from the current children, so it follows steps added or removed in between
+  let stepIndex = 0
+  const content = Children.map(children, (child) =>
+    isStep(child) ? <StepIndexProvider value={stepIndex++}>{child}</StepIndexProvider> : child
   )
 
   return (
     <StepperContextProvider value={stepperContextValue}>
       <Root className={css(classes.stepper, style)} {...rest}>
-        {children}
+        {content}
       </Root>
     </StepperContextProvider>
   )
 }
+
+const isStep = (child: ReactNode): child is ReactElement<StepProps> =>
+  isValidElement(child) && typeof child.type === 'function'
 
 const defaultComponents: StepperProps['overrides'] = {
   Root: 'div',

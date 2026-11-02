@@ -168,23 +168,25 @@ export function Slider<T extends SliderValue = number>(props: SliderProps<T>) {
   const format = (v: number) => (formatValue ? formatValue(v) : String(v))
   const toOutput = (next: number[]) => (isRange ? [next[0], next[1]] : next[0]) as T
 
+  // Returns the new values, or null when they did not change
   const setThumb = (index: number, next: number) => {
     const current = valuesRef.current
     const bounded = !isRange ? next : index === 0 ? Math.min(next, current[1]) : Math.max(next, current[0])
 
     if (bounded === current[index]) {
-      return false
+      return null
     }
 
     const nextValues = [...current]
     nextValues[index] = bounded
-    valuesRef.current = nextValues
 
+    // A controlled slider keeps the value of its parent, which may refuse the change without a new render
     if (!isControlled) {
+      valuesRef.current = nextValues
       setInternalValues(nextValues)
     }
     onChange && onChange(toOutput(nextValues))
-    return true
+    return nextValues
   }
 
   const valueAt = (clientX: number) => {
@@ -287,8 +289,8 @@ export function Slider<T extends SliderValue = number>(props: SliderProps<T>) {
     }
 
     e.preventDefault()
-    const changed = setThumb(index, roundToStep(nextByKey[e.key]))
-    changed && onChangeEnd && onChangeEnd(toOutput(valuesRef.current))
+    const nextValues = setThumb(index, roundToStep(nextByKey[e.key]))
+    nextValues && onChangeEnd && onChangeEnd(toOutput(nextValues))
   }
 
   const sliderNameId = label ? ids.label : ariaLabelledBy || (isRange && ariaLabel ? ids.name : undefined)

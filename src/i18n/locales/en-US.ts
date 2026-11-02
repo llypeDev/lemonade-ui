@@ -214,6 +214,12 @@ const locale = {
     decrease: 'Down',
     noChange: 'No change',
   },
+  stepper: {
+    completed: 'Completed',
+    active: 'Current',
+    incompleted: 'Not started',
+    inactive: 'Inactive',
+  },
   tag: {
     remove: 'Remove',
   },

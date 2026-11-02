@@ -84,6 +84,20 @@ describe('Wizard', () => {
     expect(getByText('Card details')).toBeInTheDocument()
   })
 
+  it('should draw no line after the last step when a step is added', () => {
+    const { container, rerender } = render(<Wizard steps={steps()} defaultStep={1} onFinish={jest.fn()} />)
+    const [account, ...rest] = steps()
+    const address = { id: 'address', title: 'Address', content: <p>Where to send it</p> }
+    rerender(<Wizard steps={[account, address, ...rest]} defaultStep={1} onFinish={jest.fn()} />)
+
+    // The connector is in the root of its step, inside the stepper
+    const stepper = container.querySelector('[data-testid="step-connector"]').parentElement.parentElement
+    expect(stepper.children).toHaveLength(4)
+    expect(stepper.lastElementChild).toHaveTextContent('Payment')
+    expect(stepper.lastElementChild.querySelector('[data-testid="step-connector"]')).toBeNull()
+    expect(container.querySelectorAll('[data-testid="step-connector"]')).toHaveLength(3)
+  })
+
   it('should hide the stepper', () => {
     const { container } = render(<Wizard steps={steps()} onFinish={jest.fn()} showStepper={false} />)
     expect(container).not.toHaveTextContent('AccountPlanPayment')

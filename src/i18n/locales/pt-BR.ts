@@ -217,6 +217,12 @@ const locale: LocaleConfiguration = {
     decrease: 'Queda de',
     noChange: 'Sem variação',
   },
+  stepper: {
+    completed: 'Concluída',
+    active: 'Atual',
+    incompleted: 'Não iniciada',
+    inactive: 'Inativa',
+  },
   tag: {
     remove: 'Remover',
   },

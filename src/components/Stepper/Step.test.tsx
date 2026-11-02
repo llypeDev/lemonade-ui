@@ -1,6 +1,8 @@
-import { render } from '@testing-library/react'
+import { render, within } from '@testing-library/react'
 import React from 'react'
 
+import { LocaleContext } from '../../i18n'
+import ptBR from '../../i18n/locales/pt-BR'
 import { createMockStepperContext } from '../../test/utils/createMockStepperContext'
 import { Step } from './Step'
 import { Stepper } from './Stepper'
@@ -97,6 +99,32 @@ it('should not render connector when is last step', async () => {
   expect(container.querySelector('[data-testid="first-step"] [data-testid="step-connector"]')).toBeTruthy()
   expect(container.querySelector('[data-testid="second-step"] [data-testid="step-connector"]')).toBeTruthy()
   expect(container.querySelector('[data-testid="last-step"] [data-testid="step-connector"]')).toBeFalsy()
+})
+
+it('should tell screen readers the status of each step and mark the current one', () => {
+  const steps = (
+    <Stepper>
+      <Step status='completed' title='Cart' data-testid='cart' />
+      <Step status='active' title='Payment' data-testid='payment' />
+      <Step title='Review' data-testid='review' />
+      <Step status='inactive' title='Gift' data-testid='gift' />
+    </Stepper>
+  )
+  const { getByTestId, rerender } = render(steps)
+
+  expect(getByTestId('payment')).toHaveAttribute('aria-current', 'step')
+  expect(getByTestId('cart')).not.toHaveAttribute('aria-current')
+  expect(getByTestId('review')).not.toHaveAttribute('aria-current')
+  expect(within(getByTestId('cart')).getByText('Completed')).toBeInTheDocument()
+  expect(within(getByTestId('payment')).getByText('Current')).toBeInTheDocument()
+  expect(within(getByTestId('review')).getByText('Not started')).toBeInTheDocument()
+  expect(within(getByTestId('gift')).getByText('Inactive')).toBeInTheDocument()
+
+  rerender(<LocaleContext.Provider value={ptBR}>{steps}</LocaleContext.Provider>)
+  expect(within(getByTestId('cart')).getByText('Concluída')).toBeInTheDocument()
+  expect(within(getByTestId('payment')).getByText('Atual')).toBeInTheDocument()
+  expect(within(getByTestId('review')).getByText('Não iniciada')).toBeInTheDocument()
+  expect(within(getByTestId('gift')).getByText('Inativa')).toBeInTheDocument()
 })
 
 it('should render children inside StepContent when provided', () => {

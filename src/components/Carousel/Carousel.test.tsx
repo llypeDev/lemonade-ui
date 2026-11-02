@@ -146,6 +146,20 @@ describe('Carousel', () => {
     expect(currentText(container)).toBe('Chairs See chairs')
   })
 
+  it('should not change slides with a swipe when there are none', () => {
+    const onIndexChange = jest.fn()
+    const { container } = render(
+      <Carousel label='Products' onIndexChange={onIndexChange}>
+        {[]}
+      </Carousel>
+    )
+    const viewport = container.querySelector('[aria-live]').parentElement
+
+    fireEvent.pointerDown(viewport, { clientX: 300 })
+    fireEvent.pointerUp(viewport, { clientX: 200 })
+    expect(onIndexChange).not.toHaveBeenCalled()
+  })
+
   it('should have no controls for a single slide', () => {
     const { queryByRole } = render(<Carousel label='Products'>{slides[0]}</Carousel>)
     expect(queryByRole('button', { name: 'Next slide' })).not.toBeInTheDocument()

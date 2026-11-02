@@ -1,7 +1,7 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should accept "style" prop 1`] = `
-.emotion-7 {
+.emotion-8 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -38,21 +38,21 @@ exports[`should accept "style" prop 1`] = `
   flex-direction: column;
 }
 
-.emotion-8 {
+.emotion-9 {
   display: inline-block;
   margin-bottom: 0rem;
   margin-top: 0rem;
 }
 
-.emotion-8:first-of-type {
+.emotion-9:first-of-type {
   margin-top: 0;
 }
 
-.emotion-8:last-of-type {
+.emotion-9:last-of-type {
   margin-bottom: 0;
 }
 
-.emotion-8:empty {
+.emotion-9:empty {
   display: none;
 }
 
@@ -117,7 +117,20 @@ exports[`should accept "style" prop 1`] = `
   transition: all .4s ease;
 }
 
-.emotion-10 {
+.emotion-7 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.emotion-11 {
   position: relative;
   text-align: center;
   color: red;
@@ -125,7 +138,7 @@ exports[`should accept "style" prop 1`] = `
 
 <div>
   <span
-    class="emotion-10"
+    class="emotion-11"
   >
     <span
       class="emotion-0"
@@ -135,10 +148,10 @@ exports[`should accept "style" prop 1`] = `
       class="emotion-5"
     >
       <div
-        class="emotion-8"
+        class="emotion-9"
       >
         <div
-          class="emotion-7"
+          class="emotion-8"
         >
           <span
             class="emotion-2"
@@ -165,6 +178,11 @@ exports[`should accept "style" prop 1`] = `
               </div>
             </div>
           </span>
+          <span
+            class="emotion-7"
+          >
+            Not started
+          </span>
         </div>
       </div>
     </div>
@@ -173,12 +191,12 @@ exports[`should accept "style" prop 1`] = `
 `;
 
 exports[`should allow override of components 1`] = `
-.emotion-10 {
+.emotion-11 {
   position: relative;
   text-align: center;
 }
 
-.emotion-7 {
+.emotion-8 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -215,21 +233,21 @@ exports[`should allow override of components 1`] = `
   flex-direction: column;
 }
 
-.emotion-8 {
+.emotion-9 {
   display: inline-block;
   margin-bottom: 0rem;
   margin-top: 0rem;
 }
 
-.emotion-8:first-of-type {
+.emotion-9:first-of-type {
   margin-top: 0;
 }
 
-.emotion-8:last-of-type {
+.emotion-9:last-of-type {
   margin-bottom: 0;
 }
 
-.emotion-8:empty {
+.emotion-9:empty {
   display: none;
 }
 
@@ -289,9 +307,22 @@ exports[`should allow override of components 1`] = `
   transition: all .4s ease;
 }
 
+.emotion-7 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
 <div>
   <span
-    class="emotion-10"
+    class="emotion-11"
     id="root"
   >
     <span
@@ -302,10 +333,10 @@ exports[`should allow override of components 1`] = `
       class="emotion-5"
     >
       <div
-        class="emotion-8"
+        class="emotion-9"
       >
         <div
-          class="emotion-7"
+          class="emotion-8"
         >
           <span
             class="emotion-2"
@@ -332,6 +363,11 @@ exports[`should allow override of components 1`] = `
               </div>
             </div>
           </span>
+          <span
+            class="emotion-7"
+          >
+            Not started
+          </span>
         </div>
       </div>
     </div>
@@ -340,12 +376,12 @@ exports[`should allow override of components 1`] = `
 `;
 
 exports[`should render correctly when status is active 1`] = `
-.emotion-10 {
+.emotion-11 {
   position: relative;
   text-align: center;
 }
 
-.emotion-7 {
+.emotion-8 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -382,21 +418,21 @@ exports[`should render correctly when status is active 1`] = `
   flex-direction: column;
 }
 
-.emotion-8 {
+.emotion-9 {
   display: inline-block;
   margin-bottom: 0rem;
   margin-top: 0rem;
 }
 
-.emotion-8:first-of-type {
+.emotion-9:first-of-type {
   margin-top: 0;
 }
 
-.emotion-8:last-of-type {
+.emotion-9:last-of-type {
   margin-bottom: 0;
 }
 
-.emotion-8:empty {
+.emotion-9:empty {
   display: none;
 }
 
@@ -438,6 +474,19 @@ exports[`should render correctly when status is active 1`] = `
   display: none;
 }
 
+.emotion-7 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .emotion-1 {
   width: 1rem;
   height: 1rem;
@@ -464,7 +513,8 @@ exports[`should render correctly when status is active 1`] = `
 
 <div>
   <span
-    class="emotion-10"
+    aria-current="step"
+    class="emotion-11"
   >
     <span
       class="emotion-0"
@@ -474,10 +524,10 @@ exports[`should render correctly when status is active 1`] = `
       class="emotion-5"
     >
       <div
-        class="emotion-8"
+        class="emotion-9"
       >
         <div
-          class="emotion-7"
+          class="emotion-8"
         >
           <span
             class="emotion-2"
@@ -504,6 +554,11 @@ exports[`should render correctly when status is active 1`] = `
               </div>
             </div>
           </span>
+          <span
+            class="emotion-7"
+          >
+            Current
+          </span>
         </div>
       </div>
     </div>
@@ -512,12 +567,12 @@ exports[`should render correctly when status is active 1`] = `
 `;
 
 exports[`should render correctly when status is completed 1`] = `
-.emotion-11 {
+.emotion-12 {
   position: relative;
   text-align: center;
 }
 
-.emotion-8 {
+.emotion-9 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -554,21 +609,21 @@ exports[`should render correctly when status is completed 1`] = `
   flex-direction: column;
 }
 
-.emotion-9 {
+.emotion-10 {
   display: inline-block;
   margin-bottom: 0rem;
   margin-top: 0rem;
 }
 
-.emotion-9:first-of-type {
+.emotion-10:first-of-type {
   margin-top: 0;
 }
 
-.emotion-9:last-of-type {
+.emotion-10:last-of-type {
   margin-bottom: 0;
 }
 
-.emotion-9:empty {
+.emotion-10:empty {
   display: none;
 }
 
@@ -621,6 +676,19 @@ exports[`should render correctly when status is completed 1`] = `
   transition: all .4s ease;
 }
 
+.emotion-8 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .emotion-1 {
   width: 1rem;
   height: 1rem;
@@ -643,7 +711,7 @@ exports[`should render correctly when status is completed 1`] = `
 
 <div>
   <span
-    class="emotion-11"
+    class="emotion-12"
   >
     <span
       class="emotion-0"
@@ -653,10 +721,10 @@ exports[`should render correctly when status is completed 1`] = `
       class="emotion-6"
     >
       <div
-        class="emotion-9"
+        class="emotion-10"
       >
         <div
-          class="emotion-8"
+          class="emotion-9"
         >
           <span
             class="emotion-3"
@@ -696,6 +764,11 @@ exports[`should render correctly when status is completed 1`] = `
               </div>
             </div>
           </span>
+          <span
+            class="emotion-8"
+          >
+            Completed
+          </span>
         </div>
       </div>
     </div>
@@ -704,12 +777,12 @@ exports[`should render correctly when status is completed 1`] = `
 `;
 
 exports[`should render correctly when status is inactive 1`] = `
-.emotion-10 {
+.emotion-11 {
   position: relative;
   text-align: center;
 }
 
-.emotion-7 {
+.emotion-8 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -746,21 +819,21 @@ exports[`should render correctly when status is inactive 1`] = `
   flex-direction: column;
 }
 
-.emotion-8 {
+.emotion-9 {
   display: inline-block;
   margin-bottom: 0rem;
   margin-top: 0rem;
 }
 
-.emotion-8:first-of-type {
+.emotion-9:first-of-type {
   margin-top: 0;
 }
 
-.emotion-8:last-of-type {
+.emotion-9:last-of-type {
   margin-bottom: 0;
 }
 
-.emotion-8:empty {
+.emotion-9:empty {
   display: none;
 }
 
@@ -809,6 +882,19 @@ exports[`should render correctly when status is inactive 1`] = `
   display: none;
 }
 
+.emotion-7 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
 .emotion-3 {
   font-family: "IBM Plex Sans",sans-serif;
   font-size: 0.8125rem;
@@ -822,7 +908,7 @@ exports[`should render correctly when status is inactive 1`] = `
 
 <div>
   <span
-    class="emotion-10"
+    class="emotion-11"
   >
     <span
       class="emotion-0"
@@ -832,10 +918,10 @@ exports[`should render correctly when status is inactive 1`] = `
       class="emotion-5"
     >
       <div
-        class="emotion-8"
+        class="emotion-9"
       >
         <div
-          class="emotion-7"
+          class="emotion-8"
         >
           <span
             class="emotion-2"
@@ -869,6 +955,11 @@ exports[`should render correctly when status is inactive 1`] = `
               </div>
             </div>
           </span>
+          <span
+            class="emotion-7"
+          >
+            Inactive
+          </span>
         </div>
       </div>
     </div>
@@ -877,12 +968,12 @@ exports[`should render correctly when status is inactive 1`] = `
 `;
 
 exports[`should render correctly when status is incompleted 1`] = `
-.emotion-10 {
+.emotion-11 {
   position: relative;
   text-align: center;
 }
 
-.emotion-7 {
+.emotion-8 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -919,21 +1010,21 @@ exports[`should render correctly when status is incompleted 1`] = `
   flex-direction: column;
 }
 
-.emotion-8 {
+.emotion-9 {
   display: inline-block;
   margin-bottom: 0rem;
   margin-top: 0rem;
 }
 
-.emotion-8:first-of-type {
+.emotion-9:first-of-type {
   margin-top: 0;
 }
 
-.emotion-8:last-of-type {
+.emotion-9:last-of-type {
   margin-bottom: 0;
 }
 
-.emotion-8:empty {
+.emotion-9:empty {
   display: none;
 }
 
@@ -998,9 +1089,22 @@ exports[`should render correctly when status is incompleted 1`] = `
   transition: all .4s ease;
 }
 
+.emotion-7 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
 <div>
   <span
-    class="emotion-10"
+    class="emotion-11"
   >
     <span
       class="emotion-0"
@@ -1010,10 +1114,10 @@ exports[`should render correctly when status is incompleted 1`] = `
       class="emotion-5"
     >
       <div
-        class="emotion-8"
+        class="emotion-9"
       >
         <div
-          class="emotion-7"
+          class="emotion-8"
         >
           <span
             class="emotion-2"
@@ -1039,6 +1143,11 @@ exports[`should render correctly when status is incompleted 1`] = `
                 </span>
               </div>
             </div>
+          </span>
+          <span
+            class="emotion-7"
+          >
+            Not started
           </span>
         </div>
       </div>

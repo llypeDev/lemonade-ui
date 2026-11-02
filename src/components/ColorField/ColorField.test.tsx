@@ -128,6 +128,34 @@ describe('ColorField', () => {
     expect(getByRole('radio', { name: '#AABBCC' })).toBeInTheDocument()
   })
 
+  it('should name the group by the label and put the id on it when given an id', () => {
+    const { getByRole, getByText } = render(<ColorField id='tag-color' label='Tag color' swatches={swatches} />)
+
+    const group = getByRole('group', { name: 'Tag color' })
+    expect(group).toHaveAttribute('id', 'tag-color')
+    // A label cannot point at a group, so it names it with its id instead
+    expect(getByText('Tag color')).not.toHaveAttribute('for')
+  })
+
+  it('should leave out swatches that are not colors', () => {
+    const warn = jest.spyOn(console, 'warn').mockImplementation(() => undefined)
+    const onChange = jest.fn()
+    const { getAllByRole } = render(
+      <ColorField
+        label='Color'
+        swatches={['red', '#5E7300', { value: '#5E730080', label: 'Faded green' }]}
+        onChange={onChange}
+      />
+    )
+
+    expect(getAllByRole('radio')).toHaveLength(1)
+    getAllByRole('radio').forEach((radio) => fireEvent.click(radio))
+    expect(onChange).toHaveBeenCalledWith('#5E7300')
+    expect(onChange).not.toHaveBeenCalledWith(null)
+    expect(warn).toHaveBeenCalledTimes(1)
+    warn.mockRestore()
+  })
+
   it('should use the locale strings', () => {
     const { getByRole } = render(
       <LocaleContext.Provider value={ptBR}>
