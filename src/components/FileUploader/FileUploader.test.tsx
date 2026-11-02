@@ -29,6 +29,21 @@ it('should render correct without extension', () => {
   expect(container).toMatchSnapshot()
 })
 
+it('should be a button for screen readers', () => {
+  const { getByRole, rerender } = render(<FileUploader />)
+  const button = getByRole('button', { name: 'Click or drag files here to upload' })
+  expect(button).toHaveAttribute('tabindex', '0')
+  expect(button).not.toHaveAttribute('aria-disabled')
+
+  rerender(<FileUploader disabled />)
+  expect(getByRole('button', { name: 'Click or drag files here to upload' })).toHaveAttribute('aria-disabled', 'true')
+})
+
+it('should show the progress of a file that has no details yet', () => {
+  const { getByRole } = render(<FileUploader file={{ uploading: true, progress: 30 }} />)
+  expect(getByRole('progressbar')).toHaveAttribute('value', '30')
+})
+
 it('should take its default text from the locale strings', () => {
   const { getByText, rerender } = render(<FileUploader />)
   expect(getByText('Click or drag files here to upload')).toBeInTheDocument()

@@ -68,19 +68,27 @@ export function ImageViewer(props: ImageViewerProps) {
   const drag = useRef<{ x: number; y: number; startX: number; startY: number; moved: boolean }>(null)
 
   const [internalIndex, setInternalIndex] = useState(defaultIndex)
+  const [wasOpen, setWasOpen] = useState(open)
   const [zoom, setZoom] = useState(1)
   const [offset, setOffset] = useState({ x: 0, y: 0 })
   const [dragging, setDragging] = useState(false)
 
+  // An uncontrolled viewer starts again on opening. It changes during the render, so the first image painted
+  // is already the one of defaultIndex.
+  if (open !== wasOpen) {
+    setWasOpen(open)
+    open && setInternalIndex(defaultIndex)
+  }
+
   const current = Math.max(0, Math.min(images.length - 1, index ?? internalIndex))
   const image = images[current]
   const zoomed = zoom > 1
+  const shown = open && !!image
 
-  // An uncontrolled viewer starts again on opening; the focus goes back where it was when it closes
+  // While an image is shown, the page does not scroll; the focus goes back where it was when it closes
   useEffect(() => {
-    if (open) {
+    if (shown) {
       returnFocus.current = document.activeElement as HTMLElement
-      setInternalIndex(defaultIndex)
       closeRef.current && closeRef.current.focus()
 
       const overflow = document.body.style.overflow
@@ -91,8 +99,7 @@ export function ImageViewer(props: ImageViewerProps) {
         element && element.focus && document.contains(element) && element.focus()
       }
     }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [open])
+  }, [shown])
 
   // Each image starts fitted to the screen
   useEffect(() => {
@@ -100,7 +107,7 @@ export function ImageViewer(props: ImageViewerProps) {
     setOffset({ x: 0, y: 0 })
   }, [current, open])
 
-  if (!open || !image) {
+  if (!shown) {
     return null
   }
 

@@ -54,7 +54,10 @@ export function FileUploader(props: FileUploaderProps) {
 
   return (
     <>
-      <div className={css(classes.componentWrapper, isDragActive && classes.dragBackground)} {...getRootProps()}>
+      <div
+        className={css(classes.componentWrapper, isDragActive && classes.dragBackground)}
+        {...getRootProps({ role: 'button', 'aria-disabled': props.disabled || undefined })}
+      >
         <input {...getInputProps()} />
         <div className={css(classes.buttonWrapper, props.disabled && classes.disabled)}>
           <div className={css(classes.dropzone, isDragActive && classes.dragActive)}>
@@ -94,6 +97,10 @@ export function FileDetails(props: FileDetailsProps) {
   const { css, classes } = useStyles(createStyles)
 
   const returnExtension = () => {
+    // The file may come before its details, such as while it starts uploading
+    if (!file.selectedFile) {
+      return null
+    }
     const { type } = file.selectedFile
     const typeSplit = type.split('/')
     if (typeSplit.length > 1) {
@@ -129,10 +136,14 @@ export function FileInfo(props: FileInfoProps) {
       {!file.error && !file.uploading && (
         <Icon icon='checkDefault' fill='primary' size={1} style={{ marginRight: 5 }} />
       )}
-      <Text fontWeight='bold' style={classes.fileName}>
-        {file.selectedFile.name}
-      </Text>
-      <Text>{format(file.selectedFile.size, 0)}</Text>
+      {file.selectedFile && (
+        <>
+          <Text fontWeight='bold' style={classes.fileName}>
+            {file.selectedFile.name}
+          </Text>
+          <Text>{format(file.selectedFile.size, 0)}</Text>
+        </>
+      )}
     </div>
   )
 }

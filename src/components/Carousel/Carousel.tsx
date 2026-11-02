@@ -96,6 +96,10 @@ export function Carousel(props: CarouselProps) {
   const rotating = playing && !hovered && !focused
 
   const goTo = (next: number) => {
+    // Without slides, there is nowhere to go
+    if (total === 0) {
+      return
+    }
     const target = loop ? (next + total) % total : Math.max(0, Math.min(total - 1, next))
     if (target === current) {
       return

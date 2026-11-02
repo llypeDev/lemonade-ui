@@ -1,4 +1,4 @@
-import React, { CSSProperties, useMemo, useRef, useState } from 'react'
+import React, { CSSProperties, useEffect, useMemo, useRef, useState } from 'react'
 
 import { UseFormControlProps, useFormControl } from '../../hooks/useFormControl'
 import { useLocale } from '../../i18n'
@@ -67,7 +67,10 @@ export const normalizeHex = (text: string): string | null => {
 }
 
 // A dark check shows on light colors, and a white one on dark colors
-const isLight = (hex: string) => {
+const isLight = (hex: string | null) => {
+  if (!hex) {
+    return false
+  }
   const channel = (start: number) => parseInt(hex.substr(start, 2), 16) / 255
   const [r, g, b] = [channel(1), channel(3), channel(5)].map((c) =>
     c <= 0.03928 ? c / 12.92 : Math.pow((c + 0.055) / 1.055, 2.4)
@@ -97,7 +100,11 @@ export function ColorField(props: ColorFieldProps) {
   const { getFormControlProps, getInputProps } = useFormControl(props)
   const ids = useMemo(() => {
     const id = randomStr()
-    return { swatches: `color-field-swatches-${id}`, invalid: `color-field-invalid-${id}` }
+    return {
+      label: `color-field-label-${id}`,
+      swatches: `color-field-swatches-${id}`,
+      invalid: `color-field-invalid-${id}`,
+    }
   }, [])
   const swatchRefs = useRef<HTMLButtonElement[]>([])
 
@@ -106,11 +113,25 @@ export function ColorField(props: ColorFieldProps) {
   const [text, setText] = useState<string>(null)
   const [invalid, setInvalid] = useState(false)
 
-  const options: ColorSwatch[] = swatches.map((swatch) =>
-    typeof swatch === 'string'
-      ? { value: normalizeHex(swatch), label: normalizeHex(swatch) }
-      : { ...swatch, value: normalizeHex(swatch.value) }
-  )
+  // A swatch that is not a color would pick no color, so it is left out
+  const options: ColorSwatch[] = []
+  const invalidSwatches: string[] = []
+  swatches.forEach((swatch) => {
+    const text = typeof swatch === 'string' ? swatch : swatch.value
+    const color = normalizeHex(text)
+    if (color === null) {
+      invalidSwatches.push(text)
+    } else {
+      options.push(typeof swatch === 'string' ? { value: color, label: color } : { ...swatch, value: color })
+    }
+  })
+  const invalidText = invalidSwatches.join(', ')
+  useEffect(() => {
+    if (process.env.NODE_ENV !== 'production' && invalidText) {
+      console.warn(`ColorField: the swatches ${invalidText} are not colors as #RRGGBB and were left out`)
+    }
+  }, [invalidText])
+
   const checkedIndex = options.findIndex((option) => option.value === current)
 
   const select = (next: string) => {
@@ -172,15 +193,19 @@ export function ColorField(props: ColorFieldProps) {
     }
   }
 
+  // The label names the group. With an `id`, which goes on the group, the label gets an id of its own here,
+  // and points at no element, since a group cannot take a label.
   const { 'aria-labelledby': labelledBy } = getInputProps()
+  const labelId = label ? labelledBy ?? ids.label : undefined
   const tabbableIndex = checkedIndex >= 0 ? checkedIndex : 0
 
   return (
-    <FormControl {...getFormControlProps()}>
+    <FormControl {...getFormControlProps()} htmlFor={undefined} labelId={labelId}>
       <div
+        id={props.id}
         role='group'
-        aria-labelledby={labelledBy}
-        aria-label={label && labelledBy ? undefined : locale.colorField.swatches}
+        aria-labelledby={labelId}
+        aria-label={labelId ? undefined : locale.colorField.swatches}
         className={css(classes.root, style)}
       >
         <div role='radiogroup' aria-label={locale.colorField.swatches} className={classes.swatches}>

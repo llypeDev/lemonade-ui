@@ -216,6 +216,12 @@ const locale: LocaleConfiguration = {
     decrease: 'Queda de',
     noChange: 'Sem variação',
   },
+  stepper: {
+    completed: 'Concluída',
+    active: 'Atual',
+    incompleted: 'Não iniciada',
+    inactive: 'Inativa',
+  },
   tagInput: {
     instructions: 'Pressione Enter ou vírgula para adicionar. Backspace remove o último.',
     remove: 'Remover {tag}',

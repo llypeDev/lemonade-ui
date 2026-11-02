@@ -1,5 +1,6 @@
 import { render } from '@testing-library/react'
 import React from 'react'
+import { renderToString } from 'react-dom/server'
 
 import { Stepper } from './Stepper'
 import { StepperContextValue, useStepperContext } from './useStepperContext'
@@ -62,26 +63,6 @@ it('should correctly compute number of steps and template columns', () => {
   expect(getComputedStyle(stepper).gridTemplateColumns).toBe('repeat(3,1fr)')
 })
 
-it('should increment stepCounterRef when incrementStep is called', () => {
-  let contextValue!: StepperContextValue
-
-  const Consumer = () => {
-    contextValue = useStepperContext()
-    return null
-  }
-
-  render(
-    <Stepper>
-      <Consumer />
-    </Stepper>
-  )
-
-  const idx1 = contextValue.incrementStep()
-  const idx2 = contextValue.incrementStep()
-  expect(idx1).toBe(0)
-  expect(idx2).toBe(1)
-})
-
 it('should return correct next step status', () => {
   let contextValue!: StepperContextValue
 
@@ -100,4 +81,37 @@ it('should return correct next step status', () => {
 
   // next step of index 0 is status of index 1
   expect(contextValue.getNextStepStatus(0)).toBe('completed')
+})
+
+it('should give each step its place among the steps when a step is inserted', () => {
+  const Steps = ({ ids }: { ids: string[] }) => (
+    <Stepper>
+      {ids.map((id) => (
+        <Step key={id} title={id} data-testid={id} status={id === 'C' ? 'inactive' : 'completed'} />
+      ))}
+    </Stepper>
+  )
+
+  const { getByTestId, rerender } = render(<Steps ids={['A', 'B', 'C']} />)
+  rerender(<Steps ids={['A', 'X', 'B', 'C']} />)
+  const connectorOf = (id: string) => getByTestId(id).querySelector<HTMLElement>('[data-testid="step-connector"]')
+
+  expect(connectorOf('X')).not.toBeNull()
+  expect(connectorOf('C')).toBeNull()
+  expect(getComputedStyle(connectorOf('A')).borderTopStyle).toBe('solid')
+  expect(getComputedStyle(connectorOf('X')).borderTopStyle).toBe('solid')
+  // The line after B leads to C, which is inactive
+  expect(getComputedStyle(connectorOf('B')).borderTopStyle).toBe('dashed')
+})
+
+it('should render the steps on the first render, as on the server', () => {
+  const html = renderToString(
+    <Stepper>
+      <Step title='First step' />
+      <Step title='Last step' />
+    </Stepper>
+  )
+
+  expect(html).toContain('First step')
+  expect(html).toContain('Last step')
 })

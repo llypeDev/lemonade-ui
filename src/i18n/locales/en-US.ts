@@ -213,6 +213,12 @@ const locale = {
     decrease: 'Down',
     noChange: 'No change',
   },
+  stepper: {
+    completed: 'Completed',
+    active: 'Current',
+    incompleted: 'Not started',
+    inactive: 'Inactive',
+  },
   tagInput: {
     instructions: 'Press Enter or comma to add. Backspace removes the last one.',
     remove: 'Remove {tag}',
