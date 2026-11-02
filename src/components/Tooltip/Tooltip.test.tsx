@@ -72,6 +72,20 @@ it('should show tooltip when focus component', async () => {
   await flush()
 })
 
+it('should not show tooltip when the focus does not come from the keyboard', async () => {
+  const { getByText } = await actRender(<TooltipTest />)
+  const target = getByText('Testing')
+  // As the browser reports the focus that a dialog opened with a click gives to its first button
+  target.matches = (selector: string) => selector === ':focus'
+  fireEvent.focus(target)
+  expect(document.body.querySelector('[role="tooltip"]')).toBeFalsy()
+
+  // The pointer still shows it
+  fireEvent.pointerOver(target)
+  expect(document.body.querySelector('[role="tooltip"]')?.getAttribute('aria-hidden')).toEqual('false')
+  await flush()
+})
+
 it('should hide tooltip when pointer leaves component', async () => {
   const { getByText } = await actRender(<TooltipTest />)
   fireEvent.pointerOver(getByText('Testing'))
