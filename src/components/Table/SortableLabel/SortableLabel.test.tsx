@@ -12,20 +12,35 @@ describe('SortableLabel', () => {
   it('should call onChange when clicked', () => {
     const change = jest.fn()
     const { container, rerender } = render(<SortableLabel direction='' onChange={change} />)
-    fireEvent.click(container.querySelector('span'))
+    fireEvent.click(container.querySelector('button'))
     expect(change).toHaveBeenLastCalledWith('ASC', false)
 
     rerender(<SortableLabel direction='ASC' onChange={change} />)
-    fireEvent.click(container.querySelector('span'))
+    fireEvent.click(container.querySelector('button'))
     expect(change).toHaveBeenLastCalledWith('DESC', false)
 
     rerender(<SortableLabel direction='DESC' onChange={change} />)
-    fireEvent.click(container.querySelector('span'))
+    fireEvent.click(container.querySelector('button'))
     expect(change).toHaveBeenLastCalledWith('ASC', false)
 
     rerender(<SortableLabel direction='DESC' onChange={change} />)
-    fireEvent.click(container.querySelector('span'), { shiftKey: true })
+    fireEvent.click(container.querySelector('button'), { shiftKey: true })
     expect(change).toHaveBeenLastCalledWith('ASC', true)
+  })
+})
+
+describe('SortableLabel control', () => {
+  it('should be a button named by its text', () => {
+    const change = jest.fn()
+    const { getByRole } = render(
+      <SortableLabel direction='' onChange={change}>
+        Name
+      </SortableLabel>
+    )
+    const button = getByRole('button', { name: 'Name' })
+    expect(button).toHaveAttribute('type', 'button')
+    fireEvent.click(button)
+    expect(change).toHaveBeenLastCalledWith('ASC', false)
   })
 })
 

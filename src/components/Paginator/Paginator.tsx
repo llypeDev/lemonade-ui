@@ -1,4 +1,4 @@
-import React, { CSSProperties, useEffect, useState } from 'react'
+import React, { CSSProperties, useEffect, useRef, useState } from 'react'
 
 import { useLocale } from '../../i18n'
 import { Theme, useStyles } from '../../styles'
@@ -34,24 +34,31 @@ export function Paginator(props: PaginatorProps) {
   const locale = useLocale()
 
   const [inputValue, setInputValue] = useState<string>(`${page + 1}`)
+  // The value Enter applied, which the blur after it does not apply again
+  const applied = useRef<string>(null)
   useEffect(() => {
     setInputValue(`${page + 1}`)
+    applied.current = null
   }, [page])
 
   const { classes } = useStyles(createStyles)
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     setInputValue(e.target.value.replace(/[^\d]/g, ''))
+    applied.current = null
   }
 
   const handleInputKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) => {
     if (e.key === 'Enter') {
+      // Enter changes the page, and does not submit a form around the paginator
+      e.preventDefault()
       applyInputValue()
+      applied.current = inputValue
     }
   }
 
   const handleInputBlur = (e: React.FocusEvent<HTMLInputElement>) => {
-    applyInputValue()
+    applied.current !== inputValue && applyInputValue()
   }
 
   const applyInputValue = () => {

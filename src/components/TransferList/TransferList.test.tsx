@@ -113,6 +113,34 @@ describe('TransferList', () => {
     expect(listItems(panels(getAllByRole).target)).toEqual(['Read orders', 'Edit ordersChange items and prices'])
   })
 
+  it('should forget the checked items that a controlled value takes out of a list', () => {
+    const { getAllByRole, rerender } = render(<TransferList items={permissions} value={['read', 'write']} />)
+    const { target } = panels(getAllByRole)
+    fireEvent.click(within(target).getByRole('checkbox', { name: 'Read orders' }))
+    fireEvent.click(within(target).getByRole('checkbox', { name: /Edit orders/ }))
+    expect(target).toHaveTextContent('2 of 2 checked')
+
+    rerender(<TransferList items={permissions} value={[]} />)
+    expect(target).toHaveTextContent('0 of 0 checked')
+
+    rerender(<TransferList items={permissions} value={['read']} />)
+    expect(within(target).getByRole('checkbox', { name: 'Read orders' })).not.toBeChecked()
+    expect(target).toHaveTextContent('0 of 1 checked')
+  })
+
+  it('should move only the checked items that match the search, and keep the others checked', () => {
+    const onChange = jest.fn()
+    const { getAllByRole, getByRole } = render(<TransferList items={permissions} onChange={onChange} />)
+    const { source } = panels(getAllByRole)
+
+    fireEvent.click(within(source).getByRole('checkbox', { name: 'Read orders' }))
+    fireEvent.change(getByRole('textbox', { name: 'Search in Available' }), { target: { value: 'refund' } })
+    fireEvent.click(within(source).getByRole('checkbox', { name: 'Refund payments' }))
+    fireEvent.click(getByRole('button', { name: 'Move the checked items to Selected' }))
+    expect(onChange).toHaveBeenLastCalledWith(['refund'])
+    expect(source).toHaveTextContent('1 of 3 checked')
+  })
+
   it('should accept the titles of the lists and hide the search', () => {
     const { getByRole, queryByRole } = render(
       <TransferList

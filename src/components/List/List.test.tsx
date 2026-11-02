@@ -90,4 +90,40 @@ describe('List', () => {
     )
     expect(getByRole('button', { name: 'Archived' })).toBeDisabled()
   })
+
+  it('should disable a link item', () => {
+    const onClick = jest.fn()
+    const { getByRole } = render(
+      <List>
+        <ListItem title='Reports' href='/reports' onClick={onClick} disabled />
+      </List>
+    )
+    const link = getByRole('link', { name: 'Reports' })
+
+    expect(link).toHaveAttribute('aria-disabled', 'true')
+    expect(link).not.toHaveAttribute('href')
+    expect(link).not.toHaveAttribute('disabled')
+    expect(link).toHaveAttribute('tabindex', '-1')
+    // fireEvent returns false when the default action, which follows the link, is prevented
+    expect(fireEvent.click(link)).toBe(false)
+    expect(onClick).not.toHaveBeenCalled()
+  })
+
+  it('should disable an item with a custom component', () => {
+    const RouterLink = ({ to, children, ...props }: { to: string; children?: React.ReactNode }) => (
+      <a href={`#${to}`} {...props}>
+        {children}
+      </a>
+    )
+    const { getByRole } = render(
+      <List>
+        <ListItem title='Settings' component={RouterLink} to='/settings' disabled />
+      </List>
+    )
+    const link = getByRole('link', { name: 'Settings' })
+
+    expect(link).toHaveAttribute('aria-disabled', 'true')
+    expect(link).toHaveAttribute('tabindex', '-1')
+    expect(fireEvent.click(link)).toBe(false)
+  })
 })

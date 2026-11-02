@@ -57,6 +57,20 @@ export function ListItem(props: ListItemProps) {
   const interactive = !!(component || rest.href || rest.onClick)
   const Component = component ?? (rest.href ? 'a' : 'button')
 
+  // A link has no disabled attribute: a disabled one loses its href and its place in the tab order, and its
+  // clicks do nothing
+  const disabledProps =
+    interactive && rest.disabled && Component !== 'button'
+      ? {
+          disabled: undefined,
+          // Without its href, the element is still a link for screen readers
+          ...(rest.href && { href: undefined, role: 'link' }),
+          'aria-disabled': true,
+          tabIndex: -1,
+          onClick: (e: React.MouseEvent<HTMLElement>) => e.preventDefault(),
+        }
+      : {}
+
   const content = (
     <>
       {media && <span className={classes.media}>{media}</span>}
@@ -82,6 +96,7 @@ export function ListItem(props: ListItemProps) {
         className={css(classes.main, classes.interactive, !!extra && classes.mainWithExtra)}
         type={Component === 'button' ? 'button' : undefined}
         {...rest}
+        {...disabledProps}
       >
         {content}
       </Component>

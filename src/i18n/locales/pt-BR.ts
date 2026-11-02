@@ -73,6 +73,7 @@ const locale: LocaleConfiguration = {
     bulkActions: 'Ações para as linhas selecionadas',
     expand: 'Mostrar detalhes de {row}',
     collapse: 'Esconder detalhes de {row}',
+    details: 'Detalhes',
     columns: 'Colunas',
   },
   dateInput: {
