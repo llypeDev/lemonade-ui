@@ -70,3 +70,33 @@ it('should allow prefix and suffix', () => {
 
   expect(render(<Number abbrev value={10.93} prefix='R$ ' suffix='!!' />).container.textContent).toEqual('R$ 10.9!!')
 })
+
+it('should abbreviate negative numbers', () => {
+  expect(render(<Number value={-1500} abbrev />).container.textContent).toEqual('-1.5k')
+  expect(render(<Number value={-2000000} abbrev />).container.textContent).toEqual('-2m')
+})
+
+it('should move to the next unit when rounding reaches a thousand', () => {
+  expect(render(<Number value={999999} abbrev />).container.textContent).toEqual('1m')
+  expect(render(<Number value={999.96} abbrev />).container.textContent).toEqual('1k')
+  expect(render(<Number value={999949} abbrev />).container.textContent).toEqual('999.9k')
+})
+
+it('should apply "formatOptions" to zero when "abbrev" is true', () => {
+  expect(
+    render(<Number value={0} formatOptions={{ minimumFractionDigits: 1 }} abbrev />).container.textContent
+  ).toEqual('0.0')
+})
+
+it('should format "title" with "formatOptions" and leave it out without a value', () => {
+  expect(
+    render(<Number value={1500} formatOptions={{ style: 'currency', currency: 'USD' }} abbrev />)
+      .container.querySelector('span')
+      .getAttribute('title')
+  ).toEqual('$1,500.00')
+  expect(
+    render(<Number value={undefined} abbrev />)
+      .container.querySelector('span')
+      .hasAttribute('title')
+  ).toBe(false)
+})

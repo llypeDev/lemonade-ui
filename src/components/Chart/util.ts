@@ -10,10 +10,13 @@ export function isInsideDomain(value: any, domain: AxisDomain) {
   if (Array.isArray(domain)) return domain.includes(value)
   else return +value >= +domain.init && +value <= +domain.end
 }
+// Without a domain, the range areas take the whole axis
 export const getAxisDomainInit = (x: AxisDomain): number | string =>
-  isValueRange(x) || isDateRange(x) ? +x.init : x.length && x[0]
+  !x ? undefined : isValueRange(x) || isDateRange(x) ? +x.init : x.length && x[0]
 
 export const getAxisDomainEnd = (x: AxisDomain, hasOutliers?: boolean): number | string => {
+  if (!x) return undefined
+
   if (isValueRange(x) || isDateRange(x)) {
     const end = Number(x.end)
     return hasOutliers ? end + getOutlierStepFromDomain(x) : end
@@ -24,8 +27,9 @@ export const getAxisDomainEnd = (x: AxisDomain, hasOutliers?: boolean): number |
 
 export const defaultChartDateFormatter = (date: Date) => date.toLocaleDateString()
 
+// A range without step has a step of 1, as its ticks do
 const getDomainNumericStep = (domain: AxisDomain): number =>
-  !domain || Array.isArray(domain) ? null : isValueRange(domain) ? domain.step : domain.step?.amount
+  !domain || Array.isArray(domain) ? null : isValueRange(domain) ? domain.step ?? 1 : domain.step?.amount ?? 1
 
 export const getDomainMaxValue = (domain: AxisDomain): number | Date =>
   !domain || Array.isArray(domain) ? null : domain.end

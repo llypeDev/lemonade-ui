@@ -8,10 +8,19 @@ export function getDomainPoints<XDomain>(domain: AxisDomain, hasOutliers: boolea
   else return getDateRangeDomainPoints(domain, hasOutliers)
 }
 
+const countDecimals = (value: number): number => {
+  const [mantissa, exponent] = String(value).split('e')
+  return Math.max(0, (mantissa.split('.')[1]?.length ?? 0) - +(exponent ?? 0))
+}
+
 function getValueRangeDomainPoints(domain: ValueRange, hasOutliers: boolean): any[] {
   const points = []
   const step = domain.step ?? 1
-  for (let i = domain.init; i <= domain.end; i += step) points.push(i)
+  // Each point is taken from init and rounded to the decimals of init and step, so the float errors of a decimal
+  // step, such as 0.1 + 0.2 = 0.30000000000000004, do not add up
+  const decimals = Math.max(countDecimals(domain.init), countDecimals(step))
+  const pointAt = (index: number) => +(domain.init + index * step).toFixed(decimals)
+  for (let i = 0; pointAt(i) <= domain.end; i++) points.push(pointAt(i))
   if (!points.includes(domain.end)) points.push(domain.end)
   if (hasOutliers) points.push(domain.end + getOutlierStep(step))
   return points

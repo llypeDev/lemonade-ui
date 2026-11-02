@@ -33,6 +33,27 @@ describe('Meter', () => {
     expect(getByRole('meter', { name: 'Battery' })).toBeInTheDocument()
   })
 
+  it('should keep aria-valuenow within the limits', () => {
+    const { getByRole, rerender } = render(<Meter label='Quota' value={120} />)
+    expect(getByRole('meter')).toHaveAttribute('aria-valuenow', '100')
+
+    rerender(<Meter label='Quota' value={-5} min={0} max={10} />)
+    expect(getByRole('meter')).toHaveAttribute('aria-valuenow', '0')
+  })
+
+  it('should give aria-labelledby and aria-describedby to the meter', () => {
+    const { getByRole } = render(
+      <>
+        <span id='disk-title'>Disk</span>
+        <span id='disk-help'>Free space left</span>
+        <Meter aria-labelledby='disk-title' aria-describedby='disk-help' value={30} />
+      </>
+    )
+    const meter = getByRole('meter', { name: 'Disk' })
+
+    expect(meter).toHaveAttribute('aria-describedby', 'disk-help')
+  })
+
   it('should fill the bar by the value', () => {
     const { container } = render(<Meter label='Quota' value={25} min={0} max={50} />)
     expect(container.querySelector('[role="meter"] > div')).toHaveStyle('width: 50%')

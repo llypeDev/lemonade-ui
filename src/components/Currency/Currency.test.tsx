@@ -14,6 +14,13 @@ it('should should accept "currency" prop', () => {
   expect(render(<Currency value={1234} currency='BRL' />).container.textContent).toEqual('R$1,234.00')
 })
 
+it('should keep the currency when "formatOptions" is given', () => {
+  expect(
+    render(<Currency value={10} formatOptions={{ minimumFractionDigits: 0, maximumFractionDigits: 0 }} />).container
+      .textContent
+  ).toEqual('$10')
+})
+
 it('should accept falsy values', () => {
   expect(render(<Currency value={null} />).container.textContent).toEqual('')
   expect(render(<Currency value={undefined} />).container.textContent).toEqual('')
