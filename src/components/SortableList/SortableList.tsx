@@ -1,4 +1,5 @@
 import React, { CSSProperties, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import { unstable_batchedUpdates } from 'react-dom'
 
 import { useLocale } from '../../i18n'
 import { ExternalStyles, focusBoxShadow, Theme, useStyles } from '../../styles'
@@ -55,6 +56,38 @@ function move<K>(list: K[], from: number, to: number) {
   return next
 }
 
+// Distance from the top or the bottom of the screen, in pixels, where dragging an item scrolls the list
+const SCROLL_EDGE = 48
+// Largest scroll in each frame, in pixels
+const SCROLL_STEP = 16
+
+// Vertical shift of a transform, such as the one of an item sliding to its new place
+const translateY = (transform: string) => {
+  const matrix = /^matrix(3d)?\((.+)\)$/.exec(transform)
+  return matrix ? parseFloat(matrix[2].split(',')[matrix[1] ? 13 : 5]) || 0 : 0
+}
+
+// Place of an element in the page without the transform of an animation, so a sliding item does not count
+const layoutBox = (element: HTMLElement) => {
+  const rect = element.getBoundingClientRect()
+  const top = rect.top - translateY(getComputedStyle(element).transform)
+  return { top, height: rect.height }
+}
+
+// Nearest box that scrolls the element, or the page
+const scrollingBox = (element: HTMLElement): HTMLElement => {
+  for (let parent = element.parentElement; parent && parent !== document.body; parent = parent.parentElement) {
+    const { overflowY } = getComputedStyle(parent)
+    if ((overflowY === 'auto' || overflowY === 'scroll') && parent.scrollHeight > parent.clientHeight) {
+      return parent
+    }
+  }
+  return (document.scrollingElement as HTMLElement) || document.documentElement
+}
+
+const prefersReducedMotion = () =>
+  typeof window.matchMedia === 'function' && window.matchMedia('(prefers-reduced-motion: reduce)').matches
+
 /**
  * A list the user puts in order, by dragging the handle of an item or with the keyboard: Space picks the item
  * up, the arrow keys move it, and Space drops it. Each move is announced to screen readers.
@@ -66,6 +99,7 @@ export function SortableList<T>(props: SortableListProps<T>) {
   const locale = useLocale()
   const { classes, css } = useStyles(createStyles)
   const instructionsId = useMemo(() => `sortable-list-${randomStr()}`, [])
+  const listRef = useRef<HTMLUListElement>(null)
   const itemRefs = useRef(new Map<Key, HTMLLIElement>())
   const handleRefs = useRef(new Map<Key, HTMLButtonElement>())
 
@@ -75,9 +109,22 @@ export function SortableList<T>(props: SortableListProps<T>) {
   const [announcement, setAnnouncement] = useState('')
   // Handle that gets the focus back after a drop or a cancel, when moving its item in the page made it lose it
   const restoreFocus = useRef<Key>(null)
+  // While an item is dragged: where the pointer is, and how far below the top of the item it holds it
+  const pointer = useRef({ y: 0, grab: 0 })
+  const scrollFrame = useRef<number>(null)
+  // Item that follows the pointer, so it goes back to its place when the drag ends
+  const followed = useRef<Key>(null)
+  // Where the items were on the screen before the order changed, so they slide from there to their new places
+  const previousTops = useRef<Map<Key, number>>(null)
 
   const byKey = new Map(items.map((item) => [getKey(item), item] as [Key, T]))
   const keys = draft ?? items.map(getKey)
+
+  const recordTops = () => {
+    const tops = new Map<Key, number>()
+    itemRefs.current.forEach((element, key) => tops.set(key, element.getBoundingClientRect().top))
+    previousTops.current = tops
+  }
 
   const announce = (text: string, key: Key, order: Key[]) =>
     setAnnouncement(
@@ -93,6 +140,7 @@ export function SortableList<T>(props: SortableListProps<T>) {
 
   const drop = (keepFocus = true) => {
     const order = draft
+    recordTops()
     setDraft(null)
     setActive(null)
     if (!order) {
@@ -109,6 +157,7 @@ export function SortableList<T>(props: SortableListProps<T>) {
 
   const cancel = () => {
     const key = active.key
+    recordTops()
     setDraft(null)
     setActive(null)
     restoreFocus.current = key
@@ -123,6 +172,7 @@ export function SortableList<T>(props: SortableListProps<T>) {
     }
 
     const order = move(keys, from, target)
+    recordTops()
     setDraft(order)
     announce(locale.sortableList.moved, key, order)
   }
@@ -184,11 +234,30 @@ export function SortableList<T>(props: SortableListProps<T>) {
     // Keeps the drag from selecting text
     e.preventDefault()
     e.currentTarget.focus()
+    const element = itemRefs.current.get(key)
+    pointer.current = { y: e.clientY, grab: element ? e.clientY - layoutBox(element).top : 0 }
     pickUp(key, true)
   }
 
+  // The dragged item stays under the pointer, inside the list
+  const placeDragged = (key: Key) => {
+    const element = itemRefs.current.get(key)
+    const list = listRef.current
+    if (!element || !list) {
+      return
+    }
+    element.style.transition = 'none'
+    const { top: slot, height } = layoutBox(element)
+    const bounds = list.getBoundingClientRect()
+    const top = Math.max(
+      bounds.top + list.clientTop,
+      Math.min(bounds.bottom - list.clientTop - height, pointer.current.y - pointer.current.grab)
+    )
+    element.style.transform = `translateY(${top - slot}px)`
+  }
+
   // The item goes to the place of the first other item whose middle is below the pointer
-  const handlePointerMove = (e: PointerEvent) => {
+  const followPointer = () => {
     const key = active.key
     const others = keys.filter((other) => other !== key)
     const index = others.findIndex((other) => {
@@ -196,15 +265,56 @@ export function SortableList<T>(props: SortableListProps<T>) {
       if (!element) {
         return false
       }
-      const rect = element.getBoundingClientRect()
-      return e.clientY < rect.top + rect.height / 2
+      const { top, height } = layoutBox(element)
+      return pointer.current.y < top + height / 2
     })
     moveTo(key, index === -1 ? others.length : index)
+    placeDragged(key)
   }
 
+  // Near the top or the bottom of the screen, or of the box that scrolls the list, the list scrolls with the
+  // item, so it can go to a place out of view. On touch screens, dragging does not scroll the page.
+  const autoScroll = () => {
+    scrollFrame.current = null
+    const list = listRef.current
+    if (!list) {
+      return
+    }
+    const box = scrollingBox(list)
+    const page = box === document.scrollingElement || box === document.documentElement
+    const rect = page ? { top: 0, bottom: window.innerHeight } : box.getBoundingClientRect()
+    const top = Math.max(rect.top, 0)
+    const bottom = Math.min(rect.bottom, window.innerHeight)
+    const { y } = pointer.current
+    const depth =
+      y < top + SCROLL_EDGE ? y - top - SCROLL_EDGE : y > bottom - SCROLL_EDGE ? y - bottom + SCROLL_EDGE : 0
+    if (!depth) {
+      return
+    }
+    const step = Math.max(-SCROLL_STEP, Math.min(SCROLL_STEP, Math.ceil((depth / SCROLL_EDGE) * SCROLL_STEP)))
+    const before = box.scrollTop
+    box.scrollTop = before + step
+    if (box.scrollTop !== before) {
+      pointerHandlers.current.follow()
+      scrollFrame.current = requestAnimationFrame(() => run(() => pointerHandlers.current.autoScroll()))
+    }
+  }
+
+  const handlePointerMove = (e: PointerEvent) => {
+    pointer.current.y = e.clientY
+    followPointer()
+    if (scrollFrame.current === null) {
+      scrollFrame.current = requestAnimationFrame(() => run(() => pointerHandlers.current.autoScroll()))
+    }
+  }
+
+  // React 16 renders once for each state update made outside its own events, and a drop makes several. Run
+  // together, they render once, so the dropped item slides to its place from where it was.
+  const run = (update: () => void) => unstable_batchedUpdates(update)
+
   // The pointer is followed in the whole page: moving the item in the page would end a pointer capture
-  const pointerHandlers = useRef({ move: handlePointerMove, drop, cancel })
-  pointerHandlers.current = { move: handlePointerMove, drop, cancel }
+  const pointerHandlers = useRef({ move: handlePointerMove, follow: followPointer, autoScroll, drop, cancel })
+  pointerHandlers.current = { move: handlePointerMove, follow: followPointer, autoScroll, drop, cancel }
   const dragging = !!active && active.pointer
 
   useEffect(() => {
@@ -212,19 +322,68 @@ export function SortableList<T>(props: SortableListProps<T>) {
       return
     }
 
-    const handleMove = (e: PointerEvent) => pointerHandlers.current.move(e)
-    const handleUp = () => pointerHandlers.current.drop()
-    const handleCancel = () => pointerHandlers.current.cancel()
+    const handleMove = (e: PointerEvent) => run(() => pointerHandlers.current.move(e))
+    const handleUp = () => run(() => pointerHandlers.current.drop())
+    const handleCancel = () => run(() => pointerHandlers.current.cancel())
+    // Scrolling, with the wheel or by the list itself, moves the items under the pointer
+    const handleScroll = () => run(() => pointerHandlers.current.follow())
 
     document.addEventListener('pointermove', handleMove)
     document.addEventListener('pointerup', handleUp)
     document.addEventListener('pointercancel', handleCancel)
+    document.addEventListener('scroll', handleScroll, true)
     return () => {
       document.removeEventListener('pointermove', handleMove)
       document.removeEventListener('pointerup', handleUp)
       document.removeEventListener('pointercancel', handleCancel)
+      document.removeEventListener('scroll', handleScroll, true)
+      if (scrollFrame.current !== null) {
+        cancelAnimationFrame(scrollFrame.current)
+        scrollFrame.current = null
+      }
     }
   }, [dragging])
+
+  // The dragged item follows the pointer, and the other items slide from where they were to their new places
+  useLayoutEffect(() => {
+    const tops = previousTops.current
+    previousTops.current = null
+    const dragged = active && active.pointer ? active.key : null
+    if (dragged !== null) {
+      placeDragged(dragged)
+    }
+    const released = followed.current !== dragged ? followed.current : null
+    followed.current = dragged
+    if (!tops) {
+      // Without the places from before, the item that stopped following the pointer goes straight to its place
+      const element = released !== null && itemRefs.current.get(released)
+      if (element) {
+        element.style.transition = ''
+        element.style.transform = ''
+      }
+      return
+    }
+
+    const animate = !prefersReducedMotion()
+    itemRefs.current.forEach((element, key) => {
+      if (key === dragged) {
+        return
+      }
+      element.style.transition = 'none'
+      element.style.transform = ''
+      const from = tops.get(key)
+      const shift = from === undefined ? 0 : from - element.getBoundingClientRect().top
+      if (!animate || Math.abs(shift) < 1) {
+        element.style.transition = ''
+        return
+      }
+      element.style.transform = `translateY(${shift}px)`
+      // Reading the layout starts the transition from the old place
+      element.getBoundingClientRect()
+      element.style.transition = 'transform .15s ease'
+      element.style.transform = ''
+    })
+  })
 
   const handleBlur = (key: Key) => () => {
     // Leaving the handle with Tab drops the item where it is
@@ -240,7 +399,7 @@ export function SortableList<T>(props: SortableListProps<T>) {
 
   return (
     <>
-      <ul className={css(classes.list, style)} {...rest}>
+      <ul ref={listRef} className={css(classes.list, style)} {...rest}>
         {keys.map((key, index) => {
           const item = byKey.get(key)
           if (item === undefined) {

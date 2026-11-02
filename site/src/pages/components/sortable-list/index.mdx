@@ -14,6 +14,8 @@ The sortable list is a list the user puts in order by dragging the handle of an 
 
 `SortableList` takes the `items` and `onChange`, which gets the items in the new order after a drop. Items can be strings or objects with an `id` and a `label`; for other shapes, `getKey` and `getLabel` give the key and the text of an item. `renderItem` renders richer content. Name the list with `aria-label`.
 
+With the mouse or a finger, the item follows the pointer and the other items slide out of its way. Held near the top or the bottom of the screen, or of the box that scrolls the list, the item scrolls it, so it can go to a place out of view, as on a phone, where dragging does not scroll the page. Nothing slides when the user asks for reduced motion.
+
 <Demo src='pages/components/sortable-list/SortableList' />
 
 ## Accessibility
