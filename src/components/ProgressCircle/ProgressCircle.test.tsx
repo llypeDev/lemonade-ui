@@ -40,5 +40,17 @@ describe('ProgressCircle', () => {
   it('should keep the value within the limits', () => {
     const { getByRole } = render(<ProgressCircle value={150} aria-label='Upload' />)
     expect(getByRole('progressbar')).toHaveAttribute('aria-valuetext', '100%')
+    expect(getByRole('progressbar')).toHaveAttribute('aria-valuenow', '100')
+  })
+
+  it('should not show NaN when max is 0 or the value is not a number', () => {
+    const { getByRole, container, rerender } = render(<ProgressCircle value={0} max={0} aria-label='Steps' />)
+    expect(getByRole('progressbar')).toHaveAttribute('aria-valuetext', '0%')
+    expect(container).toHaveTextContent('0%')
+
+    rerender(<ProgressCircle value={NaN} aria-label='Steps' />)
+    expect(getByRole('progressbar')).toHaveAttribute('aria-valuetext', '0%')
+    expect(getByRole('progressbar')).toHaveAttribute('aria-valuenow', '0')
+    expect(container).not.toHaveTextContent('NaN')
   })
 })
