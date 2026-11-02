@@ -19,18 +19,21 @@ describe('LoadingOverlay', () => {
         <button>Export</button>
       </LoadingOverlay>
     )
-    const root = container.firstElementChild
+    const content = getByText('Export', { selector: 'button' }).parentElement
 
-    expect(root).toHaveAttribute('aria-busy', 'true')
-    expect(getByText('Export', { selector: 'button' }).parentElement).toHaveAttribute('inert')
+    expect(content).toHaveAttribute('aria-busy', 'true')
+    expect(content).toHaveAttribute('inert')
     expect(getByRole('status')).toHaveTextContent('Loading')
+    // A busy region holds back its announcements
+    expect(getByRole('status').closest('[aria-busy="true"]')).toBeNull()
+    expect(container.firstElementChild).not.toHaveAttribute('aria-busy')
 
     rerender(
       <LoadingOverlay loading={false}>
         <button>Export</button>
       </LoadingOverlay>
     )
-    expect(root).toHaveAttribute('aria-busy', 'false')
+    expect(content).toHaveAttribute('aria-busy', 'false')
     expect(getByRole('button', { name: 'Export' }).parentElement).not.toHaveAttribute('inert')
     expect(getByRole('status')).toHaveTextContent('')
   })

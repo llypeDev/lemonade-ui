@@ -1,8 +1,29 @@
 import { act, renderHook } from '@testing-library/react-hooks'
+import { createElement } from 'react'
+import { hydrate, unmountComponentAtNode } from 'react-dom'
+import { act as actDom } from 'react-dom/test-utils'
 
 import { useLocalStorage } from '../useLocalStorage'
 
 beforeEach(() => window.localStorage.clear())
+
+it('should render the initial value first, as on the server, and then the saved one', () => {
+  const Theme = () => createElement('span', null, useLocalStorage('theme', 'light')[0])
+  const container = document.createElement('div')
+  // What the server renders without a storage
+  container.innerHTML = '<span>light</span>'
+  window.localStorage.setItem('theme', '"dark"')
+  const error = jest.spyOn(console, 'error').mockImplementation(() => undefined)
+
+  actDom(() => {
+    hydrate(createElement(Theme), container)
+  })
+  expect(error).not.toHaveBeenCalled()
+  expect(container.textContent).toBe('dark')
+
+  error.mockRestore()
+  unmountComponentAtNode(container)
+})
 
 it('should start with the initial value and save changes as JSON', () => {
   const { result } = renderHook(() => useLocalStorage('density', 'comfortable'))

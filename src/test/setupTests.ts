@@ -18,8 +18,11 @@ global.Intl.RelativeTimeFormat = RelativeTimeFormat
 
 // jsdom does not compute pseudo-elements: it logs an error and returns the element's own style,
 // so the pseudo-element is dropped to keep the same result without the noise
-const { getComputedStyle } = window
-window.getComputedStyle = (element: Element) => getComputedStyle.call(window, element)
+// Tests of server rendering run without a window
+if (typeof window !== 'undefined') {
+  const { getComputedStyle } = window
+  window.getComputedStyle = (element: Element) => getComputedStyle.call(window, element)
+}
 
 afterEach(cleanup)
 

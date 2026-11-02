@@ -985,12 +985,12 @@ exports[`PivotTable - PivotTableBoard should render with initial fields 1`] = `
   min-height: 7.18rem;
 }
 
-.emotion-71 {
+.emotion-75 {
   border: 1px solid #D3D4DD;
   padding: 0.75rem 1.25rem;
 }
 
-.emotion-77 {
+.emotion-81 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1215,7 +1215,7 @@ exports[`PivotTable - PivotTableBoard should render with initial fields 1`] = `
   cursor: not-allowed;
 }
 
-.emotion-72 {
+.emotion-76 {
   padding-left: 1rem;
   padding-right: 1rem;
   padding-top: 0.5rem;
@@ -1223,12 +1223,12 @@ exports[`PivotTable - PivotTableBoard should render with initial fields 1`] = `
 }
 
 @media (min-width:600px) {
-  .emotion-72 {
+  .emotion-76 {
     width: calc(100% / 12 * 12);
   }
 }
 
-.emotion-70 {
+.emotion-74 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1246,7 +1246,7 @@ exports[`PivotTable - PivotTableBoard should render with initial fields 1`] = `
   flex-wrap: wrap;
 }
 
-.emotion-67 {
+.emotion-71 {
   padding-left: 1rem;
   padding-right: 1rem;
   padding-top: 0.5rem;
@@ -1254,7 +1254,7 @@ exports[`PivotTable - PivotTableBoard should render with initial fields 1`] = `
   width: calc(100% / 12 * 10);
 }
 
-.emotion-66 {
+.emotion-70 {
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: minmax(min-content,max-content);
@@ -1273,7 +1273,7 @@ exports[`PivotTable - PivotTableBoard should render with initial fields 1`] = `
   font-weight: bold;
 }
 
-.emotion-53 {
+.emotion-54 {
   display: -webkit-box;
   display: -webkit-flex;
   display: -ms-flexbox;
@@ -1283,25 +1283,25 @@ exports[`PivotTable - PivotTableBoard should render with initial fields 1`] = `
   flex-wrap: wrap;
 }
 
-.emotion-55 {
+.emotion-56 {
   display: inline-block;
   margin-bottom: 0.25rem;
   margin-top: 0.25rem;
 }
 
-.emotion-55:first-of-type {
+.emotion-56:first-of-type {
   margin-top: 0;
 }
 
-.emotion-55:last-of-type {
+.emotion-56:last-of-type {
   margin-bottom: 0;
 }
 
-.emotion-55:empty {
+.emotion-56:empty {
   display: none;
 }
 
-.emotion-69 {
+.emotion-73 {
   padding-left: 1rem;
   padding-right: 1rem;
   padding-top: 0.5rem;
@@ -1309,7 +1309,7 @@ exports[`PivotTable - PivotTableBoard should render with initial fields 1`] = `
   width: calc(100% / 12 * 2);
 }
 
-.emotion-68 {
+.emotion-72 {
   font-family: "IBM Plex Sans",sans-serif;
   font-size: 0.8125rem;
   line-height: 1.5rem;
@@ -1342,7 +1342,7 @@ exports[`PivotTable - PivotTableBoard should render with initial fields 1`] = `
   float: right;
 }
 
-.emotion-68 > span {
+.emotion-72 > span {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -1353,20 +1353,20 @@ exports[`PivotTable - PivotTableBoard should render with initial fields 1`] = `
   display: inline-flex;
 }
 
-.emotion-68:not(:disabled):active {
+.emotion-72:not(:disabled):active {
   box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
-.emotion-68:focus {
+.emotion-72:focus {
   outline: none;
   box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
 }
 
-.emotion-68:not(:disabled):hover {
+.emotion-72:not(:disabled):hover {
   background-color: rgba(122,123,142,0.16);
 }
 
-.emotion-76 {
+.emotion-80 {
   padding-left: 1rem;
   padding-right: 1rem;
   padding-top: 0.5rem;
@@ -1374,7 +1374,7 @@ exports[`PivotTable - PivotTableBoard should render with initial fields 1`] = `
   width: calc(100% / 12 * 12);
 }
 
-.emotion-75 {
+.emotion-79 {
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: minmax(min-content,max-content);
@@ -1385,7 +1385,7 @@ exports[`PivotTable - PivotTableBoard should render with initial fields 1`] = `
   justify-content: flex-end;
 }
 
-.emotion-73 {
+.emotion-77 {
   font-family: "IBM Plex Sans",sans-serif;
   font-size: 0.8125rem;
   line-height: 1.5rem;
@@ -1417,7 +1417,7 @@ exports[`PivotTable - PivotTableBoard should render with initial fields 1`] = `
   padding: calc(0.75rem - 1px) 1rem;
 }
 
-.emotion-73 > span {
+.emotion-77 > span {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -1428,20 +1428,20 @@ exports[`PivotTable - PivotTableBoard should render with initial fields 1`] = `
   display: inline-flex;
 }
 
-.emotion-73:not(:disabled):active {
+.emotion-77:not(:disabled):active {
   box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
-.emotion-73:focus {
+.emotion-77:focus {
   outline: none;
   box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
 }
 
-.emotion-73:not(:disabled):hover {
+.emotion-77:not(:disabled):hover {
   background-color: #F0F0F5;
 }
 
-.emotion-74 {
+.emotion-78 {
   font-family: "IBM Plex Sans",sans-serif;
   font-size: 0.8125rem;
   line-height: 1.5rem;
@@ -1476,7 +1476,7 @@ exports[`PivotTable - PivotTableBoard should render with initial fields 1`] = `
   padding: calc(0.75rem - 1px) 1rem;
 }
 
-.emotion-74 > span {
+.emotion-78 > span {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -1487,20 +1487,20 @@ exports[`PivotTable - PivotTableBoard should render with initial fields 1`] = `
   display: inline-flex;
 }
 
-.emotion-74:not(:disabled):active {
+.emotion-78:not(:disabled):active {
   box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
-.emotion-74:focus {
+.emotion-78:focus {
   outline: none;
   box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
 }
 
-.emotion-74:not(:disabled):hover {
+.emotion-78:not(:disabled):hover {
   background-color: #F0F0F5;
 }
 
-.emotion-74:not(:disabled):hover {
+.emotion-78:not(:disabled):hover {
   background-color: #455400;
 }
 
@@ -1594,7 +1594,7 @@ exports[`PivotTable - PivotTableBoard should render with initial fields 1`] = `
   grid-gap: 0.5rem;
 }
 
-.emotion-54 {
+.emotion-55 {
   display: grid;
   grid-auto-flow: column;
   grid-auto-columns: minmax(min-content,max-content);
@@ -1606,6 +1606,33 @@ exports[`PivotTable - PivotTableBoard should render with initial fields 1`] = `
 }
 
 .emotion-52 {
+  display: -webkit-inline-box;
+  display: -webkit-inline-flex;
+  display: -ms-inline-flexbox;
+  display: inline-flex;
+  -webkit-align-items: center;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  margin: 0;
+  padding: 0;
+  border: 0;
+  border-radius: 4px;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  outline: none;
+}
+
+.emotion-52:hover {
+  color: #D01E29;
+}
+
+.emotion-52:focus-visible {
+  box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-53 {
   display: -webkit-inline-box;
   display: -webkit-inline-flex;
   display: -ms-inline-flexbox;
@@ -1636,11 +1663,6 @@ exports[`PivotTable - PivotTableBoard should render with initial fields 1`] = `
   margin-left: 0.125rem;
 }
 
-.emotion-51:hover {
-  cursor: pointer;
-  color: #D01E29;
-}
-
 .emotion-43 {
   display: -webkit-box;
   display: -webkit-flex;
@@ -1665,7 +1687,7 @@ exports[`PivotTable - PivotTableBoard should render with initial fields 1`] = `
 <div>
   <div>
     <div
-      class="emotion-77"
+      class="emotion-81"
     >
       <div
         class="emotion-6"
@@ -1957,19 +1979,19 @@ exports[`PivotTable - PivotTableBoard should render with initial fields 1`] = `
         </div>
       </div>
       <div
-        class="emotion-72"
+        class="emotion-76"
       >
         <div
-          class="emotion-71"
+          class="emotion-75"
         >
           <div
-            class="emotion-70"
+            class="emotion-74"
           >
             <div
-              class="emotion-67"
+              class="emotion-71"
             >
               <div
-                class="emotion-66"
+                class="emotion-70"
               >
                 <span
                   class="emotion-50"
@@ -1980,111 +2002,135 @@ exports[`PivotTable - PivotTableBoard should render with initial fields 1`] = `
                   class="emotion-45"
                 >
                   <div
-                    class="emotion-55"
+                    class="emotion-56"
                   >
                     <div
-                      class="emotion-54"
+                      class="emotion-55"
                     >
                       <div>
                         Name
                       </div>
                       <div
-                        class="emotion-53"
+                        class="emotion-54"
                       >
                         <span
-                          class="emotion-52"
+                          class="emotion-53"
                         >
                           Apple
-                          <svg
-                            aria-hidden="true"
-                            class="emotion-51"
+                          <button
+                            aria-label="Remove"
+                            class="emotion-52"
                             data-testid="remove-tag-button"
-                            height="1em"
-                            role="img"
-                            viewBox="0 0 24 24"
-                            width="1em"
+                            type="button"
                           >
-                            <path
-                              clip-rule="evenodd"
-                              d="M8.071 6.657l4.243 4.242 4.242-4.242c.464-.48.935-.48 1.415 0s.48.95 0 1.414l-4.243 4.243 4.243 4.242c.471.472.471.943 0 1.415-.472.471-.943.471-1.415 0l-4.242-4.243L8.07 17.97c-.46.482-.932.482-1.414 0-.482-.483-.482-.954 0-1.415l4.242-4.242L6.657 8.07c-.472-.47-.472-.942 0-1.414s.943-.472 1.414 0v.001z"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
+                            <svg
+                              aria-hidden="true"
+                              class="emotion-51"
+                              height="1em"
+                              role="img"
+                              viewBox="0 0 24 24"
+                              width="1em"
+                            >
+                              <path
+                                clip-rule="evenodd"
+                                d="M8.071 6.657l4.243 4.242 4.242-4.242c.464-.48.935-.48 1.415 0s.48.95 0 1.414l-4.243 4.243 4.243 4.242c.471.472.471.943 0 1.415-.472.471-.943.471-1.415 0l-4.242-4.243L8.07 17.97c-.46.482-.932.482-1.414 0-.482-.483-.482-.954 0-1.415l4.242-4.242L6.657 8.07c-.472-.47-.472-.942 0-1.414s.943-.472 1.414 0v.001z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </button>
                         </span>
                       </div>
                     </div>
                   </div>
                   <div
-                    class="emotion-55"
+                    class="emotion-56"
                   >
                     <div
-                      class="emotion-54"
+                      class="emotion-55"
                     >
                       <div>
                         Size
                       </div>
                       <div
-                        class="emotion-53"
+                        class="emotion-54"
                       >
                         <span
-                          class="emotion-52"
+                          class="emotion-53"
                         >
                           Medium
-                          <svg
-                            aria-hidden="true"
-                            class="emotion-51"
+                          <button
+                            aria-label="Remove"
+                            class="emotion-52"
                             data-testid="remove-tag-button"
-                            height="1em"
-                            role="img"
-                            viewBox="0 0 24 24"
-                            width="1em"
+                            type="button"
                           >
-                            <path
-                              clip-rule="evenodd"
-                              d="M8.071 6.657l4.243 4.242 4.242-4.242c.464-.48.935-.48 1.415 0s.48.95 0 1.414l-4.243 4.243 4.243 4.242c.471.472.471.943 0 1.415-.472.471-.943.471-1.415 0l-4.242-4.243L8.07 17.97c-.46.482-.932.482-1.414 0-.482-.483-.482-.954 0-1.415l4.242-4.242L6.657 8.07c-.472-.47-.472-.942 0-1.414s.943-.472 1.414 0v.001z"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
+                            <svg
+                              aria-hidden="true"
+                              class="emotion-51"
+                              height="1em"
+                              role="img"
+                              viewBox="0 0 24 24"
+                              width="1em"
+                            >
+                              <path
+                                clip-rule="evenodd"
+                                d="M8.071 6.657l4.243 4.242 4.242-4.242c.464-.48.935-.48 1.415 0s.48.95 0 1.414l-4.243 4.243 4.243 4.242c.471.472.471.943 0 1.415-.472.471-.943.471-1.415 0l-4.242-4.243L8.07 17.97c-.46.482-.932.482-1.414 0-.482-.483-.482-.954 0-1.415l4.242-4.242L6.657 8.07c-.472-.47-.472-.942 0-1.414s.943-.472 1.414 0v.001z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </button>
                         </span>
                         <span
-                          class="emotion-52"
+                          class="emotion-53"
                         >
                           Very small
-                          <svg
-                            aria-hidden="true"
-                            class="emotion-51"
+                          <button
+                            aria-label="Remove"
+                            class="emotion-52"
                             data-testid="remove-tag-button"
-                            height="1em"
-                            role="img"
-                            viewBox="0 0 24 24"
-                            width="1em"
+                            type="button"
                           >
-                            <path
-                              clip-rule="evenodd"
-                              d="M8.071 6.657l4.243 4.242 4.242-4.242c.464-.48.935-.48 1.415 0s.48.95 0 1.414l-4.243 4.243 4.243 4.242c.471.472.471.943 0 1.415-.472.471-.943.471-1.415 0l-4.242-4.243L8.07 17.97c-.46.482-.932.482-1.414 0-.482-.483-.482-.954 0-1.415l4.242-4.242L6.657 8.07c-.472-.47-.472-.942 0-1.414s.943-.472 1.414 0v.001z"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
+                            <svg
+                              aria-hidden="true"
+                              class="emotion-51"
+                              height="1em"
+                              role="img"
+                              viewBox="0 0 24 24"
+                              width="1em"
+                            >
+                              <path
+                                clip-rule="evenodd"
+                                d="M8.071 6.657l4.243 4.242 4.242-4.242c.464-.48.935-.48 1.415 0s.48.95 0 1.414l-4.243 4.243 4.243 4.242c.471.472.471.943 0 1.415-.472.471-.943.471-1.415 0l-4.242-4.243L8.07 17.97c-.46.482-.932.482-1.414 0-.482-.483-.482-.954 0-1.415l4.242-4.242L6.657 8.07c-.472-.47-.472-.942 0-1.414s.943-.472 1.414 0v.001z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </button>
                         </span>
                         <span
-                          class="emotion-52"
+                          class="emotion-53"
                         >
                           Small
-                          <svg
-                            aria-hidden="true"
-                            class="emotion-51"
+                          <button
+                            aria-label="Remove"
+                            class="emotion-52"
                             data-testid="remove-tag-button"
-                            height="1em"
-                            role="img"
-                            viewBox="0 0 24 24"
-                            width="1em"
+                            type="button"
                           >
-                            <path
-                              clip-rule="evenodd"
-                              d="M8.071 6.657l4.243 4.242 4.242-4.242c.464-.48.935-.48 1.415 0s.48.95 0 1.414l-4.243 4.243 4.243 4.242c.471.472.471.943 0 1.415-.472.471-.943.471-1.415 0l-4.242-4.243L8.07 17.97c-.46.482-.932.482-1.414 0-.482-.483-.482-.954 0-1.415l4.242-4.242L6.657 8.07c-.472-.47-.472-.942 0-1.414s.943-.472 1.414 0v.001z"
-                              fill-rule="evenodd"
-                            />
-                          </svg>
+                            <svg
+                              aria-hidden="true"
+                              class="emotion-51"
+                              height="1em"
+                              role="img"
+                              viewBox="0 0 24 24"
+                              width="1em"
+                            >
+                              <path
+                                clip-rule="evenodd"
+                                d="M8.071 6.657l4.243 4.242 4.242-4.242c.464-.48.935-.48 1.415 0s.48.95 0 1.414l-4.243 4.243 4.243 4.242c.471.472.471.943 0 1.415-.472.471-.943.471-1.415 0l-4.242-4.243L8.07 17.97c-.46.482-.932.482-1.414 0-.482-.483-.482-.954 0-1.415l4.242-4.242L6.657 8.07c-.472-.47-.472-.942 0-1.414s.943-.472 1.414 0v.001z"
+                                fill-rule="evenodd"
+                              />
+                            </svg>
+                          </button>
                         </span>
                       </div>
                     </div>
@@ -2093,10 +2139,10 @@ exports[`PivotTable - PivotTableBoard should render with initial fields 1`] = `
               </div>
             </div>
             <div
-              class="emotion-69"
+              class="emotion-73"
             >
               <button
-                class="emotion-68"
+                class="emotion-72"
                 type="button"
               >
                 <span>
@@ -2108,13 +2154,13 @@ exports[`PivotTable - PivotTableBoard should render with initial fields 1`] = `
         </div>
       </div>
       <div
-        class="emotion-76"
+        class="emotion-80"
       >
         <div
-          class="emotion-75"
+          class="emotion-79"
         >
           <button
-            class="emotion-73"
+            class="emotion-77"
             type="button"
           >
             <span>
@@ -2123,7 +2169,7 @@ exports[`PivotTable - PivotTableBoard should render with initial fields 1`] = `
           </button>
           <div />
           <button
-            class="emotion-74"
+            class="emotion-78"
             type="button"
           >
             <span>

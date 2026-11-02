@@ -216,6 +216,9 @@ const locale: LocaleConfiguration = {
     decrease: 'Queda de',
     noChange: 'Sem variação',
   },
+  tag: {
+    remove: 'Remover',
+  },
   tagInput: {
     instructions: 'Pressione Enter ou vírgula para adicionar. Backspace remove o último.',
     remove: 'Remover {tag}',

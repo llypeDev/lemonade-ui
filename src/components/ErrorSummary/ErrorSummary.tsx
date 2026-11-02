@@ -51,6 +51,21 @@ export interface ErrorSummaryProps extends Omit<React.HTMLAttributes<HTMLDivElem
 const focusableSelector = 'input:not([type="hidden"]), select, textarea, button, a[href], [tabindex]'
 
 /**
+ * Legend of the group of the field, when scrolling it to the top of the window also shows the field
+ */
+const getLegendInView = (element: HTMLElement, field: HTMLElement) => {
+  const fieldset = element.closest('fieldset')
+  const legend = fieldset && fieldset.querySelector('legend')
+  if (!legend) {
+    return null
+  }
+
+  const legendTop = legend.getBoundingClientRect().top
+  const fieldBottom = field.getBoundingClientRect().bottom
+  return fieldBottom - legendTop <= window.innerHeight ? legend : null
+}
+
+/**
  * Moves the focus to a field and scrolls its label, or the legend of its group, into view
  */
 export const focusField = (id: string) => {
@@ -62,9 +77,9 @@ export const focusField = (id: string) => {
   const field = element.matches(focusableSelector)
     ? element
     : element.querySelector<HTMLElement>(focusableSelector) ?? element
-  const fieldset = element.closest('fieldset')
   const labels = (field as HTMLInputElement).labels
-  const label: Element = (fieldset && fieldset.querySelector('legend')) ?? (labels && labels[0]) ?? field
+  // In a long group, the legend would leave the field off the screen, so its label scrolls instead
+  const label: Element = getLegendInView(element, field) ?? (labels && labels[0]) ?? field
 
   label.scrollIntoView && label.scrollIntoView()
   field.focus({ preventScroll: true })

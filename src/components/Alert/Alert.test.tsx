@@ -105,6 +105,25 @@ it('should call onCloseClick prop when button is clicked', () => {
   expect(click).toHaveBeenCalled()
 })
 
+it('should keep the default size of the icon when inline is false', () => {
+  const { container, rerender } = render(<Alert type='info'>Information.</Alert>)
+  expect(container.querySelector('svg')).toHaveStyleRule('font-size', '1.5rem')
+
+  rerender(
+    <Alert type='info' inline={false}>
+      Information.
+    </Alert>
+  )
+  expect(container.querySelector('svg')).toHaveStyleRule('font-size', '1.5rem')
+
+  rerender(
+    <Alert type='info' inline>
+      Information.
+    </Alert>
+  )
+  expect(container.querySelector('svg')).toHaveStyleRule('font-size', '1rem')
+})
+
 it('should call function on mouse enter', () => {
   const { container } = render(
     <Alert type='info' onMouseEnter={enter}>
