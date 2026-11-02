@@ -262,6 +262,7 @@ const locale = {
       one: 'result',
       other: 'results',
     },
+    pageSize: 'Show:',
   },
   aggregators: {
     count: 'Count',

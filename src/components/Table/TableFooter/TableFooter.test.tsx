@@ -77,3 +77,15 @@ it('should allow message customization via locale context', () => {
   )
   expect(container.textContent).toEqual('2 ' + ptBr.tableFooter.results.other)
 })
+
+it('should label the page size in the language of the locale', () => {
+  const { getByText, rerender } = render(<TableFooterTest />)
+  expect(getByText('Show:')).toBeInTheDocument()
+
+  rerender(
+    <LocaleContext.Provider value={ptBr}>
+      <TableFooterTest />
+    </LocaleContext.Provider>
+  )
+  expect(getByText('Mostrar:')).toBeInTheDocument()
+})
