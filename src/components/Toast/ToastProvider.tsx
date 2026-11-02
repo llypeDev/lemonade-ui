@@ -67,18 +67,25 @@ export function ToastProvider(props: ToastProviderProps) {
   const { children, container } = props
   const { classes } = useStyles(createStyles)
   const [toasts, setToasts] = useState<ToastEntry[]>([])
+  // The open toasts as of the last show or close, which may not be rendered yet, so `close` finds a toast that
+  // was just shown and calls its `onClose` once, outside of the state update
+  const toastsRef = useRef<ToastEntry[]>([])
 
   const close = useCallback((id: number) => {
-    setToasts((current) => {
-      const toast = current.find((entry) => entry.id === id)
-      toast && toast.onClose && toast.onClose()
-      return current.filter((entry) => entry.id !== id)
-    })
+    const toast = toastsRef.current.find((entry) => entry.id === id)
+    if (!toast) {
+      return
+    }
+
+    toastsRef.current = toastsRef.current.filter((entry) => entry.id !== id)
+    setToasts(toastsRef.current)
+    toast.onClose && toast.onClose()
   }, [])
 
   const show = useCallback((options: ToastOptions) => {
     const id = ++lastToastId
-    setToasts((current) => [...current, { ...options, id }])
+    toastsRef.current = [...toastsRef.current, { ...options, id }]
+    setToasts(toastsRef.current)
     return id
   }, [])
 

@@ -30,25 +30,24 @@ export function ActionableToastList(props: ActionableToastListProps) {
   const { data, marginTop = 1, marginRight = '1.5rem' } = props
   const { classes } = useStyles(() => createStyles(marginTop, marginRight))
 
+  // The live region is there before the first toast, so screen readers announce the toasts added to it
   return (
-    data.length > 0 && (
-      <div className={classes.container}>
-        {data.map((toast: ActionableToastProps) => (
-          <ActionableToast
-            key={toast.id}
-            id={toast.id}
-            message={toast.message}
-            title={toast.title}
-            buttonLabel={toast.buttonLabel}
-            onClose={toast.onClose}
-            newToast={toast.newToast}
-            action={toast.action}
-            removeToast={toast.removeToast}
-            secondsVisible={toast.secondsVisible}
-          />
-        ))}
-      </div>
-    )
+    <div className={data.length > 0 ? classes.container : undefined} aria-live='polite'>
+      {data.map((toast: ActionableToastProps) => (
+        <ActionableToast
+          key={toast.id}
+          id={toast.id}
+          message={toast.message}
+          title={toast.title}
+          buttonLabel={toast.buttonLabel}
+          onClose={toast.onClose}
+          newToast={toast.newToast}
+          action={toast.action}
+          removeToast={toast.removeToast}
+          secondsVisible={toast.secondsVisible}
+        />
+      ))}
+    </div>
   )
 }
 

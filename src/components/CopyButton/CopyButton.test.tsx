@@ -78,6 +78,38 @@ describe('CopyButton', () => {
     expect(getByRole('status')).toBeEmptyDOMElement()
   })
 
+  it('should count the timeout again and announce again when copied again', async () => {
+    jest.useFakeTimers()
+    const { getByRole } = render(
+      <CopyButton text='abc' timeout={1000}>
+        Copy link
+      </CopyButton>
+    )
+    const button = getByRole('button')
+
+    await click(button)
+    const firstMessage = getByRole('status').firstChild
+    act(() => {
+      jest.advanceTimersByTime(600)
+    })
+
+    await click(button)
+    expect(getByRole('status')).toHaveTextContent('Copied')
+    // A new node in the live region, so screen readers read the same message again
+    expect(getByRole('status').firstChild).not.toBe(firstMessage)
+
+    act(() => {
+      jest.advanceTimersByTime(600)
+    })
+    expect(getByRole('button', { name: 'Copied' })).toBeInTheDocument()
+
+    act(() => {
+      jest.advanceTimersByTime(400)
+    })
+    expect(getByRole('button', { name: 'Copy link' })).toBeInTheDocument()
+    expect(getByRole('status')).toBeEmptyDOMElement()
+  })
+
   it('should report a failure', async () => {
     const error = new Error('denied')
     writeText.mockRejectedValue(error)

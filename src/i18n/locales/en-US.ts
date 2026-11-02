@@ -220,6 +220,9 @@ const locale = {
     added: '{tag} added.',
     removed: '{tag} removed.',
   },
+  textArea: {
+    characters: 'characters',
+  },
   toggletip: {
     label: 'More information',
   },

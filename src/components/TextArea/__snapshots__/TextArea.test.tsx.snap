@@ -270,7 +270,8 @@ exports[`should render character counter 1`] = `
             15
             /
             200
-             caracteres
+             
+            characters
           </div>
         </div>
       </div>
@@ -417,7 +418,8 @@ exports[`should render character counter 2`] = `
             0
             /
             200
-             caracteres
+             
+            characters
           </div>
         </div>
       </div>
@@ -843,10 +845,10 @@ exports[`should render correctly with error 1`] = `
         class="emotion-3"
       >
         <textarea
+          aria-describedby="error-abc"
           aria-errormessage="error-abc"
           aria-invalid="true"
           class="emotion-0"
-          error="Some error"
           name="input"
         />
         <div
