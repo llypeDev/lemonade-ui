@@ -1,6 +1,7 @@
-import React, { CSSProperties } from 'react'
+import React, { CSSProperties, useState } from 'react'
 
 import { useFormControl, UseFormControlProps } from '../../hooks/useFormControl'
+import { useLocale } from '../../i18n'
 import { ExternalStyles, Theme, useStyles } from '../../styles'
 import { Omit } from '../../util/types'
 import { FormControl, FormError } from '../FormControl'
@@ -14,17 +15,25 @@ export interface TextAreaProps
 }
 
 export function TextArea(props: TextAreaProps) {
-  const { style, label, resize, ...rest } = props
-  const { error, ...restFormControlProps } = props
+  const { style, label, resize, error, inline, onChange, ...rest } = props
+  const locale = useLocale()
 
-  const valueLength = props.value && typeof props.value === 'string' && props.value.length
-  const defaultValueLength = props.defaultValue && typeof props.defaultValue === 'string' && props.defaultValue.length
-  const currentLength = valueLength || defaultValueLength || 0
+  // Length of the text typed in an uncontrolled textarea, which React does not tell
+  const [typedLength, setTypedLength] = useState<number>(null)
 
-  const { getFormControlProps } = useFormControl(restFormControlProps)
-  const { getInputProps } = useFormControl(props)
+  const valueLength = typeof props.value === 'string' ? props.value.length : undefined
+  const defaultValueLength = typeof props.defaultValue === 'string' ? props.defaultValue.length : 0
+  const currentLength = valueLength ?? typedLength ?? defaultValueLength
 
-  const inputProps = getInputProps()
+  const handleChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
+    setTypedLength(e.target.value.length)
+    onChange && onChange(e)
+  }
+
+  // A single call, so the label and the error have the same ids the textarea points to
+  const { getFormControlProps, getInputProps } = useFormControl(props)
+
+  const inputProps = getInputProps({ describeError: true })
   const invalid = inputProps['aria-invalid']
   const errorId = inputProps['aria-errormessage']
 
@@ -32,8 +41,14 @@ export function TextArea(props: TextAreaProps) {
   const className = css(classes.input, invalid && classes.invalid, style, { resize })
 
   return (
-    <FormControl {...getFormControlProps()}>
-      <textarea className={className} {...inputProps} {...rest} />
+    <FormControl {...getFormControlProps()} error={undefined}>
+      <textarea
+        className={className}
+        {...inputProps}
+        {...rest}
+        aria-describedby={inputProps['aria-describedby']}
+        onChange={handleChange}
+      />
 
       <div className={classes.footer}>
         {error && (
@@ -44,7 +59,7 @@ export function TextArea(props: TextAreaProps) {
 
         {props.maxLength && (
           <div className={classes.counter}>
-            {currentLength}/{props.maxLength} caracteres
+            {currentLength}/{props.maxLength} {locale.textArea.characters}
           </div>
         )}
       </div>

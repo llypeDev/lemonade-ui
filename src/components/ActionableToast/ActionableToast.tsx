@@ -66,14 +66,20 @@ export function ActionableToast(props: ActionableToastProps) {
     }
   }
 
+  // The latest removeToast, so a new function given on each render does not restart the timer
+  const removeToastRef = useRef(removeToast)
+  removeToastRef.current = removeToast
+
   const startTimer = useCallback(() => {
+    // Leaving the toast more than once keeps a single timer
+    clearTimeout(timeoutRef.current)
     timeoutRef.current = setTimeout(() => {
       setIsVisible(false)
       timeoutRef.current = setTimeout(() => {
-        removeToast(id)
+        removeToastRef.current(id)
       }, 500)
     }, secondsVisible * 1000)
-  }, [id, removeToast, secondsVisible])
+  }, [id, secondsVisible])
 
   useEffect(() => {
     setIsVisible(true)

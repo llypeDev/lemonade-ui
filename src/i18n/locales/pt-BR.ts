@@ -227,6 +227,9 @@ const locale: LocaleConfiguration = {
     added: '{tag} adicionado.',
     removed: '{tag} removido.',
   },
+  textArea: {
+    characters: 'caracteres',
+  },
   toggletip: {
     label: 'Mais informações',
   },

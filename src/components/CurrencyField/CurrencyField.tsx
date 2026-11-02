@@ -77,7 +77,8 @@ export interface CurrencyFormat {
 export const formatCurrency = (value: number, format: CurrencyFormat) => {
   const { currency, decimalSeparator, thousandsSeparator, decimals } = format
   const scale = Math.pow(10, decimals)
-  const units = Math.round(Math.abs(value) * scale)
+  // Rounded to 15 significant digits first, the most a double keeps, so 1.005 * 100 (100.49999999999999) is 100.5
+  const units = Math.round(Number((Math.abs(value) * scale).toPrecision(15)))
   const integer = Math.floor(units / scale)
     .toString()
     .replace(/\B(?=(\d{3})+(?!\d))/g, thousandsSeparator)

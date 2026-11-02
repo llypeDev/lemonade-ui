@@ -57,6 +57,8 @@ export function CopyButton(props: CopyButtonProps) {
   const locale = useLocale()
   const { classes, css } = useStyles(createStyles)
   const [status, setStatus] = useState<CopyStatus>('idle')
+  // Counts the results, so copying again with the same result counts the timeout again and announces it again
+  const [results, setResults] = useState(0)
   const isMounted = useIsMounted()
 
   useEffect(() => {
@@ -64,18 +66,25 @@ export function CopyButton(props: CopyButtonProps) {
       const timer = setTimeout(() => setStatus('idle'), timeout)
       return () => clearTimeout(timer)
     }
-  }, [status, timeout])
+  }, [status, results, timeout])
+
+  const showResult = (result: CopyStatus) => {
+    if (isMounted.current) {
+      setStatus(result)
+      setResults((count) => count + 1)
+    }
+  }
 
   const handleClick = () => {
     const value = typeof text === 'function' ? text() : text
 
     copyToClipboard(value).then(
       () => {
-        isMounted.current && setStatus('copied')
+        showResult('copied')
         onCopy && onCopy(value)
       },
       (error) => {
-        isMounted.current && setStatus('failed')
+        showResult('failed')
         onError && onError(error)
       }
     )
@@ -108,7 +117,7 @@ export function CopyButton(props: CopyButtonProps) {
   return (
     <>
       {iconOnly ? <Tooltip text={copied ? copiedText : locale.copyButton.copy}>{button}</Tooltip> : button}
-      <VisuallyHidden role='status'>{message}</VisuallyHidden>
+      <VisuallyHidden role='status'>{message && <span key={results}>{message}</span>}</VisuallyHidden>
     </>
   )
 }

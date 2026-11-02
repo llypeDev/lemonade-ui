@@ -14,7 +14,18 @@ export interface ButtonProps extends SkinProps, Omit<ButtonBaseProps, 'style'> {
 }
 
 export function Button(props: ButtonProps) {
-  const { loading, block, style, skin, size, kind, onClick, children, ...rest } = props
+  const {
+    loading,
+    block,
+    style,
+    skin,
+    size,
+    kind,
+    onClick,
+    onLoadingChange: externalOnLoadingChange,
+    children,
+    ...rest
+  } = props
 
   const isMounted = useIsMounted()
 
@@ -23,6 +34,7 @@ export function Button(props: ButtonProps) {
     if (isMounted.current) {
       setIsLoading(value)
     }
+    externalOnLoadingChange && externalOnLoadingChange(value)
   }
   const isReallyLoading = isLoading || loading
 

@@ -85,7 +85,7 @@ export function NumberField(props: NumberFieldProps) {
   const locale = useLocale()
   const { classes, css } = useStyles(createStyles)
   const { getFormControlProps, getInputProps } = useFormControl(props)
-  const inputProps = getInputProps()
+  const inputProps = getInputProps({ describeError: true })
   const generatedId = useMemo(() => `number-field-${randomStr()}`, [])
   const inputId = id ?? generatedId
   const separator = useMemo(getDecimalSeparator, [])
@@ -184,6 +184,7 @@ export function NumberField(props: NumberFieldProps) {
         <TextInputBase
           {...inputProps}
           {...rest}
+          aria-describedby={inputProps['aria-describedby']}
           id={inputId}
           role='spinbutton'
           inputMode='decimal'

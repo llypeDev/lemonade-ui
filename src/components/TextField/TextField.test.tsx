@@ -26,6 +26,39 @@ describe('error', () => {
     expect(container.querySelector('input').getAttribute('aria-errormessage')).toEqual('error-abc')
     expect(container.querySelector('#error-abc').textContent).toEqual('Some error')
   })
+
+  it('should describe the input with the error, after its own description', () => {
+    const { container, rerender } = render(<TextField error='Some error' />)
+    const input = container.querySelector('input')
+    expect(input).toHaveAttribute('aria-describedby', 'error-abc')
+
+    rerender(<TextField error='Some error' aria-describedby='hint' />)
+    expect(input).toHaveAttribute('aria-describedby', 'hint error-abc')
+
+    rerender(<TextField aria-describedby='hint' />)
+    expect(input).toHaveAttribute('aria-describedby', 'hint')
+  })
+
+  it('input should have an "aria-invalid=true" attribute when "invalid" is set', () => {
+    const { container } = render(<TextField invalid />)
+    expect(container.querySelector('input')).toHaveAttribute('aria-invalid', 'true')
+  })
+
+  it('should let an explicit "aria-invalid" win', () => {
+    const { container } = render(<TextField error='Some error' aria-invalid={false} />)
+    expect(container.querySelector('input')).toHaveAttribute('aria-invalid', 'false')
+  })
+})
+
+it('should not pass "inline" to the input', () => {
+  const error = jest.spyOn(console, 'error').mockImplementation(() => null)
+  try {
+    const { container } = render(<TextField label='Name' inline />)
+    expect(container.querySelector('input')).not.toHaveAttribute('inline')
+    expect(error).not.toHaveBeenCalled()
+  } finally {
+    error.mockRestore()
+  }
 })
 
 describe('input label', () => {
