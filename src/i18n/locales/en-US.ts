@@ -71,6 +71,7 @@ const locale = {
     bulkActions: 'Actions for the selected rows',
     expand: 'Show details of {row}',
     collapse: 'Hide details of {row}',
+    details: 'Details',
     columns: 'Columns',
   },
   dateInput: {

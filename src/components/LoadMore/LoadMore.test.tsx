@@ -100,6 +100,29 @@ describe('LoadMore', () => {
     expect(document.body).toHaveFocus()
   })
 
+  it('should forget the click when the load fails', async () => {
+    const onLoadMore = () => Promise.reject(new Error('Offline'))
+    const { getByRole, rerender } = render(<LoadMore loaded={3} total={7} onLoadMore={onLoadMore} />)
+
+    fireEvent.click(getByRole('button', { name: 'Load more' }))
+    await act(async () => undefined)
+    expect(getByRole('button', { name: 'Load more' })).not.toHaveAttribute('aria-busy')
+
+    // Items that arrive later, such as after a refresh, are not the ones the click asked for
+    rerender(<LoadMore loaded={6} total={7} onLoadMore={onLoadMore} />)
+    expect(getByRole('status')).toHaveTextContent('')
+  })
+
+  it('should forget the click when the list gets shorter', () => {
+    const { getByRole, rerender } = render(<LoadMore loaded={3} total={7} onLoadMore={jest.fn()} />)
+
+    fireEvent.click(getByRole('button', { name: 'Load more' }))
+    // Such as a filter that the user changes before the items arrive
+    rerender(<LoadMore loaded={1} total={4} onLoadMore={jest.fn()} />)
+    rerender(<LoadMore loaded={4} total={4} onLoadMore={jest.fn()} />)
+    expect(getByRole('status')).toHaveTextContent('')
+  })
+
   it('should use the locale strings', () => {
     const { getByRole, getByText } = render(
       <LocaleContext.Provider value={ptBR}>

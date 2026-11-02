@@ -89,3 +89,15 @@ it('should label the page size in the language of the locale', () => {
   )
   expect(getByText('Mostrar:')).toBeInTheDocument()
 })
+
+it('should name the page size button with its label and the size', () => {
+  const { getByRole, rerender } = render(<TableFooterTest pageSize={30} />)
+  expect(getByRole('button', { name: 'Show: 30' })).toBeInTheDocument()
+
+  rerender(
+    <LocaleContext.Provider value={ptBr}>
+      <TableFooterTest pageSize={30} />
+    </LocaleContext.Provider>
+  )
+  expect(getByRole('button', { name: 'Mostrar: 30' })).toBeInTheDocument()
+})

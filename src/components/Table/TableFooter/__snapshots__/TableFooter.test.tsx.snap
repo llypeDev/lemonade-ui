@@ -362,6 +362,7 @@ exports[`should renders correctly 1`] = `
         </span>
         <button
           aria-haspopup="true"
+          aria-label="Show: 10"
           class="emotion-4"
           type="button"
         >

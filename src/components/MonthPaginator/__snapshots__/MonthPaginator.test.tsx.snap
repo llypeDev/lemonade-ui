@@ -152,6 +152,7 @@ exports[`MonthPaginator should render correctly with ghost 1`] = `
         class="emotion-6"
       >
         <button
+          aria-label="Previous month"
           class="emotion-1"
           data-testid="MonthPaginator.PrevButton"
           title="Previous month"
@@ -190,6 +191,7 @@ exports[`MonthPaginator should render correctly with ghost 1`] = `
           </span>
         </button>
         <button
+          aria-label="Next month"
           class="emotion-1"
           data-testid="MonthPaginator.NextButton"
           title="Next month"
@@ -375,6 +377,7 @@ exports[`MonthPaginator should render correctly with month and year 1`] = `
         class="emotion-6"
       >
         <button
+          aria-label="Previous month"
           class="emotion-1"
           data-testid="MonthPaginator.PrevButton"
           title="Previous month"
@@ -413,6 +416,7 @@ exports[`MonthPaginator should render correctly with month and year 1`] = `
           </span>
         </button>
         <button
+          aria-label="Next month"
           class="emotion-1"
           data-testid="MonthPaginator.NextButton"
           title="Next month"

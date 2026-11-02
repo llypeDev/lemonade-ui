@@ -46,16 +46,16 @@ it('should render correctly', () => {
 
 it('should call onSortChange with right parameters when clicked over column title', () => {
   const { container } = render(<DataTableTest />)
-  fireEvent.click(container.querySelector('th[data-name="id"] span'))
+  fireEvent.click(container.querySelector('th[data-name="id"] button'))
   expect(sortHandler).toHaveBeenLastCalledWith(['-id'])
 
-  fireEvent.click(container.querySelector('th[data-name="name"] span'))
+  fireEvent.click(container.querySelector('th[data-name="name"] button'))
   expect(sortHandler).toHaveBeenLastCalledWith(['name'])
 
-  fireEvent.click(container.querySelector('th[data-name="id"] span'), { shiftKey: true })
+  fireEvent.click(container.querySelector('th[data-name="id"] button'), { shiftKey: true })
   expect(sortHandler).toHaveBeenLastCalledWith(['-id', '-name'])
 
-  fireEvent.click(container.querySelector('th[data-name="age"] span'), { shiftKey: true })
+  fireEvent.click(container.querySelector('th[data-name="age"] button'), { shiftKey: true })
   expect(sortHandler).toHaveBeenLastCalledWith(['id', '-name', 'age'])
 })
 
@@ -129,4 +129,41 @@ describe('getHeaderProps', () => {
   it('should throw an error for inexistent columns', () => {
     expect(() => getHeaderProps('foo')).toThrowError()
   })
+})
+
+it('should add a sort on shift click when there is no sort yet', () => {
+  const handler = jest.fn()
+  const { container } = render(<DataTableTest sort={undefined} onSortChange={handler} />)
+  fireEvent.click(container.querySelector('th[data-name="age"] button'), { shiftKey: true })
+  expect(handler).toHaveBeenLastCalledWith(['age'])
+})
+
+it('should key the rows by their ids', () => {
+  const columns = [{ name: 'note', render: (row: Row) => <input aria-label={row.name} defaultValue={row.name} /> }]
+  const { getByRole, rerender } = render(<DataTable rows={rows} columns={columns} />)
+
+  rerender(<DataTable rows={[...rows].reverse()} columns={columns} />)
+  expect(getByRole('textbox', { name: rows[0].name })).toHaveValue(rows[0].name)
+})
+
+it('should render on the server without warnings', () => {
+  const global = window
+  const windowProperty = Object.getOwnPropertyDescriptor(global, 'window')
+  const error = jest.spyOn(console, 'error').mockImplementation(() => undefined)
+  let html: string
+  try {
+    // The modules load again as on a server, where there is no window
+    delete (global as any).window
+    jest.resetModules()
+    const ServerReact = require('react')
+    const { renderToString } = require('react-dom/server')
+    const { DataTable: ServerDataTable } = require('./DataTable')
+    const columns = [{ name: 'name', header: 'Name', render: (row: Row) => row.name }]
+    html = renderToString(ServerReact.createElement(ServerDataTable, { rows, columns }))
+  } finally {
+    Object.defineProperty(global, 'window', windowProperty)
+  }
+  expect(html).toContain(rows[0].name)
+  expect(error).not.toHaveBeenCalled()
+  error.mockRestore()
 })

@@ -1,5 +1,6 @@
 import React, { useState } from 'react'
 
+import { useLocale } from '../../../i18n'
 import { Button } from '../../Button'
 import { Dropdown, DropdownItem } from '../../Dropdown'
 import { Icon } from '../../Icon'
@@ -13,6 +14,7 @@ export interface TableSizeDropdownProps {
 
 export function TableSizeDropdown(props: TableSizeDropdownProps) {
   const { options, size, onChange } = props
+  const locale = useLocale()
 
   const [buttonRef, setButtonRef] = useState<HTMLButtonElement>()
   const [open, setOpen] = useState(false)
@@ -30,7 +32,14 @@ export function TableSizeDropdown(props: TableSizeDropdownProps) {
 
   return (
     <>
-      <Button innerRef={setButtonRef} onClick={handleClick} size='small' skin='ghost' style={{ padding: '0 0.25rem' }}>
+      <Button
+        innerRef={setButtonRef}
+        aria-label={`${locale.tableFooter.pageSize} ${size}`}
+        onClick={handleClick}
+        size='small'
+        skin='ghost'
+        style={{ padding: '0 0.25rem' }}
+      >
         <Text>{size}</Text>
         <Icon icon='angleDown' style={{ marginLeft: '0.125rem' }} />
       </Button>

@@ -73,6 +73,10 @@ export function LoadMore(props: LoadMoreProps) {
 
   useEffect(() => {
     const before = requestedAt.current
+    if (before !== null && loaded < before) {
+      // The list started over, such as after a filter, so the items that come next are not the ones asked for
+      requestedAt.current = null
+    }
     if (before === null || loaded <= before) {
       return
     }
@@ -97,7 +101,12 @@ export function LoadMore(props: LoadMoreProps) {
     if (isPromise(result)) {
       setPending(true)
       const done = () => isMounted.current && setPending(false)
-      result.then(done, done)
+      // Items that arrive after a failed load, such as after a refresh, are not announced
+      const failed = () => {
+        requestedAt.current = null
+        done()
+      }
+      result.then(done, failed)
     }
   }
 

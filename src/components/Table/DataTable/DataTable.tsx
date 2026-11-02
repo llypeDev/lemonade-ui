@@ -1,4 +1,4 @@
-import React, { CSSProperties, useLayoutEffect, useMemo, useRef, useState } from 'react'
+import React, { CSSProperties, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react'
 
 import { useLocale } from '../../../i18n'
 import { ExternalStyles, focusBoxShadow, Theme, useCss, useStyles } from '../../../styles'
@@ -102,6 +102,9 @@ export interface DataTableRenderProps extends DataTableProps {
   getDetailsId(row: any): string
 }
 
+// A layout effect warns when it renders on a server, where it does nothing
+const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect
+
 const selectionColumnName = '__selection'
 const expandColumnName = '__expand'
 
@@ -198,6 +201,8 @@ export function DataTable<T = any>(props: DataTableProps<T>) {
 
   const expandColumn: TableColumnConfig<T> = {
     name: expandColumnName,
+    // Screen readers name the column of the buttons, which shows no text
+    header: <VisuallyHidden>{locale.dataTable.details}</VisuallyHidden>,
     style: classes.expandColumn,
     render: (row) => {
       const open = isRowExpanded(row)
@@ -254,7 +259,7 @@ export function DataTable<T = any>(props: DataTableProps<T>) {
 
   const handleSortChange = (col: TableColumnConfig) => (sortDirection: SortDirection, shiftKey: boolean) => {
     if (shiftKey) {
-      props.onSortChange(changeSort(props.sort, col.name, sortDirection))
+      props.onSortChange(changeSort(props.sort || [], col.name, sortDirection))
     } else {
       props.onSortChange([sortDirection === 'ASC' ? col.name : `-${col.name}`])
     }
@@ -278,7 +283,7 @@ export function DataTable<T = any>(props: DataTableProps<T>) {
 
   // An action that clears the selection, such as "Delete", removes the bar with the focus in it, so the focus
   // goes to the checkbox that selects all
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     if (count === 0 && focusInBar.current) {
       focusInBar.current = false
       const lost = !document.activeElement || document.activeElement === document.body
@@ -325,6 +330,7 @@ export function DataTable<T = any>(props: DataTableProps<T>) {
       {selectable && <VisuallyHidden role='status'>{count > 0 ? countText : ''}</VisuallyHidden>}
       {props.render({
         ...props,
+        getRowId,
         columns,
         getHeaderProps,
         getColumn,
@@ -402,6 +408,7 @@ export function DataTableDefault(props: DataTableRenderProps) {
         renderExpanded={renderExpanded}
         isRowExpanded={isRowExpanded}
         getDetailsId={getDetailsId}
+        getRowId={getRowId}
       />
     </Table>
   )

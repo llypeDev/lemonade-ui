@@ -1,4 +1,4 @@
-import { fireEvent, render } from '@testing-library/react'
+import { act, fireEvent, render } from '@testing-library/react'
 import React from 'react'
 
 import { getUserLocale, getMonthNames } from '../../util/locale'
@@ -92,6 +92,78 @@ describe('MonthPaginator', () => {
 
     rerender(<MonthPaginator year={newYear} />)
     expect(getAllByText(renderMonthYear(now.getMonth(), newYear))).toHaveLength(1)
+  })
+})
+
+describe('MonthPaginator picker', () => {
+  // Popper places the picker and the tooltips asynchronously
+  const flush = () => act(async () => undefined)
+
+  it('should call onChange once, with the month clicked in the year shown by the picker', async () => {
+    const onChange = jest.fn()
+    const { getByTestId, getByTitle, getByText } = render(<MonthPaginator month={10} year={2026} onChange={onChange} />)
+
+    fireEvent.click(getByTestId('MonthPaginator.ShowMonthsButton'))
+    await flush()
+    fireEvent.click(getByTitle('Previous year'))
+    fireEvent.click(getByTitle('Previous year'))
+    expect(onChange).not.toHaveBeenCalled()
+    expect(getByText('2024')).toBeInTheDocument()
+
+    fireEvent.click(getByText('Mar'))
+    expect(onChange).toHaveBeenCalledTimes(1)
+    expect(onChange).toHaveBeenCalledWith({ month: 2, year: 2024 })
+    expect(getByText(renderMonthYear(2, 2024))).toBeInTheDocument()
+  })
+
+  it('should show the year of the month again when the picker opens again', async () => {
+    const { getByTestId, getByTitle, getByText } = render(<MonthPaginator month={10} year={2026} />)
+
+    fireEvent.click(getByTestId('MonthPaginator.ShowMonthsButton'))
+    await flush()
+    fireEvent.click(getByTitle('Next year'))
+    fireEvent.click(getByTestId('MonthPaginator.ShowMonthsButton'))
+    expect(getByText(renderMonthYear(10, 2026))).toBeInTheDocument()
+
+    fireEvent.click(getByTestId('MonthPaginator.ShowMonthsButton'))
+    await flush()
+    expect(getByText('2026')).toBeInTheDocument()
+  })
+
+  it('should place the picker with the styles and attributes of Popper', async () => {
+    const { container, getByTestId, getByText } = render(<MonthPaginator month={10} year={2026} />)
+    fireEvent.click(getByTestId('MonthPaginator.ShowMonthsButton'))
+    await flush()
+
+    const picker = container.querySelector<HTMLElement>('[data-popper-placement]')
+    expect(picker).toHaveAttribute('data-popper-placement', 'bottom-start')
+    expect(picker).toContainElement(getByText('Mar'))
+    expect(picker.style.position).toBe('absolute')
+  })
+
+  it('should name the arrows while their tooltips show', async () => {
+    const { getByTestId, getByRole } = render(<MonthPaginator month={10} year={2026} />)
+
+    fireEvent.focus(getByTestId('MonthPaginator.PrevButton'))
+    await flush()
+    expect(getByRole('button', { name: 'Previous month' })).toBe(getByTestId('MonthPaginator.PrevButton'))
+
+    fireEvent.focus(getByTestId('MonthPaginator.NextButton'))
+    await flush()
+    expect(getByRole('button', { name: 'Next month' })).toBe(getByTestId('MonthPaginator.NextButton'))
+  })
+})
+
+describe('MonthPaginator default month', () => {
+  afterEach(() => jest.useRealTimers())
+
+  it('should start at the month of the day it renders', () => {
+    // The types of Jest here are older than its modern timers
+    const timers = jest as any
+    timers.useFakeTimers('modern')
+    timers.setSystemTime(new Date(2031, 4, 15))
+    const { getByText } = render(<MonthPaginator />)
+    expect(getByText(renderMonthYear(4, 2031))).toBeInTheDocument()
   })
 })
 
