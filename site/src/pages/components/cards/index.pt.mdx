@@ -47,11 +47,11 @@ Cards são componentes da interface usados para agrupar informações relacionad
 
 ## Uso
 
-Cards de leitura usam o `Card`, e cards clicáveis usam o `ClickableCard`, que renderiza um `button`.
+Cards de leitura usam o `Card`, e cards clicáveis usam o `ClickableCard`, que renderiza um `button`. Um botão não pode conter títulos, então o título de um card clicável é um texto em negrito, como `<Text variant='h4'>`. Num card de leitura, o título pode ser um título do nível que segue a página, com o tamanho que você escolher.
 
 <Demo src='pages/components/cards/Card' />
 
-O `ToggleCard` renderiza um checkbox nativo, então `name`, `value`, `checked`, `defaultChecked` e `onChange` funcionam como num [Checkbox](/components/checkbox). O card inteiro é a área de clique.
+O `ToggleCard` renderiza um checkbox nativo, então `name`, `value`, `checked`, `defaultChecked` e `onChange` funcionam como num [Checkbox](/components/checkbox). O card inteiro é a área de clique. O card é um `label`, então o título dele também é um texto em negrito.
 
 <Demo src='pages/components/cards/ToggleCard' />
 

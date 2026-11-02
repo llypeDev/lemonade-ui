@@ -1,4 +1,15 @@
-import { Button, Cell, Checkbox, FormControl, Grid, HFlow, MaskedTextField, Radio, TextField } from '@lemonade/ui'
+import {
+  Alert,
+  Button,
+  Cell,
+  Checkbox,
+  FormControl,
+  Grid,
+  HFlow,
+  MaskedTextField,
+  Radio,
+  TextField,
+} from '@lemonade/ui'
 import React, { useState } from 'react'
 
 function FormDemo() {
@@ -9,15 +20,17 @@ function FormDemo() {
     color: '',
     agreed: false,
   })
+  const [sent, setSent] = useState(false)
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault()
-    alert(JSON.stringify(formState, null, 2))
+    setSent(true)
   }
 
   const handleChange = (name: string) => (e: React.ChangeEvent<HTMLInputElement>) => {
     const el = e.target
 
+    setSent(false)
     setFormState((state) => ({
       ...state,
       [name]: el.type === 'checkbox' ? el.checked : el.value,
@@ -84,6 +97,11 @@ function FormDemo() {
         </Grid>
       </form>
 
+      {sent && (
+        <Alert type='success' onCloseClick={() => setSent(false)} style={{ marginTop: '1rem' }}>
+          Form sent with the values below.
+        </Alert>
+      )}
       <pre>{JSON.stringify(formState, null, 2)}</pre>
     </>
   )
