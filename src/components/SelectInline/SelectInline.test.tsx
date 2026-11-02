@@ -65,4 +65,64 @@ describe('SelectInline', () => {
     expect(container.querySelector('input')).not.toBeNull()
     await flush()
   })
+
+  it('should tell whether the popup is open', async () => {
+    const { container } = render(<SelectInlineTest />)
+    const button = container.querySelector('button')
+    expect(button).toHaveAttribute('aria-haspopup', 'listbox')
+    expect(button).toHaveAttribute('aria-expanded', 'false')
+
+    fireEvent.click(button)
+    expect(button).toHaveAttribute('aria-expanded', 'true')
+    await flush()
+  })
+
+  it('should close with Escape and give the focus back to the button', async () => {
+    const onChange = jest.fn()
+    const { container } = render(<SelectInlineTest onChange={onChange} />)
+    const button = container.querySelector('button')
+    fireEvent.click(button)
+    await flush()
+
+    fireEvent.keyDown(container.querySelector('input'), { key: 'Escape' })
+    await flush()
+
+    expect(container.querySelector('input')).toBeNull()
+    expect(button).toHaveFocus()
+    expect(onChange).not.toHaveBeenCalled()
+  })
+
+  it('should close on a click outside', async () => {
+    const { container } = render(<SelectInlineTest />)
+    fireEvent.click(container.querySelector('button'))
+    await flush()
+
+    fireEvent.mouseDown(document.body)
+    await flush()
+
+    expect(container.querySelector('input')).toBeNull()
+  })
+
+  it('should give the focus back to the button after a pick', async () => {
+    const onChange = jest.fn()
+    const { container, getByText } = render(<SelectInlineTest onChange={onChange} />)
+    const button = container.querySelector('button')
+    fireEvent.click(button)
+    await flush()
+
+    fireEvent.click(getByText(items[2].label))
+    await flush()
+
+    expect(onChange).toHaveBeenCalledWith(items[2], expect.anything())
+    expect(container.querySelector('input')).toBeNull()
+    expect(button).toHaveFocus()
+  })
+
+  it('should tell the placement of the popup', async () => {
+    const { container } = render(<SelectInlineTest />)
+    fireEvent.click(container.querySelector('button'))
+    await flush()
+
+    expect(container.querySelector('[data-placement]')).toHaveAttribute('data-placement', 'bottom')
+  })
 })

@@ -1,7 +1,8 @@
 import React, { useRef } from 'react'
 
 import { useFormControl, UseFormControlProps } from '../../../hooks/useFormControl'
-import { Omit } from '../../../util'
+import { EMPTY_ARRAY, Omit } from '../../../util'
+import { composeHandlers } from '../../../util/react'
 import { Checkbox } from '../../Checkbox/Checkbox'
 import { FormControl } from '../../FormControl'
 import { HFlow } from '../../HFlow'
@@ -81,7 +82,8 @@ export function SelectMulti<T>(props: SelectMultiProps<T>) {
   return (
     <FormControl {...formControlProps}>
       <MultiDownshift<T>
-        selectedItems={value || []}
+        // The same empty array on each render: a new one would replace the items picked without a value
+        selectedItems={value || (EMPTY_ARRAY as T[])}
         items={items}
         itemToString={itemToString}
         onChange={onChange}
@@ -89,6 +91,8 @@ export function SelectMulti<T>(props: SelectMultiProps<T>) {
         itemIsEqual={itemIsEqual}
         onFilterChange={onFilterChange}
         labelId={formControlProps.labelId}
+        // The input takes the `id`, which the label is for
+        inputId={props.id}
       >
         {(downshift) => {
           const {
@@ -107,7 +111,6 @@ export function SelectMulti<T>(props: SelectMultiProps<T>) {
                 items={selectedItems}
                 {...rest}
                 placeholder={!selectedItems || selectedItems.length === 0 ? placeholder : undefined}
-                onClick={handleInputClick(downshift)}
                 onRemoveItem={handleItemRemove(removeItem)}
                 renderItem={itemToString}
                 // icon={isOpen ? 'triangleUp' : 'triangleDown'}
@@ -115,6 +118,8 @@ export function SelectMulti<T>(props: SelectMultiProps<T>) {
                 {...getInputProps({
                   onBlur: handleInputBlur(downshift),
                   onFocus: handleInputFocus(downshift),
+                  onClick: composeHandlers(handleInputClick(downshift), props.onClick),
+                  onKeyDown: props.onKeyDown,
                 })}
                 {...inputProps}
                 value={inputValue ? inputValue : ''}

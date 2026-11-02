@@ -234,7 +234,6 @@ exports[`rendering renders correcly closed 1`] = `
               autocomplete="off"
               class="emotion-1"
               id="test-input-id"
-              label="Fruits"
               role="combobox"
               type="text"
               value=""
@@ -573,7 +572,6 @@ exports[`rendering renders correcly opened 1`] = `
               autocomplete="off"
               class="emotion-1"
               id="test-input-id"
-              label="Fruits"
               role="combobox"
               type="text"
               value=""
@@ -1099,7 +1097,6 @@ exports[`rendering renders correcly opened and loading 1`] = `
               autocomplete="off"
               class="emotion-1"
               id="test-input-id"
-              label="Fruits"
               role="combobox"
               type="text"
               value=""
@@ -1572,7 +1569,6 @@ exports[`rendering renders correcly opened with add-item 1`] = `
               autocomplete="off"
               class="emotion-1"
               id="test-input-id"
-              label="Fruits"
               role="combobox"
               type="text"
               value=""
@@ -1915,7 +1911,6 @@ exports[`rendering renders correcly when items is empty (items: []) 1`] = `
             aria-autocomplete="list"
             aria-controls="test-menu-id"
             aria-expanded="true"
-            aria-labelledby="test-label-id"
             autocomplete="off"
             class="emotion-0"
             id="test-input-id"
@@ -1959,7 +1954,6 @@ exports[`rendering renders correcly when items is empty (items: []) 1`] = `
   </div>
   <div
     aria-busy="false"
-    aria-labelledby="test-label-id"
     id="test-menu-id"
     role="listbox"
   >
@@ -2257,7 +2251,6 @@ exports[`rendering renders correcly when items is empty (items: null) 1`] = `
             aria-autocomplete="list"
             aria-controls="test-menu-id"
             aria-expanded="true"
-            aria-labelledby="test-label-id"
             autocomplete="off"
             class="emotion-0"
             id="test-input-id"
@@ -2301,7 +2294,6 @@ exports[`rendering renders correcly when items is empty (items: null) 1`] = `
   </div>
   <div
     aria-busy="false"
-    aria-labelledby="test-label-id"
     id="test-menu-id"
     role="listbox"
   >
@@ -2599,7 +2591,6 @@ exports[`rendering renders correcly when items is empty (items: undefined) 1`] =
             aria-autocomplete="list"
             aria-controls="test-menu-id"
             aria-expanded="true"
-            aria-labelledby="test-label-id"
             autocomplete="off"
             class="emotion-0"
             id="test-input-id"
@@ -2643,7 +2634,6 @@ exports[`rendering renders correcly when items is empty (items: undefined) 1`] =
   </div>
   <div
     aria-busy="false"
-    aria-labelledby="test-label-id"
     id="test-menu-id"
     role="listbox"
   >
@@ -3053,7 +3043,6 @@ exports[`rendering renders correcly with custom components 1`] = `
               autocomplete="off"
               class="emotion-1"
               id="test-input-id"
-              label="Fruit"
               name="fruit"
               role="combobox"
               type="text"

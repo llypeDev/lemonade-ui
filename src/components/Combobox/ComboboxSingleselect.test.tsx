@@ -780,3 +780,87 @@ describe('controlled value', () => {
     expect(input).toHaveValue(fruits[2].label)
   })
 })
+
+it.each`
+  text
+  ${''}
+  ${'   '}
+`('does not create an item from the text "$text" when the field loses the focus', async ({ text }) => {
+  const onChange = jest.fn()
+  const createNewItem = jest.fn((input: string) => ({ value: 100, label: input }))
+  const { baseElement } = render(<ComboboxTest createNewItem={createNewItem} onChange={onChange} />)
+  const input = baseElement.querySelector('input')!
+
+  fireEvent.focus(input)
+  if (text) fireEvent.change(input, { target: { value: text } })
+  await flush()
+  fireEvent.blur(input)
+  await flush()
+
+  expect(createNewItem).not.toHaveBeenCalled()
+  expect(onChange).not.toHaveBeenCalled()
+})
+
+describe('items', () => {
+  it('shows the items that arrive while the menu is open', async () => {
+    function LoadingCombobox() {
+      const [data, setData] = useState<Fruit[]>()
+      return (
+        <>
+          <ComboboxTest items={data ?? []} loading={!data} />
+          <button onClick={() => setData(fruits)}>Load</button>
+        </>
+      )
+    }
+    const { baseElement, getByText } = render(<LoadingCombobox />)
+
+    fireEvent.focus(baseElement.querySelector('input'))
+    await flush()
+    fireEvent.click(getByText('Load'))
+    await flush()
+
+    expect(baseElement.querySelectorAll('[role="option"]')).toHaveLength(fruits.length)
+  })
+
+  // Each load restarts the debounce, so loading again on each render of the parent could keep the list from loading
+  it('does not load again an inline array of the same items when the parent renders', async () => {
+    const filter = jest.fn((items: readonly Fruit[]) => [...items])
+    const { baseElement, rerender } = render(<ComboboxTest items={[...fruits]} filter={filter} open />)
+    await flush()
+    for (let render = 0; render < 3; render++) {
+      rerender(<ComboboxTest items={[...fruits]} filter={filter} open />)
+      await flush()
+    }
+
+    expect(filter).toHaveBeenCalledTimes(1)
+    expect(baseElement.querySelectorAll('[role="option"]')).toHaveLength(fruits.length)
+  })
+})
+
+describe('label', () => {
+  it('does not point to a label that is not shown', async () => {
+    const { baseElement } = render(<ComboboxTest />)
+
+    expect(baseElement.querySelector('label')).toBeNull()
+    expect(baseElement.querySelector('input')).not.toHaveAttribute('aria-labelledby')
+    expect(baseElement.querySelector('[role="listbox"]')).not.toHaveAttribute('aria-labelledby')
+    await flush()
+  })
+
+  it('names the input of an `id`', async () => {
+    const { baseElement } = render(<ComboboxTest label='Fruits' id='fruits-field' inputId={undefined} />)
+
+    expect(baseElement.querySelector('input')).toHaveAttribute('id', 'fruits-field')
+    expect(baseElement.querySelector('label')).toHaveAttribute('for', 'fruits-field')
+    await flush()
+  })
+
+  it('does not pass the label and the error to the input', async () => {
+    const { baseElement } = render(<ComboboxTest label='Fruits' error='Pick a fruit' />)
+    const input = baseElement.querySelector('input')
+
+    expect(input).not.toHaveAttribute('label')
+    expect(input).not.toHaveAttribute('error')
+    await flush()
+  })
+})

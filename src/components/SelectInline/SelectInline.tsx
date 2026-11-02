@@ -1,6 +1,7 @@
 import { Options as PopperOptions } from '@popperjs/core'
 import React, { useEffect, useState } from 'react'
 import { usePopper } from 'react-popper'
+import { useClickOutside } from '../../hooks/useClickOutside'
 import { Theme, useStyles } from '../../styles'
 import { composeHandlers, composeRefs } from '../../util/react'
 import { Button, ButtonProps } from '../Button'
@@ -44,8 +45,9 @@ export function SelectInline<T>(props: SelectInlineProps<T>) {
   const [open, setOpen] = useState(false)
   const {
     styles: { popper: popperStyle },
-    attributes: { placement },
+    attributes,
   } = usePopper(anchorRef, popperRef, popperProps)
+  const placement = attributes.popper?.['data-popper-placement']
 
   useEffect(() => {
     if (open && selectInputRef) {
@@ -53,8 +55,17 @@ export function SelectInline<T>(props: SelectInlineProps<T>) {
     }
   }, [open, selectInputRef])
 
+  // The input goes away with the popup, so the focus goes back to the button instead of the page
+  const closeAndFocusButton = () => {
+    setOpen(false)
+    anchorRef?.focus()
+  }
+
+  useClickOutside([anchorRef, popperRef], () => open && setOpen(false))
+
   const handleButtonClick = () => setOpen((state) => !state)
-  const handleChange = () => setOpen(false)
+  const handleChange = closeAndFocusButton
+  const handlePopupKeyDown = (e: React.KeyboardEvent<HTMLDivElement>) => e.key === 'Escape' && closeAndFocusButton()
 
   return (
     <>
@@ -64,6 +75,8 @@ export function SelectInline<T>(props: SelectInlineProps<T>) {
         skin='ghost'
         kind='normal'
         size='small'
+        aria-haspopup='listbox'
+        aria-expanded={open}
         {...buttonRest}
       >
         <Text>{itemToString(value) || defaultButtonText}</Text>
@@ -71,7 +84,12 @@ export function SelectInline<T>(props: SelectInlineProps<T>) {
       </Button>
 
       {open && (
-        <div ref={setPopperRef} className={css(classes.box, popperStyle as any)} data-placement={placement}>
+        <div
+          ref={setPopperRef}
+          className={css(classes.box, popperStyle as any)}
+          data-placement={placement}
+          onKeyDown={handlePopupKeyDown}
+        >
           <Select<T>
             inputRef={composeRefs(setSelectInputRef, inputRef)}
             itemToString={itemToString}
