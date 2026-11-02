@@ -25,10 +25,8 @@ export function TableSizeDropdown(props: TableSizeDropdownProps) {
 
   const handleClick = () => setOpen((state) => !state)
 
-  const handleClose = () => {
-    setOpen(false)
-    buttonRef.focus()
-  }
+  // The dropdown gives the focus back to the button when it closes with the focus in the menu
+  const handleClose = () => setOpen(false)
 
   return (
     <>

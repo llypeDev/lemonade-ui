@@ -4,6 +4,8 @@ import React, { useState } from 'react'
 import { LocaleContext } from '../../i18n'
 import ptBR from '../../i18n/locales/pt-BR'
 
+import { Modal } from '../Modal/Modal'
+
 import { CommandItem, CommandPalette } from './CommandPalette'
 
 jest.mock('../../util/string')
@@ -109,6 +111,24 @@ describe('CommandPalette', () => {
 
     fireEvent.keyDown(getByRole('combobox'), { key: 'Escape' })
     expect(queryByRole('dialog')).toBeNull()
+  })
+
+  it('should close only itself with Escape when it opens over a modal', () => {
+    const onClose = jest.fn()
+    const { getByRole, queryByRole } = render(
+      <>
+        <Modal open onClose={onClose}>
+          <button>Save</button>
+        </Modal>
+        <Palette open={false} />
+      </>
+    )
+
+    fireEvent.keyDown(document, { key: 'k', ctrlKey: true })
+    fireEvent.keyDown(getByRole('combobox'), { key: 'Escape' })
+
+    expect(queryByRole('combobox')).toBeNull()
+    expect(onClose).not.toHaveBeenCalled()
   })
 
   it('should open and close with Ctrl + K or ⌘ + K', () => {

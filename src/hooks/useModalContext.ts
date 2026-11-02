@@ -12,6 +12,17 @@ export interface ModalContextValue extends ModalSectionsState {
   bodyRef: MutableRefObject<HTMLDivElement>
   setSectionState: (key: keyof ModalSectionsState, isPresent: boolean) => void
   onClose?(): void
+
+  /**
+   * Id of the title of the `ModalHeader`, which names the dialog
+   */
+  titleId?: string
+
+  /**
+   * Whether a `ModalHeader` shows a title with `titleId`
+   */
+  hasTitle?: boolean
+  setHasTitle?(hasTitle: boolean): void
 }
 
 const ModalContext = createContext<ModalContextValue>(undefined)

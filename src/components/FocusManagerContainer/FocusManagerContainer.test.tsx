@@ -55,3 +55,41 @@ it('should call onFocusOut prop when focus leaves the container', async () => {
   await wait()
   expect(focusOut).toHaveBeenCalledTimes(1)
 })
+
+it('should give onFocusIn and onFocusOut the events of the focus', () => {
+  const focusIn = jest.fn((e: React.FocusEvent) => e.target)
+  const focusOut = jest.fn((e: React.FocusEvent) => e.target)
+  const { container } = render(
+    <FocusManagerContainer onFocusIn={focusIn} onFocusOut={focusOut}>
+      <input id='input1' />
+    </FocusManagerContainer>
+  )
+  const input = container.querySelector('#input1')
+
+  fireEvent.focus(input)
+  fireEvent.blur(input)
+  act(() => jest.runAllTimers())
+
+  expect(focusIn).toHaveReturnedWith(input)
+  expect(focusOut).toHaveReturnedWith(input)
+})
+
+it('should not update after it unmounts', () => {
+  const spy = jest.spyOn(console, 'error').mockImplementation(() => undefined)
+  const focusOut = jest.fn()
+  const { container, unmount } = render(
+    <FocusManagerContainer onFocusOut={focusOut}>
+      <input id='input1' />
+    </FocusManagerContainer>
+  )
+  const input = container.querySelector('#input1')
+
+  fireEvent.focus(input)
+  fireEvent.blur(input)
+  unmount()
+  act(() => jest.runAllTimers())
+
+  expect(spy).not.toHaveBeenCalled()
+  expect(focusOut).not.toHaveBeenCalled()
+  spy.mockRestore()
+})

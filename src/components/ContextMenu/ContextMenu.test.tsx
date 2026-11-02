@@ -97,6 +97,20 @@ describe('ContextMenu', () => {
     expect(onOpenChange).toHaveBeenLastCalledWith(false)
   })
 
+  it('should tell once that it closed when an item is chosen', async () => {
+    const onOpenChange = jest.fn()
+    const { getByText, getByRole } = renderMenu({ onOpenChange })
+    const target = getByText('Contract.pdf')
+
+    target.focus()
+    fireEvent.contextMenu(target, { clientX: 10, clientY: 10 })
+    await flush()
+    getByRole('menuitem', { name: 'Rename' }).focus()
+    fireEvent.click(getByRole('menuitem', { name: 'Rename' }))
+
+    expect(onOpenChange.mock.calls).toEqual([[true], [false]])
+  })
+
   it('should stay open when a disabled item is clicked', async () => {
     const { getByText, getByRole } = renderMenu()
     fireEvent.contextMenu(getByText('Contract.pdf'), { clientX: 10, clientY: 10 })

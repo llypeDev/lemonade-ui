@@ -13,11 +13,21 @@ export interface ModalContainerProps extends Omit<React.HTMLAttributes<HTMLDivEl
 export const ModalContainer = forwardRef<HTMLDivElement, ModalContainerProps>((props, ref) => {
   const { style, children, ...rest } = props
 
-  const { scroll, hasHeader } = useModalContext()
+  const { scroll, hasHeader, titleId, hasTitle } = useModalContext()
   const { classes, css } = useStyles(createStyles, scroll, hasHeader)
 
+  // Named by the title of its header, unless it is given another name
+  const labelledBy = hasTitle && !rest['aria-label'] ? titleId : undefined
+
   return (
-    <div role='dialog' aria-modal='true' ref={ref} className={css(classes.wrapper, style)} {...rest}>
+    <div
+      role='dialog'
+      aria-modal='true'
+      aria-labelledby={labelledBy}
+      ref={ref}
+      className={css(classes.wrapper, style)}
+      {...rest}
+    >
       <div className={classes.inner}>{children}</div>
     </div>
   )
