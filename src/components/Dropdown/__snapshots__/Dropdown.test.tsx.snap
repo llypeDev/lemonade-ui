@@ -1,6 +1,21 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
 exports[`should accept popper props 1`] = `
+.emotion-3 {
+  list-style: none;
+  margin: 0;
+  padding: calc(0.5rem - 1px) 0;
+  white-space: nowrap;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.09);
+  border: 1px solid #D3D4DD;
+  border-radius: 2px;
+  display: inline-block;
+  width: auto;
+  min-width: 150px;
+  background: #FFFFFF;
+  z-index: 1300;
+}
+
 .emotion-0 {
   font-family: "IBM Plex Sans",sans-serif;
   font-size: 0.875rem;
@@ -60,29 +75,6 @@ exports[`should accept popper props 1`] = `
   color: #AAAAB9;
 }
 
-.emotion-3 {
-  list-style: none;
-  margin: 0;
-  padding: calc(0.5rem - 1px) 0;
-  white-space: nowrap;
-  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.09);
-  border: 1px solid #D3D4DD;
-  border-radius: 2px;
-  display: inline-block;
-  width: auto;
-  min-width: 150px;
-  background: #FFFFFF;
-  position: absolute;
-  top: auto;
-  right: auto;
-  bottom: 0;
-  left: 0;
-  -webkit-transform: translate(0px,0px);
-  -ms-transform: translate(0px,0px);
-  transform: translate(0px,0px);
-  z-index: 1300;
-}
-
 <body>
   <div>
     <button
@@ -94,8 +86,10 @@ exports[`should accept popper props 1`] = `
     </button>
     <ul
       class="emotion-3"
+      data-placement="top-start"
       id="dropdown-abc"
       role="menu"
+      style="position: absolute; bottom: 0px; left: 0px; transform: translate(0px, 0px);"
     >
       <li
         class="emotion-0"
@@ -198,14 +192,6 @@ exports[`should extend DropdownMenu props 1`] = `
   width: auto;
   min-width: 150px;
   background: #FFFFFF;
-  position: absolute;
-  top: 0;
-  right: auto;
-  bottom: auto;
-  left: 0;
-  -webkit-transform: translate(0px,0px);
-  -ms-transform: translate(0px,0px);
-  transform: translate(0px,0px);
   z-index: 1300;
   color: red;
 }
@@ -222,8 +208,10 @@ exports[`should extend DropdownMenu props 1`] = `
     <ul
       aria-label="test"
       class="emotion-3"
+      data-placement="bottom"
       id="dropdown-abc"
       role="menu"
+      style="position: absolute; top: 0px; left: 0px; transform: translate(0px, 0px);"
     >
       <li
         class="emotion-0"
@@ -270,6 +258,21 @@ exports[`should render correctly when closed 1`] = `
 `;
 
 exports[`should render correctly when open 1`] = `
+.emotion-3 {
+  list-style: none;
+  margin: 0;
+  padding: calc(0.5rem - 1px) 0;
+  white-space: nowrap;
+  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.09);
+  border: 1px solid #D3D4DD;
+  border-radius: 2px;
+  display: inline-block;
+  width: auto;
+  min-width: 150px;
+  background: #FFFFFF;
+  z-index: 1300;
+}
+
 .emotion-0 {
   font-family: "IBM Plex Sans",sans-serif;
   font-size: 0.875rem;
@@ -329,29 +332,6 @@ exports[`should render correctly when open 1`] = `
   color: #AAAAB9;
 }
 
-.emotion-3 {
-  list-style: none;
-  margin: 0;
-  padding: calc(0.5rem - 1px) 0;
-  white-space: nowrap;
-  box-shadow: 0 2px 4px 0 rgba(0,0,0,0.09);
-  border: 1px solid #D3D4DD;
-  border-radius: 2px;
-  display: inline-block;
-  width: auto;
-  min-width: 150px;
-  background: #FFFFFF;
-  position: absolute;
-  top: 0;
-  right: auto;
-  bottom: auto;
-  left: 0;
-  -webkit-transform: translate(0px,0px);
-  -ms-transform: translate(0px,0px);
-  transform: translate(0px,0px);
-  z-index: 1300;
-}
-
 <body>
   <div>
     <button
@@ -363,8 +343,10 @@ exports[`should render correctly when open 1`] = `
     </button>
     <ul
       class="emotion-3"
+      data-placement="bottom"
       id="dropdown-abc"
       role="menu"
+      style="position: absolute; top: 0px; left: 0px; transform: translate(0px, 0px);"
     >
       <li
         class="emotion-0"

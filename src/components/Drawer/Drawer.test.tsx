@@ -1,6 +1,8 @@
 import { fireEvent, render } from '@testing-library/react'
 import React from 'react'
 
+import { Modal } from '../Modal/Modal'
+
 import { Drawer } from './Drawer'
 
 jest.mock('../../util/string')
@@ -63,6 +65,25 @@ describe('Drawer', () => {
     fireEvent.click(getByTestId('backdrop'))
 
     expect(onClose).toHaveBeenCalledTimes(3)
+  })
+
+  it('should not close with Escape while a modal opened from it is on top', () => {
+    const onClose = jest.fn()
+    const onModalClose = jest.fn()
+    const createComponent = (modalOpen: boolean) => (
+      <Drawer open title='Filters' onClose={onClose}>
+        <Modal open={modalOpen} onClose={onModalClose}>
+          <button>Apply</button>
+        </Modal>
+      </Drawer>
+    )
+
+    const { rerender } = render(createComponent(false))
+    rerender(createComponent(true))
+    fireEvent.keyDown(document.activeElement, { key: 'Escape' })
+
+    expect(onModalClose).toHaveBeenCalledTimes(1)
+    expect(onClose).not.toHaveBeenCalled()
   })
 
   it('should not close on backdrop click when closeOnBackdropClick is false', () => {

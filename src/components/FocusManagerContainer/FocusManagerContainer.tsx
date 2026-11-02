@@ -19,6 +19,10 @@ export class FocusManagerContainer extends React.Component<FocusManagerContainer
 
   private timeoutId: any
 
+  componentWillUnmount() {
+    clearTimeout(this.timeoutId)
+  }
+
   render() {
     return (
       <div onBlur={this.handleBlur} onFocus={this.handleFocus}>
@@ -28,6 +32,8 @@ export class FocusManagerContainer extends React.Component<FocusManagerContainer
   }
 
   private handleBlur = (e: React.FocusEvent<HTMLDivElement>) => {
+    // React reuses the event after this handler, and the callbacks get it later
+    e.persist()
     this.timeoutId = setTimeout(() => {
       if (this.state.isManagingFocus) {
         this.setState({ isManagingFocus: false }, () => {
@@ -40,6 +46,7 @@ export class FocusManagerContainer extends React.Component<FocusManagerContainer
   }
 
   private handleFocus = (e: React.FocusEvent<HTMLDivElement>) => {
+    e.persist()
     clearTimeout(this.timeoutId)
     if (!this.state.isManagingFocus) {
       this.setState({ isManagingFocus: true }, () => {

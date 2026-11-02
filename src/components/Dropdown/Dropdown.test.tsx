@@ -1,9 +1,38 @@
 import { act, fireEvent, render, RenderResult, waitFor } from '@testing-library/react'
 import React, { useState } from 'react'
+import { Modal } from '../Modal/Modal'
 import { Dropdown, DropdownProps } from './Dropdown'
 import { DropdownItem } from './DropdownItem'
 
 jest.mock('../../util/string')
+
+// Popper places the menu asynchronously, and the blur of the menu is handled after a timeout
+const flush = () => act(async () => new Promise((resolve) => setTimeout(resolve)))
+
+const ToggleTest = (props: Partial<DropdownProps>) => {
+  const [anchorRef, setAnchorRef] = useState<HTMLButtonElement>()
+  const [open, setOpen] = useState(false)
+  return (
+    <>
+      <button ref={setAnchorRef} onClick={() => setOpen(!open)}>
+        Anchor
+      </button>
+      <Dropdown anchorRef={anchorRef} open={open} onClose={() => setOpen(false)} {...props}>
+        <DropdownItem>Item #1</DropdownItem>
+        <DropdownItem>Item #2</DropdownItem>
+      </Dropdown>
+      <input data-testid='outsideElement' />
+    </>
+  )
+}
+
+const openToggleTest = async () => {
+  const result = render(<ToggleTest />)
+  fireEvent.click(result.getByText('Anchor'))
+  await flush()
+  expect(result.getByRole('menuitem', { name: 'Item #1' })).toHaveFocus()
+  return result
+}
 
 const DropdownTest = (props: Partial<DropdownProps> = {}) => {
   const [anchorRef, setAnchorRef] = useState<HTMLButtonElement>()
@@ -175,4 +204,143 @@ it('should NOT call "onClose" if item clicked is disabled', async () => {
 
   fireEvent.click(document.body.querySelectorAll('li')[2])
   expect(close).toHaveBeenCalledTimes(0)
+})
+
+it('should close when its anchor is clicked while it is open', async () => {
+  const { getByText, queryByRole } = await openToggleTest()
+  const anchor = getByText('Anchor')
+
+  // Pressing the anchor moves the focus to it before the click
+  fireEvent.mouseDown(anchor)
+  anchor.focus()
+  await flush()
+  fireEvent.mouseUp(anchor)
+  fireEvent.click(anchor)
+  await flush()
+
+  expect(queryByRole('menu')).not.toBeInTheDocument()
+})
+
+it('should close when the keyboard moves the focus to the anchor', async () => {
+  const { getByText, queryByRole } = await openToggleTest()
+
+  getByText('Anchor').focus()
+  await flush()
+  expect(queryByRole('menu')).not.toBeInTheDocument()
+})
+
+it('should call "onClose" once when the menu closes before its blur is handled', async () => {
+  const close = jest.fn()
+  const ClosingTest = () => {
+    const [open, setOpen] = useState(true)
+    const handleClose = () => {
+      close()
+      setOpen(false)
+    }
+    return <DropdownTest open={open} onClose={handleClose} />
+  }
+  const { getByTestId, getByRole } = render(<ClosingTest />)
+  await flush()
+  getByRole('menuitem', { name: 'Item #1' }).focus()
+
+  // As Chrome does when the press outside removes the focused menu
+  const outside = getByTestId('outsideElement')
+  outside.focus()
+  fireEvent.mouseDown(outside)
+  await flush()
+
+  expect(close).toHaveBeenCalledTimes(1)
+})
+
+it('should not call "onClose" after it unmounts', async () => {
+  const close = jest.fn()
+  const { getByTestId, getByRole, unmount } = render(<DropdownTest open onClose={close} />)
+  await flush()
+  getByRole('menuitem', { name: 'Item #1' }).focus()
+
+  getByTestId('outsideElement').focus()
+  unmount()
+  await flush()
+
+  expect(close).not.toHaveBeenCalled()
+})
+
+it('should give the focus back to the anchor when "Escape" closes it', async () => {
+  const { getByText, queryByRole } = await openToggleTest()
+
+  fireEvent.keyDown(document.activeElement, { key: 'Escape' })
+  await flush()
+
+  expect(queryByRole('menu')).not.toBeInTheDocument()
+  expect(getByText('Anchor')).toHaveFocus()
+})
+
+it('should give the focus back to the anchor when an item is picked', async () => {
+  const { getByText, getByRole, queryByRole } = await openToggleTest()
+
+  fireEvent.click(getByRole('menuitem', { name: 'Item #2' }))
+  await flush()
+
+  expect(queryByRole('menu')).not.toBeInTheDocument()
+  expect(getByText('Anchor')).toHaveFocus()
+})
+
+it('should not take the focus back when it leaves the menu', async () => {
+  const { getByTestId, queryByRole } = await openToggleTest()
+  const outside = getByTestId('outsideElement')
+
+  outside.focus()
+  await flush()
+
+  expect(queryByRole('menu')).not.toBeInTheDocument()
+  expect(outside).toHaveFocus()
+})
+
+it('should close only the menu with "Escape" when it is in a modal', async () => {
+  const close = jest.fn()
+  const closeModal = jest.fn()
+  const createComponent = (open: boolean) => (
+    <Modal open onClose={closeModal}>
+      <DropdownTest open={open} onClose={close} />
+    </Modal>
+  )
+  const { rerender } = render(createComponent(false))
+  rerender(createComponent(true))
+  await flush()
+
+  fireEvent.keyDown(document.activeElement, { key: 'Escape' })
+  expect(close).toHaveBeenCalledTimes(1)
+  expect(closeModal).not.toHaveBeenCalled()
+})
+
+it('should keep its own handlers and id when it receives them', async () => {
+  const close = jest.fn()
+  const onClick = jest.fn()
+  const onBlur = jest.fn()
+  const { getByText, getByTestId, getByRole } = render(
+    <DropdownTest open onClose={close} id='menu' onClick={onClick} onBlur={onBlur} />
+  )
+  await flush()
+
+  expect(getByRole('menu')).toHaveAttribute('id', 'menu')
+  expect(getByText('Anchor')).toHaveAttribute('aria-controls', 'menu')
+
+  fireEvent.click(getByRole('menuitem', { name: 'Item #1' }))
+  expect(onClick).toHaveBeenCalledTimes(1)
+  expect(close).toHaveBeenCalledTimes(1)
+
+  getByRole('menuitem', { name: 'Item #1' }).focus()
+  getByTestId('outsideElement').focus()
+  await flush()
+  expect(onBlur).toHaveBeenCalled()
+  expect(close).toHaveBeenCalledTimes(2)
+})
+
+it('should tell its placement and be positioned without a class for each position', async () => {
+  const { getByRole } = render(<DropdownTest open popperProps={{ placement: 'top-start' }} />)
+  await flush()
+
+  const menu = getByRole('menu')
+  expect(menu).toHaveAttribute('data-placement', 'top-start')
+  expect(menu.style.position).toBe('absolute')
 })

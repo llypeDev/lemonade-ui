@@ -2,6 +2,8 @@ import { keyframes } from 'emotion'
 import FocusTrap from 'focus-trap-react'
 import React, { CSSProperties, useEffect, useMemo, useRef } from 'react'
 
+import { useBodyScrollLock } from '../../hooks/useBodyScrollLock'
+import { useOverlayEscape } from '../../hooks/useOverlayEscape'
 import { useLocale } from '../../i18n'
 import { ExternalStyles, Theme, useStyles } from '../../styles'
 import { zIndexLevel } from '../../styles/theme/zIndex'
@@ -103,12 +105,7 @@ export function Drawer(props: DrawerProps) {
   const panelRef = useRef<HTMLDivElement>(null)
   const titleId = useMemo(() => `drawer-title-${randomStr()}`, [])
 
-  useEffect(() => {
-    if (manageOverflow && open) {
-      document.body.classList.add(classes.bodyWhenOpened)
-      return () => document.body.classList.remove(classes.bodyWhenOpened)
-    }
-  }, [open, manageOverflow, classes.bodyWhenOpened])
+  useBodyScrollLock(manageOverflow && open, classes.bodyWhenOpened)
 
   // The panel gets the first focus, so screen readers announce the drawer by its name
   // and opening it does not pop up the close button tooltip
@@ -118,20 +115,8 @@ export function Drawer(props: DrawerProps) {
     }
   }, [open])
 
-  useEffect(() => {
-    if (!open) {
-      return
-    }
-
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        onClose?.()
-      }
-    }
-
-    document.addEventListener('keydown', handleKeyDown)
-    return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [open, onClose])
+  // Closes with Escape, unless a dialog or menu opened over it
+  useOverlayEscape(open, () => onClose?.())
 
   if (!open) {
     return null
@@ -142,7 +127,7 @@ export function Drawer(props: DrawerProps) {
 
   return (
     <Portal>
-      <FocusTrap focusTrapOptions={{ fallbackFocus: () => panelRef.current }}>
+      <FocusTrap focusTrapOptions={{ fallbackFocus: () => panelRef.current, escapeDeactivates: false }}>
         <div>
           <div
             ref={panelRef}

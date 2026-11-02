@@ -1,7 +1,10 @@
 import FocusTrap from 'focus-trap-react'
-import React, { Ref, useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import React, { Ref, useCallback, useMemo, useRef, useState } from 'react'
+import { useBodyScrollLock } from '../../hooks/useBodyScrollLock'
+import { useOverlayEscape } from '../../hooks/useOverlayEscape'
 import { ExternalStyles, Theme, useStyles } from '../../styles'
 import { zIndexLevel } from '../../styles/theme/zIndex'
+import { randomStr } from '../../util/string'
 import { Portal } from '../Portal'
 import { FadeTransition } from '../Transition/FadeTransition'
 import { ModalContextValue, ModalContextProvider, ModalSectionsState } from '../../hooks/useModalContext'
@@ -87,6 +90,10 @@ export function Modal(props: ModalProps) {
     []
   )
 
+  // The title of a `ModalHeader` names the dialog
+  const titleId = useMemo(() => `modal-title-${randomStr()}`, [])
+  const [hasTitle, setHasTitle] = useState(false)
+
   const modalContextValue: ModalContextValue = useMemo(
     () => ({
       ...sectionsState,
@@ -94,37 +101,18 @@ export function Modal(props: ModalProps) {
       bodyRef,
       setSectionState,
       onClose,
+      titleId,
+      hasTitle,
+      setHasTitle,
     }),
-    [scroll, sectionsState, setSectionState, onClose]
+    [scroll, sectionsState, setSectionState, onClose, titleId, hasTitle]
   )
 
   // Kill body scroll when opened
-  useEffect(() => {
-    if (manageOverflow) {
-      if (open) {
-        document.body.classList.add(classes.bodyWhenOpened)
-      } else {
-        document.body.classList.remove(classes.bodyWhenOpened)
-      }
-      return () => document.body.classList.remove(classes.bodyWhenOpened)
-    }
-  }, [open, classes.bodyWhenOpened, manageOverflow])
+  useBodyScrollLock(manageOverflow && open, classes.bodyWhenOpened)
 
-  useEffect(() => {
-    // Attach "Escape" to close modal
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        onClose?.()
-      }
-    }
-
-    if (open) {
-      document.addEventListener('keydown', handleKeyDown)
-    } else {
-      document.removeEventListener('keydown', handleKeyDown)
-    }
-    return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [open, onClose])
+  // Attach "Escape" to close modal, when no dialog or menu opened over it
+  useOverlayEscape(open, () => onClose?.())
 
   return (
     <ModalContextProvider value={modalContextValue}>
@@ -133,9 +121,9 @@ export function Modal(props: ModalProps) {
           <>
             {open && (
               <Portal>
-                <FocusTrap focusTrapOptions={{ fallbackFocus: () => modalRef.current }}>
+                <FocusTrap focusTrapOptions={{ fallbackFocus: () => modalRef.current, escapeDeactivates: false }}>
                   <div className={className}>
-                    <div className={css(classes.modal, wrapperStyle)} ref={modalRef}>
+                    <div className={css(classes.modal, wrapperStyle)} ref={modalRef} tabIndex={-1}>
                       <ModalContainer ref={containerRef} style={css(classes[size], style)} {...rest}>
                         {children}
                       </ModalContainer>
@@ -178,6 +166,7 @@ const createStyles = (theme: Theme, depthLevel: number) => ({
     justifyContent: 'center',
     alignItems: 'center',
     padding: '2rem',
+    outline: 'none',
   } as React.CSSProperties,
   bodyWhenOpened: {
     overflow: 'hidden',

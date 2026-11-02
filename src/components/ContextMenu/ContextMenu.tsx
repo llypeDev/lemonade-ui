@@ -2,6 +2,7 @@ import { VirtualElement } from '@popperjs/core'
 import React, { CSSProperties, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { usePopper } from 'react-popper'
 
+import { useOverlayEscape } from '../../hooks/useOverlayEscape'
 import { ExternalStyles, Theme, useStyles } from '../../styles'
 import { DropdownMenu, menuItemSelector } from '../Dropdown/DropdownMenu'
 import { Portal } from '../Portal'
@@ -82,17 +83,25 @@ export function ContextMenu(props: ContextMenuProps) {
     attributes: { popper: popperAttributes },
   } = usePopper(reference, menuRef, { placement: 'bottom-start', strategy: 'fixed' })
 
+  // Giving the focus back blurs the menu, which must not close it a second time
+  const isOpen = useRef(false)
+
   const show = (at: Point) => {
     if (!open) {
       returnFocus.current = document.activeElement as HTMLElement
       onOpenChange && onOpenChange(true)
     }
+    isOpen.current = true
     openedAt.current = Date.now()
     setPoint(at)
   }
 
   const close = useCallback(
     (restoreFocus: boolean) => {
+      if (!isOpen.current) {
+        return
+      }
+      isOpen.current = false
       setPoint(null)
       onOpenChange && onOpenChange(false)
       const element = returnFocus.current
@@ -186,18 +195,18 @@ export function ContextMenu(props: ContextMenuProps) {
     }
   }, [menuRef])
 
-  // Closes with Escape, a press outside, a scroll of the page or a resize of the window
+  // Closes with Escape, unless a dialog or menu opened over it
+  useOverlayEscape(open, (e) => {
+    e.preventDefault()
+    close(true)
+  })
+
+  // Closes with a press outside, a scroll of the page or a resize of the window
   useEffect(() => {
     if (!open) {
       return
     }
 
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        e.preventDefault()
-        close(true)
-      }
-    }
     const handlePointerDown = (e: PointerEvent) => {
       if (menuRef && !menuRef.contains(e.target as Node)) {
         close(false)
@@ -210,12 +219,10 @@ export function ContextMenu(props: ContextMenuProps) {
     }
     const handleResize = () => close(false)
 
-    document.addEventListener('keydown', handleKeyDown)
     document.addEventListener('pointerdown', handlePointerDown, true)
     document.addEventListener('scroll', handleScroll, true)
     window.addEventListener('resize', handleResize)
     return () => {
-      document.removeEventListener('keydown', handleKeyDown)
       document.removeEventListener('pointerdown', handlePointerDown, true)
       document.removeEventListener('scroll', handleScroll, true)
       window.removeEventListener('resize', handleResize)

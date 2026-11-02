@@ -61,10 +61,12 @@ export function ConfirmDialogProvider(props: ConfirmDialogProviderProps) {
   }
 
   const handleConfirm = () => {
+    const confirming = pendingRef.current
     const result = pending.options.onConfirm && pending.options.onConfirm()
 
     if (isPromise(result)) {
-      return result.then(() => finish(true))
+      // A question asked while the work was pending answered this one, and the work does not answer the new one
+      return result.then(() => pendingRef.current === confirming && finish(true))
     }
 
     finish(true)

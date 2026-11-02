@@ -2,6 +2,7 @@ import { keyframes } from 'emotion'
 import FocusTrap from 'focus-trap-react'
 import React, { CSSProperties, useEffect, useMemo, useRef, useState } from 'react'
 
+import { useOverlayEscape } from '../../hooks/useOverlayEscape'
 import { useLocale } from '../../i18n'
 import { ExternalStyles, Theme, useStyles } from '../../styles'
 import { zIndexLevel } from '../../styles/theme/zIndex'
@@ -147,6 +148,12 @@ export function CommandPalette(props: CommandPaletteProps) {
     return () => document.removeEventListener('keydown', handleKeyDown)
   }, [hotkey, open, onOpenChange])
 
+  // Closes with Escape, unless a dialog or menu opened over it
+  useOverlayEscape(open, (e) => {
+    e.preventDefault()
+    onOpenChange(false)
+  })
+
   // Keeps the active command in view as the arrow keys move through a long list
   useEffect(() => {
     if (open && active && listRef.current) {
@@ -181,11 +188,6 @@ export function CommandPalette(props: CommandPaletteProps) {
         e.preventDefault()
         active && run(active)
         return
-      case 'Escape':
-        e.preventDefault()
-        e.stopPropagation()
-        onOpenChange(false)
-        return
     }
   }
 
@@ -193,7 +195,7 @@ export function CommandPalette(props: CommandPaletteProps) {
 
   return (
     <Portal>
-      <FocusTrap focusTrapOptions={{ fallbackFocus: () => inputRef.current }}>
+      <FocusTrap focusTrapOptions={{ fallbackFocus: () => inputRef.current, escapeDeactivates: false }}>
         <div>
           <div className={classes.wrapper}>
             <div

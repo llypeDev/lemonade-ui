@@ -61,6 +61,7 @@ function getRefs(
   }
 }
 
+// A ref that is not attached yet has a `current` of null, and is still a ref
 function isRef(ref: any): ref is RefObject<HTMLElement> {
-  return !!ref?.current
+  return !!ref && typeof ref === 'object' && 'current' in ref
 }

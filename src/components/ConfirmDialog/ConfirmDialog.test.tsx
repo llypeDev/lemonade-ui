@@ -4,7 +4,7 @@ import React from 'react'
 import { Button } from '../Button'
 
 import { ConfirmDialog } from './ConfirmDialog'
-import { ConfirmDialogProvider, useConfirm } from './useConfirm'
+import { Confirm, ConfirmDialogProvider, useConfirm } from './useConfirm'
 
 jest.mock('../../util/string')
 
@@ -88,6 +88,27 @@ describe('ConfirmDialog', () => {
     await act(async () => finish())
     expect(getByRole('button', { name: 'Cancel' })).not.toBeDisabled()
   })
+
+  it('should keep the page behind inert when Escape is pressed while the confirmation is pending', async () => {
+    let finish: () => void
+    const onConfirm = jest.fn(() => new Promise<void>((resolve) => (finish = resolve)))
+    const onOutsideClick = jest.fn()
+    const { getByRole } = render(
+      <>
+        <button onClick={onOutsideClick}>Outside</button>
+        <ConfirmDialog open title='Delete this order?' onConfirm={onConfirm} onCancel={jest.fn()} />
+      </>
+    )
+
+    fireEvent.click(getByRole('button', { name: 'Confirm' }))
+    fireEvent.keyDown(document.activeElement, { key: 'Escape' })
+    fireEvent.click(getByRole('button', { name: 'Outside' }))
+
+    expect(getByRole('alertdialog')).toBeInTheDocument()
+    expect(onOutsideClick).not.toHaveBeenCalled()
+
+    await act(async () => finish())
+  })
 })
 
 describe('useConfirm', () => {
@@ -150,6 +171,37 @@ describe('useConfirm', () => {
 
     await act(async () => finish())
     expect(onAnswer).toHaveBeenCalledWith(true)
+  })
+
+  it('should not answer a newer question when the confirmation of an older one finishes', async () => {
+    let finish: () => void
+    const onConfirm = () => new Promise<void>((resolve) => (finish = resolve))
+    let confirm: Confirm
+    const Grab = () => {
+      confirm = useConfirm()
+      return null
+    }
+    const { getByRole } = render(
+      <ConfirmDialogProvider>
+        <Grab />
+      </ConfirmDialogProvider>
+    )
+
+    const first = jest.fn()
+    const second = jest.fn()
+    act(() => {
+      confirm({ title: 'Archive the project?', confirmLabel: 'Archive', onConfirm }).then(first)
+    })
+    fireEvent.click(getByRole('button', { name: 'Archive' }))
+
+    act(() => {
+      confirm({ title: 'Delete the project?', confirmLabel: 'Delete' }).then(second)
+    })
+    await act(async () => finish())
+
+    expect(first).toHaveBeenCalledWith(false)
+    expect(second).not.toHaveBeenCalled()
+    expect(getByRole('alertdialog', { name: 'Delete the project?' })).toBeInTheDocument()
   })
 
   it('should throw outside a provider', () => {

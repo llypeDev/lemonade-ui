@@ -87,3 +87,34 @@ it('should execute callback action when clicked outside all target refs', async 
   await waait()
   expect(callback).toHaveBeenCalledTimes(1)
 })
+
+it('should ignore refs that are not attached to an element', async () => {
+  const outsideRef = createRef<HTMLElement>()
+  const insideRef1 = createRef<HTMLElement>()
+  const insideRef2 = createRef<HTMLElement>()
+  const detachedRef = createRef<HTMLElement>()
+  const callback = jest.fn()
+
+  const { getByTestId, rerender } = render(
+    <TestComponent
+      refs={{ outsideRef, insideRef1, insideRef2 }}
+      target={[insideRef1, detachedRef]}
+      onClickOutside={callback}
+    />
+  )
+
+  fireEvent.mouseDown(getByTestId('inside-div-1'))
+  await waait()
+  expect(callback).not.toHaveBeenCalled()
+
+  fireEvent.mouseDown(getByTestId('outside-div'))
+  await waait()
+  expect(callback).toHaveBeenCalledTimes(1)
+
+  rerender(
+    <TestComponent refs={{ outsideRef, insideRef1, insideRef2 }} target={detachedRef} onClickOutside={callback} />
+  )
+  fireEvent.mouseDown(getByTestId('outside-div'))
+  await waait()
+  expect(callback).toHaveBeenCalledTimes(2)
+})

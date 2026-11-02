@@ -1,8 +1,10 @@
 import { Options as PopperOptions } from '@popperjs/core'
-import React, { useCallback, useEffect, useState, useRef } from 'react'
+import React, { useEffect, useLayoutEffect, useState, useRef } from 'react'
 import { usePopper } from 'react-popper'
 import { useClickOutside } from '../../hooks/useClickOutside'
+import { useOverlayEscape } from '../../hooks/useOverlayEscape'
 import { Theme, useStyles } from '../../styles'
+import { composeRefs } from '../../util/react'
 import { randomStr } from '../../util/string'
 import { DropdownMenu, DropdownMenuProps, menuItemSelector } from './DropdownMenu'
 
@@ -43,17 +45,41 @@ export interface DropdownProps extends DropdownMenuProps {
 }
 
 export function Dropdown(props: DropdownProps) {
-  const { children, anchorRef, popperProps, open, onClose, autoclose, style, ...rest } = props
+  const {
+    children,
+    anchorRef,
+    popperProps,
+    open,
+    onClose,
+    autoclose,
+    style,
+    id,
+    innerRef,
+    onClick,
+    onBlur,
+    ...rest
+  } = props
   const { classes } = useStyles(createStyles)
 
   const [menuRef, setMenuRef] = useState<HTMLUListElement>()
 
   const {
     styles: { popper: popperStyle },
-    attributes: { placement },
+    attributes,
   } = usePopper(anchorRef, menuRef, popperProps)
+  const placement = attributes.popper?.['data-popper-placement']
+
+  // Popper moves the menu on every scroll and resize. As a class, each position would add a rule to the stylesheet
+  // of the page that is never removed, so the position goes on the element itself.
+  useLayoutEffect(() => {
+    if (menuRef) {
+      Object.assign(menuRef.style, popperStyle)
+      return () => Object.keys(popperStyle).forEach((key) => (menuRef.style[key] = ''))
+    }
+  }, [menuRef, popperStyle])
 
   const dropdownIdRef = React.useRef<string>(`dropdown-${randomStr()}`)
+  const menuId = id ?? dropdownIdRef.current
 
   // Attaches aria attributes to anchor element
   useEffect(() => {
@@ -62,25 +88,24 @@ export function Dropdown(props: DropdownProps) {
 
       if (open) {
         anchorRef.setAttribute('aria-expanded', 'true')
-        anchorRef.setAttribute('aria-controls', dropdownIdRef.current)
+        anchorRef.setAttribute('aria-controls', menuId)
       } else {
         anchorRef.removeAttribute('aria-expanded')
         anchorRef.removeAttribute('aria-controls')
       }
     }
-  }, [open, anchorRef])
+  }, [open, anchorRef, menuId])
 
-  // Attaches Escape key event
-  useEffect(() => {
-    const handleKeyDown = (e: KeyboardEvent) => {
-      if (open && e.key === 'Escape') {
-        onClose()
-      }
+  // Closing removes the menu: when it has the focus, the anchor gets it back instead of the page
+  const closeWithFocus = () => {
+    if (menuRef && menuRef.contains(menuRef.ownerDocument.activeElement)) {
+      anchorRef && anchorRef.focus()
     }
+    onClose()
+  }
 
-    document.addEventListener('keydown', handleKeyDown)
-    return () => document.removeEventListener('keydown', handleKeyDown)
-  }, [open, onClose])
+  // Attaches Escape key event, unless a dialog or menu opened over it
+  useOverlayEscape(open, closeWithFocus)
 
   // When opened, focus the first menu item
   const isFirstRender = useRef(true)
@@ -104,17 +129,40 @@ export function Dropdown(props: DropdownProps) {
     }
   }, [open, menuRef])
 
+  // Pressing the anchor, usually the button that toggles the menu, moves the focus out of the menu. Its click
+  // closes the menu, so the blur must not close it first, or the click would open it again.
+  const anchorPressed = useRef(false)
+  useEffect(() => {
+    if (!open || !anchorRef) {
+      return
+    }
+
+    anchorPressed.current = false
+    const handleMouseDown = () => (anchorPressed.current = true)
+    anchorRef.addEventListener('mousedown', handleMouseDown)
+    return () => anchorRef.removeEventListener('mousedown', handleMouseDown)
+  }, [open, anchorRef])
+
   // Call onClose if target focus is outside menu
-  const handleBlur = useCallback(() => {
-    setTimeout(() => {
-      if (menuRef) {
+  const blurTimeout = useRef<any>()
+  useEffect(() => () => clearTimeout(blurTimeout.current), [open])
+
+  const handleBlur = (e: React.FocusEvent<HTMLUListElement>) => {
+    onBlur && onBlur(e)
+    clearTimeout(blurTimeout.current)
+    blurTimeout.current = setTimeout(() => {
+      // Not when the menu closed or unmounted meanwhile
+      if (menuRef && menuRef.ownerDocument.contains(menuRef)) {
         const currentFocus = menuRef.ownerDocument.activeElement
-        if (!menuRef.contains(currentFocus)) {
+        const toPressedAnchor = anchorPressed.current && anchorRef && anchorRef.contains(currentFocus)
+        anchorPressed.current = false
+
+        if (!menuRef.contains(currentFocus) && !toPressedAnchor) {
           onClose()
         }
       }
     })
-  }, [onClose, menuRef])
+  }
 
   // Call `onClose` when clicked outside dropdown and anchor
   useClickOutside([anchorRef, menuRef], () => {
@@ -123,22 +171,23 @@ export function Dropdown(props: DropdownProps) {
     }
   })
 
-  const handleMenuClick = useCallback(() => {
+  const handleMenuClick = (e: React.MouseEvent<HTMLUListElement>) => {
+    onClick && onClick(e)
     if (autoclose) {
-      onClose()
+      closeWithFocus()
     }
-  }, [autoclose, onClose])
+  }
 
   return (
     open && (
       <DropdownMenu
-        id={dropdownIdRef.current}
-        innerRef={setMenuRef}
-        style={[popperStyle as any, classes.dropdown, style]}
+        {...rest}
+        id={menuId}
+        innerRef={composeRefs(innerRef, setMenuRef)}
+        style={[classes.dropdown, style]}
         data-placement={placement}
         onClick={handleMenuClick}
         onBlur={handleBlur}
-        {...rest}
       >
         {children}
       </DropdownMenu>

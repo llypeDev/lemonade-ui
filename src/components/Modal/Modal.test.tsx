@@ -3,8 +3,11 @@ import React from 'react'
 import { findDOMNode } from 'react-dom'
 import { createMockModalContext } from '../../test/utils/createMockModalContext'
 import { ModalContextProvider } from '../../hooks/useModalContext'
+import { ConfirmDialog } from '../ConfirmDialog/ConfirmDialog'
+import { Drawer } from '../Drawer/Drawer'
 import { Modal, ModalProps } from './Modal'
 import { ModalBody } from './ModalBody'
+import { ModalHeader } from './ModalHeader'
 
 jest.mock('../../util/string')
 
@@ -154,6 +157,103 @@ it('should call "onClose" when key "Escape" is pressed and modal is open', () =>
   rerender(createComponent({ open: false }))
   fireEvent.keyDown(document.body, { key: 'Escape' })
   expect(handleClose).toHaveBeenCalledTimes(1)
+})
+
+it('should close only the dialog on top with "Escape"', () => {
+  const onClose = jest.fn()
+  const onCancel = jest.fn()
+  const createComponent = (confirmOpen: boolean) => (
+    <Modal open onClose={onClose}>
+      <button>Delete</button>
+      <ConfirmDialog open={confirmOpen} title='Delete this order?' onConfirm={jest.fn()} onCancel={onCancel} />
+    </Modal>
+  )
+
+  const { rerender } = render(createComponent(false))
+  rerender(createComponent(true))
+  fireEvent.keyDown(document.activeElement, { key: 'Escape' })
+
+  expect(onCancel).toHaveBeenCalledTimes(1)
+  expect(onClose).not.toHaveBeenCalled()
+
+  rerender(createComponent(false))
+  fireEvent.keyDown(document.activeElement, { key: 'Escape' })
+  expect(onClose).toHaveBeenCalledTimes(1)
+})
+
+it('should keep the page scroll removed until the last modal or drawer closes', () => {
+  const createComponent = (first: boolean, second: boolean, drawer = false) => (
+    <>
+      <Modal open={first}>First</Modal>
+      <Modal open={second}>Second</Modal>
+      <Drawer open={drawer} aria-label='Filters' />
+    </>
+  )
+
+  // A closed modal that mounts does not give the page its scroll back
+  const { rerender } = render(createComponent(true, false))
+  expect(document.body.classList.length).toBe(1)
+
+  rerender(createComponent(true, true, true))
+  rerender(createComponent(true, false, true))
+  expect(document.body.classList.length).toBe(1)
+
+  rerender(createComponent(false, false, true))
+  expect(document.body.classList.length).toBe(1)
+
+  rerender(createComponent(false, false, false))
+  expect(document.body.classList.length).toBe(0)
+})
+
+it('should focus the modal when it has nothing focusable', async () => {
+  const createComponent = (open: boolean) => (
+    <>
+      <button>Open</button>
+      <Modal open={open}>Only text</Modal>
+    </>
+  )
+
+  const { rerender, getByText } = render(createComponent(false))
+  getByText('Open').focus()
+  rerender(createComponent(true))
+
+  await waitFor(() => expect(getByRole(document.body, 'dialog').parentElement).toHaveFocus())
+})
+
+it('should be named by the title of its header', () => {
+  const { getByRole } = render(
+    <Modal open>
+      <ModalHeader title='Edit order' subtitle='Order 123' />
+      <ModalBody>Content</ModalBody>
+    </Modal>
+  )
+  expect(getByRole('dialog', { name: 'Edit order' })).toBeInTheDocument()
+})
+
+it('should keep the name given to it', () => {
+  const { getByRole, rerender } = render(
+    <Modal open aria-label='Order'>
+      <ModalHeader title='Edit order' />
+    </Modal>
+  )
+  expect(getByRole('dialog', { name: 'Order' })).not.toHaveAttribute('aria-labelledby')
+
+  rerender(
+    <Modal open aria-labelledby='other-title'>
+      <ModalHeader title='Edit order' />
+      <span id='other-title'>Other title</span>
+    </Modal>
+  )
+  expect(getByRole('dialog', { name: 'Other title' })).toBeInTheDocument()
+
+  rerender(
+    <Modal open>
+      <ModalHeader>
+        <span>Custom header</span>
+      </ModalHeader>
+    </Modal>
+  )
+  expect(getByRole('dialog')).not.toHaveAttribute('aria-labelledby')
 })
 
 it('should have a focus on first element when opened', async () => {

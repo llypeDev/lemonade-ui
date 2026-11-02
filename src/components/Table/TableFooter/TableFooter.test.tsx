@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react'
+import { act, fireEvent, render } from '@testing-library/react'
 import React from 'react'
 
 import { LocaleContext } from '../../../i18n'
@@ -88,4 +88,42 @@ it('should label the page size in the language of the locale', () => {
     </LocaleContext.Provider>
   )
   expect(getByText('Mostrar:')).toBeInTheDocument()
+})
+
+describe('page size menu', () => {
+  // Popper places the menu asynchronously, and the blur of the menu is handled after a timeout
+  const flush = () => act(async () => new Promise((resolve) => setTimeout(resolve)))
+
+  const openMenu = async () => {
+    const result = render(
+      <>
+        <TableFooterTest />
+        <input data-testid='after' />
+      </>
+    )
+    fireEvent.click(result.getByRole('button', { name: '10' }))
+    await flush()
+    expect(result.getByRole('menuitem', { name: '10' })).toHaveFocus()
+    return result
+  }
+
+  it('should give the focus back to its button when a size is picked', async () => {
+    const { getByRole, queryByRole } = await openMenu()
+
+    fireEvent.click(getByRole('menuitem', { name: '30' }))
+    await flush()
+
+    expect(queryByRole('menu')).not.toBeInTheDocument()
+    expect(getByRole('button', { name: '10' })).toHaveFocus()
+  })
+
+  it('should let the focus leave with Tab', async () => {
+    const { getByTestId, queryByRole } = await openMenu()
+
+    getByTestId('after').focus()
+    await flush()
+
+    expect(queryByRole('menu')).not.toBeInTheDocument()
+    expect(getByTestId('after')).toHaveFocus()
+  })
 })

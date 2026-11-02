@@ -22,6 +22,7 @@ exports[`should render correctly 1`] = `
   -ms-flex-align: center;
   align-items: center;
   padding: 2rem;
+  outline: none;
 }
 
 .emotion-15 {
@@ -282,8 +283,10 @@ exports[`should render correctly 1`] = `
   >
     <div
       class="emotion-12"
+      tabindex="-1"
     >
       <div
+        aria-labelledby="modal-title-abc"
         aria-modal="true"
         class="emotion-11"
         role="dialog"
@@ -303,6 +306,7 @@ exports[`should render correctly 1`] = `
               >
                 <h1
                   class="emotion-0"
+                  id="modal-title-abc"
                 >
                   Modal auto
                 </h1>
@@ -613,6 +617,7 @@ exports[`should render correctly with depth 1`] = `
   -ms-flex-align: center;
   align-items: center;
   padding: 2rem;
+  outline: none;
 }
 
 .emotion-11 {
@@ -648,8 +653,10 @@ exports[`should render correctly with depth 1`] = `
   >
     <div
       class="emotion-12"
+      tabindex="-1"
     >
       <div
+        aria-labelledby="modal-title-abc"
         aria-modal="true"
         class="emotion-11"
         role="dialog"
@@ -669,6 +676,7 @@ exports[`should render correctly with depth 1`] = `
               >
                 <h1
                   class="emotion-0"
+                  id="modal-title-abc"
                 >
                   Modal auto
                 </h1>
@@ -754,6 +762,7 @@ exports[`should render correctly without 'overflow hidden' prop in document clas
   -ms-flex-align: center;
   align-items: center;
   padding: 2rem;
+  outline: none;
 }
 
 .emotion-5 {
@@ -1010,8 +1019,10 @@ exports[`should render correctly without 'overflow hidden' prop in document clas
   >
     <div
       class="emotion-12"
+      tabindex="-1"
     >
       <div
+        aria-labelledby="modal-title-abc"
         aria-modal="true"
         class="emotion-11"
         role="dialog"
@@ -1031,6 +1042,7 @@ exports[`should render correctly without 'overflow hidden' prop in document clas
               >
                 <h1
                   class="emotion-0"
+                  id="modal-title-abc"
                 >
                   Modal auto
                 </h1>
