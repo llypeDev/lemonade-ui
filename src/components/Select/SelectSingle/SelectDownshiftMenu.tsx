@@ -127,7 +127,7 @@ export const defaultComponents: SelectMenuComponents<any> = {
       downshift: { itemToString, highlightedIndex, getItemProps },
     } = props
     return (
-      <SelectMenuItem selected={highlightedIndex === index} {...getItemProps({ item })}>
+      <SelectMenuItem selected={highlightedIndex === index} {...getItemProps({ item, index })}>
         {renderItem ? renderItem(item) : itemToString(item)}
       </SelectMenuItem>
     )

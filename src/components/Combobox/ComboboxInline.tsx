@@ -20,8 +20,9 @@ import { useFormControl, UseFormControlProps } from '../../hooks/useFormControl'
 import { Button, ButtonProps } from '../Button'
 import { Icon } from '../Icon'
 import { Text } from '../Text'
+import { EMPTY_ARRAY } from '../../util'
 import { ComboboxComponents, defaultComboboxComponents } from './ComboboxMenuComponents'
-import { useComboboxItemsLoader } from './useComboboxItemsLoader'
+import { useComboboxItemsLoader, useLoadItemsWhenOpen } from './useComboboxItemsLoader'
 import { SearchBox } from './SearchBox'
 import { ListBox } from './ListBox'
 
@@ -81,36 +82,26 @@ export function ComboboxInline<T>(props: ComboboxInlineProps<T>) {
     showSearchBox = true,
     open,
     popperProps,
+    disabled,
     ...rest
   } = props
 
-  const [itemsLoaded, setItemsLoaded] = useState(false)
   const { classes } = useStyles(createStyles)
 
   const isAsync = typeof items === 'function'
-  const getItems = useCallback((query: string) => (typeof items === 'function' ? items(query) : filter(items, query)), [
-    items,
-    filter,
-  ])
+  const getItems = useCallback(
+    (query: string) => (typeof items === 'function' ? items(query) : filter(items ?? (EMPTY_ARRAY as T[]), query)),
+    [items, filter]
+  )
   const { loading: loadingItems, items: loadedItems, loadItems } = useComboboxItemsLoader(
     getItems,
     debounceMilliseconds
   )
   const isLoading = externalLoading || (isAsync && loadingItems)
 
-  // Reload items when changed
-  useEffect(() => setItemsLoaded(false), [items])
-
   const toggleButtonRef = useRef<HTMLButtonElement>()
   const [searchBoxRef, setSearchBoxRef] = useState<HTMLInputElement>()
   const menuRef = useRef<HTMLDivElement>()
-
-  useEffect(() => {
-    if (open && !itemsLoaded) {
-      loadItems(searchBoxRef?.value)
-      setItemsLoaded(true)
-    }
-  }, [open, itemsLoaded, loadItems, searchBoxRef])
 
   const {
     selectedItem,
@@ -133,10 +124,6 @@ export function ComboboxInline<T>(props: ComboboxInlineProps<T>) {
       closeMenu()
       onChange?.(selectedItem)
     },
-    onIsOpenChange: ({ isOpen }) => {
-      isOpen && !itemsLoaded && loadItems(null)
-      setItemsLoaded(isOpen)
-    },
 
     menuId,
     toggleButtonId,
@@ -144,11 +131,28 @@ export function ComboboxInline<T>(props: ComboboxInlineProps<T>) {
 
     ...(isNil(open) ? {} : { isOpen: open }),
   })
+
+  // The search box starts empty on each opening, so each opening loads the list again
+  useLoadItemsWhenOpen(isOpen, items, loadItems, () => searchBoxRef?.value, true)
+
+  // The options change with the search, so the highlighted one is cleared instead of pointing to another option, or
+  // to one that is gone
   const onSearchBoxValueChange = useCallback(
-    ({ target: { value: inputValue } }: ChangeEvent<HTMLInputElement>) =>
-      composeHandlers(loadItems, onFilterChange)(inputValue),
-    [loadItems, onFilterChange]
+    ({ target: { value: inputValue } }: ChangeEvent<HTMLInputElement>) => {
+      setHighlightedIndex(-1)
+      composeHandlers(loadItems, onFilterChange)(inputValue)
+    },
+    [loadItems, onFilterChange, setHighlightedIndex]
   )
+
+  // The focus goes from the toggle to the search box when the menu opens. downshift takes a blur as leaving the
+  // combobox, which closes the menu and picks the highlighted option, so a blur into the menu is left alone
+  const handleToggleBlur = (e: React.FocusEvent) => {
+    onBlur?.(e)
+    if (menuRef.current?.contains(e.relatedTarget as Node)) {
+      ;(e.nativeEvent as Event & { preventDownshiftDefault?: boolean }).preventDownshiftDefault = true
+    }
+  }
 
   const { getFormControlProps } = useFormControl(props)
   const formControlProps = getFormControlProps()
@@ -166,9 +170,11 @@ export function ComboboxInline<T>(props: ComboboxInlineProps<T>) {
   } = getToggleButtonProps({
     // With a search box, the focus moves into the menu: the search box is the combobox, and the toggle a button
     ...(showSearchBox ? { role: 'button' } : {}),
+    // downshift leaves out the handlers that open the menu of a disabled toggle
+    ...(disabled ? { disabled, 'aria-disabled': true, tabIndex: -1 } : {}),
     onClick,
     onFocus,
-    onBlur,
+    onBlur: handleToggleBlur,
     onKeyDown,
   })
   const toggleButtonProps = showSearchBox

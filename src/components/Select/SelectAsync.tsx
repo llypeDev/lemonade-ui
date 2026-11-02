@@ -1,5 +1,7 @@
 import React from 'react'
 
+import { composeHandlers } from '../../util/react'
+
 import { Select, SelectProps } from './Select'
 import { AsyncSelectLoadFn, useAsyncSelect } from './useAsyncSelect'
 
@@ -35,8 +37,17 @@ export interface SelectAsyncProps<T>
  * @deprecatedSince 1.0.0-beta.65
  */
 export function SelectAsync<T>(props: SelectAsyncProps<T>) {
-  const { loadItems, delay, ...rest } = props
+  const { loadItems, delay, onFilterChange, loading, ...rest } = props
   const { getSelectProps } = useAsyncSelect<T>(loadItems, delay)
+  const selectProps = getSelectProps()
 
-  return <Select<T> {...getSelectProps()} {...rest} />
+  // The filter of the consumer and its loading add to the ones of `loadItems`, which keeps filling the list
+  return (
+    <Select<T>
+      {...rest}
+      items={selectProps.items}
+      loading={selectProps.loading || loading}
+      onFilterChange={composeHandlers(selectProps.onFilterChange, onFilterChange)}
+    />
+  )
 }

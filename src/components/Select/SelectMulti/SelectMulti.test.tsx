@@ -1,6 +1,6 @@
 import { fireEvent, render, act } from '@testing-library/react'
 import { resetIdCounter } from 'downshift'
-import React from 'react'
+import React, { useState } from 'react'
 import { DefaultItemType } from '../SelectSingle'
 import { SelectMulti, SelectMultiProps } from './SelectMulti'
 
@@ -201,4 +201,39 @@ describe('input label', () => {
     expect(container.querySelector('input').getAttribute('aria-labelledby')).toBeFalsy()
     await flush()
   })
+
+  it('should give the input the "id", so the label names it', async () => {
+    const { container } = render(<SelectTest id='foo' label='Foo' />)
+
+    expect(container.querySelector('input')).toHaveAttribute('id', 'foo')
+    expect(container.querySelector('label')).toHaveAttribute('for', 'foo')
+    await flush()
+  })
+})
+
+it('should call the onKeyDown and onClick handlers of the input', async () => {
+  const onKeyDown = jest.fn()
+  const onClick = jest.fn()
+  const { container } = render(<SelectTest onKeyDown={onKeyDown} onClick={onClick} />)
+  const input = container.querySelector('input')
+
+  fireEvent.keyDown(input, { key: 'ArrowDown' })
+  fireEvent.click(input)
+
+  expect(onKeyDown).toHaveBeenCalledTimes(1)
+  expect(onClick).toHaveBeenCalledTimes(1)
+  await flush()
+})
+
+it('should keep the picked items without a value when the parent renders again', async () => {
+  function Parent() {
+    const [changes, setChanges] = useState(0)
+    return <SelectTest onChange={() => setChanges(changes + 1)} isOpen />
+  }
+  const { getByText, queryAllByText } = render(<Parent />)
+
+  fireEvent.click(getByText(items[2].label))
+  await flush()
+
+  expect(queryAllByText(items[2].label, { selector: 'span' })).toHaveLength(1)
 })

@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react'
+import React, { forwardRef, useState } from 'react'
 import { act, render, fireEvent, getByTestId, waitFor } from '@testing-library/react'
 import matchSorter from 'match-sorter'
 import waait from 'waait'
@@ -265,6 +265,111 @@ describe('keyboard', () => {
     expect(toggleButton).toHaveAttribute('role', 'combobox')
     await flush()
   })
+
+  it('should not pick an option when ArrowDown opens the menu and the focus goes to the search box', async () => {
+    const onChange = jest.fn()
+    const { baseElement } = render(<ComboboxInlineTest onChange={onChange} />)
+    const { toggleButton, searchBox } = open(baseElement)
+    await waitForOption(baseElement)
+    fireEvent.keyDown(searchBox, { key: 'Escape' })
+    await flush()
+
+    fireEvent.keyDown(toggleButton, { key: 'ArrowDown' })
+    await flush()
+
+    expect(onChange).not.toHaveBeenCalled()
+    expect(toggleButton).toHaveAttribute('aria-expanded', 'true')
+    expect(document.activeElement).toBe(baseElement.querySelector('input[type="search"]'))
+  })
+
+  it('should clear the highlighted option when the search changes', async () => {
+    const { baseElement } = render(<ComboboxInlineTest />)
+    const { searchBox } = open(baseElement)
+    await waitForOption(baseElement)
+    for (let i = 0; i < 6; i++) fireEvent.keyDown(searchBox, { key: 'ArrowDown' })
+    expect(searchBox).toHaveAttribute('aria-activedescendant', 'test-item-id-5')
+
+    fireEvent.change(searchBox, { target: { value: 'pe' } })
+    await flush()
+
+    expect(searchBox).not.toHaveAttribute('aria-activedescendant')
+  })
+})
+
+it('should neither open nor pick when disabled', async () => {
+  const onChange = jest.fn()
+  const { baseElement } = render(<ComboboxInlineTest onChange={onChange} disabled />)
+  const toggleButton = baseElement.querySelector('[aria-haspopup="listbox"]')!
+
+  fireEvent.click(toggleButton)
+  await flush()
+  expect(toggleButton).toHaveAttribute('aria-expanded', 'false')
+
+  fireEvent.keyDown(toggleButton, { key: 'ArrowDown' })
+  await flush()
+  expect(toggleButton).toHaveAttribute('aria-expanded', 'false')
+  expect(baseElement.querySelector('ul')).toBeFalsy()
+  expect(onChange).not.toHaveBeenCalled()
+})
+
+describe('items', () => {
+  it('should show the items that arrive while the menu is open', async () => {
+    function LoadingCombobox() {
+      const [data, setData] = useState<Fruit[]>()
+      return (
+        <>
+          <ComboboxInlineTest items={data ?? []} loading={!data} />
+          <button onClick={() => setData(fruits)}>Load</button>
+        </>
+      )
+    }
+    const { baseElement, getByText } = render(<LoadingCombobox />)
+
+    fireEvent.click(baseElement.querySelector('[aria-haspopup="listbox"]'))
+    await flush()
+    fireEvent.click(getByText('Load'))
+    await flush()
+
+    expect(baseElement.querySelectorAll('[role="option"]')).toHaveLength(fruits.length)
+  })
+
+  // Each load restarts the debounce, so loading again on each render of the parent could keep the list from loading
+  it('should not load again an inline array of the same items when the parent renders', async () => {
+    const filter = jest.fn((items: Fruit[]) => [...items])
+    const { baseElement, rerender } = render(<ComboboxInlineTest items={[...fruits]} filter={filter} open />)
+    await flush()
+    for (let render = 0; render < 3; render++) {
+      rerender(<ComboboxInlineTest items={[...fruits]} filter={filter} open />)
+      await flush()
+    }
+
+    expect(filter).toHaveBeenCalledTimes(1)
+    expect(baseElement.querySelectorAll('[role="option"]')).toHaveLength(fruits.length)
+  })
+
+  it('should give a custom filter an empty text when the menu opens', async () => {
+    const filter = jest.fn((items: Fruit[], text: string) => items.filter((item) => item.label.includes(text)))
+    const { baseElement } = render(<ComboboxInlineTest filter={filter} open />)
+    await flush()
+
+    expect(filter).toHaveBeenCalledWith(fruits, '')
+    expect(filter).not.toHaveBeenCalledWith(fruits, undefined)
+    expect(filter).not.toHaveBeenCalledWith(fruits, null)
+    expect(baseElement.querySelectorAll('[role="option"]')).toHaveLength(fruits.length)
+  })
+
+  it.each`
+    items
+    ${null}
+    ${undefined}
+  `('should show the empty item when items is $items', async ({ items }) => {
+    const { baseElement, queryByText } = render(<ComboboxInlineTest items={items} />)
+
+    fireEvent.click(baseElement.querySelector('[aria-haspopup="listbox"]'))
+    await flush()
+
+    expect(queryByText(locale.combobox.emptyItem)).toBeTruthy()
+  })
 })
 
 it('enters error state', async () => {
@@ -529,7 +634,7 @@ describe('async loading', () => {
     fireEvent.click(toggleButton)
 
     await act(() => waait(600))
-    expect(loadItems).toHaveBeenCalledWith(null)
+    expect(loadItems).toHaveBeenCalledWith('')
     await flush()
   })
 
