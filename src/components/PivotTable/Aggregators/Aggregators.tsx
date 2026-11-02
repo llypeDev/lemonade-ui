@@ -1,10 +1,12 @@
 /** @jsx jsx */
 import { css, jsx } from '@emotion/core'
+import { useMemo } from 'react'
 
 import { Radio } from '../../Radio'
 import { Select } from '../../Select'
 import { VFlow } from '../../VFlow'
 import { useLocale } from '../../../i18n'
+import { randomStr } from '../../../util/string'
 import { KeyMap } from '../model'
 import { Aggregator } from './model'
 import { getAggregators, getKeyNotDependentAggregators } from './utils'
@@ -24,6 +26,9 @@ export function Aggregators<T extends object>(props: AggregatorsProps<T>) {
   const { numberKeys, keyMapping, handleAggregatorKeyChange, handleAggregatorChange, aggregator, aggregatorKey } = props
 
   const styles = createStyles()
+
+  // Each board has its own group of radios
+  const radioName = useMemo(() => `aggregator-${randomStr()}`, [])
 
   const itemToString = (item: keyof T | null) => (item ? keyMapping.get(item).keyName || (item as string) : '')
 
@@ -48,7 +53,7 @@ export function Aggregators<T extends object>(props: AggregatorsProps<T>) {
         {(numberKeysIsEmpty ? keyNotDependentAggregators : aggregators).map((f, idx) => (
           <div key={f.id} css={styles.wrapper}>
             <Radio
-              name='aggregator'
+              name={radioName}
               checked={aggregator.id === f.id}
               disabled={f.keyDependent && numberKeysIsEmpty}
               label={f.label}
@@ -61,6 +66,7 @@ export function Aggregators<T extends object>(props: AggregatorsProps<T>) {
       {aggregator.keyDependent && (
         <Select<keyof T>
           data-testid='aggregator-key-select'
+          aria-label={locale.pivotTableBoard.aggregatorKey}
           disabled={numberKeysIsEmpty}
           items={numberKeys as Array<keyof T>}
           itemToString={itemToString}

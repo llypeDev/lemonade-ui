@@ -30,11 +30,18 @@ describe('CodeBlock', () => {
   })
 
   it('should name the code region by its title or the locale label', () => {
-    const { container, rerender } = render(<CodeBlock code={code} title='install.sh' />)
-    expect(container.querySelector('pre')).toHaveAttribute('aria-label', 'install.sh')
+    const { container, getByRole, rerender } = render(<CodeBlock code={code} title='install.sh' />)
+    // A pre has no role of its own, and its aria-label is not read
+    expect(getByRole('group', { name: 'install.sh' })).toBe(container.querySelector('pre'))
+
+    rerender(<CodeBlock code={code} language='bash' />)
+    expect(getByRole('group', { name: 'bash' })).toBe(container.querySelector('pre'))
+
+    rerender(<CodeBlock code={code} title={<em>install.sh</em>} />)
+    expect(getByRole('group', { name: 'Code' })).toBe(container.querySelector('pre'))
 
     rerender(<CodeBlock code={code} />)
-    expect(container.querySelector('pre')).toHaveAttribute('aria-label', 'Code')
+    expect(getByRole('group', { name: 'Code' })).toBe(container.querySelector('pre'))
   })
 
   it('should copy the whole code', async () => {

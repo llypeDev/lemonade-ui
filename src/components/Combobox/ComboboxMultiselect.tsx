@@ -12,7 +12,7 @@ import { createStyleParts, TextInputBase } from '../TextField/TextInputBase'
 import { InputWrapper } from '../TextField/InputWrapper'
 import { EMPTY_ARRAY } from '../../util'
 import { ComboboxMultiselectComponents, defaultComboboxMultiselectComponents } from './ComboboxMenuComponents'
-import { useComboboxItemsLoader } from './useComboboxItemsLoader'
+import { useComboboxItemsLoader, useLoadItemsWhenOpen } from './useComboboxItemsLoader'
 import { DefaultComboboxItemType } from './Combobox'
 import { ComboboxSingleselectProps } from './ComboboxSingleselect'
 import { ListBox } from './ListBox'
@@ -61,25 +61,25 @@ export function ComboboxMultiselect<T = DefaultComboboxItemType>(props: Combobox
     getItemId,
     open,
     popperProps,
+    // Read by useFormControl, not attributes of the input
+    label,
+    error,
+    inline,
     ...rest
   } = props
 
-  const [itemsLoaded, setItemsLoaded] = useState(false)
   const locale = useLocale()
 
   const isAsync = typeof items === 'function'
-  const getItems = useCallback((query: string) => (typeof items === 'function' ? items(query) : filter(items, query)), [
-    items,
-    filter,
-  ])
+  const getItems = useCallback(
+    (query: string) => (typeof items === 'function' ? items(query) : filter(items ?? EMPTY_ARRAY, query)),
+    [items, filter]
+  )
   const { loading: loadingItems, items: loadedItems, loadItems } = useComboboxItemsLoader(
     getItems,
     debounceMilliseconds
   )
   const isLoading = externalLoading || (isAsync && loadingItems)
-
-  // Reload items when changed
-  useEffect(() => setItemsLoaded(false), [items])
 
   const inputRef = useRef<HTMLInputElement>()
   const wrapperRef = useRef<HTMLDivElement>()
@@ -102,12 +102,13 @@ export function ComboboxMultiselect<T = DefaultComboboxItemType>(props: Combobox
 
   // The value is applied when it changes, compared with the last value applied. Comparing it with the selection
   // instead made a controlled combobox loop forever: after the user changed the selection, the old value was applied
-  // again in the same render that sent the new one to onChange
+  // again in the same render that sent the new one to onChange. A missing value, as after a form reset, is empty
   const appliedValue = useRef<readonly T[]>(EMPTY_ARRAY)
   useEffect(() => {
-    if (value && !hasSameItems(value, appliedValue.current, itemIsEqual)) {
-      appliedValue.current = value
-      setSelectedItems(value)
+    const newValue = value ?? (EMPTY_ARRAY as T[])
+    if (!hasSameItems(newValue, appliedValue.current, itemIsEqual)) {
+      appliedValue.current = newValue
+      setSelectedItems(newValue)
     }
   }, [value, itemIsEqual, setSelectedItems])
 
@@ -117,12 +118,15 @@ export function ComboboxMultiselect<T = DefaultComboboxItemType>(props: Combobox
     itemIsEqual,
   ])
 
-  useEffect(() => {
-    if (open && !itemsLoaded) {
-      loadItems(inputRef.current?.value)
-      setItemsLoaded(true)
-    }
-  }, [open, itemsLoaded, loadItems])
+  // downshift removes an item by reference, so the selected item equal to the option is the one removed: a value
+  // built apart from the items holds other objects than the options
+  const toggleSelectedItem = useCallback(
+    (item: T) => {
+      const selectedItem = selectedItems.find((selected) => itemIsEqual(item, selected))
+      selectedItem === undefined ? addSelectedItem(item) : removeSelectedItem(selectedItem)
+    },
+    [selectedItems, itemIsEqual, addSelectedItem, removeSelectedItem]
+  )
 
   const {
     isOpen,
@@ -143,15 +147,12 @@ export function ComboboxMultiselect<T = DefaultComboboxItemType>(props: Combobox
     itemToString,
     onInputValueChange: ({ inputValue }) => composeHandlers(loadItems, onFilterChange)(inputValue),
     onSelectedItemChange: ({ selectedItem }) => {
-      isSelected(selectedItem) ? removeSelectedItem(selectedItem) : addSelectedItem(selectedItem)
+      toggleSelectedItem(selectedItem)
       clearFilterOnSelect && setInputValue('')
     },
-    onIsOpenChange: ({ isOpen, inputValue }) => {
-      isOpen && !itemsLoaded && loadItems(inputValue)
-      setItemsLoaded(true)
-    },
 
-    inputId,
+    // The label is tied to the input of an `id`
+    inputId: inputId ?? props.id,
     labelId,
     menuId,
     toggleButtonId,
@@ -159,6 +160,11 @@ export function ComboboxMultiselect<T = DefaultComboboxItemType>(props: Combobox
 
     ...(isNil(open) ? {} : { isOpen: open }),
   })
+
+  useLoadItemsWhenOpen(isOpen, items, loadItems, () => inputRef.current?.value)
+
+  // Without a label, nothing names the input and the menu by the id of the label
+  const labelledBy: { 'aria-labelledby'?: string } = label ? {} : { 'aria-labelledby': undefined }
 
   const { getFormControlProps, getInputProps: getFormControlInputProps } = useFormControl(props)
   const { ref: downshiftInputRef, ...downshiftInputProps } = getInputProps(
@@ -168,10 +174,11 @@ export function ComboboxMultiselect<T = DefaultComboboxItemType>(props: Combobox
       onClick,
       onBlur,
       onKeyDown,
+      ...labelledBy,
     })
   )
   const { id: internalLabelId, ...downshiftLabelProps } = getLabelProps()
-  const downshiftMenuProps = getMenuProps({ 'aria-multiselectable': true })
+  const downshiftMenuProps = getMenuProps({ 'aria-multiselectable': true, ...labelledBy })
   const { ref: toggleButtonRef, ...downshiftToggleButtonProps } = getToggleButtonProps()
 
   const {
@@ -189,10 +196,10 @@ export function ComboboxMultiselect<T = DefaultComboboxItemType>(props: Combobox
   const handleWrapperClick = () => inputRef.current.focus()
   const handleItemClick = useCallback(
     (item: T) => {
-      isSelected(item) ? removeSelectedItem(item) : addSelectedItem(item)
+      toggleSelectedItem(item)
       clearFilterOnSelect && setInputValue('')
     },
-    [isSelected, removeSelectedItem, addSelectedItem, clearFilterOnSelect, setInputValue]
+    [toggleSelectedItem, clearFilterOnSelect, setInputValue]
   )
   const handleItemRemove = useCallback(
     (item: T) => (e: React.MouseEvent<HTMLSpanElement>) => {
@@ -218,11 +225,12 @@ export function ComboboxMultiselect<T = DefaultComboboxItemType>(props: Combobox
           ref={wrapperRef}
           className={wrapperClasses}
           onClick={handleWrapperClick}
-          clearVisible={clearable && !!selectedItems.length}
+          clearVisible={clearable && !disabled && !!selectedItems.length}
           onClear={composeHandlers(reset, onClear)}
           icon={isOpen ? 'angleUp' : 'angleDown'}
           iconAriaLabel={isOpen ? locale.combobox.hideOptions : locale.combobox.showOptions}
           iconPosition='right'
+          iconDisabled={disabled}
           iconProps={downshiftToggleButtonProps}
           iconRef={toggleButtonRef}
         >
@@ -285,6 +293,11 @@ function comboboxMultiselectStateReducer<T>(
   const { type, changes } = actionAndChanges
   switch (type) {
     case useCombobox.stateChangeTypes.InputKeyDownEnter:
+      return {
+        ...changes,
+        isOpen: true, // keep the menu open after selection.
+        inputValue: state.inputValue, // and the typed filter, as a click does
+      }
     case useCombobox.stateChangeTypes.ItemClick:
       return {
         ...changes,
@@ -293,7 +306,16 @@ function comboboxMultiselectStateReducer<T>(
     case useCombobox.stateChangeTypes.InputBlur:
       return {
         ...changes,
+        // Leaving the field does not toggle the highlighted option, which Enter or a click picks
+        selectedItem: state.selectedItem,
         inputValue: '',
+      }
+    case useCombobox.stateChangeTypes.ControlledPropUpdatedSelectedItem:
+      // The input holds the filter, never the text of an item: downshift would write the text of no item over it
+      // when the option picked with Enter goes back to none
+      return {
+        ...changes,
+        inputValue: state.inputValue,
       }
     case useCombobox.stateChangeTypes.InputClick:
       return {

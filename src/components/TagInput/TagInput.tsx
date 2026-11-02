@@ -146,7 +146,8 @@ export function TagInput(props: TagInputProps) {
 
   const handleKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
     onKeyDown && onKeyDown(e)
-    if (e.defaultPrevented) {
+    // The keys that end a composition, such as the Enter that confirms a Japanese word, belong to the input method
+    if (e.defaultPrevented || e.nativeEvent.isComposing) {
       return
     }
 

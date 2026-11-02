@@ -17,17 +17,10 @@ export function MonthControl(props: MonthControlProps) {
   const { visibleDate, onChange, renderMonth } = props
   const locale = useLocale()
 
-  const handleNext = () => {
-    const next = new Date(visibleDate)
-    next.setMonth(visibleDate.getMonth() + 1)
-    return onChange(next)
-  }
+  // Goes to the first day: from a 31st, setMonth would roll over to the month after the target
+  const handleNext = () => onChange(new Date(visibleDate.getFullYear(), visibleDate.getMonth() + 1, 1))
 
-  const handlePrev = () => {
-    const prev = new Date(visibleDate)
-    prev.setMonth(prev.getMonth() - 1)
-    return onChange(prev)
-  }
+  const handlePrev = () => onChange(new Date(visibleDate.getFullYear(), visibleDate.getMonth() - 1, 1))
 
   return (
     <HFlow alignItems='center' hSpacing={0.5}>
@@ -43,7 +36,7 @@ export function MonthControl(props: MonthControlProps) {
 }
 
 MonthControl.defaultProps = {
-  renderMonth: date => {
+  renderMonth: (date) => {
     const formatter = new Intl.DateTimeFormat(getUserLocale(), { month: 'short' })
     return capitalize(formatter.format(date))
   },

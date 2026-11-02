@@ -2,7 +2,6 @@ import { Placement } from '@popperjs/core'
 import React, { CSSProperties, useEffect, useState } from 'react'
 import { usePopper } from 'react-popper'
 
-import { css } from 'emotion'
 import { useLocale } from '../../i18n'
 import { Theme, useStyles } from '../../styles'
 import { getUserLocale, getMonthShortFormat } from '../../util/locale'
@@ -15,7 +14,14 @@ import { Tooltip } from '../Tooltip'
 import { FocusManagerContainer } from '../FocusManagerContainer'
 
 export interface MonthPaginatorProps {
+  /**
+   * @default the current month
+   */
   month?: number
+
+  /**
+   * @default the current year
+   */
   year?: number
   isOpen?: boolean
   ghost?: boolean
@@ -25,8 +31,13 @@ export interface MonthPaginatorProps {
 }
 
 export function MonthPaginator(props: MonthPaginatorProps) {
-  const { month, year, isOpen, ghost, popperPlacement, formatter, onChange } = props
+  const { isOpen, ghost, popperPlacement, formatter, onChange } = props
   const locale = useLocale()
+
+  // The current month of the day the component mounts, not of the day the module loaded
+  const [today] = useState(() => new Date())
+  const month = props.month ?? today.getMonth()
+  const year = props.year ?? today.getFullYear()
 
   const [open, setOpen] = useState(isOpen)
   const {
@@ -39,17 +50,17 @@ export function MonthPaginator(props: MonthPaginatorProps) {
   }, [month])
 
   const [visibleYear, setVisibleYear] = useState(year)
+  // The year the picker shows, which changes the month only when the user clicks one of its months
+  const [pickerYear, setPickerYear] = useState(year)
   useEffect(() => {
     setVisibleYear(year)
+    setPickerYear(year)
   }, [year])
 
   const [anchorRef, setAnchorRef] = useState<HTMLDivElement>()
   const [popperRef, setPopperRef] = useState<HTMLDivElement>()
 
-  const {
-    styles: { popper: popperStyle },
-    attributes: { placement },
-  } = usePopper(anchorRef, popperRef, { placement: popperPlacement })
+  const { styles, attributes } = usePopper(anchorRef, popperRef, { placement: popperPlacement })
 
   const updateStates = (newMonth: ReferenceMonth) => {
     setVisibleMonth(newMonth.month)
@@ -58,7 +69,7 @@ export function MonthPaginator(props: MonthPaginatorProps) {
   }
 
   const onPrevClick = () => {
-    if (open) setVisibleYear((currYear) => currYear - 1)
+    if (open) setPickerYear((currYear) => currYear - 1)
     else {
       const newMonth = visibleMonth === 0 ? 11 : visibleMonth - 1
       const newYear = visibleMonth === 0 ? visibleYear - 1 : visibleYear
@@ -66,7 +77,7 @@ export function MonthPaginator(props: MonthPaginatorProps) {
     }
   }
   const onNextClick = () => {
-    if (open) setVisibleYear((currYear) => currYear + 1)
+    if (open) setPickerYear((currYear) => currYear + 1)
     else {
       const newMonth = visibleMonth === 11 ? 0 : visibleMonth + 1
       const newYear = visibleMonth === 11 ? visibleYear + 1 : visibleYear
@@ -79,9 +90,12 @@ export function MonthPaginator(props: MonthPaginatorProps) {
     setOpen(!open)
   }
 
-  const onVisibleMonthChange = (month: ReferenceMonth) => updateStates(month)
+  const onVisibleMonthChange = (month: ReferenceMonth) => setPickerYear(month.year)
 
-  const handleShowMonthsClick = () => setOpen(!open)
+  const handleShowMonthsClick = () => {
+    setPickerYear(visibleYear)
+    setOpen(!open)
+  }
 
   const handleFocusOut = () => setOpen(false)
   useEffect(() => {
@@ -99,6 +113,7 @@ export function MonthPaginator(props: MonthPaginatorProps) {
         <HFlow alignItems='center'>
           <Tooltip text={locale.calendar.previousMonth}>
             <Button
+              aria-label={locale.calendar.previousMonth}
               disabled={open}
               size='small'
               skin='ghost'
@@ -125,6 +140,7 @@ export function MonthPaginator(props: MonthPaginatorProps) {
           </Tooltip>
           <Tooltip text={locale.calendar.nextMonth}>
             <Button
+              aria-label={locale.calendar.nextMonth}
               disabled={open}
               size='small'
               skin='ghost'
@@ -138,12 +154,13 @@ export function MonthPaginator(props: MonthPaginatorProps) {
       </div>
       {open && (
         <MonthPicker
-          visibleMonth={{ month: visibleMonth, year: visibleYear }}
+          visibleMonth={{ month: visibleMonth, year: pickerYear }}
           onVisibleMonthChange={onVisibleMonthChange}
           onMonthClick={onMonthClick}
           ref={setPopperRef}
-          className={css(popup, popperStyle as any)}
-          data-placement={placement}
+          className={popup}
+          style={styles.popper}
+          {...attributes.popper}
         />
       )}
     </FocusManagerContainer>
@@ -153,8 +170,6 @@ export function MonthPaginator(props: MonthPaginatorProps) {
 MonthPaginator.defaultProps = {
   isOpen: false,
   popperPlacement: 'bottom-start',
-  month: new Date().getMonth(),
-  year: new Date().getFullYear(),
 }
 
 const createStyles = (theme: Theme, open: boolean) => ({

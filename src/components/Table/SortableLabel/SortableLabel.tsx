@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { CSSProperties } from 'react'
 
-import { Theme, useStyles } from '../../../styles'
+import { focusBoxShadow, Theme, useStyles } from '../../../styles'
 
 export type SortDirection = 'ASC' | 'DESC' | ''
 
@@ -19,7 +19,7 @@ export function SortableLabel(props: SortableLabelProps) {
   }
 
   return (
-    <span className={classes.wrapper} onClick={handleClick}>
+    <button type='button' className={classes.wrapper} onClick={handleClick}>
       {children}
       <Sort
         className={classes.icon}
@@ -28,7 +28,7 @@ export function SortableLabel(props: SortableLabelProps) {
           down: classes.desc,
         }}
       />
-    </span>
+    </button>
   )
 }
 
@@ -37,7 +37,20 @@ export const createStyles = (theme: Theme, { direction }: SortableLabelProps) =>
     display: 'inline-flex',
     alignItems: 'center',
     cursor: 'pointer',
-  },
+    // Looks like the text of the header around it
+    margin: 0,
+    padding: 0,
+    border: 0,
+    borderRadius: theme.radius.button,
+    background: 'transparent',
+    font: 'inherit',
+    color: 'inherit',
+    textAlign: 'inherit',
+    '&:focus-visible': {
+      outline: 'none',
+      boxShadow: focusBoxShadow(theme),
+    },
+  } as CSSProperties,
   icon: {
     marginLeft: '0.25rem',
     fontSize: '1rem',
@@ -58,7 +71,7 @@ export const toggleDirection = (dir: SortDirection): 'ASC' | 'DESC' => {
 const Sort = (props: React.SVGAttributes<SVGElement> & { classes: { up: string; down: string } }) => {
   const { classes, ...rest } = props
   return (
-    <svg viewBox='0 0 24 24' width='1em' height='1em' {...rest}>
+    <svg viewBox='0 0 24 24' width='1em' height='1em' aria-hidden='true' focusable='false' {...rest}>
       <polygon points='12 4.94 16.95 9.89 18.36 8.47 12 2.11 5.64 8.47 7.05 9.89 12 4.94' className={classes.up} />
       <polygon
         points='12 19.06 7.05 14.11 5.64 15.53 12 21.89 18.36 15.53 16.95 14.11 12 19.06'

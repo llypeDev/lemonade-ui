@@ -101,6 +101,16 @@ describe('TableOfContents', () => {
     expect(getByRole('link', { name: 'FAQ' })).toHaveAttribute('aria-current', 'location')
   })
 
+  it('should keep the state of the router in the history when it changes the hash', () => {
+    window.history.replaceState({ key: 'router-key' }, '', '#')
+    const { getByRole } = render(<Page />)
+    placeHeadings({ overview: 0, 'before-you-start': 200, 'acao-rapida': 500, faq: 900 })
+
+    fireEvent.click(getByRole('link', { name: 'FAQ' }))
+    expect(window.location.hash).toBe('#faq')
+    expect(window.history.state).toEqual({ key: 'router-key' })
+  })
+
   it('should accept the sections and a title', () => {
     const { getByRole } = render(
       <Page

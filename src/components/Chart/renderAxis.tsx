@@ -8,12 +8,14 @@ import { Tick } from './Tick'
 
 export function renderAxis(
   axis: 'x' | 'y',
-  options: AxisOptions,
+  axisOptions: AxisOptions,
   domain: AxisDomain,
   domainPoints: any[],
   hasOutliers: boolean,
   isBar?: boolean
 ) {
+  // yAxis of the Chart and xAxis of the BarChart are optional
+  const options = axisOptions ?? {}
   const isAxisX = axis === 'x'
 
   if (isAxisX)
@@ -129,13 +131,14 @@ function getAxisProps(
             />
           ),
     }
-  else
+  else {
+    const formatDate = (x: number | Date) => (axisDomain.format ?? defaultChartDateFormatter)(new Date(x))
     return {
       type: 'number',
       domain: [axisDomain.init.valueOf(), axisDomain.end.valueOf()],
       ticks: domainPoints,
       interval: 0,
-      tickFormatter: (x) => (axisDomain.format ?? defaultChartDateFormatter)(new Date(x)),
+      tickFormatter: formatDate,
       tick: axisOptions.tickRenderer
         ? (props) =>
             axisOptions.tickRenderer(
@@ -147,12 +150,15 @@ function getAxisProps(
         : (props) => (
             <Tick
               {...props}
+              // Recharts does not give the tickFormatter to a tick that is a function
+              payload={{ ...props.payload, value: formatDate(props.payload.value) }}
               isOutlierIndicator={hasOutliers && props.index === outliersIndex}
-              end={axisDomain.end}
+              domainMaxValue={formatDate(axisDomain.end)}
               isAxisX={isAxisX}
             />
           ),
     }
+  }
 }
 
 function getRefTicks(referenceAreas: ReferenceAreaWithPercents<any>[]): Map<number, ReferenceAreaWithPercents<any>> {

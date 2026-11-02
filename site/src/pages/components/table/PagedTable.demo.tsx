@@ -1,4 +1,4 @@
-import { Button, Icon, PagedTable } from '@lemonade/ui'
+import { Button, Icon, PagedTable, VisuallyHidden } from '@lemonade/ui'
 import React, { useState } from 'react'
 
 interface RowType {
@@ -69,9 +69,10 @@ function PagedTableExample() {
             },
             {
               name: 'actions',
+              header: <VisuallyHidden>Actions</VisuallyHidden>,
               align: 'right',
               render: (item) => (
-                <Button size='small' skin='ghost'>
+                <Button size='small' skin='ghost' aria-label='Edit'>
                   <Icon icon='penOutline' />
                 </Button>
               ),

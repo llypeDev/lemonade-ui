@@ -81,13 +81,13 @@ describe('buildHorizontalTable', () => {
     expect(cellList).toContainEqual({
       types: new Set([PivotTableCellType.VALUE]),
       gridArea: new GridArea(2, 2, 3, 3),
-      children: '3',
+      children: 3,
       isEndRow: true,
     })
     expect(cellList).toContainEqual({
       types: new Set([PivotTableCellType.VALUE]),
       gridArea: new GridArea(2, 3, 3, 4),
-      children: '4',
+      children: 4,
       isEndRow: true,
     })
     expect(cellList).toContainEqual({
@@ -136,13 +136,13 @@ describe('buildVerticalTable', () => {
     expect(cellList).toContainEqual({
       types: new Set([PivotTableCellType.VALUE]),
       gridArea: new GridArea(3, 2, 4, 3),
-      children: '3',
+      children: 3,
       isEndColumn: true,
     })
     expect(cellList).toContainEqual({
       types: new Set([PivotTableCellType.VALUE]),
       gridArea: new GridArea(4, 2, 5, 3),
-      children: '4',
+      children: 4,
       isEndColumn: true,
     })
     expect(cellList).toContainEqual({
@@ -204,7 +204,7 @@ describe('buildMixedTable', () => {
     expect(cellList).toContainEqual({
       types: new Set([PivotTableCellType.VALUE]),
       gridArea: new GridArea(3, 3, 4, 4),
-      children: '1',
+      children: 1,
       isEndRow: false,
     })
     expect(cellList).toContainEqual({
@@ -237,6 +237,65 @@ describe('buildMixedTable', () => {
       gridArea: new GridArea(4, 4, 5, 5),
       children: 1,
       isEndRow: true,
+      isEndColumn: true,
+    })
+  })
+
+  it('Should put each value in the row of its own key, also when the key starts with another key', () => {
+    const descendingKeyMapping = new Map([
+      ['name' as keyof Fruit, { keyName: 'Name', ordenator: (a: string, b: string) => (a > b ? -1 : 1) } as KeyConfig],
+      ['size' as keyof Fruit, { keyName: 'Size' } as KeyConfig],
+    ])
+    const defaultTree = {
+      nodeKey: 'name',
+      nodeValue: 3,
+      maxLeafValue: 2,
+      1: { nodeKey: 'size', nodeValue: 1, maxLeafValue: 1, small: { nodeValue: 1 } },
+      10: { nodeKey: 'size', nodeValue: 2, maxLeafValue: 2, small: { nodeValue: 2 } },
+    } as any
+    const complementaryTree = {
+      nodeKey: 'size',
+      nodeValue: 3,
+      maxLeafValue: 2,
+      small: { nodeKey: 'name', nodeValue: 3, maxLeafValue: 2, 1: { nodeValue: 1 }, 10: { nodeValue: 2 } },
+    } as any
+
+    const cellList = buildTable(['name'], ['size'], defaultTree, complementaryTree, descendingKeyMapping)
+
+    expect(cellList).toContainEqual({
+      types: new Set([PivotTableCellType.HEADER]),
+      gridArea: new GridArea(3, 1, 4, 3),
+      children: '10',
+      isEndColumn: false,
+    })
+    expect(cellList).toContainEqual({
+      types: new Set([PivotTableCellType.HEADER]),
+      gridArea: new GridArea(4, 1, 5, 3),
+      children: '1',
+      isEndColumn: false,
+    })
+    expect(cellList).toContainEqual({
+      types: new Set([PivotTableCellType.VALUE]),
+      gridArea: new GridArea(3, 3, 4, 4),
+      children: 2,
+      isEndRow: false,
+    })
+    expect(cellList).toContainEqual({
+      types: new Set([PivotTableCellType.VALUE]),
+      gridArea: new GridArea(4, 3, 5, 4),
+      children: 1,
+      isEndRow: false,
+    })
+    expect(cellList).toContainEqual({
+      types: new Set([PivotTableCellType.VALUE, PivotTableCellType.TOTAL]),
+      gridArea: new GridArea(3, 4, 4, 5),
+      children: 2,
+      isEndColumn: true,
+    })
+    expect(cellList).toContainEqual({
+      types: new Set([PivotTableCellType.VALUE, PivotTableCellType.TOTAL]),
+      gridArea: new GridArea(4, 4, 5, 5),
+      children: 1,
       isEndColumn: true,
     })
   })

@@ -54,6 +54,33 @@ it('should accept characters typed with shift and the plus key', () => {
   expect(handler).toHaveBeenCalledTimes(1)
 })
 
+it('should match letters and digits by the physical key when they give other characters', () => {
+  const handler = jest.fn()
+  renderHook(() => useHotkeys(['alt+n', 'shift+1', 'ctrl+s'], handler))
+
+  // alt+n on macOS starts a tilde
+  fireEvent.keyDown(document, { key: 'Dead', code: 'KeyN', altKey: true })
+  expect(handler).toHaveBeenCalledTimes(1)
+
+  fireEvent.keyDown(document, { key: '!', code: 'Digit1', shiftKey: true })
+  expect(handler).toHaveBeenCalledTimes(2)
+
+  // A Cyrillic layout
+  fireEvent.keyDown(document, { key: 'ы', code: 'KeyS', ctrlKey: true })
+  expect(handler).toHaveBeenCalledTimes(3)
+})
+
+it('should follow the character typed when it is a letter of another key', () => {
+  const handler = jest.fn()
+  renderHook(() => useHotkeys('ctrl+q', handler))
+
+  // The key at the place of Q types A on an AZERTY layout
+  fireEvent.keyDown(document, { key: 'a', code: 'KeyQ', ctrlKey: true })
+  expect(handler).not.toHaveBeenCalled()
+  fireEvent.keyDown(document, { key: 'q', code: 'KeyA', ctrlKey: true })
+  expect(handler).toHaveBeenCalledTimes(1)
+})
+
 it('should not run in form fields unless asked, nor when turned off', () => {
   const handler = jest.fn()
   const Form = (props: { enableOnFormFields?: boolean; enabled?: boolean }) => {

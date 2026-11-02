@@ -50,7 +50,6 @@ export function Chart<XDomain>(props: ChartProps<XDomain>) {
     series,
     xAxis,
     yAxis,
-    referenceAreas,
     stacked,
     colorScheme,
     showLegend,
@@ -60,6 +59,9 @@ export function Chart<XDomain>(props: ChartProps<XDomain>) {
     height,
     outliers = 'expand-domain',
   } = props
+
+  // Reference areas are percents of the y domain, so they are left out without one
+  const referenceAreas = yAxis?.domain && !Array.isArray(yAxis.domain) ? props.referenceAreas : undefined
 
   const maskId = useMemo(() => `${RANGE_AREA_MASK_ID}-${randomStr()}`, [])
   const theme = useTheme()

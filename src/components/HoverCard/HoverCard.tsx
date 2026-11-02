@@ -95,7 +95,8 @@ export function HoverCard(props: HoverCardProps) {
     <>
       <RootRef rootRef={triggerRef}>
         {React.cloneElement(child, {
-          'aria-describedby': open ? cardId : child.props['aria-describedby'],
+          // The element can have its own descriptions
+          'aria-describedby': [child.props['aria-describedby'], open && cardId].filter(Boolean).join(' ') || undefined,
           onMouseEnter: handler('onMouseEnter', show),
           onMouseLeave: handler('onMouseLeave', hide),
           onFocus: handler('onFocus', show),

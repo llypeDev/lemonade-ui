@@ -1,3 +1,4 @@
+import { cx } from 'emotion'
 import React, { CSSProperties, useEffect, useMemo, useRef, useState } from 'react'
 
 import { useIsMounted } from '../../hooks/useIsMounted'
@@ -73,6 +74,8 @@ export function InlineEdit(props: InlineEditProps) {
     maxLength,
     defaultEditing = false,
     style,
+    className,
+    onBlur,
     ...rest
   } = props
 
@@ -170,7 +173,10 @@ export function InlineEdit(props: InlineEditProps) {
     } else if (e.key === 'Escape') {
       e.preventDefault()
       e.stopPropagation()
-      close()
+      // As the cancel button, which is disabled while saving
+      if (!saving) {
+        close()
+      }
     }
   }
 
@@ -180,6 +186,7 @@ export function InlineEdit(props: InlineEditProps) {
 
   // Leaving the field saves, unless the focus goes to the save or cancel button
   const handleBlur = (e: React.FocusEvent<HTMLDivElement>) => {
+    onBlur && onBlur(e)
     const next = e.relatedTarget as Node | null
     if (editing && !saving && !(next && rootRef.current.contains(next))) {
       save()
@@ -187,7 +194,7 @@ export function InlineEdit(props: InlineEditProps) {
   }
 
   return (
-    <div ref={rootRef} className={css(classes.root, style)} onBlur={handleBlur} {...rest}>
+    <div {...rest} ref={rootRef} className={cx(css(classes.root, style), className)} onBlur={handleBlur}>
       {editing ? (
         <div className={classes.editor}>
           <div className={classes.row}>

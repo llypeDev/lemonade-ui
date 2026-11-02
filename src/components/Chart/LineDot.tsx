@@ -36,8 +36,11 @@ export function LineDot<XDomain>(props: LineDotProps<XDomain>) {
     tooltipRenderer,
   } = props
   const { classes } = useStyles(createStyles)
+  // A dot of a stacked area gets [base, top] as its value, so the label takes the value of the series from the data row
   const labelValue =
-    payload[getOutlierSeriesName(seriesName)]?.value ?? (Array.isArray(value) ? value[value.length - 1] : value)
+    payload?.[getOutlierSeriesName(seriesName)]?.value ??
+    payload?.[seriesName] ??
+    (Array.isArray(value) ? value[value.length - 1] : value)
 
   const hideDot = payload?.['hideDot'] ?? false
   const outlierValue = payload?.[getOutlierSeriesName(seriesName)]

@@ -37,9 +37,10 @@ export function LoadingOverlay(props: LoadingOverlayProps) {
   const { classes, css } = useStyles(createStyles)
 
   return (
-    <div className={css(classes.root, style)} aria-busy={loading} {...rest}>
-      {/* While loading, the content leaves the tab order and the accessibility tree */}
-      <div className={classes.content} {...(loading ? { inert: '' } : {})}>
+    <div className={css(classes.root, style)} {...rest}>
+      {/* While loading, the content leaves the tab order and the accessibility tree. Only the content is busy:
+          screen readers may hold back the announcements of the status inside a busy element. */}
+      <div className={classes.content} aria-busy={loading} {...(loading ? { inert: '' } : {})}>
         {children}
       </div>
       {loading && (

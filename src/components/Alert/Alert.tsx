@@ -28,7 +28,7 @@ export function Alert(props: AlertProps) {
   return (
     <div className={css(classes.wrapper, typeStyle.style, styles && styles.wrapper)} role='alert' {...rest}>
       <div className={css(classes.container, styles && styles.container)}>
-        <Icon icon={typeStyle.icon} style={classes.icon} size={inline && 1} />
+        <Icon icon={typeStyle.icon} style={classes.icon} size={inline ? 1 : undefined} />
         <div className={classes.content}>{children}</div>
       </div>
       {onCloseClick && (

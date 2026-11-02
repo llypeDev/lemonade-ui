@@ -45,20 +45,21 @@ export function MonthField(props: MonthFieldProps) {
     )
   }, [value])
 
+  // The placement of popperProps wins over the default one
   const {
     styles: { popper: popperStyle },
-    attributes: { placement },
-  } = usePopper(anchorRef, popperRef, { ...popperProps, placement: 'bottom-start' })
+    attributes: { popper: popperAttributes },
+  } = usePopper(anchorRef, popperRef, { placement: 'bottom-start', ...popperProps })
 
   const handleVisibleMonthChange = (month: ReferenceMonth) => setVisibleMonth(month)
 
   const handleInputChange = (month: ReferenceMonth) => {
-    onChange(month)
+    onChange && onChange(month)
   }
 
   const handleMonthClick = (month: ReferenceMonth) => {
     setOpen(false)
-    onChange(month)
+    onChange && onChange(month)
   }
 
   const handleInputIconClick = () => setOpen(true)
@@ -81,7 +82,7 @@ export function MonthField(props: MonthFieldProps) {
         <div
           ref={setPopperRef}
           className={css(classes.popup, popperStyle as any)}
-          data-placement={placement}
+          data-placement={popperAttributes?.['data-popper-placement']}
           data-testid='MonthField.popup'
         >
           <MonthPicker
@@ -89,10 +90,12 @@ export function MonthField(props: MonthFieldProps) {
             onVisibleMonthChange={handleVisibleMonthChange}
             onMonthClick={handleMonthClick}
             isDisabled={disabledByMonth(minMonth, maxMonth)}
+            {...monthPickerProps}
+            // Merged, so that other modifiers of monthPickerProps do not remove this one
             modifiers={{
+              ...monthPickerProps?.modifiers,
               selected: (month: ReferenceMonth) => value && isSameReferenceMonth(value, month),
             }}
-            {...monthPickerProps}
           />
         </div>
       )}

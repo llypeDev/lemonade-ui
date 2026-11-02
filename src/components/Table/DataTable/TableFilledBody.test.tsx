@@ -47,3 +47,18 @@ it('should render TablePlaceholderRow if loading is false and there are no rows'
   expect(render(createTable({ rows: [], loading: true })).queryAllByText(queryText).length).toEqual(0)
   expect(render(createTable({ rows: [], loading: false })).queryAllByText(queryText).length).toEqual(1)
 })
+
+it('should render the loading and placeholder rows without rows', () => {
+  expect(render(createTable({ rows: undefined, loading: true })).getByText(enUs.dataTable.loading)).toBeInTheDocument()
+  expect(render(createTable({ rows: null, loading: false })).getByText(enUs.dataTable.empty)).toBeInTheDocument()
+})
+
+it('should keep the state of a row in that row when the rows above it go away', () => {
+  const columns = [{ name: 'note', render: (row: Row) => <input aria-label={row.name} defaultValue={row.name} /> }]
+  const body = (props: Partial<TableFilledBodyProps>) =>
+    createTable({ columns, getRowId: (row: Row) => row.id, ...props })
+  const { getByRole, rerender } = render(body({ rows }))
+
+  rerender(body({ rows: rows.slice(1) }))
+  expect(getByRole('textbox', { name: rows[1].name })).toHaveValue(rows[1].name)
+})

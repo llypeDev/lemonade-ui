@@ -1,4 +1,4 @@
-import { Button, DataTable, Icon } from '@lemonade/ui'
+import { Button, DataTable, Icon, VisuallyHidden } from '@lemonade/ui'
 import React, { useState } from 'react'
 
 interface RowType {
@@ -33,23 +33,24 @@ function DataTableExample() {
           name: 'id',
           header: 'ID',
           sortable: true,
-          render: item => item.id,
+          render: (item) => item.id,
         },
         {
           name: 'name',
           header: 'Name',
-          render: item => item.name,
+          render: (item) => item.name,
         },
         {
           name: 'age',
           header: 'Age',
-          render: item => item.age,
+          render: (item) => item.age,
         },
         {
           name: 'actions',
+          header: <VisuallyHidden>Actions</VisuallyHidden>,
           align: 'right',
-          render: item => (
-            <Button size='small' skin='ghost'>
+          render: (item) => (
+            <Button size='small' skin='ghost' aria-label='Edit'>
               <Icon icon='penOutline' />
             </Button>
           ),
@@ -66,7 +67,7 @@ let id = 1
 const allRows: RowType[] = Array(3)
   .fill(true)
   .reduce(
-    curr => [
+    (curr) => [
       ...curr,
       { id: id++, name: 'MARIA MACHADO DE JESUS', age: 42 },
       { id: id++, name: 'JOSÉ DA SILVA MOREIRA', age: 34 },

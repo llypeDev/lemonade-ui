@@ -33,10 +33,12 @@ function adaptValueRangeDomainToData(domain: ValueRange, dataValues: number[], h
 
   const dataMin = Math.min(...dataValues)
   const dataMax = Math.max(...dataValues)
+  // The ticks of a domain without step are 1 apart, and the floor rounds negative values down, unlike %
+  const step = domain.step ?? 1
 
   return {
-    init: dataMin < domain.init ? dataMin - (dataMin % domain.step) : domain.init,
-    end: dataMax > domain.end && !hasOutlier ? dataMax + (domain.step - (dataMax % domain.step)) : domain.end,
+    init: dataMin < domain.init ? Math.floor(dataMin / step) * step : domain.init,
+    end: dataMax > domain.end && !hasOutlier ? Math.floor(dataMax / step) * step + step : domain.end,
     step: domain.step,
   }
 }
@@ -48,7 +50,8 @@ function adaptDateRangeDomainToData(domain: DateRange, dataValues: number[], has
     {
       init: +domain.init,
       end: +domain.end,
-      step: dateRangeStepToMillis(domain.step),
+      // The ticks of a domain without step are a day apart
+      step: dateRangeStepToMillis(domain.step ?? { amount: 1, unit: 'day' }),
     },
     dataValues,
     hasOutlier

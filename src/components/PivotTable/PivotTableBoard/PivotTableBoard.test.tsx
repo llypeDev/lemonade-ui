@@ -6,6 +6,8 @@ import { AggregatorEnum } from '../Aggregators/model'
 import { PivotTableBoard } from './PivotTableBoard'
 import { BoardField } from './model'
 
+jest.mock('../../../util/string')
+
 // Lets pending updates, such as popper positions, settle inside act
 const flush = () => act(async () => undefined)
 
@@ -281,6 +283,61 @@ describe('PivotTable - PivotTableBoard', () => {
         ['size', new Set(['Medium', 'Very small', 'Small', 'Medium', 'Big', 'Very big'])],
       ])
     )
+    await flush()
+  })
+
+  // Queries by text instead of by role, which is slow on the whole board
+  it('should clear the filters that the user unchecked', async () => {
+    const handleSubmit = jest.fn()
+    const { getByText, getByLabelText } = render(
+      <PivotTableBoard<Test>
+        keys={keys}
+        keyMapping={keyMapping}
+        numberKeys={[]}
+        onSubmit={handleSubmit}
+        onReset={noop}
+        aggregator={aggregator}
+        isBuilding={false}
+      />
+    )
+
+    fireEvent.click(getByText('Name'))
+    fireEvent.click(getByLabelText('Banana'))
+    fireEvent.click(getByText('Clear filters'))
+    fireEvent.click(getByText('Generate table'))
+
+    expect(handleSubmit).toHaveBeenCalledWith(
+      [[], []],
+      new Map([
+        ['name', new Set(['Apple', 'Banana', 'Blackberry', 'Lemon', 'Orange', 'Watermelon'])],
+        ['size', new Set(['Very small', 'Small', 'Medium', 'Big', 'Very big'])],
+      ])
+    )
+    await flush()
+  })
+
+  it('should check "All items" again when the filters are cleared', async () => {
+    const { getByText, getByLabelText } = render(
+      <PivotTableBoard<Test>
+        keys={keys}
+        keyMapping={keyMapping}
+        numberKeys={[]}
+        onSubmit={noop}
+        onReset={noop}
+        aggregator={aggregator}
+        isBuilding={false}
+      />
+    )
+
+    fireEvent.click(getByText('Name'))
+    fireEvent.click(getByLabelText('All items'))
+    expect(getByLabelText('All items')).not.toBeChecked()
+    expect(getByLabelText('Banana')).not.toBeChecked()
+
+    fireEvent.click(getByText('Clear filters'))
+
+    expect(getByLabelText('Banana')).toBeChecked()
+    expect(getByLabelText('All items')).toBeChecked()
     await flush()
   })
 

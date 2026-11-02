@@ -88,6 +88,8 @@ export function SelectSingle<T>(props: SelectSingleProps<T>) {
         onFilterChange={onFilterChange}
         createNewItem={createNewItem}
         labelId={formControlProps.labelId}
+        // The input takes the `id`, which the label is for
+        inputId={props.id}
       >
         {(downshift) => {
           const {
@@ -104,6 +106,7 @@ export function SelectSingle<T>(props: SelectSingleProps<T>) {
             onBlur: composeHandlers(props.onBlur),
             onFocus: composeHandlers(openMenu, props.onFocus),
             onClick: composeHandlers(openMenu, props.onClick),
+            onKeyDown: props.onKeyDown,
           } as any)
 
           return (

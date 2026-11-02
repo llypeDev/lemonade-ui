@@ -41,18 +41,18 @@ export function Grid(props: GridProps) {
     classes.grid,
     wrap && classes.wrap,
     typeof gap === 'object' && [
-      gap.xs && gapClasses.xs,
-      gap.sm && gapClasses.sm,
-      gap.md && gapClasses.md,
-      gap.lg && gapClasses.lg,
-      gap.xl && gapClasses.xl,
+      gap.xs != null && gapClasses.xs,
+      gap.sm != null && gapClasses.sm,
+      gap.md != null && gapClasses.md,
+      gap.lg != null && gapClasses.lg,
+      gap.xl != null && gapClasses.xl,
     ],
     typeof gapVertical === 'object' && [
-      gapVertical.xs && gapVerticalClasses.xs,
-      gapVertical.sm && gapVerticalClasses.sm,
-      gapVertical.md && gapVerticalClasses.md,
-      gapVertical.lg && gapVerticalClasses.lg,
-      gapVertical.xl && gapVerticalClasses.xl,
+      gapVertical.xs != null && gapVerticalClasses.xs,
+      gapVertical.sm != null && gapVerticalClasses.sm,
+      gapVertical.md != null && gapVerticalClasses.md,
+      gapVertical.lg != null && gapVerticalClasses.lg,
+      gapVertical.xl != null && gapVerticalClasses.xl,
     ],
     style
   )

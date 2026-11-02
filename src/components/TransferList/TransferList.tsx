@@ -1,4 +1,4 @@
-import React, { CSSProperties, useMemo, useState } from 'react'
+import React, { CSSProperties, useEffect, useMemo, useState } from 'react'
 
 import { useLocale } from '../../i18n'
 import { ExternalStyles, Theme, useStyles } from '../../styles'
@@ -103,7 +103,7 @@ export function TransferList(props: TransferListProps) {
   const baseId = useMemo(() => `transfer-list-${randomStr()}`, [])
 
   const [internalValue, setInternalValue] = useState(defaultValue)
-  const [checked, setChecked] = useState<Record<Side, string[]>>({ source: [], target: [] })
+  const [checkedState, setChecked] = useState<Record<Side, string[]>>({ source: [], target: [] })
   const [search, setSearch] = useState<Record<Side, string>>({ source: '', target: '' })
   const [announcement, setAnnouncement] = useState('')
 
@@ -114,6 +114,17 @@ export function TransferList(props: TransferListProps) {
   }
 
   const itemsOf = (side: Side) => items.filter((item) => (side === 'target') === targetIds.includes(item.id))
+
+  // Only the items still in a list stay checked, such as after a controlled value or the items change
+  const keepIn = (side: Side) => checkedState[side].filter((id) => itemsOf(side).some((item) => item.id === id))
+  const checked: Record<Side, string[]> = { source: keepIn('source'), target: keepIn('target') }
+  const stale =
+    checked.source.length !== checkedState.source.length || checked.target.length !== checkedState.target.length
+
+  // So that items that come back to a list do not come back checked
+  useEffect(() => {
+    stale && setChecked(checked)
+  }, [stale, checked])
 
   const visibleOf = (side: Side) => {
     const query = normalize(search[side].trim())

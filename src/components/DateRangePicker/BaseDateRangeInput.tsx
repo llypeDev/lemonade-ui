@@ -5,6 +5,7 @@ import { useLocale } from '../../i18n'
 import { ExternalStyles, focusBoxShadow, Theme, useStyles } from '../../styles'
 import { composeRefs } from '../../util/react'
 import { DateInput } from '../DateField'
+import { disableByRange } from '../DateField/DateField'
 import { IconImage, Icon } from '../Icon'
 import { Button } from '..'
 
@@ -23,6 +24,11 @@ export interface BaseDateRangeInputProps {
    * Component name
    */
   name?: string
+
+  /**
+   * Id of the first input, which a label points to. The second input gets `${id}-end`.
+   */
+  id?: string
 
   /**
    * "minDate" defines the minimum allowed date
@@ -115,6 +121,7 @@ export function BaseDateRangeInput(props: BaseDateRangeInputProps) {
     disabled,
     divRef,
     icon,
+    id,
     initialInputRef,
     finalInputRef,
     maxDate,
@@ -126,6 +133,8 @@ export function BaseDateRangeInput(props: BaseDateRangeInputProps) {
     rangeSeparator,
     value,
     style,
+    startPlaceholder,
+    finalPlaceholder,
     ...rest
   } = props
 
@@ -135,23 +144,20 @@ export function BaseDateRangeInput(props: BaseDateRangeInputProps) {
   const { classes, css } = useStyles(createStyles, disabled)
   const className = css(classes.div, props.invalid && classes.invalid, props.style)
 
+  // Compares the days, as the calendar does: a typed date is at midnight, while minDate may be new Date()
+  const isOutOfRange = disableByRange(minDate, maxDate)
+
   const handleMinMaxDates = (date: Date) => {
-    if (minDate && maxDate) {
-      return date && date >= minDate && date <= maxDate ? date : undefined
-    }
-    if (minDate) {
-      return date && date >= minDate ? date : undefined
-    }
-    if (maxDate) {
-      return date && date <= maxDate ? date : undefined
+    if (minDate || maxDate) {
+      return date && !isOutOfRange(date) ? date : undefined
     }
     return date
   }
 
   const onChangeStart = (date: Date) => {
     const startDate = handleMinMaxDates(date)
-    const endDate =
-      value?.startDate && value?.endDate && startDate && startDate > value?.endDate ? undefined : value?.endDate
+    // A start after the end clears the end, as the calendar does, even when there was no start
+    const endDate = value?.endDate && startDate && startDate > value?.endDate ? undefined : value?.endDate
     const aux = {
       startDate,
       endDate,
@@ -165,12 +171,10 @@ export function BaseDateRangeInput(props: BaseDateRangeInputProps) {
 
   const onChangeFinal = (date: Date) => {
     const auxFinalDate = handleMinMaxDates(date)
-    const startDate =
-      value?.startDate && value?.endDate && auxFinalDate && auxFinalDate < value?.startDate
-        ? auxFinalDate
-        : value?.startDate
-    const endDate =
-      value?.startDate && value?.endDate && auxFinalDate && auxFinalDate < value?.startDate ? undefined : auxFinalDate
+    const isBeforeStart = value?.startDate && auxFinalDate && auxFinalDate < value?.startDate
+    const startDate = isBeforeStart ? auxFinalDate : value?.startDate
+    // As the calendar does: an end before the start becomes the start, and the old start the end when there was no end
+    const endDate = isBeforeStart ? (value?.endDate ? undefined : value?.startDate) : auxFinalDate
 
     const aux = {
       startDate,
@@ -209,10 +213,11 @@ export function BaseDateRangeInput(props: BaseDateRangeInputProps) {
             clearable={clearable}
             name={name ? `${name}.startDate` : 'startDate'}
             disabled={disabled}
+            id={id}
             inputRef={composeRefs(firstDateFieldRef, initialInputRef) as any}
             onChange={onChangeStart}
             onClear={onClearStart}
-            placeholder={locale.dateInput.placeholder}
+            placeholder={startPlaceholder || locale.dateInput.placeholder}
             style={classes.dateField}
             value={value?.startDate}
             onFocus={onInputOnFocusInicial}
@@ -227,10 +232,11 @@ export function BaseDateRangeInput(props: BaseDateRangeInputProps) {
             clearable={clearable}
             name={name ? `${name}.endDate` : 'endDate'}
             disabled={disabled}
+            id={id && `${id}-end`}
             inputRef={composeRefs(secondDateFieldRef, finalInputRef) as any}
             onChange={onChangeFinal}
             onClear={onClearFinal}
-            placeholder={locale.dateInput.placeholder}
+            placeholder={finalPlaceholder || locale.dateInput.placeholder}
             style={classes.dateField}
             value={value?.endDate}
             onFocus={onInputOnFocusFinal}

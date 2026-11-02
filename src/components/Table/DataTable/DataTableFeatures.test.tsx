@@ -76,6 +76,13 @@ describe('DataTable features', () => {
     expect(queryByText('Items of order #1042')).not.toBeInTheDocument()
   })
 
+  it('should name the column of the details buttons', () => {
+    const { getAllByRole, getByRole } = render(
+      <DataTable rows={orders} columns={columns} renderExpanded={renderDetails} />
+    )
+    expect(getAllByRole('columnheader')[0]).toBe(getByRole('columnheader', { name: 'Details' }))
+  })
+
   it('should follow controlled expanded rows', () => {
     const { queryByText, rerender } = render(
       <DataTable rows={orders} columns={columns} renderExpanded={renderDetails} expandedRows={[]} />
@@ -133,5 +140,6 @@ describe('DataTable features', () => {
     )
     expect(getByRole('button', { name: 'Mostrar detalhes de linha 1' })).toBeInTheDocument()
     expect(getByRole('button', { name: 'Colunas' })).toBeInTheDocument()
+    expect(getByRole('columnheader', { name: 'Detalhes' })).toBeInTheDocument()
   })
 })

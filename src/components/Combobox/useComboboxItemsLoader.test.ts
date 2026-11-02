@@ -63,3 +63,49 @@ it('should keep one debounce when the loader is a new function on each render', 
   expect(calls).toEqual(['ab'])
   expect(result.current.items).toEqual(['ab3'])
 })
+
+it('should end the loading and empty the list when the loader throws', async () => {
+  let fail = false
+  const { result } = renderHook(() =>
+    useComboboxItemsLoader((filter: string) => {
+      if (fail) throw new Error('broken loader')
+      return [filter]
+    }, 0)
+  )
+
+  act(() => result.current.loadItems('a'))
+  await act(() => wait(20))
+  expect(result.current.items).toEqual(['a'])
+
+  fail = true
+  act(() => result.current.loadItems('b'))
+  await act(() => wait(20))
+
+  expect(result.current.loading).toBe(false)
+  expect(result.current.items).toEqual([])
+})
+
+it('should handle a rejected load', async () => {
+  const unhandled = jest.fn()
+  const nodeProcess = process as any
+  nodeProcess.on('unhandledRejection', unhandled)
+  const { result } = renderHook(() => useComboboxItemsLoader(() => Promise.reject(new Error('offline')), 0))
+
+  act(() => result.current.loadItems('a'))
+  await act(() => wait(20))
+
+  nodeProcess.off('unhandledRejection', unhandled)
+  expect(result.current.loading).toBe(false)
+  expect(result.current.items).toEqual([])
+  expect(unhandled).not.toHaveBeenCalled()
+})
+
+it('should give the loader an empty filter instead of a missing one', async () => {
+  const items = jest.fn((filter: string) => [filter])
+  const { result } = renderHook(() => useComboboxItemsLoader(items, 0))
+
+  act(() => result.current.loadItems(null))
+  await act(() => wait(20))
+
+  expect(items).toHaveBeenCalledWith('')
+})

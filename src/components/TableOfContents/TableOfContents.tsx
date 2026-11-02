@@ -168,7 +168,8 @@ export function TableOfContents(props: TableOfContentsProps) {
       element.setAttribute('tabindex', '-1')
     }
     element.focus({ preventScroll: true })
-    window.history.replaceState(null, '', `#${id}`)
+    // Keeps the state a router stored for this entry, such as its key
+    window.history.replaceState(window.history.state, '', `#${id}`)
     setActiveId(id)
   }
 

@@ -141,6 +141,16 @@ describe('NumberField', () => {
     expect(input).toHaveValue('7')
   })
 
+  it('should describe the input with the error', () => {
+    const { input } = renderField({ error: 'Too many' })
+    expect(input).toHaveAttribute('aria-describedby', 'error-abc')
+  })
+
+  it('should be aria-invalid when invalid is set', () => {
+    const { input } = renderField({ invalid: true })
+    expect(input).toHaveAttribute('aria-invalid', 'true')
+  })
+
   it('should not step when disabled', () => {
     const { input, onChange, getByRole } = renderField({ defaultValue: 1, disabled: true })
 

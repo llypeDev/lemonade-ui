@@ -73,6 +73,7 @@ const locale: LocaleConfiguration = {
     bulkActions: 'Ações para as linhas selecionadas',
     expand: 'Mostrar detalhes de {row}',
     collapse: 'Esconder detalhes de {row}',
+    details: 'Detalhes',
     columns: 'Colunas',
   },
   dateInput: {
@@ -222,12 +223,18 @@ const locale: LocaleConfiguration = {
     incompleted: 'Não iniciada',
     inactive: 'Inativa',
   },
+  tag: {
+    remove: 'Remover',
+  },
   tagInput: {
     instructions: 'Pressione Enter ou vírgula para adicionar. Backspace remove o último.',
     remove: 'Remover {tag}',
     invalid: 'inválido',
     added: '{tag} adicionado.',
     removed: '{tag} removido.',
+  },
+  textArea: {
+    characters: 'caracteres',
   },
   toggletip: {
     label: 'Mais informações',
@@ -301,6 +308,7 @@ const locale: LocaleConfiguration = {
     clearTableCancel: 'Cancelar',
     clearTableConfirm: 'Limpar',
     generateTable: 'Gerar tabela',
+    aggregatorKey: 'Campo a ser agregado',
   },
 }
 

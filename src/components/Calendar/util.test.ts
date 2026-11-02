@@ -46,6 +46,29 @@ describe('createMonthMatrix', () => {
 
     expect(createMonthMatrix(new Date('2018-09-25'))).toEqual(set2018)
   })
+
+  it('does not change the date it receives', () => {
+    const visibleDate = new Date(2019, 1, 25, 15, 30)
+    createMonthMatrix(visibleDate)
+    expect(visibleDate).toEqual(new Date(2019, 1, 25, 15, 30))
+  })
+
+  it('returns no weeks for an invalid date, without looping forever', () => {
+    // Stops an endless loop with an error: a month never needs a thousand date changes
+    const setDate = Date.prototype.setDate
+    let calls = 0
+    const spy = jest.spyOn(Date.prototype, 'setDate').mockImplementation(function (this: Date, day: number) {
+      if (++calls > 1000) {
+        throw new Error('createMonthMatrix does not stop')
+      }
+      return setDate.call(this, day)
+    })
+    try {
+      expect(createMonthMatrix(new Date('invalid'))).toEqual([])
+    } finally {
+      spy.mockRestore()
+    }
+  })
 })
 
 describe('isSameDay', () => {

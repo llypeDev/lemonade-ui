@@ -85,6 +85,39 @@ describe('InlineEdit', () => {
     expect(onSave).toHaveBeenCalledWith('Blurred')
   })
 
+  it('should still save on blur and keep its class when onBlur and className are given', () => {
+    const onSave = jest.fn()
+    const onBlur = jest.fn()
+    const { getByRole, container } = renderEdit({ onSave, onBlur, className: 'custom' })
+    const root = container.firstElementChild
+
+    expect(root).toHaveClass('custom')
+    expect(root.className).not.toEqual('custom')
+
+    fireEvent.click(getByRole('button', { name: /Edit Project name/ }))
+    fireEvent.change(getByRole('textbox'), { target: { value: 'Blurred' } })
+    fireEvent.blur(getByRole('textbox'), { relatedTarget: getByRole('button', { name: 'Elsewhere' }) })
+
+    expect(onSave).toHaveBeenCalledWith('Blurred')
+    expect(onBlur).toHaveBeenCalled()
+  })
+
+  it('should not cancel with Escape while saving', async () => {
+    let resolve: () => void
+    const onSave = jest.fn(() => new Promise<void>((done) => (resolve = done)))
+    const { getByRole, queryByRole } = renderEdit({ onSave })
+
+    fireEvent.click(getByRole('button', { name: /Edit Project name/ }))
+    fireEvent.change(getByRole('textbox'), { target: { value: 'New name' } })
+    fireEvent.keyDown(getByRole('textbox'), { key: 'Enter' })
+    fireEvent.keyDown(getByRole('textbox'), { key: 'Escape' })
+    expect(getByRole('textbox')).toHaveAttribute('readonly')
+
+    await act(async () => resolve())
+    expect(queryByRole('textbox')).not.toBeInTheDocument()
+    expect(getByRole('button', { name: /^New name/ })).toBeInTheDocument()
+  })
+
   it('should not save when nothing changed', () => {
     const onSave = jest.fn()
     const { getByRole } = renderEdit({ onSave })

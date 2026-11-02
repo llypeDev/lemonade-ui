@@ -33,7 +33,7 @@ const focusedWithoutKeyboard = (element: Element) => {
 }
 
 export function Tooltip(props: TooltipProps) {
-  const { text, offset, children, style: externalStyle, transitionDelay, container, ...rest } = props
+  const { text, offset, children, style: externalStyle, transitionDelay, container, modifiers, ...rest } = props
   const child = React.Children.only(children)
   const { onPointerEnter, onFocus, onBlur } = child.props ?? {}
 
@@ -48,9 +48,12 @@ export function Tooltip(props: TooltipProps) {
   const {
     styles: { popper: popperStyles },
   } = usePopper(rootRef.current, popperRef, {
-    // The space between the tooltip and its element, as Popper 2 takes it
-    modifiers: [{ name: 'offset', options: { offset: [0, theme.typography.sizes.html * offset] } }],
     ...rest,
+    // The space between the tooltip and its element, as Popper 2 takes it, and then the modifiers of the user
+    modifiers: [
+      { name: 'offset', options: { offset: [0, theme.typography.sizes.html * offset] } },
+      ...(modifiers ?? []),
+    ],
   })
 
   useEffect(() => {
@@ -106,7 +109,9 @@ export function Tooltip(props: TooltipProps) {
       <RootRef rootRef={rootRef}>
         {React.cloneElement(child, {
           title: !visible ? child.props.title || text : child.props.title,
-          'aria-describedby': visible ? tooltipId : undefined,
+          // The element can have its own descriptions, such as an error message
+          'aria-describedby':
+            [child.props['aria-describedby'], visible && tooltipId].filter(Boolean).join(' ') || undefined,
           onPointerEnter: handlePointerEnter,
           onFocus: handleFocus,
           onBlur: handleBlur,

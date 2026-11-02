@@ -1,6 +1,6 @@
 import { useCombobox, UseComboboxState, UseComboboxStateChangeOptions } from 'downshift'
 import matchSorter from 'match-sorter'
-import React, { CSSProperties, MutableRefObject, useCallback, useEffect, useRef, useState } from 'react'
+import React, { CSSProperties, MutableRefObject, useCallback, useRef, useState } from 'react'
 import { PopperProps, usePopper } from 'react-popper'
 import { useMemo } from 'react'
 import { isNil } from 'lodash'
@@ -12,7 +12,7 @@ import { useFormControl, UseFormControlProps } from '../../hooks/useFormControl'
 import { TextInput, TextInputProps } from '../TextField'
 import { EMPTY_ARRAY } from '../../util'
 import { ComboboxComponents, defaultComboboxComponents } from './ComboboxMenuComponents'
-import { useComboboxItemsLoader } from './useComboboxItemsLoader'
+import { useComboboxItemsLoader, useLoadItemsWhenOpen } from './useComboboxItemsLoader'
 import { DefaultComboboxItemType } from './Combobox'
 import { ListBox } from './ListBox'
 
@@ -71,10 +71,13 @@ export function ComboboxSingleselect<T = DefaultComboboxItemType>(props: Combobo
     getItemId,
     open,
     popperProps,
+    // Read by useFormControl, not attributes of the input
+    label,
+    error,
+    inline,
     ...rest
   } = props
 
-  const [itemsLoaded, setItemsLoaded] = useState(false)
   const locale = useLocale()
   const { classes } = useStyles(createStyles)
 
@@ -89,18 +92,8 @@ export function ComboboxSingleselect<T = DefaultComboboxItemType>(props: Combobo
   )
   const isLoading = externalLoading || (isAsync && loadingItems)
 
-  // Reload items when changed
-  useEffect(() => setItemsLoaded(false), [items])
-
   const inputRef = useRef<HTMLInputElement>()
   const [menuRef, setMenuRef] = useState<HTMLDivElement>()
-
-  useEffect(() => {
-    if (open && !itemsLoaded) {
-      loadItems(inputRef.current?.value)
-      setItemsLoaded(true)
-    }
-  }, [open, itemsLoaded, loadItems])
 
   const {
     isOpen,
@@ -124,12 +117,9 @@ export function ComboboxSingleselect<T = DefaultComboboxItemType>(props: Combobo
       closeMenu()
       onChange?.(selectedItem)
     },
-    onIsOpenChange: ({ isOpen, inputValue }) => {
-      isOpen && !itemsLoaded && loadItems(inputValue)
-      setItemsLoaded(true)
-    },
 
-    inputId,
+    // The label is tied to the input of an `id`
+    inputId: inputId ?? props.id,
     labelId,
     menuId,
     toggleButtonId,
@@ -137,6 +127,11 @@ export function ComboboxSingleselect<T = DefaultComboboxItemType>(props: Combobo
 
     ...(isNil(open) ? {} : { isOpen: open }),
   })
+
+  useLoadItemsWhenOpen(isOpen, items, loadItems, () => inputRef.current?.value)
+
+  // Without a label, nothing names the input and the menu by the id of the label
+  const labelledBy: { 'aria-labelledby'?: string } = label ? {} : { 'aria-labelledby': undefined }
 
   const { getFormControlProps, getInputProps: getFormControlInputProps } = useFormControl(props)
   const { ref: downshiftInputRef, ...downshiftInputProps } = getInputProps<{
@@ -148,9 +143,10 @@ export function ComboboxSingleselect<T = DefaultComboboxItemType>(props: Combobo
     onClick,
     onBlur,
     onKeyDown,
+    ...labelledBy,
   })
   const { id: internalLabelId, ...downshiftLabelProps } = getLabelProps()
-  const downshiftMenuProps = getMenuProps()
+  const downshiftMenuProps = getMenuProps(labelledBy)
   const { ref: toggleButtonRef, ...downshiftToggleButtonProps } = getToggleButtonProps()
 
   const {
@@ -229,8 +225,9 @@ const comboboxStateReducer = <T,>(createNewItem: (inputValue: string) => T) => (
     case useCombobox.stateChangeTypes.InputBlur:
       return {
         ...changes,
+        // An item is created only from a text with something besides spaces
         ...(!changes.selectedItem &&
-          (createNewItem
+          (createNewItem && state.inputValue?.trim()
             ? { selectedItem: createNewItem(state.inputValue) }
             : {
                 inputValue: '',

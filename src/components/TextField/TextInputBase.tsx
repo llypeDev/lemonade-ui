@@ -23,7 +23,11 @@ export function TextInputBase(props: TextInputBaseProps) {
 
   const className = css(classes.input, invalid && classes.invalid, style)
 
-  return <Input className={className} aria-invalid={invalid ? 'true' : undefined} {...rest} />
+  // An `aria-invalid` given by the parent wins, but an undefined one (as spread by `useFormControl`) does not
+  // erase the one of `invalid`
+  const ariaInvalid = rest['aria-invalid'] !== undefined ? rest['aria-invalid'] : invalid ? 'true' : undefined
+
+  return <Input className={className} {...rest} aria-invalid={ariaInvalid} />
 }
 
 TextInputBase.defaultProps = {

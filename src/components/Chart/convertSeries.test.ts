@@ -87,12 +87,36 @@ describe('convert series to Recharts format', () => {
 
     const seriesConverted = convertSeries(series, domainPoints, adaptedYDomain, referenceAreas)
 
+    // Interpolated between 0 at "cat 1" and 120 at "cat 5"
     expect(seriesConverted).toMatchObject([
       { x: 'cat 1', Test: 1, Test2: 5, ref1: 0 },
-      { x: 'cat 2', Test: 2, Test2: 4, ref1: 120 },
-      { x: 'cat 3', Test: 3, Test2: 3, ref1: 240 },
-      { x: 'cat 4', Test: 4, Test2: 2, ref1: 360 },
+      { x: 'cat 2', Test: 2, Test2: 4, ref1: 30 },
+      { x: 'cat 3', Test: 3, Test2: 3, ref1: 60 },
+      { x: 'cat 4', Test: 4, Test2: 2, ref1: 90 },
       { x: 'cat 5', Test: 5, Test2: 1, ref1: 120 },
+    ])
+  })
+
+  it('should keep the order of the category domain', () => {
+    const series: ChartSeries<string>[] = [{ name: 'Test', data: [1, 2, 3] }]
+
+    const seriesConverted = convertSeries(series, ['Jan', 'Feb', 'Mar'], adaptedYDomain, undefined)
+
+    expect(seriesConverted.map((row) => row.x)).toEqual(['Jan', 'Feb', 'Mar'])
+  })
+
+  it('should put the points of the same date in the same row', () => {
+    const series: ChartSeries<Date>[] = [
+      { name: 'Test', data: [{ x: new Date(2020, 0, 2), y: 1 }] },
+      { name: 'Test2', data: [{ x: new Date(2020, 0, 2), y: 2 }] },
+      { name: 'Test3', data: [{ x: new Date(2020, 0, 1), y: 3 }] },
+    ]
+
+    const seriesConverted = convertSeries(series, [], adaptedYDomain, undefined)
+
+    expect(seriesConverted).toEqual([
+      { x: new Date(2020, 0, 1), Test3: 3 },
+      { x: new Date(2020, 0, 2), Test: 1, Test2: 2 },
     ])
   })
 

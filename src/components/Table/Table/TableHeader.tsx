@@ -22,13 +22,18 @@ export function TableHeader(props: TableHeaderProps) {
   }
 
   return (
-    <th className={css(classes.th, style)} {...rest}>
+    <th className={css(classes.th, style)} aria-sort={ariaSort[sortDirection] || 'none'} {...rest}>
       <SortableLabel direction={sortDirection} onChange={onSortChange}>
         {props.children}
       </SortableLabel>
     </th>
   )
 }
+
+const ariaSort = {
+  ASC: 'ascending',
+  DESC: 'descending',
+} as const
 
 TableHeader.defaultProps = {
   sortable: false,

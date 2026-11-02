@@ -162,11 +162,11 @@ export interface DataPointWithOutlier<XDomain> {
 }
 
 export function isValueRange(x: AxisDomain): x is ValueRange {
-  return typeof (x as ValueRange).init === 'number'
+  return typeof (x as ValueRange)?.init === 'number'
 }
 
 export function isDateRange(x: AxisDomain): x is DateRange {
-  return Object.prototype.toString.call((x as DateRange).init) === '[object Date]'
+  return Object.prototype.toString.call((x as DateRange)?.init) === '[object Date]'
 }
 
 export function getChartColorScheme(colorScheme: ChartColorScheme): Color[] {

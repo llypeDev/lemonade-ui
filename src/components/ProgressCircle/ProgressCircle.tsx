@@ -54,7 +54,10 @@ export function ProgressCircle(props: ProgressCircleProps) {
   const { classes, css } = useStyles(createStyles, size, type)
 
   const indeterminate = typeof value !== 'number'
-  const ratio = indeterminate ? 0.25 : Math.min(Math.max(value / max, 0), 1)
+  // A value that is not a number, or a max of 0, shows as no progress instead of "NaN%"
+  const measurable = !indeterminate && !isNaN(value) && max > 0
+  const current = measurable ? Math.min(Math.max(value, 0), max) : 0
+  const ratio = indeterminate ? 0.25 : measurable ? current / max : 0
   const percent = Math.round(ratio * 100)
 
   return (
@@ -62,7 +65,7 @@ export function ProgressCircle(props: ProgressCircleProps) {
       role='progressbar'
       aria-valuemin={indeterminate ? undefined : 0}
       aria-valuemax={indeterminate ? undefined : max}
-      aria-valuenow={indeterminate ? undefined : value}
+      aria-valuenow={indeterminate ? undefined : current}
       aria-valuetext={indeterminate ? undefined : `${percent}%`}
       aria-label={rest['aria-labelledby'] ? undefined : indeterminate ? locale.progressCircle.loading : undefined}
       className={css(classes.root, style)}

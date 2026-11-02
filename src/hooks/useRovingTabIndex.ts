@@ -2,8 +2,6 @@
 
 import { useEffect, useRef } from 'react'
 
-import { merge } from '../util'
-
 export interface RovingTabIndexOptions {
   /**
    * Index of the item that should be intially focused when focus enters root container.
@@ -51,19 +49,31 @@ const defaultOptions: Partial<RovingTabIndexOptions> = {
 }
 
 export function useRovingTabIndex(options: RovingTabIndexOptions) {
-  const { initialIndex, nextKeys, prevKeys, firstKeys, lastKeys, getItems, wrapAround } = merge(
-    {},
-    defaultOptions,
-    options
-  )
+  // The keys given replace the default ones, instead of being merged with them item by item
+  const {
+    initialIndex = defaultOptions.initialIndex,
+    nextKeys = defaultOptions.nextKeys,
+    prevKeys = defaultOptions.prevKeys,
+    firstKeys = defaultOptions.firstKeys,
+    lastKeys = defaultOptions.lastKeys,
+    wrapAround = defaultOptions.wrapAround,
+    getItems,
+  } = options
 
   const rootRef = useRef<any>()
+  const appliedIndexRef = useRef<number>()
 
   // Initialize tabindex attributes:
   useEffect(() => {
     const items = getItems(rootRef.current)
+    // Later renders keep the tab stop on the item that took the focus, unless the initial index changed
+    const current =
+      appliedIndexRef.current === initialIndex ? items.findIndex((item) => item.getAttribute('tabindex') === '0') : -1
+    const tabStop = current === -1 ? initialIndex : current
+    appliedIndexRef.current = initialIndex
+
     items.forEach((item, idx) => {
-      if (idx === initialIndex) {
+      if (idx === tabStop) {
         item.setAttribute('tabindex', '0')
       } else {
         item.setAttribute('tabindex', '-1')

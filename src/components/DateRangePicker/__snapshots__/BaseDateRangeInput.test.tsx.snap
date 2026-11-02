@@ -2838,6 +2838,7 @@ exports[`BaseDateRangeInput render should render correctly when invalid 1`] = `
                 class="emotion-1"
               >
                 <input
+                  aria-invalid="true"
                   autocomplete="off"
                   class="emotion-0"
                   name="startDate"
@@ -2873,6 +2874,7 @@ exports[`BaseDateRangeInput render should render correctly when invalid 1`] = `
                 class="emotion-1"
               >
                 <input
+                  aria-invalid="true"
                   autocomplete="off"
                   class="emotion-0"
                   name="endDate"

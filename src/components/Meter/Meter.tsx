@@ -74,6 +74,8 @@ export function Meter(props: MeterProps) {
     formatValue,
     style,
     'aria-label': ariaLabel,
+    'aria-labelledby': ariaLabelledby,
+    'aria-describedby': ariaDescribedby,
     ...rest
   } = props
 
@@ -111,10 +113,11 @@ export function Meter(props: MeterProps) {
         role='meter'
         aria-valuemin={min}
         aria-valuemax={max}
-        aria-valuenow={value}
+        aria-valuenow={clamp(value, min, max)}
         aria-valuetext={text}
-        aria-labelledby={label ? labelId : undefined}
+        aria-labelledby={ariaLabelledby ?? (label ? labelId : undefined)}
         aria-label={!label ? ariaLabel : undefined}
+        aria-describedby={ariaDescribedby}
         className={classes.track}
       >
         <div className={classes.bar} style={{ width: `${ratio * 100}%` }} />

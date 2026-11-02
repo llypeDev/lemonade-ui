@@ -165,6 +165,7 @@ exports[`CodeBlock should render correctly 1`] = `
     >
       <span
         class="emotion-0"
+        id="code-block-title-abc"
       >
         bash
       </span>
@@ -195,9 +196,10 @@ exports[`CodeBlock should render correctly 1`] = `
       />
     </div>
     <pre
-      aria-label="bash"
+      aria-labelledby="code-block-title-abc"
       class="emotion-8"
       data-language="bash"
+      role="group"
       tabindex="0"
     >
       <code

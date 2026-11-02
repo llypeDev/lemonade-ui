@@ -438,6 +438,7 @@ exports[`should render correctly 1`] = `
           class="emotion-2"
         >
           <input
+            aria-describedby="error-abc"
             aria-errormessage="error-abc"
             aria-invalid="true"
             aria-labelledby="label-abc"

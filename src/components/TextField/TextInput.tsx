@@ -42,7 +42,7 @@ export function TextInput(props: TextInputProps) {
   }
 
   const isIconDisabled = props.iconDisabled !== undefined ? props.iconDisabled : props.disabled
-  const isClearVisible = clearable && !props.disabled && (!!props.value || !!props.defaultValue)
+  const isClearVisible = clearable && !props.disabled && !props.readOnly && (!!props.value || !!props.defaultValue)
 
   return (
     <InputWrapper

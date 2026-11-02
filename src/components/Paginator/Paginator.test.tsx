@@ -52,6 +52,31 @@ it('should call onChange when Enter is pressed', () => {
   expect(handleChange).toHaveBeenCalledTimes(1)
 })
 
+it('should not submit the form around it on Enter', () => {
+  const { container } = render(<Paginator page={4} total={10} />)
+  const input = container.querySelector('input')
+
+  fireEvent.change(input, { target: { value: '8' } })
+  // fireEvent returns false when the default action, which submits a form, is prevented
+  expect(fireEvent.keyDown(input, { key: 'Enter' })).toBe(false)
+})
+
+it('should not call onChange again on the blur after Enter', () => {
+  const handleChange = jest.fn()
+  const { container } = render(<Paginator page={4} total={10} onChange={handleChange} />)
+  const input = container.querySelector('input')
+
+  fireEvent.change(input, { target: { value: '8' } })
+  fireEvent.keyDown(input, { key: 'Enter' })
+  fireEvent.blur(input)
+  expect(handleChange).toHaveBeenCalledTimes(1)
+
+  fireEvent.change(input, { target: { value: '9' } })
+  fireEvent.blur(input)
+  expect(handleChange).toHaveBeenLastCalledWith(8)
+  expect(handleChange).toHaveBeenCalledTimes(2)
+})
+
 it('should reset value if value is not an integer', () => {
   const handleChange = jest.fn()
   const { container } = render(<Paginator page={4} total={10} onChange={handleChange} />)
