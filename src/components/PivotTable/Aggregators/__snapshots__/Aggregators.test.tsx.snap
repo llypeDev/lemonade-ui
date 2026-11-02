@@ -146,7 +146,7 @@ exports[`PivotTable - Aggregators should render correctly 1`] = `
             <input
               checked=""
               class="emotion-0"
-              name="aggregator"
+              name="aggregator-abc"
               type="radio"
               value="0"
             />
@@ -168,7 +168,7 @@ exports[`PivotTable - Aggregators should render correctly 1`] = `
           >
             <input
               class="emotion-0"
-              name="aggregator"
+              name="aggregator-abc"
               type="radio"
               value="1"
             />
@@ -334,7 +334,7 @@ exports[`PivotTable - Aggregators should render correctly with numberKeys 1`] = 
             <input
               checked=""
               class="emotion-0"
-              name="aggregator"
+              name="aggregator-abc"
               type="radio"
               value="0"
             />
@@ -356,7 +356,7 @@ exports[`PivotTable - Aggregators should render correctly with numberKeys 1`] = 
           >
             <input
               class="emotion-0"
-              name="aggregator"
+              name="aggregator-abc"
               type="radio"
               value="1"
             />
@@ -378,7 +378,7 @@ exports[`PivotTable - Aggregators should render correctly with numberKeys 1`] = 
           >
             <input
               class="emotion-0"
-              name="aggregator"
+              name="aggregator-abc"
               type="radio"
               value="2"
             />
@@ -400,7 +400,7 @@ exports[`PivotTable - Aggregators should render correctly with numberKeys 1`] = 
           >
             <input
               class="emotion-0"
-              name="aggregator"
+              name="aggregator-abc"
               type="radio"
               value="3"
             />
@@ -422,7 +422,7 @@ exports[`PivotTable - Aggregators should render correctly with numberKeys 1`] = 
           >
             <input
               class="emotion-0"
-              name="aggregator"
+              name="aggregator-abc"
               type="radio"
               value="4"
             />

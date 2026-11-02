@@ -295,6 +295,7 @@ const locale: LocaleConfiguration = {
     clearTableCancel: 'Cancelar',
     clearTableConfirm: 'Limpar',
     generateTable: 'Gerar tabela',
+    aggregatorKey: 'Campo a ser agregado',
   },
 }
 

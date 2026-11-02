@@ -153,3 +153,33 @@ it('should switch "title" and "aria-describedby" props on target element when to
   expect(target.getAttribute('title')).toEqual(null)
   await flush()
 })
+
+it('should add the tooltip to the descriptions of the element', async () => {
+  const { getByRole } = await actRender(
+    <Tooltip text='Tooltip text'>
+      <input aria-describedby='error' />
+    </Tooltip>
+  )
+  const input = getByRole('textbox')
+  expect(input).toHaveAttribute('aria-describedby', 'error')
+
+  await act(async () => {
+    fireEvent.focus(input)
+  })
+  expect(input).toHaveAttribute('aria-describedby', 'error tooltip-abc')
+
+  fireEvent.blur(input)
+  expect(input).toHaveAttribute('aria-describedby', 'error')
+  await flush()
+})
+
+it('should keep the offset with the modifiers of the user', async () => {
+  const { getByText } = await actRender(<TooltipTest modifiers={[{ name: 'flip', enabled: false }]} />)
+
+  await act(async () => {
+    fireEvent.focus(getByText('Testing'))
+  })
+
+  // The offset is 2rem, below the element
+  expect(document.body.querySelector<HTMLElement>('[role="tooltip"]').style.transform).toEqual('translate(0px, 32px)')
+})

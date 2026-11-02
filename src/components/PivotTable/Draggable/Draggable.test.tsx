@@ -75,6 +75,33 @@ describe('Draggable', () => {
       expect(onDragEnd).toHaveBeenCalled()
       await flush()
     })
+
+    it('should keep dragging after a drag released outside the boxes', async () => {
+      const onDragEnd = jest.fn()
+      const { container } = render(
+        <DndProvider backend={HTML5Backend}>
+          <DroppableDiv type='test'>{createDefaultComponent({ onDragEnd })}</DroppableDiv>
+          <DroppableDiv type='test' />
+        </DndProvider>
+      )
+
+      const draggable = container.querySelectorAll('div[class*=droppable]')[0].firstChild
+      const secondDiv = container.querySelectorAll('div[class*=droppable]')[1]
+
+      // Released outside any box, or cancelled with Escape: there is no drop result
+      fireEvent.dragStart(draggable)
+      fireEvent.dragEnd(draggable)
+      expect(onDragEnd).not.toHaveBeenCalled()
+
+      fireEvent.dragStart(draggable)
+      fireEvent.dragEnter(secondDiv)
+      fireEvent.dragOver(secondDiv)
+      fireEvent.drop(secondDiv)
+      fireEvent.dragEnd(draggable)
+
+      expect(onDragEnd).toHaveBeenCalledTimes(1)
+      await flush()
+    })
   })
 
   describe('Keyboard navigation', () => {

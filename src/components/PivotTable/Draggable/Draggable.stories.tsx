@@ -1,5 +1,5 @@
 import { action } from '@storybook/addon-actions'
-import React from 'react'
+import React, { useState } from 'react'
 import { KeyNavigationDirection } from '../Droppable/types/model'
 import { Draggable } from './Draggable'
 import { FilterDraggable } from './FilterDraggable'
@@ -41,18 +41,26 @@ export const Default = () => (
   />
 )
 
-export const Filter = () => (
-  <FilterDraggable<Fruit>
-    key={key as string}
-    name={key}
-    type='Fruit'
-    value={keyMapping.get(key).keyName || (key as string)}
-    formatter={keyMapping.get(key).formatter}
-    origin={origin}
-    filterItems={keys.get(key)}
-    selectedItems={new Set<string>(['Apple'])}
-    onFilterUpdate={action('onFilterUpdate')}
-    onDragEnd={action('onDragEnd')}
-    onKeyNav={onKeyNav}
-  />
-)
+export const Filter = () => {
+  const [selectedItems, setSelectedItems] = useState(
+    new Set<string>(['Apple'])
+  )
+  return (
+    <FilterDraggable<Fruit>
+      key={key as string}
+      name={key}
+      type='Fruit'
+      value={keyMapping.get(key).keyName || (key as string)}
+      formatter={keyMapping.get(key).formatter}
+      origin={origin}
+      filterItems={keys.get(key)}
+      selectedItems={selectedItems}
+      onFilterUpdate={(key, filter) => {
+        action('onFilterUpdate')(key, filter)
+        setSelectedItems(filter)
+      }}
+      onDragEnd={action('onDragEnd')}
+      onKeyNav={onKeyNav}
+    />
+  )
+}

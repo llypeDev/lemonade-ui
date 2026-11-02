@@ -1,4 +1,4 @@
-import React, { useEffect, useRef } from 'react'
+import React, { useEffect, useState } from 'react'
 import { createPortal } from 'react-dom'
 
 export interface PortalProps {
@@ -6,16 +6,22 @@ export interface PortalProps {
   children: React.ReactNode
 }
 
+// The server renders no portal. While React hydrates a page that the server rendered, which React 16 marks with
+// data-reactroot, a portal renders nothing on its first render too, so the page matches, and its content right
+// after. Effects run once the hydration is over, so from the first one on, portals render their content at once,
+// and the components that open them, such as Drawer, reach that content in their own first effects.
+let hydrated = false
+
+const isHydrating = () => !hydrated && !!document.querySelector('[data-reactroot]')
+
 export function Portal(props: PortalProps) {
   const { children, container } = props
 
-  const mountNode = useRef<Element>(typeof document !== 'undefined' ? document.body : null)
+  const [mounted, setMounted] = useState(() => typeof document !== 'undefined' && !isHydrating())
   useEffect(() => {
-    mountNode.current = container || document.body
-    return () => {
-      mountNode.current = null
-    }
-  }, [container])
+    hydrated = true
+    setMounted(true)
+  }, [])
 
-  return mountNode.current ? createPortal(children, mountNode.current) : null
+  return mounted ? createPortal(children, container || document.body) : null
 }

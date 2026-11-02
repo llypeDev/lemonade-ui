@@ -292,6 +292,7 @@ const locale = {
     clearTableCancel: 'Cancel',
     clearTableConfirm: 'Clear',
     generateTable: 'Generate table',
+    aggregatorKey: 'Field to aggregate',
   },
 }
 
