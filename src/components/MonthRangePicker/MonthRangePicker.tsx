@@ -7,7 +7,7 @@ import { FocusManagerContainer } from '../FocusManagerContainer'
 import { MonthPickerProps, ReferenceMonth } from '../MonthPicker'
 import { ControlledMonthRangeCalendar } from './RangeMonthCalendar/ControlledMonthRangeCalendar'
 import { MonthRangePickerInput, MonthRangePickerInputProps } from './MonthRangePickerInput'
-import { disabledByMonth, transformRangeReferenceMonth } from './util'
+import { disabledByMonth, isGreaterThan, transformRangeReferenceMonth } from './util'
 
 export interface MonthRangePickerProps extends Omit<MonthRangePickerInputProps, 'onChange'> {
   popperProps?: PopperOptions
@@ -54,10 +54,11 @@ export function MonthRangePicker(props: MonthRangePickerProps) {
     setVisibleMonth(month)
   }, [rangeInputFocus, value])
 
+  // The placement of popperProps wins over the default one
   const {
     styles: { popper: popperStyle },
-    attributes: { placement },
-  } = usePopper(anchorRef, popupRef, { ...popperProps, placement: 'bottom' })
+    attributes: { popper: popperAttributes },
+  } = usePopper(anchorRef, popupRef, { placement: 'bottom', ...popperProps })
 
   const handleInputFocus = (inputOnFocus: number) => setRangeInputFocus(inputOnFocus)
 
@@ -75,7 +76,8 @@ export function MonthRangePicker(props: MonthRangePickerProps) {
     const { start, end } = range
 
     start && end
-      ? onChange(transformRangeReferenceMonth(range))
+      ? // Switches an inverted range, as DateRangePicker does
+        onChange(transformRangeReferenceMonth(isGreaterThan(start, end) ? { start: end, end: start } : range))
       : !end
       ? onChange(transformRangeReferenceMonth({ start: start, end: start }))
       : onChange(transformRangeReferenceMonth({ start: end, end: end }))
@@ -106,7 +108,7 @@ export function MonthRangePicker(props: MonthRangePickerProps) {
           ref={setPopupRef}
           className={css(classes.popup, popperStyle as any)}
           tabIndex={-1}
-          data-placement={placement}
+          data-placement={popperAttributes?.['data-popper-placement']}
         >
           <ControlledMonthRangeCalendar
             value={value}

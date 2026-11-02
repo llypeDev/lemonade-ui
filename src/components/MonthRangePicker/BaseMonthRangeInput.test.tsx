@@ -222,6 +222,27 @@ describe('BaseMonthRangeInput', () => {
     })
   })
 
+  describe('Never inverted', () => {
+    it('should switch the months when only the start is defined and an end before it is typed', () => {
+      // As the month calendar does, so that the range is never inverted
+      const change = jest.fn()
+      const { container } = render(
+        createComponent({ onChange: change, value: { start: { month: 2, year: 2021 }, end: undefined } })
+      )
+      fireEvent.change(container.querySelectorAll('input')[SECOND_INPUT], { target: { value: '01/2021' } })
+      expect(change).toHaveBeenLastCalledWith({ start: { month: 0, year: 2021 }, end: { month: 2, year: 2021 } })
+    })
+
+    it('should call onChange with only the new start when only the end is defined and a start after it is typed', () => {
+      const change = jest.fn()
+      const { container } = render(
+        createComponent({ onChange: change, value: { start: undefined, end: { month: 1, year: 2021 } } })
+      )
+      fireEvent.change(container.querySelectorAll('input')[FIRST_INPUT], { target: { value: '04/2021' } })
+      expect(change).toHaveBeenLastCalledWith({ start: { month: 3, year: 2021 }, end: undefined })
+    })
+  })
+
   describe('customization', () => {
     it('should allow ptBR placeholder customization via locale context', () => {
       const { container } = render(
@@ -271,6 +292,19 @@ describe('BaseMonthRangeInput', () => {
       )
       expect(container.querySelector('strong').textContent).toEqual('separator')
       expect(container).toMatchSnapshot()
+    })
+
+    it('should give each input its own id and placeholder', () => {
+      const { container } = render(
+        createComponent({ id: 'period', startPlaceholder: 'Start', finalPlaceholder: 'End' })
+      )
+      const inputs = container.querySelectorAll('input')
+
+      expect(inputs[FIRST_INPUT]).toHaveAttribute('id', 'period')
+      expect(inputs[SECOND_INPUT]).toHaveAttribute('id', 'period-end')
+      expect(inputs[FIRST_INPUT]).toHaveAttribute('placeholder', 'Start')
+      expect(inputs[SECOND_INPUT]).toHaveAttribute('placeholder', 'End')
+      expect(container.querySelector('[startplaceholder], [finalplaceholder]')).toBeNull()
     })
 
     it('should be possible to set a name to inputs', () => {

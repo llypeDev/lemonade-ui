@@ -77,7 +77,7 @@ export function MonthView(props: MonthViewProps) {
             }
           >
             {week.map((day, d) => (
-              <td key={d} data-date={onlyWeeks ? undefined : day.toISOString().slice(0, 10)}>
+              <td key={d} data-date={onlyWeeks ? undefined : formatLocalDate(day)}>
                 <span
                   className={onlyWeeks ? undefined : css(classes.day, createDateStyles(day, props))}
                   onClick={onlyWeeks ? undefined : handleDayClick(day)}
@@ -96,6 +96,17 @@ export function MonthView(props: MonthViewProps) {
     </table>
   )
 }
+
+const pad = (n: number, length: number) => {
+  const s = String(n)
+  return s.length < length ? ('000' + s).slice(-length) : s
+}
+
+/**
+ * Formats the local day as yyyy-mm-dd. toISOString gives the UTC day, which is the day before east of UTC.
+ */
+const formatLocalDate = (day: Date) =>
+  `${pad(day.getFullYear(), 4)}-${pad(day.getMonth() + 1, 2)}-${pad(day.getDate(), 2)}`
 
 MonthView.defaultProps = {
   onDayClick: () => null,

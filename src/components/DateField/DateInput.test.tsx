@@ -31,6 +31,34 @@ it('should call onChange only when a valid date is typed', () => {
   expect(change).toHaveBeenLastCalledWith(new Date('2018-01-01'))
 })
 
+it('should not call onChange with a day the month does not have', () => {
+  const change = jest.fn()
+  const { container } = render(<DateInput onChange={change} />)
+  const input = container.querySelector('input')
+
+  // Date would roll it over to 01/03/2023
+  fireEvent.change(input, { target: { value: '29/02/2023' } })
+  expect(change).not.toHaveBeenCalled()
+
+  fireEvent.change(input, { target: { value: '29/02/2024' } })
+  expect(change).toHaveBeenLastCalledWith(new Date(2024, 1, 29))
+})
+
+it('should keep the typed year when it is lower than 100', () => {
+  const change = jest.fn()
+  const { container } = render(<DateInput onChange={change} />)
+  const input = container.querySelector('input')
+
+  fireEvent.change(input, { target: { value: '15/01/0050' } })
+  const date: Date = change.mock.calls[0][0]
+  expect([date.getFullYear(), date.getMonth(), date.getDate()]).toEqual([50, 0, 15])
+})
+
+it('should render an invalid date as an empty input', () => {
+  const { container } = render(<DateInput value={new Date('invalid')} />)
+  expect(container.querySelector('input').value).toEqual('')
+})
+
 it('should call onChange with undefined when input is cleared', () => {
   const change = jest.fn()
   const { container } = render(<DateInput onChange={change} value={new Date('2018-10-30')} />)
@@ -100,6 +128,28 @@ describe('transform two year digit option', () => {
     fireEvent.change(input, { target: { value: '06/04/1' } })
     fireEvent.keyDown(input, { keyCode: 9, key: 'Tab' })
     expect(change).not.toHaveBeenLastCalledWith()
+  })
+
+  it('should not call onChange with a day the month does not have', () => {
+    const change = jest.fn()
+    const { container } = render(<DateInput onChange={change} transformTwoYearDigit />)
+    const input = container.querySelector('input')
+
+    fireEvent.change(input, { target: { value: '29/02/23' } })
+    fireEvent.keyDown(input, { keyCode: 9, key: 'Tab' })
+    expect(change).not.toHaveBeenCalled()
+  })
+
+  it('should still transform the year when the consumer listens to onKeyDown', () => {
+    const change = jest.fn()
+    const keyDown = jest.fn()
+    const { container } = render(<DateInput onChange={change} onKeyDown={keyDown} transformTwoYearDigit />)
+    const input = container.querySelector('input')
+
+    fireEvent.change(input, { target: { value: '06/04/12' } })
+    fireEvent.keyDown(input, { keyCode: 9, key: 'Tab' })
+    expect(keyDown).toHaveBeenCalled()
+    expect(change).toHaveBeenLastCalledWith(new Date(2012, 3, 6))
   })
 
   it('should do nothing when it is false', () => {

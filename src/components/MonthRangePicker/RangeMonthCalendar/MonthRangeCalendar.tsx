@@ -2,6 +2,7 @@ import React from 'react'
 import { ReferenceMonthRange } from '../MonthRangePicker'
 import { isGreaterOrEqualThan, isGreaterThan, isLessOrEqualThan, isLessThan, isSameReferenceMonth } from '../util'
 import { MonthPickerProps, ReferenceMonth } from '../../MonthPicker/MonthPicker'
+import { isValidReferenceMonth } from '../../Calendar/util'
 import { GenericMonthRangeCalendar } from './GenericMonthRangeCalendar'
 
 export interface MonthRangeCalendarProps extends MonthPickerProps {
@@ -36,7 +37,7 @@ export function MonthRangeCalendar(props: MonthRangeCalendarProps) {
   }
 
   const hoverControl = (month: ReferenceMonth, hoverMonth: ReferenceMonth) => {
-    if (!value.start && !value.end) {
+    if (!value?.start && !value?.end) {
       return isSameReferenceMonth(month, hoverMonth)
     } else if (inputOnFocus) {
       if (!value?.start && value?.end) {
@@ -73,8 +74,9 @@ export function MonthRangeCalendar(props: MonthRangeCalendarProps) {
     }
   }
 
+  // Without hover, hoverMonth is { month: undefined, year: undefined }, which is truthy
   const isInHoverRange = (month: ReferenceMonth, hoverMonth: ReferenceMonth) =>
-    hoverMonth &&
+    isValidReferenceMonth(hoverMonth) &&
     (!minMonth || isGreaterOrEqualThan(month, minMonth)) &&
     (!maxMonth || isLessOrEqualThan(month, maxMonth)) &&
     hoverControl(month, hoverMonth)
