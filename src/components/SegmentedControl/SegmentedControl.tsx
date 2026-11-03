@@ -160,6 +160,11 @@ const createStyles = (theme: Theme) => ({
       zIndex: 2,
       boxShadow: focusBoxShadow(theme),
     },
+    // Only the keyboard shows the ring, not a click. Browsers without :focus-visible or :has() drop this rule and
+    // show it.
+    '&:has(:focus:not(:focus-visible))': {
+      boxShadow: 'none',
+    },
   } as CSSProperties,
   medium: {
     padding: 'calc(0.75rem - 1px) 1rem',

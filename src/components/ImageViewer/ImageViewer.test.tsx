@@ -3,6 +3,7 @@ import React, { useLayoutEffect, useState } from 'react'
 
 import { LocaleContext } from '../../i18n'
 import ptBR from '../../i18n/locales/pt-BR'
+import { focusRingStates } from '../../test/utils/resolveStyle'
 
 import { ImageViewer, ImageViewerProps } from './ImageViewer'
 
@@ -166,5 +167,14 @@ describe('ImageViewer', () => {
     )
     expect(getByRole('dialog', { name: 'Visualizador de imagens' })).toHaveTextContent('1 de 3')
     expect(getByRole('button', { name: 'Próxima imagem' })).toBeInTheDocument()
+  })
+})
+
+it('should show the focus ring of the buttons for the keyboard, not after a click', () => {
+  const { getByRole } = render(<ImageViewer images={photos} open onClose={jest.fn()} />)
+
+  ;[getByRole('button', { name: 'Close' }), getByRole('button', { name: 'Next image' })].forEach((button) => {
+    const { received, expected } = focusRingStates(button)
+    expect(received).toEqual(expected)
   })
 })

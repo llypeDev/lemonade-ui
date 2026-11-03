@@ -2,6 +2,7 @@ import { fireEvent, render, act } from '@testing-library/react'
 import React from 'react'
 import { DndProvider } from 'react-dnd'
 import { HTML5Backend } from 'react-dnd-html5-backend'
+import { focusRingStates } from '../../../test/utils/resolveStyle'
 import { DroppableDiv } from './FilterDraggable.test'
 import { KeyMapping } from './types/KeyMapping'
 import { Draggable, DraggableProps } from './Draggable'
@@ -49,6 +50,13 @@ describe('Draggable', () => {
     it('should render correctly', async () => {
       const { container } = render(createDefaultComponent())
       expect(container).toMatchSnapshot()
+      await flush()
+    })
+
+    it('should show the focus ring for the keyboard and keep its shadow after a click', async () => {
+      const { getByRole } = render(createDefaultComponent())
+      const { received, expected } = focusRingStates(getByRole('button'))
+      expect(received).toEqual(expected)
       await flush()
     })
   })

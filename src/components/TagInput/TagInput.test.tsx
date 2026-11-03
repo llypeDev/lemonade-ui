@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 
 import { LocaleContext } from '../../i18n'
 import ptBR from '../../i18n/locales/pt-BR'
+import { focusRingStates } from '../../test/utils/resolveStyle'
 
 import { TagInput, TagInputProps } from './TagInput'
 
@@ -198,4 +199,10 @@ describe('TagInput', () => {
     )
     expect(getByRole('button', { name: 'Remover a' })).toBeInTheDocument()
   })
+})
+
+it('should show the focus ring of the remove button for the keyboard, not after a click', () => {
+  const { getByRole } = render(<TagInput label='Recipients' defaultValue={['ana@example.com']} />)
+  const { received, expected } = focusRingStates(getByRole('button', { name: 'Remove ana@example.com' }))
+  expect(received).toEqual(expected)
 })

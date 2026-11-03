@@ -175,13 +175,17 @@ exports[`DateField should render correctly 1`] = `
   display: inline-flex;
 }
 
-.emotion-2:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-2:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-2:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-2:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-2:not(:disabled):hover {
@@ -433,13 +437,17 @@ exports[`DateField should render correctly when disabled 1`] = `
   display: inline-flex;
 }
 
-.emotion-2:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-2:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-2:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-2:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-2:not(:disabled):hover {
@@ -681,13 +689,17 @@ exports[`DateField should render correctly when opened 1`] = `
   display: inline-flex;
 }
 
-.emotion-2:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-2:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-2:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-2:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-2:not(:disabled):hover {
@@ -786,13 +798,17 @@ exports[`DateField should render correctly when opened 1`] = `
   display: inline-flex;
 }
 
-.emotion-9:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-9:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-9:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-9:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-9:not(:disabled):hover {

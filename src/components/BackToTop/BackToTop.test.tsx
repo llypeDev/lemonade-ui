@@ -3,6 +3,7 @@ import React from 'react'
 
 import { LocaleContext } from '../../i18n'
 import ptBR from '../../i18n/locales/pt-BR'
+import { focusRingStates } from '../../test/utils/resolveStyle'
 
 import { BackToTop } from './BackToTop'
 
@@ -97,4 +98,11 @@ describe('BackToTop', () => {
     scrollWindow(10)
     expect(getByRole('button', { name: 'Voltar ao topo' })).toBeInTheDocument()
   })
+})
+
+it('should show the focus ring for the keyboard and keep its shadow after a click', () => {
+  const { getByRole } = render(<BackToTop />)
+  scrollWindow(800)
+  const { received, expected } = focusRingStates(getByRole('button', { name: 'Back to top' }))
+  expect(received).toEqual(expected)
 })

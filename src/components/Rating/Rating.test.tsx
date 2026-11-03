@@ -3,6 +3,7 @@ import React from 'react'
 
 import { LocaleContext } from '../../i18n'
 import ptBR from '../../i18n/locales/pt-BR'
+import { focusRingStates } from '../../test/utils/resolveStyle'
 
 import { Rating } from './Rating'
 
@@ -86,4 +87,11 @@ describe('Rating', () => {
     expect(getByRole('img', { name: '1 de 1 estrela' })).toBeInTheDocument()
     expect(getByRole('radio', { name: '3 estrelas' })).toBeInTheDocument()
   })
+})
+
+it('should show the focus ring around the star for the keyboard, not after a click', () => {
+  const { getAllByRole } = render(<Rating aria-label='Your rating' defaultValue={3} />)
+  const radio = getAllByRole('radio')[2]
+  const { received, expected } = focusRingStates(radio.closest('label'), { on: radio })
+  expect(received).toEqual(expected)
 })

@@ -172,13 +172,17 @@ exports[`emptyItem should render when items is empty 1`] = `
   display: inline-flex;
 }
 
-.emotion-2:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-2:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-2:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-2:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-2:not(:disabled):hover {
@@ -520,13 +524,17 @@ exports[`emptyItem should render when items is null 1`] = `
   display: inline-flex;
 }
 
-.emotion-2:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-2:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-2:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-2:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-2:not(:disabled):hover {
@@ -920,13 +928,17 @@ exports[`select custom components should accept actions inside AppendItem 1`] = 
   display: inline-flex;
 }
 
-.emotion-4:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-4:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-4:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-4:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-4:not(:disabled):hover {
@@ -1045,13 +1057,17 @@ exports[`select custom components should accept actions inside AppendItem 1`] = 
   display: inline-flex;
 }
 
-.emotion-13:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-13:focus {
   outline: none;
   box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
+.emotion-13:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-13:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-13:not(:disabled):hover {
@@ -1423,13 +1439,17 @@ exports[`select custom components should accept actions inside PrependItem 1`] =
   display: inline-flex;
 }
 
-.emotion-4:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-4:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-4:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-4:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-4:not(:disabled):hover {
@@ -1548,13 +1568,17 @@ exports[`select custom components should accept actions inside PrependItem 1`] =
   display: inline-flex;
 }
 
-.emotion-7:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-7:focus {
   outline: none;
   box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
+.emotion-7:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-7:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-7:not(:disabled):hover {

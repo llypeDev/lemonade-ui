@@ -1,6 +1,8 @@
 import { render } from '@testing-library/react'
 import React from 'react'
 
+import { focusRingStates } from '../../test/utils/resolveStyle'
+
 import { Switch } from './Switch'
 
 it('should render correctly', () => {
@@ -17,4 +19,14 @@ it('should render correctly when disabled', () => {
   const { container } = render(<Switch label='Disabled' value='true' disabled />)
   expect(container).toMatchSnapshot()
   expect(container.querySelector('input').getAttribute('disabled')).not.toBeNull()
+})
+
+it('should show the focus ring for the keyboard, not after a click, on or off', () => {
+  ;[false, true].forEach((checked) => {
+    const { container, unmount } = render(<Switch label='Active' defaultChecked={checked} />)
+    const input = container.querySelector('input')
+    const { received, expected } = focusRingStates(input.nextElementSibling, { on: input })
+    expect(received).toEqual(expected)
+    unmount()
+  })
 })

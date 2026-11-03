@@ -442,6 +442,10 @@ const createStyles = (theme: Theme, disabled: boolean, invalid: boolean) => {
         zIndex: 1,
         boxShadow: focusBoxShadow(theme, invalid ? 'danger' : 'primary'),
       },
+      // Only the keyboard shows the ring, not a click. Browsers without :focus-visible drop this rule and show it.
+      '&:focus:not(:focus-visible)': {
+        boxShadow: disabled ? 'none' : theme.shadows.outer[10],
+      },
     } as CSSProperties,
     thumbDragging: {
       cursor: 'grabbing',

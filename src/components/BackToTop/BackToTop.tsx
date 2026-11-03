@@ -112,6 +112,10 @@ const createStyles = (theme: Theme) => ({
     '&:focus': {
       boxShadow: `${theme.shadows.outer[40]}, ${focusBoxShadow(theme)}`,
     },
+    // Only the keyboard shows the ring, not a click. Browsers without :focus-visible drop this rule and show it.
+    '&:focus:not(:focus-visible)': {
+      boxShadow: theme.shadows.outer[40],
+    },
     [theme.breakpoints.down('sm')]: {
       right: '1rem',
       bottom: '1rem',

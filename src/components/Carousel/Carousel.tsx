@@ -296,6 +296,10 @@ const createStyles = (theme: Theme) => ({
     '&:focus': {
       boxShadow: focusBoxShadow(theme),
     },
+    // Only the keyboard shows the ring, not a click. Browsers without :focus-visible drop this rule and show it.
+    '&:focus:not(:focus-visible)': {
+      boxShadow: 'none',
+    },
   } as CSSProperties,
   dotActive: {
     '&::before, &:hover::before': {
@@ -339,6 +343,10 @@ const createStyles = (theme: Theme) => ({
     '&:focus': {
       boxShadow: focusBoxShadow(theme),
     },
+    // Only the keyboard shows the ring, not a click. Browsers without :focus-visible drop this rule and show it.
+    '&:focus:not(:focus-visible)': {
+      boxShadow: 'none',
+    },
     '&:disabled': {
       opacity: 0.4,
       cursor: 'not-allowed',
@@ -351,6 +359,10 @@ const createStyles = (theme: Theme) => ({
     width: '2.5rem',
     height: '2.5rem',
     boxShadow: theme.shadows.outer[20],
+    // A click keeps the shadow of the arrow
+    '&:focus:not(:focus-visible)': {
+      boxShadow: theme.shadows.outer[20],
+    },
   } as CSSProperties,
   previous: {
     left: '0.5rem',

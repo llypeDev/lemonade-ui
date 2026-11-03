@@ -134,6 +134,10 @@ export const createInputStyles = (theme: Theme, classes: ClassNames<'check' | 'l
     [`&:focus + .${classes.check}`]: {
       boxShadow: focusBoxShadow(theme),
     },
+    // Only the keyboard shows the ring, not a click. Browsers without :focus-visible drop this rule and show it.
+    [`&:focus:not(:focus-visible) + .${classes.check}`]: {
+      boxShadow: 'none',
+    },
     [`&:disabled + .${classes.check}`]: {
       opacity: 0.4,
       cursor: 'not-allowed',

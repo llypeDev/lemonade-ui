@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 
 import { LocaleContext } from '../../../i18n'
 import ptBR from '../../../i18n/locales/pt-BR'
+import { focusRingStates } from '../../../test/utils/resolveStyle'
 
 import { DataTable, TableColumnConfig } from './DataTable'
 import { DataTableColumnsMenu } from './DataTableColumnsMenu'
@@ -142,4 +143,17 @@ describe('DataTable features', () => {
     expect(getByRole('button', { name: 'Colunas' })).toBeInTheDocument()
     expect(getByRole('columnheader', { name: 'Detalhes' })).toBeInTheDocument()
   })
+})
+
+it('should show the focus ring of the details button for the keyboard, not after a click', () => {
+  const { getByRole } = render(
+    <DataTable
+      rows={orders}
+      columns={columns}
+      renderExpanded={renderDetails}
+      getRowLabel={(row) => `order #${row.id}`}
+    />
+  )
+  const { received, expected } = focusRingStates(getByRole('button', { name: 'Show details of order #1042' }))
+  expect(received).toEqual(expected)
 })

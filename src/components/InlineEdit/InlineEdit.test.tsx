@@ -1,6 +1,8 @@
 import { act, fireEvent, render } from '@testing-library/react'
 import React from 'react'
 
+import { focusRingStates } from '../../test/utils/resolveStyle'
+
 import { InlineEdit } from './InlineEdit'
 
 jest.mock('../../util/string')
@@ -180,4 +182,14 @@ describe('InlineEdit', () => {
     const { getByRole } = renderEdit({ defaultValue: '', placeholder: 'Add a description' })
     expect(getByRole('button', { name: /^Add a description/ })).toBeInTheDocument()
   })
+})
+
+it('should show the focus ring and the pen for the keyboard, not after a click', () => {
+  const { getByRole } = renderEdit()
+  const button = getByRole('button', { name: /Edit Project name/ })
+  const ring = focusRingStates(button)
+  expect(ring.received).toEqual(ring.expected)
+
+  const pen = focusRingStates(button.querySelector('svg'), { on: button, property: 'opacity' })
+  expect(pen.received).toEqual(pen.expected)
 })

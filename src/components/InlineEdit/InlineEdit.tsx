@@ -286,11 +286,19 @@ const createStyles = (theme: Theme) => ({
       background: theme.pallete.surface.background,
       borderColor: theme.pallete.divider,
     },
-    '&:hover svg, &:focus svg': {
+    // In rules of their own, as a browser without :focus-visible drops the rule that has it
+    '&:hover svg': {
+      opacity: 1,
+    },
+    '&:focus-visible svg': {
       opacity: 1,
     },
     '&:focus': {
       boxShadow: focusBoxShadow(theme),
+    },
+    // Only the keyboard shows the ring, not a click. Browsers without :focus-visible drop this rule and show it.
+    '&:focus:not(:focus-visible)': {
+      boxShadow: 'none',
     },
   } as CSSProperties,
   text: {

@@ -289,6 +289,10 @@ exports[`Rating should render correctly 1`] = `
   box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
 }
 
+.emotion-3:has(:focus:not(:focus-visible)) {
+  box-shadow: none;
+}
+
 .emotion-1 {
   fill: currentColor;
   font-size: 1.5rem;

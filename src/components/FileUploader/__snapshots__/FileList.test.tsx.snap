@@ -111,6 +111,10 @@ exports[`FileList should render correctly 1`] = `
   box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
 }
 
+.emotion-7:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
 .emotion-29 {
   display: -webkit-box;
   display: -webkit-flex;

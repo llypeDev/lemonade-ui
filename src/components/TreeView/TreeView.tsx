@@ -316,6 +316,10 @@ const createStyles = (theme: Theme) => ({
     '&:focus > div': {
       boxShadow: focusBoxShadow(theme, 'primary', 'inset'),
     },
+    // Only the keyboard shows the ring, not a click. Browsers without :focus-visible drop this rule and show it.
+    '&:focus:not(:focus-visible) > div': {
+      boxShadow: 'none',
+    },
   } as CSSProperties,
   row: {
     display: 'flex',

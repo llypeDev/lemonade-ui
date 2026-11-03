@@ -8,12 +8,17 @@ export const createStyles = (theme: Theme): Skin => ({
     borderRadius: theme.radius.button,
     color: theme.pallete.text.main,
     textDecoration: 'none',
-    ':not(:disabled):active': {
-      boxShadow: 'inset 0 2px 8px 0 rgba(0, 0, 0, 0.1)',
-    },
     ':focus': {
       outline: 'none',
       boxShadow: focusBoxShadow(theme),
+    },
+    // Only the keyboard shows the ring, not a click. Browsers without :focus-visible drop this rule and show it.
+    // It comes before the press, which keeps its shadow.
+    ':focus:not(:focus-visible)': {
+      boxShadow: 'none',
+    },
+    ':not(:disabled):active': {
+      boxShadow: 'inset 0 2px 8px 0 rgba(0, 0, 0, 0.1)',
     },
     ':not(:disabled):hover': {
       backgroundColor: hexToRGB(theme.pallete.gray.c50, 0.16),

@@ -208,13 +208,17 @@ exports[`Component presentation should render correctly when closed 1`] = `
   display: inline-flex;
 }
 
-.emotion-4:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-4:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-4:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-4:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-4:not(:disabled):hover {
@@ -508,13 +512,17 @@ exports[`Component presentation should render correctly when opened 1`] = `
   display: inline-flex;
 }
 
-.emotion-4:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-4:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-4:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-4:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-4:not(:disabled):hover {
@@ -600,13 +608,17 @@ exports[`Component presentation should render correctly when opened 1`] = `
   display: inline-flex;
 }
 
-.emotion-11:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-11:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-11:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-11:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-11:not(:disabled):hover {
@@ -669,13 +681,17 @@ exports[`Component presentation should render correctly when opened 1`] = `
   display: inline-flex;
 }
 
-.emotion-18:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-18:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-18:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-18:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-18:not(:disabled):hover {
@@ -731,13 +747,17 @@ exports[`Component presentation should render correctly when opened 1`] = `
   display: inline-flex;
 }
 
-.emotion-20:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-20:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-20:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-20:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-20:not(:disabled):hover {

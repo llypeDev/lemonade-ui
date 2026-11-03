@@ -63,10 +63,17 @@ exports[`should render correctly 1`] = `
 }
 
 .emotion-0:focus {
+  box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
+.emotion-0:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-0:focus-visible {
   -webkit-text-decoration: none;
   text-decoration: none;
   border-radius: 2px;
-  box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
 }
 
 .emotion-2 {

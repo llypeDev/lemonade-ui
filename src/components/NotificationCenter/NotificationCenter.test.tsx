@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 
 import { LocaleContext } from '../../i18n'
 import ptBR from '../../i18n/locales/pt-BR'
+import { focusRingStates } from '../../test/utils/resolveStyle'
 
 import { NotificationCenter, NotificationItem } from './NotificationCenter'
 
@@ -117,4 +118,16 @@ describe('NotificationCenter', () => {
     )
     expect(getByRole('button', { name: 'Notificações, 2 não lidas' })).toBeInTheDocument()
   })
+})
+
+it('should show the focus ring of the bell and the notifications for the keyboard, not after a click', async () => {
+  const { getByRole } = render(<Center />)
+  const bell = getByRole('button', { name: 'Notifications, 2 unread' })
+  const ring = focusRingStates(bell)
+  expect(ring.received).toEqual(ring.expected)
+
+  fireEvent.click(bell)
+  await flush()
+  const item = focusRingStates(getByRole('button', { name: /New comment/ }))
+  expect(item.received).toEqual(item.expected)
 })

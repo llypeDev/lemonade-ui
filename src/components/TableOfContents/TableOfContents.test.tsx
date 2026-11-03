@@ -3,6 +3,7 @@ import React from 'react'
 
 import { LocaleContext } from '../../i18n'
 import ptBR from '../../i18n/locales/pt-BR'
+import { focusRingStates } from '../../test/utils/resolveStyle'
 
 import { TableOfContents } from './TableOfContents'
 
@@ -142,5 +143,14 @@ describe('TableOfContents', () => {
       </LocaleContext.Provider>
     )
     expect(getByRole('navigation', { name: 'Nesta página' })).toBeInTheDocument()
+  })
+})
+
+it('should show the focus ring for the keyboard and keep the square corners after a click', () => {
+  const { getByRole } = render(<Page />)
+
+  ;['box-shadow', 'border-radius'].forEach((property) => {
+    const { received, expected } = focusRingStates(getByRole('link', { name: 'Overview' }), { property })
+    expect(received).toEqual(expected)
   })
 })

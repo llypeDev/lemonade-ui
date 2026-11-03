@@ -1,6 +1,8 @@
 import { fireEvent, render } from '@testing-library/react'
 import React from 'react'
 
+import { focusRingStates } from '../../test/utils/resolveStyle'
+
 import { SegmentedControl, SegmentedControlOption } from './SegmentedControl'
 
 jest.mock('../../util/string')
@@ -68,4 +70,15 @@ describe('SegmentedControl', () => {
     const { getAllByRole } = render(<SegmentedControl aria-label='View' options={options} name='view' />)
     getAllByRole('radio').forEach((radio) => expect(radio).toHaveAttribute('name', 'view'))
   })
+})
+
+it('should show the focus ring around the segment for the keyboard, not after a click', () => {
+  const { getAllByRole } = render(<SegmentedControl aria-label='View' options={options} />)
+
+  getAllByRole('radio')
+    .slice(0, 2)
+    .forEach((radio) => {
+      const { received, expected } = focusRingStates(radio.closest('label'), { on: radio })
+      expect(received).toEqual(expected)
+    })
 })

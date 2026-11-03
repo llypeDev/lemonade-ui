@@ -2,6 +2,8 @@ import { fireEvent, render } from '@testing-library/react'
 import React from 'react'
 import { AnchorHTMLAttributes } from 'react'
 
+import { focusRingStates } from '../../test/utils/resolveStyle'
+
 import { TabItem, TabItemProps } from './TabItem'
 import { Tabs } from './Tabs'
 
@@ -86,4 +88,23 @@ it('should not activate a disabled tab', () => {
   fireEvent.keyDown(getByRole('tab', { name: 'Archived' }), { key: 'Enter' })
   expect(onClick).not.toHaveBeenCalled()
   expect(getByRole('tab', { name: 'Deleted' })).toBeDisabled()
+})
+
+it('should show the focus ring for the keyboard, not after a click', () => {
+  const { getByRole } = render(
+    <Tabs>
+      <TabItem active>Overview</TabItem>
+      <TabItem>Activity</TabItem>
+    </Tabs>
+  )
+
+  getByRole('tablist')
+    .querySelectorAll('[role="tab"]')
+    .forEach((tab) => {
+      const ring = focusRingStates(tab)
+      expect(ring.received).toEqual(ring.expected)
+      // The corners round with the ring only
+      const corners = focusRingStates(tab, { property: 'border-radius' })
+      expect(corners.received).toEqual(corners.expected)
+    })
 })

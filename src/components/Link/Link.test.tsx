@@ -1,6 +1,8 @@
 import { render } from '@testing-library/react'
 import React, { ButtonHTMLAttributes } from 'react'
 
+import { focusRingStates } from '../../test/utils/resolveStyle'
+
 import { Link } from './Link'
 
 it('should render correctly', () => {
@@ -41,4 +43,14 @@ it('should accept type argument and infer props', () => {
       Link as button tag
     </Link>
   )
+})
+
+it('should show the focus ring for the keyboard and keep the underline after a click', () => {
+  const { getByRole } = render(<Link href='/docs'>Docs</Link>)
+  const link = getByRole('link')
+
+  ;['box-shadow', 'text-decoration', 'border-radius'].forEach((property) => {
+    const { received, expected } = focusRingStates(link, { property })
+    expect(received).toEqual(expected)
+  })
 })

@@ -3,6 +3,7 @@ import React from 'react'
 
 import { LocaleContext } from '../../i18n'
 import ptBR from '../../i18n/locales/pt-BR'
+import { focusRingStates } from '../../test/utils/resolveStyle'
 
 import { BottomNavigation, BottomNavigationItem } from './BottomNavigation'
 
@@ -62,5 +63,14 @@ describe('BottomNavigation', () => {
       </LocaleContext.Provider>
     )
     expect(getByRole('navigation', { name: 'Principal' })).toBeInTheDocument()
+  })
+})
+
+it('should show the focus ring for the keyboard, not after a click', () => {
+  const { getAllByRole } = render(<BottomNavigation items={items} active='orders' />)
+
+  getAllByRole('link').forEach((link) => {
+    const { received, expected } = focusRingStates(link)
+    expect(received).toEqual(expected)
   })
 })

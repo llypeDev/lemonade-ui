@@ -30,6 +30,10 @@ export const createItemStyles = (theme: Theme, level: number) => ({
       outline: 'none',
       boxShadow: focusBoxShadow(theme, 'primary', 'inset'),
     },
+    // Only the keyboard shows the ring, not a click. Browsers without :focus-visible drop this rule and show it.
+    '&:focus:not(:focus-visible)': {
+      boxShadow: 'none',
+    },
   } as CSSProperties,
   active: {
     fontWeight: 'bold',
@@ -38,6 +42,10 @@ export const createItemStyles = (theme: Theme, level: number) => ({
     boxShadow: `inset 4px 0 0 ${theme.pallete.primary.main}`,
     '&:hover': {
       background: theme.pallete.primary.c90,
+    },
+    // A click keeps the line that marks the current item
+    '&:focus:not(:focus-visible)': {
+      boxShadow: `inset 4px 0 0 ${theme.pallete.primary.main}`,
     },
   } as CSSProperties,
   icon: {

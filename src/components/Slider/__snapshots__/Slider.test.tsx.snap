@@ -98,6 +98,10 @@ exports[`Slider should render a range correctly 1`] = `
   box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
 }
 
+.emotion-5:focus:not(:focus-visible) {
+  box-shadow: 0 1px 5px 0 rgba(0,0,0,0.12),0 2px 1px 0 rgba(0,0,0,0.04);
+}
+
 .emotion-4 {
   position: absolute;
   width: 1px;
@@ -278,6 +282,10 @@ exports[`Slider should render correctly 1`] = `
 .emotion-4:focus {
   z-index: 1;
   box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
+.emotion-4:focus:not(:focus-visible) {
+  box-shadow: 0 1px 5px 0 rgba(0,0,0,0.12),0 2px 1px 0 rgba(0,0,0,0.04);
 }
 
 .emotion-7 {

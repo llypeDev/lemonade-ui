@@ -8,6 +8,11 @@ export const draggableCreateStyles = (theme: Theme) => ({
     boxShadow: theme.shadows.outer[10],
     paddingLeft: '0px',
     fontSize: '13px',
+    // A click keeps the shadow of the button, as the button shows its focus ring for the keyboard only. It leaves
+    // out the press, which has a shadow of its own.
+    '&:focus:not(:focus-visible):not(:active)': {
+      boxShadow: theme.shadows.outer[10],
+    },
   },
 
   dndBox: {

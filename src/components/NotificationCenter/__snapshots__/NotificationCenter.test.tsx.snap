@@ -73,6 +73,10 @@ exports[`NotificationCenter should render correctly when open 1`] = `
   box-shadow: inset 0 0 0 2px #5E7300;
 }
 
+.emotion-8:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
 .emotion-2 {
   -webkit-flex-shrink: 0;
   -ms-flex-negative: 0;

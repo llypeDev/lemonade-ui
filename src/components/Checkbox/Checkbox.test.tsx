@@ -1,6 +1,8 @@
 import { render, fireEvent } from '@testing-library/react'
 import React from 'react'
 
+import { focusRingStates } from '../../test/utils/resolveStyle'
+
 import { Checkbox, CheckboxMark } from './Checkbox'
 
 describe('Checkbox', () => {
@@ -29,6 +31,15 @@ describe('Checkbox', () => {
     fireEvent(input, new MouseEvent('click'))
     expect(input.checked).toBeTruthy()
     expect(ref.current.checked).toBeTruthy()
+  })
+  it('should show the focus ring on the box for the keyboard, not after a click', () => {
+    ;[false, true].forEach((checked) => {
+      const { container, unmount } = render(<Checkbox label='check' defaultChecked={checked} />)
+      const input = container.querySelector('input')
+      const { received, expected } = focusRingStates(input.nextElementSibling, { on: input })
+      expect(received).toEqual(expected)
+      unmount()
+    })
   })
 })
 

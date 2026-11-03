@@ -151,6 +151,10 @@ const createStyles = (theme: Theme) => ({
     '&:focus::after': {
       boxShadow: focusBoxShadow(theme, 'primary', 'inset'),
     },
+    // Only the keyboard shows the ring, not a click. Browsers without :focus-visible drop this rule and show it.
+    '&:focus:not(:focus-visible)::after': {
+      boxShadow: 'none',
+    },
     '&:disabled, &[aria-disabled="true"]': {
       cursor: 'not-allowed',
       opacity: 0.5,
