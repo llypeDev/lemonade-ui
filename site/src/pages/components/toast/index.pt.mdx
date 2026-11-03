@@ -21,6 +21,14 @@ O `type` (`info`, `success`, `warning` ou `danger`) define o ícone informativo.
 
 <Demo src='pages/components/toast/ToastTypes' />
 
+### Vários _toasts_
+
+No máximo três _toasts_ ficam na tela ao mesmo tempo (`limit` do `ToastProvider`); os seguintes esperam e aparecem em ordem conforme aqueles saem. Um _toast_ idêntico a um que está na tela ou esperando (mesmo `type`, `title` e `message` em texto) não é empilhado: o que está na tela conta seus 5 segundos de novo, e `show` devolve o id dele.
+
+<Demo src='pages/components/toast/ToastQueue' />
+
+Um _toast_ fechado desaparece deslizando, e depois seu espaço se fecha, para que os outros se acomodem; com movimento reduzido, ele sai de uma vez. Quando o _toast_ que fecha está com o foco, o foco vai para o botão de fechar do próximo _toast_, ou do anterior, ou volta para onde estava antes de entrar nos _toasts_.
+
 ## Migrando do ActionableToast
 
 `ActionableToast`, `ActionableToastList` e `useToastMessages` estão obsoletos e serão removidos numa próxima versão _major_. A correspondência com a nova API é:
@@ -32,3 +40,4 @@ O `type` (`info`, `success`, `warning` ou `danger`) define o ícone informativo.
 | `secondsVisible` (segundos)                           | `duration` (milissegundos)                                                           |
 | `action` + `buttonLabel`                              | `action`: qualquer elemento, como um `Link` ou um `Button` com seu próprio `onClick` |
 | `newToast` (bolinha vermelha)                         | sem equivalente: use `type` para definir o ícone e a cor                             |
+| todos os _toasts_ na tela ao mesmo tempo              | no máximo três (`limit`), e _toasts_ idênticos não são empilhados                    |

@@ -32,6 +32,11 @@ export interface ToastProps extends Omit<React.HTMLAttributes<HTMLDivElement>, '
    */
   onClose?(): void
 
+  /**
+   * Ref of the dismiss button, such as to move the focus to it
+   */
+  closeButtonRef?: React.Ref<HTMLButtonElement>
+
   style?: ExternalStyles
 }
 
@@ -40,7 +45,7 @@ export interface ToastProps extends Omit<React.HTMLAttributes<HTMLDivElement>, '
  * use `ToastProvider` and the `useToast` hook.
  */
 export function Toast(props: ToastProps) {
-  const { type = 'info', title, action, onClose, style, children, ...rest } = props
+  const { type = 'info', title, action, onClose, closeButtonRef, style, children, ...rest } = props
 
   const locale = useLocale()
   const { classes, css, theme } = useStyles(createStyles)
@@ -56,7 +61,14 @@ export function Toast(props: ToastProps) {
       </div>
       {onClose && (
         <Tooltip text={locale.alert.close}>
-          <Button aria-label={locale.alert.close} size='small' skin='ghost' style={classes.close} onClick={onClose}>
+          <Button
+            innerRef={closeButtonRef}
+            aria-label={locale.alert.close}
+            size='small'
+            skin='ghost'
+            style={classes.close}
+            onClick={onClose}
+          >
             <Icon icon='timesDefault' />
           </Button>
         </Tooltip>

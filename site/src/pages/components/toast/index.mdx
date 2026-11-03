@@ -22,6 +22,14 @@ The `type` (`info`, `success`, `warning` or `danger`) sets the informative icon.
 
 <Demo src='pages/components/toast/ToastTypes' />
 
+### Several toasts
+
+At most three toasts are on the screen at once (`limit` on `ToastProvider`); the next ones wait and show in order as those leave. A toast identical to one on the screen or waiting (same `type`, `title` and text `message`) is not stacked: the one on the screen counts its 5 seconds again, and `show` returns its id.
+
+<Demo src='pages/components/toast/ToastQueue' />
+
+A closed toast fades and slides out, then its space collapses, so the others move into place; with reduced motion it leaves at once. When the toast that closes has the focus, the focus goes to the close button of the next toast, or of the previous one, or back to where it was before it entered the toasts.
+
 ## Migrating from ActionableToast
 
 `ActionableToast`, `ActionableToastList` and `useToastMessages` are deprecated and will be removed in a future major version. They map to the new API like this:
@@ -33,3 +41,4 @@ The `type` (`info`, `success`, `warning` or `danger`) sets the informative icon.
 | `secondsVisible` (seconds)                            | `duration` (milliseconds)                                                    |
 | `action` + `buttonLabel`                              | `action`: any element, such as a `Link` or a `Button` with its own `onClick` |
 | `newToast` (red dot)                                  | no equivalent: use `type` to set the icon and color                          |
+| every toast on the screen at once                     | three at most (`limit`), and identical toasts are not stacked                |
