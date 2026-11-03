@@ -18,6 +18,23 @@ async function actRender(ui: React.ReactElement) {
 
 const tooltip = () => document.body.querySelector('[role="tooltip"]')
 
+// Rests the pointer on a column or bar for the delay before its tooltip opens. The timers are fake only meanwhile,
+// and the ones the tooltip starts run out before the real ones come back.
+const hoverBar = async (bar: Element) => {
+  jest.useFakeTimers()
+  try {
+    fireEvent.pointerOver(bar)
+    await act(async () => {
+      jest.advanceTimersByTime(400)
+    })
+    act(() => {
+      jest.runOnlyPendingTimers()
+    })
+  } finally {
+    jest.useRealTimers()
+  }
+}
+
 // Moves the pointer over the middle of the chart, which opens its line tooltip. Recharts reads the position from
 // pageX and pageY, which jsdom does not set.
 const hoverChart = (container: HTMLElement) => {
@@ -54,9 +71,32 @@ describe('Chart', () => {
     it('should open when the pointer is over the column', async () => {
       const { container } = await actRender(<ChartTest type={SeriesType.Column} />)
 
-      fireEvent.pointerOver(barsOf(container, 0)[0])
+      await hoverBar(barsOf(container, 0)[0])
 
       expect(tooltip()).toHaveTextContent('10 - Jan')
+      await flush()
+    })
+
+    it('should open at once, without the delay of other tooltips, as the value is what the pointer is after', async () => {
+      const { container } = await actRender(<ChartTest type={SeriesType.Column} />)
+      // A tooltip that closed less than 300ms ago, as the one of the test before, would open this one at once anyway
+      await act(async () => {
+        await new Promise((resolve) => setTimeout(resolve, 350))
+      })
+
+      jest.useFakeTimers()
+      try {
+        fireEvent.pointerOver(barsOf(container, 0)[0])
+        await act(async () => {
+          jest.advanceTimersByTime(50)
+        })
+        expect(tooltip()).toHaveTextContent('10 - Jan')
+        act(() => {
+          jest.runOnlyPendingTimers()
+        })
+      } finally {
+        jest.useRealTimers()
+      }
       await flush()
     })
 
@@ -68,7 +108,7 @@ describe('Chart', () => {
     it('should show the value of the stacked column', async () => {
       const { container } = await actRender(<ChartTest type={SeriesType.Column} stacked series={stackedSeries} />)
 
-      fireEvent.pointerOver(barsOf(container, 1)[0])
+      await hoverBar(barsOf(container, 1)[0])
 
       expect(tooltip().textContent).toBe('5 - Jan')
       await flush()
@@ -85,7 +125,7 @@ describe('Chart', () => {
         />
       )
 
-      fireEvent.pointerOver(barsOf(container, 1)[0])
+      await hoverBar(barsOf(container, 1)[0])
 
       expect(tooltip().textContent).toBe('B: 5')
       await flush()
@@ -96,7 +136,7 @@ describe('Chart', () => {
         <ChartTest type={SeriesType.Column} outliers='auto' series={[{ name: 'A', data: [200] }]} />
       )
 
-      fireEvent.pointerOver(barsOf(container, 0)[0])
+      await hoverBar(barsOf(container, 0)[0])
 
       expect(tooltip().textContent).toBe('200 - Jan')
       await flush()
@@ -251,7 +291,7 @@ describe('BarChart', () => {
   it('should open the tooltip of a bar when the pointer is over it', async () => {
     const { container } = await actRender(<BarChartTest xAxis={{ domain: { init: 0, end: 40, step: 10 } }} />)
 
-    fireEvent.pointerOver(barsOf(container, 0)[0])
+    await hoverBar(barsOf(container, 0)[0])
 
     expect(tooltip()).toHaveTextContent('10 - Jan')
     await flush()
