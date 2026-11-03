@@ -77,6 +77,18 @@ it('should have gridRow 2 when has header', () => {
   expect(modalBody).toHaveStyle('grid-row: 2;')
 })
 
+it('should take the height left by the other sections on small screens', () => {
+  const { getByTestId } = render(
+    <ModalContextProvider value={createMockModalContext()}>
+      <ModalBody data-testid='modal-body'>Modal content</ModalBody>
+    </ModalContextProvider>
+  )
+  const media = '(max-width:600px)'
+
+  expect(getByTestId('modal-body')).toHaveStyleRule('flex', '1 1 auto', { media })
+  expect(getByTestId('modal-body')).toHaveStyleRule('order', '2', { media })
+})
+
 it('should forward ref to the underlying element', () => {
   const mockContextValue = createMockModalContext()
   const ref = React.createRef<HTMLDivElement>()

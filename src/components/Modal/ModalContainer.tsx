@@ -10,6 +10,12 @@ export interface ModalContainerProps extends Omit<React.HTMLAttributes<HTMLDivEl
   style?: ExternalStyles
 }
 
+/**
+ * Nests styles given to the modal in a rule of their own, which comes after the rules for small screens of the
+ * modal, so they win over those too, as they do on wider screens.
+ */
+export const overriding = (style: ExternalStyles): ExternalStyles => (style ? { '&': style } : undefined)
+
 export const ModalContainer = forwardRef<HTMLDivElement, ModalContainerProps>((props, ref) => {
   const { style, children, ...rest } = props
 
@@ -25,7 +31,7 @@ export const ModalContainer = forwardRef<HTMLDivElement, ModalContainerProps>((p
       aria-modal='true'
       aria-labelledby={labelledBy}
       ref={ref}
-      className={css(classes.wrapper, style)}
+      className={css(classes.wrapper, overriding(style))}
       {...rest}
     >
       <div className={classes.inner}>{children}</div>
@@ -47,6 +53,10 @@ const createStyles = (theme: Theme, scroll: ModalScroll, hasHeader: boolean) => 
       overflow: scroll === 'body' ? 'hidden' : 'auto',
       display: 'grid',
       gridTemplateRows: '1fr',
+      [theme.breakpoints.down('sm')]: {
+        // As tall as the screen allows, but for the space around it
+        maxHeight: '100%',
+      },
     } as CSSProperties,
     inner: {
       display: 'grid',
@@ -54,6 +64,11 @@ const createStyles = (theme: Theme, scroll: ModalScroll, hasHeader: boolean) => 
       gridTemplateRows: scroll === 'body' ? gridTemplateRowsScrollBody : 'max-content',
       height: '100%',
       minHeight: 0,
+      [theme.breakpoints.down('sm')]: {
+        // One section under the other, at full width, in the order each section gives itself
+        display: 'flex',
+        flexDirection: 'column',
+      },
     } as CSSProperties,
   }
 }

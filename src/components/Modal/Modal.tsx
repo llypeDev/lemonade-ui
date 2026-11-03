@@ -7,9 +7,11 @@ import { zIndexLevel } from '../../styles/theme/zIndex'
 import { randomStr } from '../../util/string'
 import { Portal } from '../Portal'
 import { FadeTransition } from '../Transition/FadeTransition'
+import { leavingAttributes, leavingStyles } from '../Transition/leaving'
+import { useReturnFocus } from '../Transition/useReturnFocus'
 import { ModalContextValue, ModalContextProvider, ModalSectionsState } from '../../hooks/useModalContext'
 import { ModalBackdrop } from './ModalBackdrop'
-import { ModalContainer, ModalContainerProps } from './ModalContainer'
+import { ModalContainer, ModalContainerProps, overriding } from './ModalContainer'
 
 export type ModalSize = 'small' | 'medium' | 'large' | 'auto'
 export type ModalDepthLevel = 1 | 2 | 3 | 4 | 5
@@ -56,6 +58,12 @@ export interface ModalProps extends ModalContainerProps {
    * Styles applied to the modal's backdrop.
    */
   backdropStyle?: ExternalStyles
+
+  /**
+   * Called when the modal leaves the page after it closes, once it has faded out (at once when the user asks for
+   * reduced motion). Useful to clear its content only when it is no longer seen.
+   */
+  onExited?(): void
 }
 
 export function Modal(props: ModalProps) {
@@ -72,12 +80,18 @@ export function Modal(props: ModalProps) {
     manageOverflow,
     wrapperStyle,
     backdropStyle,
+    onExited,
     ...rest
   } = props
 
   const { classes, css } = useStyles(createStyles, depthLevel, scroll)
   const bodyRef = useRef()
   const modalRef = useRef<HTMLDivElement>(null)
+  const fadeRef = useRef<HTMLDivElement>(null)
+  // The focus trap passes on to the element it wraps only the refs that are functions
+  const setFadeElement = useCallback((element: HTMLDivElement) => {
+    fadeRef.current = element
+  }, [])
 
   const [sectionsState, setSectionsState] = useState<ModalSectionsState>({
     hasHeader: false,
@@ -114,32 +128,45 @@ export function Modal(props: ModalProps) {
   // Attach "Escape" to close modal, when no dialog or menu opened over it
   useOverlayEscape(open, () => onClose?.())
 
+  // The modal stays on the page while it fades out, but the focus goes back to the page as soon as it closes
+  useReturnFocus(open)
+
   return (
     <ModalContextProvider value={modalContextValue}>
-      <FadeTransition in={open}>
-        {({ className }) => (
-          <>
-            {open && (
-              <Portal>
-                <FocusTrap focusTrapOptions={{ fallbackFocus: () => modalRef.current, escapeDeactivates: false }}>
-                  <div className={className}>
-                    <div className={css(classes.modal, wrapperStyle)} ref={modalRef} tabIndex={-1}>
-                      <ModalContainer ref={containerRef} style={css(classes[size], style)} {...rest}>
-                        {children}
-                      </ModalContainer>
-                    </div>
-
-                    <ModalBackdrop
-                      depthLevel={depthLevel}
-                      style={backdropStyle}
-                      onClick={closeOnBackdropClick ? onClose : undefined}
-                    />
+      <FadeTransition in={open} nodeRef={fadeRef} onExited={onExited}>
+        {({ state, className }) =>
+          (open || state !== 'exited') && (
+            <Portal>
+              <FocusTrap
+                active={open}
+                focusTrapOptions={{
+                  fallbackFocus: () => modalRef.current,
+                  escapeDeactivates: false,
+                  // Only when the modal is removed while open: when it closes, useReturnFocus gives the focus back
+                  returnFocusOnDeactivate: open,
+                }}
+              >
+                <div
+                  ref={setFadeElement}
+                  className={css(className, !open && classes.leaving)}
+                  {...(open ? undefined : leavingAttributes)}
+                >
+                  <div className={css(classes.modal, overriding(wrapperStyle))} ref={modalRef} tabIndex={-1}>
+                    <ModalContainer ref={containerRef} style={css(classes[size], style)} {...rest}>
+                      {children}
+                    </ModalContainer>
                   </div>
-                </FocusTrap>
-              </Portal>
-            )}
-          </>
-        )}
+
+                  <ModalBackdrop
+                    depthLevel={depthLevel}
+                    style={backdropStyle}
+                    onClick={open && closeOnBackdropClick ? onClose : undefined}
+                  />
+                </div>
+              </FocusTrap>
+            </Portal>
+          )
+        }
       </FadeTransition>
     </ModalContextProvider>
   )
@@ -167,10 +194,14 @@ const createStyles = (theme: Theme, depthLevel: number) => ({
     alignItems: 'center',
     padding: '2rem',
     outline: 'none',
+    [theme.breakpoints.down('sm')]: {
+      padding: '1rem',
+    },
   } as React.CSSProperties,
   bodyWhenOpened: {
     overflow: 'hidden',
   },
+  leaving: leavingStyles,
   large: { width: 900 },
   medium: { width: 720 },
   small: { width: 520 },

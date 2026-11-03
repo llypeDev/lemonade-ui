@@ -1,6 +1,6 @@
-import React from 'react'
+import React, { CSSProperties } from 'react'
 import { Button, ButtonProps } from '../Button'
-import { useStyles } from '../../styles'
+import { Theme, useStyles } from '../../styles'
 
 export interface ModalFooterButtonProps extends Omit<ButtonProps, 'size'> {}
 
@@ -12,8 +12,12 @@ export function ModalFooterButton(props: ModalFooterButtonProps) {
   return <Button style={[classes.button, style]} {...rest} />
 }
 
-const createStyles = () => ({
+const createStyles = (theme: Theme) => ({
   button: {
     minWidth: '9rem',
-  },
+    [theme.breakpoints.down('sm')]: {
+      // As wide as its label, so the buttons fit side by side
+      minWidth: 'auto',
+    },
+  } as CSSProperties,
 })

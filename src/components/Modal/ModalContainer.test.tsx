@@ -44,3 +44,19 @@ it('should provide a ref to the div html element', () => {
   )
   expect(ref.current.tagName).toEqual('DIV')
 })
+
+it('should stack its sections in one column, as tall as the screen allows, on small screens', () => {
+  const { getByRole } = render(
+    <ModalContextProvider value={mockContextValue}>
+      <ModalContainer>Container</ModalContainer>
+    </ModalContextProvider>
+  )
+  const dialog = getByRole('dialog')
+  const media = '(max-width:600px)'
+
+  expect(dialog).toHaveStyleRule('max-height', '80vh')
+  expect(dialog).toHaveStyleRule('max-height', '100%', { media })
+  expect(dialog.firstElementChild).toHaveStyleRule('display', 'grid')
+  expect(dialog.firstElementChild).toHaveStyleRule('display', 'flex', { media })
+  expect(dialog.firstElementChild).toHaveStyleRule('flex-direction', 'column', { media })
+})

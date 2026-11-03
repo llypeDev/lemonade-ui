@@ -14,6 +14,16 @@ exports[`should accept the "style" prop 1`] = `
   color: red;
 }
 
+@media (max-width:600px) {
+  .emotion-0 {
+    height: auto;
+    min-height: 5rem;
+    -webkit-order: 4;
+    -ms-flex-order: 4;
+    order: 4;
+  }
+}
+
 <div>
   <div
     class="emotion-0"
@@ -34,6 +44,16 @@ exports[`should render correctly 1`] = `
   border-top: 1px solid #D3D4DD;
   grid-column: 1 / -1;
   grid-row: 2;
+}
+
+@media (max-width:600px) {
+  .emotion-0 {
+    height: auto;
+    min-height: 5rem;
+    -webkit-order: 4;
+    -ms-flex-order: 4;
+    order: 4;
+  }
 }
 
 <div>

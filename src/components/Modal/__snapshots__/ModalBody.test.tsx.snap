@@ -9,6 +9,17 @@ exports[`should accept the "style" prop 1`] = `
   color: red;
 }
 
+@media (max-width:600px) {
+  .emotion-0 {
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    -webkit-order: 2;
+    -ms-flex-order: 2;
+    order: 2;
+  }
+}
+
 <div>
   <div
     class="emotion-0"
@@ -24,6 +35,17 @@ exports[`should render correctly 1`] = `
   overflow: auto;
   grid-column: 2;
   grid-row: 1;
+}
+
+@media (max-width:600px) {
+  .emotion-0 {
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    -webkit-order: 2;
+    -ms-flex-order: 2;
+    order: 2;
+  }
 }
 
 <div>

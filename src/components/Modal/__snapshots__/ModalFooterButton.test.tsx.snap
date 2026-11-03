@@ -62,6 +62,12 @@ exports[`should render correctly 1`] = `
   background-color: #F0F0F5;
 }
 
+@media (max-width:600px) {
+  .emotion-0 {
+    min-width: auto;
+  }
+}
+
 <div>
   <button
     class="emotion-0"

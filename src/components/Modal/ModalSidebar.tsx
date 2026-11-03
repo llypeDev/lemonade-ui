@@ -45,5 +45,17 @@ const createStyles = (theme: Theme, position: ModalSidebarPosition, scroll: Moda
     overflowY: scroll === 'body' ? 'auto' : 'initial',
     gridRow: hasHeader ? '2' : '1',
     gridColumn: position === 'left' ? '1' : '3',
+    [theme.breakpoints.down('sm')]: {
+      // At full width, in the order it reads on wider screens: a left sidebar above the body, a right one below it
+      width: 'auto',
+      order: position === 'left' ? 1 : 3,
+      flexShrink: 0,
+      // When only the body scrolls, most of the height is left to it
+      maxHeight: scroll === 'body' ? '30vh' : undefined,
+      borderLeft: 0,
+      borderRight: 0,
+      borderBottom: position === 'left' ? `1px solid ${theme.pallete.divider}` : undefined,
+      borderTop: position === 'right' ? `1px solid ${theme.pallete.divider}` : undefined,
+    },
   } as React.CSSProperties,
 })

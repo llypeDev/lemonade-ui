@@ -59,23 +59,27 @@ export const Default = (args) => (
 )
 
 export const Placements = () => {
-  const [placement, setPlacement] = useState<DrawerPlacement>()
+  // The placement stays when the drawer closes, so it slides out to the edge it came from
+  const [placement, setPlacement] = useState<DrawerPlacement>('right')
+  const [open, setOpen] = useState(false)
 
   return (
     <>
       <Flow direction='horizontal'>
         {(['left', 'right', 'top', 'bottom'] as DrawerPlacement[]).map((value) => (
-          <Button key={value} size='small' onClick={() => setPlacement(value)}>
+          <Button
+            key={value}
+            size='small'
+            onClick={() => {
+              setPlacement(value)
+              setOpen(true)
+            }}
+          >
             Open {value}
           </Button>
         ))}
       </Flow>
-      <Drawer
-        open={!!placement}
-        placement={placement}
-        title={`Drawer on the ${placement}`}
-        onClose={() => setPlacement(undefined)}
-      >
+      <Drawer open={open} placement={placement} title={`Drawer on the ${placement}`} onClose={() => setOpen(false)}>
         <Filters />
       </Drawer>
     </>

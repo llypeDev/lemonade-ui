@@ -25,6 +25,12 @@ exports[`should render correctly 1`] = `
   outline: none;
 }
 
+@media (max-width:600px) {
+  .emotion-12 {
+    padding: 1rem;
+  }
+}
+
 .emotion-15 {
   overflow: hidden;
 }
@@ -40,6 +46,15 @@ exports[`should render correctly 1`] = `
   overflow: hidden;
   display: grid;
   grid-template-rows: 1fr;
+}
+
+@media (max-width:600px) {
+  .emotion-11 {
+    max-height: 100%;
+  }
+}
+
+.emotion-11 {
   width: 520px;
 }
 
@@ -238,6 +253,12 @@ exports[`should render correctly 1`] = `
   background-color: #F0F0F5;
 }
 
+@media (max-width:600px) {
+  .emotion-7 {
+    min-width: auto;
+  }
+}
+
 .emotion-13 {
   position: fixed;
   z-index: 1050;
@@ -252,7 +273,14 @@ exports[`should render correctly 1`] = `
   -webkit-transition: opacity 200ms ease-in-out;
   transition: opacity 200ms ease-in-out;
   opacity: 0;
-  opacity: 0;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .emotion-14 {
+    -webkit-transition: none;
+    transition: none;
+  }
 }
 
 .emotion-10 {
@@ -263,11 +291,34 @@ exports[`should render correctly 1`] = `
   min-height: 0;
 }
 
+@media (max-width:600px) {
+  .emotion-10 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+}
+
 .emotion-6 {
   padding: 1rem 2rem 2rem 2rem;
   overflow: auto;
   grid-column: 2;
   grid-row: 2;
+}
+
+@media (max-width:600px) {
+  .emotion-6 {
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    -webkit-order: 2;
+    -ms-flex-order: 2;
+    order: 2;
+  }
 }
 
 .emotion-9 {
@@ -280,6 +331,16 @@ exports[`should render correctly 1`] = `
   border-top: 1px solid #D3D4DD;
   grid-column: 1 / -1;
   grid-row: 3;
+}
+
+@media (max-width:600px) {
+  .emotion-9 {
+    height: auto;
+    min-height: 5rem;
+    -webkit-order: 4;
+    -ms-flex-order: 4;
+    order: 4;
+  }
 }
 
 <body
@@ -578,11 +639,24 @@ exports[`should render correctly with depth 1`] = `
   background-color: #F0F0F5;
 }
 
+@media (max-width:600px) {
+  .emotion-7 {
+    min-width: auto;
+  }
+}
+
 .emotion-14 {
   -webkit-transition: opacity 200ms ease-in-out;
   transition: opacity 200ms ease-in-out;
   opacity: 0;
-  opacity: 0;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .emotion-14 {
+    -webkit-transition: none;
+    transition: none;
+  }
 }
 
 .emotion-10 {
@@ -593,11 +667,34 @@ exports[`should render correctly with depth 1`] = `
   min-height: 0;
 }
 
+@media (max-width:600px) {
+  .emotion-10 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+}
+
 .emotion-6 {
   padding: 1rem 2rem 2rem 2rem;
   overflow: auto;
   grid-column: 2;
   grid-row: 2;
+}
+
+@media (max-width:600px) {
+  .emotion-6 {
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    -webkit-order: 2;
+    -ms-flex-order: 2;
+    order: 2;
+  }
 }
 
 .emotion-9 {
@@ -610,6 +707,16 @@ exports[`should render correctly with depth 1`] = `
   border-top: 1px solid #D3D4DD;
   grid-column: 1 / -1;
   grid-row: 3;
+}
+
+@media (max-width:600px) {
+  .emotion-9 {
+    height: auto;
+    min-height: 5rem;
+    -webkit-order: 4;
+    -ms-flex-order: 4;
+    order: 4;
+  }
 }
 
 .emotion-12 {
@@ -636,6 +743,12 @@ exports[`should render correctly with depth 1`] = `
   outline: none;
 }
 
+@media (max-width:600px) {
+  .emotion-12 {
+    padding: 1rem;
+  }
+}
+
 .emotion-11 {
   max-height: 80vh;
   border: 1px solid #D3D4DD;
@@ -647,6 +760,15 @@ exports[`should render correctly with depth 1`] = `
   overflow: hidden;
   display: grid;
   grid-template-rows: 1fr;
+}
+
+@media (max-width:600px) {
+  .emotion-11 {
+    max-height: 100%;
+  }
+}
+
+.emotion-11 {
   width: 900px;
 }
 
@@ -779,6 +901,12 @@ exports[`should render correctly without 'overflow hidden' prop in document clas
   align-items: center;
   padding: 2rem;
   outline: none;
+}
+
+@media (max-width:600px) {
+  .emotion-12 {
+    padding: 1rem;
+  }
 }
 
 .emotion-5 {
@@ -976,6 +1104,12 @@ exports[`should render correctly without 'overflow hidden' prop in document clas
   background-color: #F0F0F5;
 }
 
+@media (max-width:600px) {
+  .emotion-7 {
+    min-width: auto;
+  }
+}
+
 .emotion-13 {
   position: fixed;
   z-index: 1050;
@@ -990,7 +1124,14 @@ exports[`should render correctly without 'overflow hidden' prop in document clas
   -webkit-transition: opacity 200ms ease-in-out;
   transition: opacity 200ms ease-in-out;
   opacity: 0;
-  opacity: 0;
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .emotion-14 {
+    -webkit-transition: none;
+    transition: none;
+  }
 }
 
 .emotion-10 {
@@ -1001,11 +1142,34 @@ exports[`should render correctly without 'overflow hidden' prop in document clas
   min-height: 0;
 }
 
+@media (max-width:600px) {
+  .emotion-10 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+}
+
 .emotion-6 {
   padding: 1rem 2rem 2rem 2rem;
   overflow: auto;
   grid-column: 2;
   grid-row: 2;
+}
+
+@media (max-width:600px) {
+  .emotion-6 {
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    -webkit-order: 2;
+    -ms-flex-order: 2;
+    order: 2;
+  }
 }
 
 .emotion-9 {
@@ -1020,6 +1184,16 @@ exports[`should render correctly without 'overflow hidden' prop in document clas
   grid-row: 3;
 }
 
+@media (max-width:600px) {
+  .emotion-9 {
+    height: auto;
+    min-height: 5rem;
+    -webkit-order: 4;
+    -ms-flex-order: 4;
+    order: 4;
+  }
+}
+
 .emotion-11 {
   max-height: 80vh;
   border: 1px solid #D3D4DD;
@@ -1031,6 +1205,15 @@ exports[`should render correctly without 'overflow hidden' prop in document clas
   overflow: hidden;
   display: grid;
   grid-template-rows: 1fr;
+}
+
+@media (max-width:600px) {
+  .emotion-11 {
+    max-height: 100%;
+  }
+}
+
+.emotion-11 {
   width: 900px;
 }
 
