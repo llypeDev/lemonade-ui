@@ -1,5 +1,5 @@
 import { action } from '@storybook/addon-actions'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { SortableLabel, SortDirection } from './SortableLabel'
 
@@ -21,4 +21,19 @@ export default {
   },
 }
 
-export const _SortableLabel = (args) => <SortableLabel {...args}>Property</SortableLabel>
+export const _SortableLabel = (args) => {
+  // The story keeps the direction, as the table around a label does. The control of the direction still sets it.
+  const [direction, setDirection] = useState<SortDirection>(args.direction)
+  useEffect(() => setDirection(args.direction), [args.direction])
+
+  const handleChange = (newDirection: SortDirection, shiftKey?: boolean) => {
+    setDirection(newDirection)
+    args.onChange(newDirection, shiftKey)
+  }
+
+  return (
+    <SortableLabel {...args} direction={direction} onChange={handleChange}>
+      Property
+    </SortableLabel>
+  )
+}

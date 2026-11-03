@@ -1,4 +1,4 @@
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { action } from '@storybook/addon-actions'
 import { VFlow } from '../VFlow'
 import { HeadingSection } from '../HeadingSection'
@@ -66,9 +66,19 @@ export const Default = (args) => {
 }
 
 export const Clickable = (args) => {
+  // A clickable card that is selected or not is a toggle button, so the story keeps the selection. The control of
+  // the selection still sets it.
+  const [selected, setSelected] = useState<boolean>(args.selected)
+  useEffect(() => setSelected(args.selected), [args.selected])
+
+  const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
+    setSelected(!selected)
+    action('Card clicked')(event)
+  }
+
   return (
     <div style={{ paddingBottom: '0.5rem' }}>
-      <ClickableCard {...args} onClick={action('Card clicked')}>
+      <ClickableCard {...args} selected={selected} onClick={handleClick}>
         <ClickableCardContent />
       </ClickableCard>
     </div>

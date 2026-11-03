@@ -1,5 +1,5 @@
 import { action } from '@storybook/addon-actions'
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { Button } from '../../Button'
 import { Icon } from '../../Icon'
@@ -49,7 +49,38 @@ export default {
   },
 }
 
-export const Default = (args) => <DataTable {...args} rows={args.empty ? [] : rows} />
+// Sorts by each name of the sort in turn, descending when it starts with "-"
+const sortRows = (list: Row[], sort: ReadonlyArray<string>) =>
+  [...list].sort((a, b) => {
+    for (const item of sort) {
+      const desc = item.startsWith('-')
+      const field = (desc ? item.slice(1) : item) as keyof Row
+      if (a[field] !== b[field]) {
+        return (a[field] < b[field] ? -1 : 1) * (desc ? -1 : 1)
+      }
+    }
+    return 0
+  })
+
+export const Default = (args) => {
+  // The story keeps the sort, as the parent of a table does. The control of the sort still sets it.
+  const [sort, setSort] = useState<string[]>(args.sort)
+  useEffect(() => setSort(args.sort), [args.sort])
+
+  const handleSortChange = (newSort: string[]) => {
+    setSort(newSort)
+    args.onSortChange(newSort)
+  }
+
+  return (
+    <DataTable
+      {...args}
+      rows={args.empty ? [] : sortRows(rows, sort || [])}
+      sort={sort}
+      onSortChange={handleSortChange}
+    />
+  )
+}
 
 const people: Row[] = [
   ...rows,
