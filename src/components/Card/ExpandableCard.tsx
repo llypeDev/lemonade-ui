@@ -1,10 +1,10 @@
 import { css, Interpolation } from 'emotion'
 import React from 'react'
 
+import { collapseStyles, useCollapse } from '../../hooks/useCollapse'
 import { ExternalStyles, Theme, useTheme } from '../../styles'
 import { Omit } from '../../util'
 import { ExpandableHeader, ExpandableHeadingLevel } from '../Accordion/ExpandableHeader'
-import { collapseStyles, useCollapse } from '../Accordion/useCollapse'
 import { useExpandable, UseExpandableProps } from '../Accordion/useExpandable'
 
 import { CardVariant, createBaseStyles, createVariantStyles } from './cardVariants'

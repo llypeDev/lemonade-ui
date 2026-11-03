@@ -16,6 +16,8 @@ The expandable text cuts a long text after a few lines, with a button that shows
 
 <Demo src='pages/components/expandable-text/ExpandableText' />
 
+The text slides between its lines and its whole height, except when the user asks for reduced motion.
+
 ## Accessibility
 
-The button has `aria-expanded` and `aria-controls`, and its labels, "Show more" and "Show less", come from the locale strings. The cut text stays in the page, so screen readers read it whole.
+The button has `aria-expanded` and `aria-controls`, and its labels, "Show more" and "Show less", come from the locale strings. It keeps the focus when the text expands and collapses. The cut text stays in the page, so screen readers read it whole.

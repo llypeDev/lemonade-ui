@@ -1,5 +1,6 @@
 import React, { CSSProperties, useContext } from 'react'
 
+import { useCollapse } from '../../hooks/useCollapse'
 import { ExternalStyles, Theme, useStyles } from '../../styles'
 import { useExpandable, UseExpandableProps } from '../Accordion/useExpandable'
 import { Icon, IconImage } from '../Icon'
@@ -20,7 +21,7 @@ export interface SideNavGroupProps extends UseExpandableProps {
 }
 
 /**
- * A group of `SideNav` items that expands and collapses. It starts expanded when one of its items is active,
+ * A group of `SideNav` items that slides open and closed. It starts expanded when one of its items is active,
  * unless `defaultExpanded` says otherwise.
  */
 export function SideNavGroup(props: SideNavGroupProps) {
@@ -33,6 +34,8 @@ export function SideNavGroup(props: SideNavGroupProps) {
     defaultExpanded: defaultExpanded ?? hasActive,
     onChange,
   })
+  // The items slide open and closed, and stay out of the tab order and screen readers while collapsed
+  const collapse = useCollapse<HTMLUListElement>(isExpanded)
 
   const { classes: itemClasses, css } = useStyles(createItemStyles, level)
   const { classes } = useStyles(createStyles)
@@ -51,7 +54,13 @@ export function SideNavGroup(props: SideNavGroupProps) {
         <span className={itemClasses.label}>{title}</span>
         <Icon icon='angleDown' size={1} style={css(classes.chevron, isExpanded && classes.chevronExpanded)} />
       </button>
-      <ul id={contentId} aria-labelledby={headerId} hidden={!isExpanded} className={classes.list}>
+      <ul
+        ref={collapse.ref}
+        id={contentId}
+        aria-labelledby={headerId}
+        hidden={collapse.hidden}
+        className={classes.list}
+      >
         <SideNavLevelContext.Provider value={level + 1}>{children}</SideNavLevelContext.Provider>
       </ul>
     </li>

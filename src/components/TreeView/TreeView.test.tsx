@@ -146,6 +146,138 @@ describe('TreeView', () => {
     expect(item(getByRole, 'Beach.png')).toHaveAttribute('aria-selected', 'true')
     expect(item(getByRole, 'Beach.png')).toHaveAttribute('tabindex', '0')
   })
+
+  describe('expand and collapse', () => {
+    const { matchMedia } = window
+    afterEach(() => {
+      window.matchMedia = matchMedia
+      jest.restoreAllMocks()
+    })
+    const prefersReducedMotion = (reduce: boolean) => {
+      window.matchMedia = ((query: string) => ({ matches: reduce && query.includes('reduce') })) as any
+    }
+    // The list of children comes right after the row of the node
+    const groupOf = (getByRole: any, name: string) => {
+      const group = item(getByRole, name).lastElementChild as HTMLElement
+      expect(group).toHaveAttribute('role', 'group')
+      return group
+    }
+
+    it('should slide the children of a node open', () => {
+      prefersReducedMotion(false)
+      // jsdom has no layout: the children take 32px
+      jest.spyOn(HTMLElement.prototype, 'scrollHeight', 'get').mockReturnValue(32)
+      const { getByRole, getByText } = renderTree()
+
+      fireEvent.click(getByText('Photos'))
+      const group = groupOf(getByRole, 'Photos')
+      expect(item(getByRole, 'Beach.png')).toBeInTheDocument()
+      expect(group.style.height).toBe('32px')
+      expect(group.style.transition).toBe('height 200ms ease')
+
+      fireEvent.transitionEnd(group)
+      expect(group.style.height).toBe('')
+    })
+
+    it('should keep the children shown while the node collapses, out of the keyboard, and remove them at the end', () => {
+      prefersReducedMotion(false)
+      const { getByRole, queryByRole } = renderTree({ defaultExpanded: ['docs'] })
+      const docs = item(getByRole, 'Documents')
+      const group = groupOf(getByRole, 'Documents')
+
+      docs.focus()
+      fireEvent.keyDown(docs, { key: 'ArrowLeft' })
+      expect(docs).toHaveAttribute('aria-expanded', 'false')
+      expect(group).toBeInTheDocument()
+      expect(group.style.height).toBe('0px')
+      // The children on their way out are not stops of the keyboard
+      expect(item(getByRole, 'Contract.pdf')).toHaveAttribute('tabindex', '-1')
+      fireEvent.keyDown(docs, { key: 'ArrowDown' })
+      expect(item(getByRole, 'Photos')).toHaveFocus()
+
+      fireEvent.transitionEnd(group)
+      expect(group).not.toBeInTheDocument()
+      expect(queryByRole('treeitem', { name: 'Contract.pdf' })).toBeNull()
+      expect(docs.querySelector('[role="group"]')).toBeNull()
+    })
+
+    it('should let an open node grow while a child slides open, each with its own slide', () => {
+      prefersReducedMotion(false)
+      jest.spyOn(HTMLElement.prototype, 'scrollHeight', 'get').mockReturnValue(64)
+      const { getByRole, getByText } = renderTree()
+
+      fireEvent.click(getByText('Documents'))
+      const docs = groupOf(getByRole, 'Documents')
+      expect(docs.style.height).toBe('64px')
+      fireEvent.transitionEnd(docs)
+      expect(docs.style.height).toBe('')
+
+      // The open parent has no fixed height, so it grows with the child and pushes the nodes below
+      fireEvent.click(getByText('Invoices'))
+      const invoices = groupOf(getByRole, 'Invoices')
+      expect(invoices.style.height).toBe('64px')
+      expect(docs.style.height).toBe('')
+
+      // The end of the slide of the child bubbles up, and does not end the slide of the parent
+      fireEvent.click(getByText('Documents'))
+      expect(docs.style.height).toBe('0px')
+      fireEvent.transitionEnd(invoices)
+      expect(docs.style.height).toBe('0px')
+      expect(docs).toBeInTheDocument()
+
+      fireEvent.transitionEnd(docs)
+      expect(docs).not.toBeInTheDocument()
+    })
+
+    it('should make room in a node still sliding open for a child that opens or closes', () => {
+      prefersReducedMotion(false)
+      // The parent takes 64px, and the children of Invoices 64px more
+      jest.spyOn(HTMLElement.prototype, 'scrollHeight', 'get').mockReturnValue(64)
+      jest.spyOn(HTMLElement.prototype, 'getBoundingClientRect').mockImplementation(function (this: HTMLElement) {
+        return { height: this.style.height ? parseFloat(this.style.height) : 64 } as DOMRect
+      })
+      const { getByRole, getByText } = renderTree()
+
+      fireEvent.click(getByText('Documents'))
+      const docs = groupOf(getByRole, 'Documents')
+      expect(docs.style.height).toBe('64px')
+
+      // The parent ends at its height with the open child, instead of jumping to it at the end
+      fireEvent.click(getByText('Invoices'))
+      expect(groupOf(getByRole, 'Invoices').style.height).toBe('64px')
+      expect(docs.style.height).toBe('128px')
+
+      fireEvent.click(getByText('Invoices'))
+      const invoices = groupOf(getByRole, 'Invoices')
+      expect(invoices.style.height).toBe('0px')
+      expect(docs.style.height).toBe('64px')
+
+      fireEvent.transitionEnd(invoices)
+      fireEvent.transitionEnd(docs)
+      expect(docs.style.height).toBe('')
+    })
+
+    it('should open a node with its open children in one slide', () => {
+      prefersReducedMotion(false)
+      jest.spyOn(HTMLElement.prototype, 'scrollHeight', 'get').mockReturnValue(96)
+      const { getByRole, getByText } = renderTree({ defaultExpanded: ['invoices'] })
+
+      fireEvent.click(getByText('Documents'))
+      expect(groupOf(getByRole, 'Documents').style.height).toBe('96px')
+      expect(item(getByRole, 'October.pdf')).toBeInTheDocument()
+      expect(groupOf(getByRole, 'Invoices').style.height).toBe('')
+      fireEvent.transitionEnd(groupOf(getByRole, 'Documents'))
+    })
+
+    it('should remove the children at once with reduced motion', () => {
+      prefersReducedMotion(true)
+      const { getByRole, getByText, queryByRole } = renderTree({ defaultExpanded: ['docs'] })
+
+      fireEvent.click(getByText('Documents'))
+      expect(queryByRole('treeitem', { name: 'Contract.pdf' })).toBeNull()
+      expect(item(getByRole, 'Documents').querySelector('[role="group"]')).toBeNull()
+    })
+  })
 })
 
 it('should show the focus ring of a node for the keyboard, not after a click', () => {

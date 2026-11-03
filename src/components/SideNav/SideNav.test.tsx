@@ -107,6 +107,60 @@ describe('SideNav', () => {
     )
     expect(getByText('4')).toBeInTheDocument()
   })
+
+  describe('open and close', () => {
+    const { matchMedia } = window
+    afterEach(() => {
+      window.matchMedia = matchMedia
+      jest.restoreAllMocks()
+    })
+    const prefersReducedMotion = (reduce: boolean) => {
+      window.matchMedia = ((query: string) => ({ matches: reduce && query.includes('reduce') })) as any
+    }
+
+    it('should slide the items of a group open', () => {
+      prefersReducedMotion(false)
+      // jsdom has no layout: the items of the group take 80px
+      jest.spyOn(HTMLElement.prototype, 'scrollHeight', 'get').mockReturnValue(80)
+      const { getByRole, getByText } = renderNav()
+      const list = getByText('Users').closest('ul')
+
+      fireEvent.click(getByRole('button', { name: 'Settings' }))
+      expect(list).not.toHaveAttribute('hidden')
+      expect(list.style.height).toBe('80px')
+      expect(list.style.transition).toBe('height 200ms ease')
+
+      fireEvent.transitionEnd(list)
+      expect(list.style.height).toBe('')
+      expect(getByText('Users')).toBeVisible()
+    })
+
+    it('should keep the items of a group shown while it closes, and hide them at the end', () => {
+      prefersReducedMotion(false)
+      const { getByRole, getByText } = renderNav()
+      const header = getByRole('button', { name: 'Reports' })
+      const list = getByText('Sales').closest('ul')
+
+      fireEvent.click(header)
+      expect(header).toHaveAttribute('aria-expanded', 'false')
+      expect(list).not.toHaveAttribute('hidden')
+      expect(list.style.height).toBe('0px')
+
+      fireEvent.transitionEnd(list)
+      expect(list).toHaveAttribute('hidden')
+      expect(list.style.height).toBe('')
+      expect(getByText('Sales')).not.toBeVisible()
+    })
+
+    it('should hide the items of a group at once with reduced motion', () => {
+      prefersReducedMotion(true)
+      const { getByRole, getByText } = renderNav()
+
+      fireEvent.click(getByRole('button', { name: 'Reports' }))
+      expect(getByText('Sales').closest('ul')).toHaveAttribute('hidden')
+      expect(getByText('Sales').closest('ul').style.height).toBe('')
+    })
+  })
 })
 
 it('should show the focus ring for the keyboard and keep the mark of the current item after a click', () => {

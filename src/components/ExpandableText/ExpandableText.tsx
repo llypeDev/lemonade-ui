@@ -1,5 +1,6 @@
-import React, { CSSProperties, useMemo, useRef, useState } from 'react'
+import React, { CSSProperties, useEffect, useMemo, useState } from 'react'
 
+import { useCollapse } from '../../hooks/useCollapse'
 import { useIsOverflowing } from '../../hooks/useIsOverflowing'
 import { useLocale } from '../../i18n'
 import { ExternalStyles, focusBoxShadow, Theme, useStyles } from '../../styles'
@@ -45,7 +46,7 @@ export interface ExpandableTextProps extends Omit<React.HTMLAttributes<HTMLDivEl
 
 /**
  * Long text cut after a few lines, with a button that shows the rest, such as a description or a comment.
- * The button only shows up when the text does not fit.
+ * The button only shows up when the text does not fit. The text slides between its lines and its whole height.
  */
 export function ExpandableText(props: ExpandableTextProps) {
   const {
@@ -62,11 +63,35 @@ export function ExpandableText(props: ExpandableTextProps) {
 
   const locale = useLocale()
   const { classes, css } = useStyles(createStyles, lines)
-  const contentRef = useRef<HTMLDivElement>(null)
   const contentId = useMemo(() => `expandable-text-${randomStr()}`, [])
   const [internalExpanded, setInternalExpanded] = useState(defaultExpanded)
   const isExpanded = expanded ?? internalExpanded
-  const overflowing = useIsOverflowing(contentRef, 'vertical')
+
+  // The whole text stays while it slides back to its lines, and is clamped at the end
+  const collapse = useCollapse(isExpanded, {
+    // The height of the lines, measured with the clamp on for a moment
+    collapsedHeight: (element) => {
+      element.classList.add(classes.clamped)
+      const { height } = element.getBoundingClientRect()
+      element.classList.remove(classes.clamped)
+      return height
+    },
+  })
+  const clamped = collapse.hidden
+  const overflowing = useIsOverflowing(collapse.ref, 'vertical')
+
+  // Expanded, the text does not overflow, so right after a collapse `overflowing` is still false: the button
+  // stays until the clamped text is measured, so it keeps the focus instead of leaving the page for a moment
+  const [previous, setPrevious] = useState(isExpanded)
+  const [measuring, setMeasuring] = useState(false)
+  if (previous !== isExpanded) {
+    setPrevious(isExpanded)
+    setMeasuring(!isExpanded)
+  }
+  // Runs after the measure of useIsOverflowing, which comes first
+  useEffect(() => {
+    measuring && clamped && setMeasuring(false)
+  }, [measuring, clamped])
 
   const toggle = () => {
     if (expanded === undefined) {
@@ -77,10 +102,10 @@ export function ExpandableText(props: ExpandableTextProps) {
 
   return (
     <div className={css(classes.root, style)} {...rest}>
-      <div id={contentId} ref={contentRef} className={css(classes.content, !isExpanded && classes.clamped)}>
+      <div id={contentId} ref={collapse.ref} className={css(classes.content, clamped && classes.clamped)}>
         {children}
       </div>
-      {(isExpanded || overflowing) && (
+      {(isExpanded || overflowing || measuring) && (
         <button
           type='button'
           className={classes.toggle}

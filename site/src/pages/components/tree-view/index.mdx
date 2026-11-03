@@ -16,6 +16,8 @@ The tree view shows nested items that expand and collapse, such as folders, cate
 
 <Demo src='pages/components/tree-view/TreeView' />
 
+The children of a node slide open and closed, except when the user asks for reduced motion. A collapsed node renders none of its children, so they are out of the page, the tab order and screen readers, and a large tree only renders the nodes the user can reach.
+
 ## Accessibility
 
 The tree follows the ARIA tree pattern. It is a single stop of the Tab key; inside it, the up and down arrows move between the visible nodes, the right arrow expands a node or goes to its first child, and the left arrow collapses it or goes to its parent. Home and End go to the first and the last node, Enter and Space select, and typing a letter goes to the next node that starts with it. Each node has its level, position and state, and is named by its own label. Name the tree with `aria-label`.
