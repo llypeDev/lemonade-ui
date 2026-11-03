@@ -353,6 +353,16 @@ describe('modal sections state', () => {
   })
 })
 
+// jsdom cannot parse some selectors, such as :focus-visible; they are of states, like the focus of the keyboard,
+// that the elements of these tests are not in
+const matches = (element: Element, selector: string) => {
+  try {
+    return element.matches(selector)
+  } catch {
+    return false
+  }
+}
+
 // Value of a property of an element on a screen `width` pixels wide, from the rules on the page in their order
 // (the rules of the modal all have the same specificity, so the last one wins)
 const styleOnScreen = (element: Element, property: string, width: number) => {
@@ -365,7 +375,7 @@ const styleOnScreen = (element: Element, property: string, width: number) => {
         if ((max && width <= Number(max[1])) || (min && width >= Number(min[1]))) {
           visit(rule.cssRules)
         }
-      } else if (rule.selectorText && element.matches(rule.selectorText)) {
+      } else if (rule.selectorText && matches(element, rule.selectorText)) {
         value = rule.style.getPropertyValue(property) || value
       }
     })
