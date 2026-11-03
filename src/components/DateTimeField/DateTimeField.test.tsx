@@ -1,4 +1,4 @@
-import { fireEvent, render } from '@testing-library/react'
+import { act, fireEvent, render } from '@testing-library/react'
 import React, { useState } from 'react'
 
 import { LocaleContext } from '../../i18n'
@@ -6,7 +6,11 @@ import ptBR from '../../i18n/locales/pt-BR'
 
 import { DateTimeField, DateTimeFieldProps } from './DateTimeField'
 
-jest.mock('../../util/string')
+// Keeps capitalize, which the calendar uses for the month names
+jest.mock('../../util/string', () => ({
+  ...jest.requireActual<object>('../../util/string'),
+  randomStr: jest.fn(() => 'abc'),
+}))
 
 const Controlled = (props: Partial<DateTimeFieldProps> & { initial?: Date | null }) => {
   const { initial = null, onChange, ...rest } = props
@@ -106,5 +110,43 @@ describe('DateTimeField', () => {
     )
     expect(getByRole('textbox', { name: 'Data' })).toBeInTheDocument()
     expect(getByRole('textbox', { name: 'Hora' })).toBeInTheDocument()
+  })
+
+  it('should not open the calendar when the focus moves through the fields', async () => {
+    const { container, getByRole } = render(<DateTimeField label='Starts at' value={new Date(2024, 4, 10, 9, 0)} />)
+
+    act(() => getByRole('textbox', { name: 'Date' }).focus())
+    act(() => getByRole('textbox', { name: 'Time' }).focus())
+    expect(container.querySelector('[data-date]')).toBeNull()
+    await act(async () => undefined)
+  })
+
+  it('should open the calendar on a click and close it with Escape, keeping the focus in the date', async () => {
+    const { container, getByRole } = render(<DateTimeField label='Starts at' value={new Date(2024, 4, 10, 9, 0)} />)
+    const date = getByRole('textbox', { name: 'Date' })
+    act(() => date.focus())
+
+    fireEvent.click(date)
+    expect(container.querySelector('[data-date="2024-05-10"]')).not.toBeNull()
+
+    fireEvent.keyDown(date, { key: 'Escape' })
+    expect(container.querySelector('[data-date]')).toBeNull()
+    expect(date).toHaveFocus()
+    await act(async () => undefined)
+  })
+
+  it('should pick the day with the keyboard and keep the time', async () => {
+    const onChange = jest.fn()
+    const { getByRole } = render(<Controlled initial={new Date(2024, 4, 10, 9, 0)} onChange={onChange} />)
+    const date = getByRole('textbox', { name: 'Date' })
+    act(() => date.focus())
+
+    fireEvent.keyDown(date, { key: 'ArrowDown', altKey: true })
+    fireEvent.keyDown(document.activeElement, { key: 'ArrowRight' })
+    fireEvent.keyDown(document.activeElement, { key: 'Enter' })
+
+    expect(onChange).toHaveBeenLastCalledWith(new Date(2024, 4, 11, 9, 0))
+    expect(date).toHaveFocus()
+    await act(async () => undefined)
   })
 })

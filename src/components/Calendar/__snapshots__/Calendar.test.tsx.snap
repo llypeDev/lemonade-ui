@@ -118,6 +118,7 @@ exports[`Calendar should render correctly 1`] = `
   padding: 0.25rem 0;
   display: inline-block;
   border-radius: 50%;
+  outline: none;
 }
 
 .emotion-12:hover {
@@ -125,11 +126,16 @@ exports[`Calendar should render correctly 1`] = `
   background: #F0F0F5;
 }
 
+.emotion-12:focus-visible {
+  box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
 .emotion-11 {
   width: 2rem;
   padding: 0.25rem 0;
   display: inline-block;
   border-radius: 50%;
+  outline: none;
   color: #696979;
 }
 
@@ -138,11 +144,16 @@ exports[`Calendar should render correctly 1`] = `
   background: #F0F0F5;
 }
 
+.emotion-11:focus-visible {
+  box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
 .emotion-38 {
   width: 2rem;
   padding: 0.25rem 0;
   display: inline-block;
   border-radius: 50%;
+  outline: none;
   background: #5E7300;
   color: #FFFFFF;
   font-weight: bold;
@@ -151,6 +162,10 @@ exports[`Calendar should render correctly 1`] = `
 .emotion-38:hover {
   cursor: pointer;
   background: #F0F0F5;
+}
+
+.emotion-38:focus-visible {
+  box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
 }
 
 .emotion-38:hover {
@@ -170,7 +185,6 @@ exports[`Calendar should render correctly 1`] = `
       >
         <button
           class="emotion-1"
-          tabindex="-1"
           title="Previous month"
           type="button"
         >
@@ -194,7 +208,6 @@ exports[`Calendar should render correctly 1`] = `
         Oct
         <button
           class="emotion-1"
-          tabindex="-1"
           title="Next month"
           type="button"
         >
@@ -221,7 +234,6 @@ exports[`Calendar should render correctly 1`] = `
       >
         <button
           class="emotion-1"
-          tabindex="-1"
           title="Previous year"
           type="button"
         >
@@ -245,7 +257,6 @@ exports[`Calendar should render correctly 1`] = `
         2018
         <button
           class="emotion-1"
-          tabindex="-1"
           title="Next year"
           type="button"
         >
@@ -304,6 +315,7 @@ exports[`Calendar should render correctly 1`] = `
             <span
               class="emotion-11"
               role="button"
+              tabindex="-1"
             >
               30
             </span>
@@ -314,6 +326,7 @@ exports[`Calendar should render correctly 1`] = `
             <span
               class="emotion-12"
               role="button"
+              tabindex="-1"
             >
               01
             </span>
@@ -324,6 +337,7 @@ exports[`Calendar should render correctly 1`] = `
             <span
               class="emotion-12"
               role="button"
+              tabindex="-1"
             >
               02
             </span>
@@ -334,6 +348,7 @@ exports[`Calendar should render correctly 1`] = `
             <span
               class="emotion-12"
               role="button"
+              tabindex="-1"
             >
               03
             </span>
@@ -344,6 +359,7 @@ exports[`Calendar should render correctly 1`] = `
             <span
               class="emotion-12"
               role="button"
+              tabindex="-1"
             >
               04
             </span>
@@ -354,6 +370,7 @@ exports[`Calendar should render correctly 1`] = `
             <span
               class="emotion-12"
               role="button"
+              tabindex="-1"
             >
               05
             </span>
@@ -364,6 +381,7 @@ exports[`Calendar should render correctly 1`] = `
             <span
               class="emotion-12"
               role="button"
+              tabindex="-1"
             >
               06
             </span>
@@ -376,6 +394,7 @@ exports[`Calendar should render correctly 1`] = `
             <span
               class="emotion-12"
               role="button"
+              tabindex="-1"
             >
               07
             </span>
@@ -386,6 +405,7 @@ exports[`Calendar should render correctly 1`] = `
             <span
               class="emotion-12"
               role="button"
+              tabindex="-1"
             >
               08
             </span>
@@ -396,6 +416,7 @@ exports[`Calendar should render correctly 1`] = `
             <span
               class="emotion-12"
               role="button"
+              tabindex="-1"
             >
               09
             </span>
@@ -406,6 +427,7 @@ exports[`Calendar should render correctly 1`] = `
             <span
               class="emotion-12"
               role="button"
+              tabindex="-1"
             >
               10
             </span>
@@ -416,6 +438,7 @@ exports[`Calendar should render correctly 1`] = `
             <span
               class="emotion-12"
               role="button"
+              tabindex="-1"
             >
               11
             </span>
@@ -426,6 +449,7 @@ exports[`Calendar should render correctly 1`] = `
             <span
               class="emotion-12"
               role="button"
+              tabindex="-1"
             >
               12
             </span>
@@ -436,6 +460,7 @@ exports[`Calendar should render correctly 1`] = `
             <span
               class="emotion-12"
               role="button"
+              tabindex="-1"
             >
               13
             </span>
@@ -448,6 +473,7 @@ exports[`Calendar should render correctly 1`] = `
             <span
               class="emotion-12"
               role="button"
+              tabindex="-1"
             >
               14
             </span>
@@ -458,6 +484,7 @@ exports[`Calendar should render correctly 1`] = `
             <span
               class="emotion-12"
               role="button"
+              tabindex="-1"
             >
               15
             </span>
@@ -468,6 +495,7 @@ exports[`Calendar should render correctly 1`] = `
             <span
               class="emotion-12"
               role="button"
+              tabindex="-1"
             >
               16
             </span>
@@ -478,6 +506,7 @@ exports[`Calendar should render correctly 1`] = `
             <span
               class="emotion-12"
               role="button"
+              tabindex="-1"
             >
               17
             </span>
@@ -488,6 +517,7 @@ exports[`Calendar should render correctly 1`] = `
             <span
               class="emotion-12"
               role="button"
+              tabindex="-1"
             >
               18
             </span>
@@ -498,6 +528,7 @@ exports[`Calendar should render correctly 1`] = `
             <span
               class="emotion-12"
               role="button"
+              tabindex="-1"
             >
               19
             </span>
@@ -508,6 +539,7 @@ exports[`Calendar should render correctly 1`] = `
             <span
               class="emotion-12"
               role="button"
+              tabindex="-1"
             >
               20
             </span>
@@ -520,6 +552,7 @@ exports[`Calendar should render correctly 1`] = `
             <span
               class="emotion-12"
               role="button"
+              tabindex="-1"
             >
               21
             </span>
@@ -530,6 +563,7 @@ exports[`Calendar should render correctly 1`] = `
             <span
               class="emotion-12"
               role="button"
+              tabindex="-1"
             >
               22
             </span>
@@ -540,6 +574,7 @@ exports[`Calendar should render correctly 1`] = `
             <span
               class="emotion-12"
               role="button"
+              tabindex="-1"
             >
               23
             </span>
@@ -550,6 +585,7 @@ exports[`Calendar should render correctly 1`] = `
             <span
               class="emotion-12"
               role="button"
+              tabindex="-1"
             >
               24
             </span>
@@ -560,6 +596,7 @@ exports[`Calendar should render correctly 1`] = `
             <span
               class="emotion-12"
               role="button"
+              tabindex="-1"
             >
               25
             </span>
@@ -570,6 +607,7 @@ exports[`Calendar should render correctly 1`] = `
             <span
               class="emotion-12"
               role="button"
+              tabindex="-1"
             >
               26
             </span>
@@ -580,6 +618,7 @@ exports[`Calendar should render correctly 1`] = `
             <span
               class="emotion-38"
               role="button"
+              tabindex="0"
             >
               27
             </span>
@@ -592,6 +631,7 @@ exports[`Calendar should render correctly 1`] = `
             <span
               class="emotion-12"
               role="button"
+              tabindex="-1"
             >
               28
             </span>
@@ -602,6 +642,7 @@ exports[`Calendar should render correctly 1`] = `
             <span
               class="emotion-12"
               role="button"
+              tabindex="-1"
             >
               29
             </span>
@@ -612,6 +653,7 @@ exports[`Calendar should render correctly 1`] = `
             <span
               class="emotion-12"
               role="button"
+              tabindex="-1"
             >
               30
             </span>
@@ -622,6 +664,7 @@ exports[`Calendar should render correctly 1`] = `
             <span
               class="emotion-12"
               role="button"
+              tabindex="-1"
             >
               31
             </span>
@@ -632,6 +675,7 @@ exports[`Calendar should render correctly 1`] = `
             <span
               class="emotion-11"
               role="button"
+              tabindex="-1"
             >
               01
             </span>
@@ -642,6 +686,7 @@ exports[`Calendar should render correctly 1`] = `
             <span
               class="emotion-11"
               role="button"
+              tabindex="-1"
             >
               02
             </span>
@@ -652,6 +697,7 @@ exports[`Calendar should render correctly 1`] = `
             <span
               class="emotion-11"
               role="button"
+              tabindex="-1"
             >
               03
             </span>

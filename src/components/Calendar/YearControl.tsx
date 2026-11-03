@@ -23,11 +23,11 @@ export function YearControl(props: YearControlProps) {
 
   return (
     <HFlow alignItems='center' hSpacing={0.5}>
-      <Button title={locale.calendar.previousYear} size='small' skin='ghost' onClick={handlePrev} tabIndex={-1}>
+      <Button title={locale.calendar.previousYear} size='small' skin='ghost' onClick={handlePrev}>
         <Icon icon='angleLeft' />
       </Button>
       {renderYear(visibleDate)}
-      <Button title={locale.calendar.nextYear} size='small' skin='ghost' onClick={handleNext} tabIndex={-1}>
+      <Button title={locale.calendar.nextYear} size='small' skin='ghost' onClick={handleNext}>
         <Icon icon='angleRight' />
       </Button>
     </HFlow>

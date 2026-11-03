@@ -2,9 +2,12 @@ import { Options as PopperOptions } from '@popperjs/core'
 import React, { useEffect, useRef, useState } from 'react'
 import { usePopper } from 'react-popper'
 import { Theme, useStyles } from '../..'
+import { composeHandlers, composeRefs } from '../../util/react'
+import { usePickerPopup } from '../Calendar/usePickerPopup'
 import { DateRange } from '../DateRangePicker'
 import { FocusManagerContainer } from '../FocusManagerContainer'
 import { MonthPickerProps, ReferenceMonth } from '../MonthPicker'
+import { focusTabbableMonth } from '../MonthPicker/MonthPicker'
 import { ControlledMonthRangeCalendar } from './RangeMonthCalendar/ControlledMonthRangeCalendar'
 import { MonthRangePickerInput, MonthRangePickerInputProps } from './MonthRangePickerInput'
 import { disabledByMonth, isGreaterThan, transformRangeReferenceMonth } from './util'
@@ -23,15 +26,39 @@ export interface ReferenceMonthRange {
 }
 
 export function MonthRangePicker(props: MonthRangePickerProps) {
-  const { minMonth, maxMonth, popperProps, onFocus, onBlur, onChange, value, icon, monthPickerProps, ...rest } = props
+  const {
+    minMonth,
+    maxMonth,
+    popperProps,
+    onFocus,
+    onBlur,
+    onChange,
+    value,
+    icon,
+    monthPickerProps,
+    onIconClick,
+    onInputClick,
+    onInputKeyDown,
+    initialInputRef: externalInitialInputRef,
+    finalInputRef: externalFinalInputRef,
+    ...rest
+  } = props
 
   const [rangeInputFocus, setRangeInputFocus] = useState(1)
   const [visibleMonth, setVisibleMonth] = useState<ReferenceMonth>({ month: undefined, year: undefined })
-  const [open, setOpen] = useState(false)
 
+  const initialInputRef = useRef<HTMLInputElement>()
   const finalInputRef = useRef<HTMLInputElement>()
   const [anchorRef, setAnchorRef] = useState<HTMLDivElement>()
   const [popupRef, setPopupRef] = useState<HTMLDivElement>()
+
+  const { open, setOpen, handleInputKeyDown } = usePickerPopup({
+    popup: popupRef,
+    focusTabStop: focusTabbableMonth,
+    // The input of the month that the picker picks
+    getInput: () => (rangeInputFocus === 2 ? finalInputRef.current : initialInputRef.current),
+    isOwnElement: (element) => !!anchorRef?.contains(element),
+  })
 
   const { classes, css } = useStyles(createStyles)
 
@@ -52,7 +79,8 @@ export function MonthRangePicker(props: MonthRangePickerProps) {
     }
 
     setVisibleMonth(month)
-  }, [rangeInputFocus, value])
+    // Each time the picker opens or closes, it goes back to the year of the value
+  }, [rangeInputFocus, value, open])
 
   // The placement of popperProps wins over the default one
   const {
@@ -62,9 +90,21 @@ export function MonthRangePicker(props: MonthRangePickerProps) {
 
   const handleInputFocus = (inputOnFocus: number) => setRangeInputFocus(inputOnFocus)
 
+  // The focus alone does not open the picker, which would cover the next fields while Tab goes through a form
   const handleFocusIn = (event: React.FocusEvent<HTMLDivElement>) => {
     onFocus && onFocus(event)
+  }
+
+  const handleInputClick = () => setOpen(true)
+
+  // As before, the calendar button moves the focus to the first input, unless onIconClick does something else
+  const handleIconClick = () => {
     setOpen(true)
+    if (onIconClick) {
+      onIconClick()
+    } else {
+      initialInputRef.current?.focus()
+    }
   }
 
   const handleFocusOut = (event: React.FocusEvent<HTMLDivElement>) => {
@@ -98,8 +138,12 @@ export function MonthRangePicker(props: MonthRangePickerProps) {
         minMonth={minMonth}
         maxMonth={maxMonth}
         icon={icon}
-        finalInputRef={finalInputRef}
+        initialInputRef={composeRefs(initialInputRef, externalInitialInputRef)}
+        finalInputRef={composeRefs(finalInputRef, externalFinalInputRef)}
         onInputOnFocus={handleInputFocus}
+        onIconClick={handleIconClick}
+        onInputClick={composeHandlers(handleInputClick, onInputClick)}
+        onInputKeyDown={composeHandlers(handleInputKeyDown, onInputKeyDown)}
         {...rest}
       />
 

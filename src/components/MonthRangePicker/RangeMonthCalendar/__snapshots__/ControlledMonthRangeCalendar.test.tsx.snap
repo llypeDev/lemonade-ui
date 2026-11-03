@@ -229,6 +229,7 @@ exports[`ControlledMonthRangeCalendar render should render correctly 1`] = `
       >
         <button
           class="emotion-8"
+          tabindex="-1"
           title="January"
           type="button"
         >
@@ -242,6 +243,7 @@ exports[`ControlledMonthRangeCalendar render should render correctly 1`] = `
       >
         <button
           class="emotion-8"
+          tabindex="0"
           title="February"
           type="button"
         >
@@ -255,6 +257,7 @@ exports[`ControlledMonthRangeCalendar render should render correctly 1`] = `
       >
         <button
           class="emotion-8"
+          tabindex="-1"
           title="March"
           type="button"
         >
@@ -268,6 +271,7 @@ exports[`ControlledMonthRangeCalendar render should render correctly 1`] = `
       >
         <button
           class="emotion-8"
+          tabindex="-1"
           title="April"
           type="button"
         >
@@ -281,6 +285,7 @@ exports[`ControlledMonthRangeCalendar render should render correctly 1`] = `
       >
         <button
           class="emotion-8"
+          tabindex="-1"
           title="May"
           type="button"
         >
@@ -294,6 +299,7 @@ exports[`ControlledMonthRangeCalendar render should render correctly 1`] = `
       >
         <button
           class="emotion-8"
+          tabindex="-1"
           title="June"
           type="button"
         >
@@ -307,6 +313,7 @@ exports[`ControlledMonthRangeCalendar render should render correctly 1`] = `
       >
         <button
           class="emotion-8"
+          tabindex="-1"
           title="July"
           type="button"
         >
@@ -320,6 +327,7 @@ exports[`ControlledMonthRangeCalendar render should render correctly 1`] = `
       >
         <button
           class="emotion-8"
+          tabindex="-1"
           title="August"
           type="button"
         >
@@ -333,6 +341,7 @@ exports[`ControlledMonthRangeCalendar render should render correctly 1`] = `
       >
         <button
           class="emotion-8"
+          tabindex="-1"
           title="September"
           type="button"
         >
@@ -346,6 +355,7 @@ exports[`ControlledMonthRangeCalendar render should render correctly 1`] = `
       >
         <button
           class="emotion-8"
+          tabindex="-1"
           title="October"
           type="button"
         >
@@ -359,6 +369,7 @@ exports[`ControlledMonthRangeCalendar render should render correctly 1`] = `
       >
         <button
           class="emotion-8"
+          tabindex="-1"
           title="November"
           type="button"
         >
@@ -372,6 +383,7 @@ exports[`ControlledMonthRangeCalendar render should render correctly 1`] = `
       >
         <button
           class="emotion-8"
+          tabindex="-1"
           title="December"
           type="button"
         >
@@ -614,6 +626,7 @@ exports[`ControlledMonthRangeCalendar render should render correctly without rec
       >
         <button
           class="emotion-8"
+          tabindex="-1"
           title="January"
           type="button"
         >
@@ -627,6 +640,7 @@ exports[`ControlledMonthRangeCalendar render should render correctly without rec
       >
         <button
           class="emotion-8"
+          tabindex="0"
           title="February"
           type="button"
         >
@@ -640,6 +654,7 @@ exports[`ControlledMonthRangeCalendar render should render correctly without rec
       >
         <button
           class="emotion-8"
+          tabindex="-1"
           title="March"
           type="button"
         >
@@ -653,6 +668,7 @@ exports[`ControlledMonthRangeCalendar render should render correctly without rec
       >
         <button
           class="emotion-8"
+          tabindex="-1"
           title="April"
           type="button"
         >
@@ -666,6 +682,7 @@ exports[`ControlledMonthRangeCalendar render should render correctly without rec
       >
         <button
           class="emotion-8"
+          tabindex="-1"
           title="May"
           type="button"
         >
@@ -679,6 +696,7 @@ exports[`ControlledMonthRangeCalendar render should render correctly without rec
       >
         <button
           class="emotion-8"
+          tabindex="-1"
           title="June"
           type="button"
         >
@@ -692,6 +710,7 @@ exports[`ControlledMonthRangeCalendar render should render correctly without rec
       >
         <button
           class="emotion-8"
+          tabindex="-1"
           title="July"
           type="button"
         >
@@ -705,6 +724,7 @@ exports[`ControlledMonthRangeCalendar render should render correctly without rec
       >
         <button
           class="emotion-8"
+          tabindex="-1"
           title="August"
           type="button"
         >
@@ -718,6 +738,7 @@ exports[`ControlledMonthRangeCalendar render should render correctly without rec
       >
         <button
           class="emotion-8"
+          tabindex="-1"
           title="September"
           type="button"
         >
@@ -731,6 +752,7 @@ exports[`ControlledMonthRangeCalendar render should render correctly without rec
       >
         <button
           class="emotion-8"
+          tabindex="-1"
           title="October"
           type="button"
         >
@@ -744,6 +766,7 @@ exports[`ControlledMonthRangeCalendar render should render correctly without rec
       >
         <button
           class="emotion-8"
+          tabindex="-1"
           title="November"
           type="button"
         >
@@ -757,6 +780,7 @@ exports[`ControlledMonthRangeCalendar render should render correctly without rec
       >
         <button
           class="emotion-8"
+          tabindex="-1"
           title="December"
           type="button"
         >

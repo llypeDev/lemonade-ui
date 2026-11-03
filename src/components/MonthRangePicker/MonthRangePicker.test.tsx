@@ -17,6 +17,12 @@ const createComponent = (props: Partial<MonthRangePickerProps> = {}) => (
 const FIRST = 0
 const SECOND = 1
 
+// Focuses an input, which tells the picker which month it picks, and clicks it, which opens the picker
+const openFrom = (input: Element) => {
+  fireEvent.focus(input)
+  fireEvent.click(input)
+}
+
 describe('MonthRangePicker', () => {
   describe('render', () => {
     it('should render correctly', async () => {
@@ -31,7 +37,7 @@ describe('MonthRangePicker', () => {
 
     it('should render correctly when opened', async () => {
       const { container } = render(createComponent())
-      fireEvent.focus(container.querySelector('input'))
+      openFrom(container.querySelector('input'))
       expect(container).toMatchSnapshot()
       await flush()
     })
@@ -50,14 +56,14 @@ describe('MonthRangePicker', () => {
 
     it('should open without a value', async () => {
       const { container } = render(<MonthRangePicker onChange={jest.fn()} />)
-      fireEvent.focus(container.querySelector('input'))
+      openFrom(container.querySelector('input'))
       expect(container.querySelector('button[title="January"]')).not.toBeNull()
       await flush()
     })
 
     it('should expose the placement of the popper, which popperProps can change', async () => {
       const { container, rerender } = render(createComponent())
-      fireEvent.focus(container.querySelector('input'))
+      openFrom(container.querySelector('input'))
       await flush()
       expect(container.querySelector('[data-placement]')).toHaveAttribute('data-placement', 'bottom')
 
@@ -83,7 +89,7 @@ describe('MonthRangePicker', () => {
 
     it('should show month picker correctly when inputs are cleaned', async () => {
       const { container } = render(createComponent())
-      fireEvent.focus(container.querySelector('input'))
+      openFrom(container.querySelector('input'))
       expect(container.querySelector('button[title="January"]')).toMatchSnapshot()
       await flush()
     })
@@ -99,7 +105,7 @@ describe('MonthRangePicker', () => {
       )
       const inputs = container.querySelectorAll('input')
 
-      fireEvent.focus(inputs[FIRST])
+      openFrom(inputs[FIRST])
       expect(container.querySelector('button[title="January"]')).toMatchSnapshot()
       expect(container.querySelector('button[title="February"]')).toMatchSnapshot()
       await flush()
@@ -116,7 +122,7 @@ describe('MonthRangePicker', () => {
       )
       const inputs = container.querySelectorAll('input')
 
-      fireEvent.focus(inputs[SECOND])
+      openFrom(inputs[SECOND])
       expect(container.querySelector('button[title="January"]')).toMatchSnapshot()
       expect(container.querySelector('button[title="February"]')).toMatchSnapshot()
       await flush()
@@ -133,7 +139,7 @@ describe('MonthRangePicker', () => {
       )
       const inputs = container.querySelectorAll('input')
 
-      fireEvent.focus(inputs[FIRST])
+      openFrom(inputs[FIRST])
       expect(container.querySelector('button[title="January"]')).toMatchSnapshot()
       expect(container.querySelector('button[title="February"]')).toMatchSnapshot()
       await flush()
@@ -150,7 +156,7 @@ describe('MonthRangePicker', () => {
       )
       const inputs = container.querySelectorAll('input')
 
-      fireEvent.focus(inputs[SECOND])
+      openFrom(inputs[SECOND])
       expect(container.querySelector('button[title="January"]')).toMatchSnapshot()
       expect(container.querySelector('button[title="February"]')).toMatchSnapshot()
       await flush()
@@ -167,7 +173,7 @@ describe('MonthRangePicker', () => {
       )
       const inputs = container.querySelectorAll('input')
 
-      fireEvent.focus(inputs[FIRST])
+      openFrom(inputs[FIRST])
       expect(container.querySelector('button[title="January"]')).toMatchSnapshot()
       expect(container.querySelector('button[title="February"]')).toMatchSnapshot()
       await flush()
@@ -184,7 +190,7 @@ describe('MonthRangePicker', () => {
       )
       const inputs = container.querySelectorAll('input')
 
-      fireEvent.focus(inputs[SECOND])
+      openFrom(inputs[SECOND])
       expect(container.querySelector('button[title="January"]')).toMatchSnapshot()
       expect(container.querySelector('button[title="February"]')).toMatchSnapshot()
       await flush()
@@ -241,7 +247,7 @@ describe('MonthRangePicker', () => {
         )
         const input = container.querySelectorAll('input')[FIRST]
 
-        fireEvent.focus(input)
+        openFrom(input)
         fireEvent.click(container.querySelector('button[title="January"]'))
 
         expect(change).toBeCalledWith({
@@ -260,7 +266,7 @@ describe('MonthRangePicker', () => {
         )
         const input = container.querySelectorAll('input')[SECOND]
 
-        fireEvent.focus(input)
+        openFrom(input)
         fireEvent.click(container.querySelector('button[title="January"]'))
         expect(change).toBeCalledWith({
           startDate: new Date('2021-01-01'),
@@ -282,7 +288,7 @@ describe('MonthRangePicker', () => {
         )
         const input = container.querySelectorAll('input')[FIRST]
 
-        fireEvent.focus(input)
+        openFrom(input)
         fireEvent.click(container.querySelector('button[title="March"]'))
         expect(change).toBeCalledWith({
           startDate: new Date('2021-03-01'),
@@ -304,7 +310,7 @@ describe('MonthRangePicker', () => {
         )
         const input = container.querySelectorAll('input')[SECOND]
 
-        fireEvent.focus(input)
+        openFrom(input)
         fireEvent.click(container.querySelector('button[title="January"]'))
         expect(change).toBeCalledWith({
           startDate: new Date('2021-01-01'),
@@ -326,7 +332,7 @@ describe('MonthRangePicker', () => {
         )
         const input = container.querySelectorAll('input')[SECOND]
 
-        fireEvent.focus(input)
+        openFrom(input)
         fireEvent.click(container.querySelector('button[title="March"]'))
         expect(change).toBeCalledWith({
           startDate: new Date('2021-01-01'),
@@ -348,7 +354,7 @@ describe('MonthRangePicker', () => {
         )
         const input = container.querySelectorAll('input')[FIRST]
 
-        fireEvent.focus(input)
+        openFrom(input)
         fireEvent.click(container.querySelector('button[title="January"]'))
         expect(change).toBeCalledWith({
           startDate: new Date('2021-01-01'),
@@ -364,7 +370,7 @@ describe('MonthRangePicker', () => {
       const { container } = render(
         createComponent({ onChange: change, value: { start: { month: 2, year: 2021 }, end: undefined } })
       )
-      fireEvent.focus(container.querySelectorAll('input')[SECOND])
+      openFrom(container.querySelectorAll('input')[SECOND])
       fireEvent.click(container.querySelector('button[title="January"]'))
       expect(change).toHaveBeenLastCalledWith({
         startDate: new Date(2021, 0, 1),
@@ -416,5 +422,106 @@ describe('MonthRangePicker', () => {
         await flush()
       })
     })
+  })
+})
+
+const monthButton = (root: Element, title: string) => root.querySelector<HTMLElement>(`button[title="${title}"]`)
+
+// The elements that Tab goes through, in order
+const tabOrder = (root: Element) =>
+  Array.from(root.querySelectorAll<HTMLElement>('input, button, [tabindex]')).filter(
+    (el) => !el.hasAttribute('disabled') && el.getAttribute('tabindex') !== '-1'
+  )
+
+describe('MonthRangePicker opening, closing and keyboard', () => {
+  const range: ReferenceMonthRange = { start: { month: 2, year: 2021 }, end: { month: 7, year: 2021 } }
+
+  it('should not open the picker when an input gets the focus', async () => {
+    const { container } = render(<MonthRangePicker value={range} />)
+    const inputs = container.querySelectorAll('input')
+
+    act(() => inputs[FIRST].focus())
+    act(() => inputs[SECOND].focus())
+    expect(monthButton(container, 'March')).toBeNull()
+    await flush()
+  })
+
+  it('should open the picker on a click on an input and on the calendar button', async () => {
+    const { container, getByRole } = render(<MonthRangePicker value={range} />)
+    const inputs = container.querySelectorAll('input')
+
+    fireEvent.click(inputs[SECOND])
+    expect(monthButton(container, 'March')).not.toBeNull()
+
+    fireEvent.keyDown(inputs[SECOND], { key: 'Escape' })
+    expect(monthButton(container, 'March')).toBeNull()
+
+    fireEvent.click(getByRole('button', { name: 'Open calendar' }))
+    expect(monthButton(container, 'March')).not.toBeNull()
+    // As before, the button moves the focus to the first input
+    expect(inputs[FIRST]).toHaveFocus()
+    await flush()
+  })
+
+  it('should open with Alt+ArrowDown on the month of the focused input and give the focus back with Escape', async () => {
+    const { container } = render(<MonthRangePicker value={range} />)
+    const inputs = container.querySelectorAll('input')
+    act(() => inputs[SECOND].focus())
+
+    expect(fireEvent.keyDown(inputs[SECOND], { key: 'ArrowDown', altKey: true })).toBe(false)
+    expect(monthButton(container, 'August')).toHaveFocus()
+
+    fireEvent.keyDown(document.activeElement, { key: 'Escape' })
+    expect(monthButton(container, 'August')).toBeNull()
+    expect(inputs[SECOND]).toHaveFocus()
+    await flush()
+  })
+
+  it('should pick a month with the keyboard and move the focus to the second input', async () => {
+    const change = jest.fn()
+    const { container } = render(<MonthRangePicker value={range} onChange={change} />)
+    const inputs = container.querySelectorAll('input')
+    act(() => inputs[FIRST].focus())
+
+    fireEvent.keyDown(inputs[FIRST], { key: 'ArrowDown', altKey: true })
+    expect(monthButton(container, 'March')).toHaveFocus()
+    fireEvent.keyDown(document.activeElement, { key: 'ArrowLeft' })
+    // Enter and Space click the focused button
+    fireEvent.click(document.activeElement)
+
+    expect(change).toHaveBeenLastCalledWith({ startDate: new Date(2021, 1, 1), endDate: new Date(2021, 7, 31) })
+    expect(inputs[SECOND]).toHaveFocus()
+    await flush()
+  })
+
+  it('should show the year of the value again when the picker opens after showing another year', async () => {
+    const { container, getByText } = render(<MonthRangePicker value={range} />)
+    const inputs = container.querySelectorAll('input')
+    act(() => inputs[FIRST].focus())
+
+    fireEvent.click(inputs[FIRST])
+    fireEvent.click(monthButton(container, 'Next year'))
+    expect(getByText('2022')).toBeInTheDocument()
+    fireEvent.keyDown(inputs[FIRST], { key: 'Escape' })
+
+    fireEvent.keyDown(inputs[FIRST], { key: 'ArrowDown', altKey: true })
+    expect(getByText('2021')).toBeInTheDocument()
+    expect(monthButton(container, 'March')).toHaveFocus()
+    await flush()
+  })
+
+  it('should put the year buttons and one month in the tab order after the inputs', async () => {
+    const { container } = render(<MonthRangePicker value={range} />)
+    const inputs = container.querySelectorAll('input')
+    openFrom(inputs[FIRST])
+
+    expect(tabOrder(container)).toEqual([
+      inputs[FIRST],
+      inputs[SECOND],
+      monthButton(container, 'Previous year'),
+      monthButton(container, 'Next year'),
+      monthButton(container, 'March'),
+    ])
+    await flush()
   })
 })

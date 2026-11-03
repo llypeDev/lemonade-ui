@@ -69,3 +69,9 @@ Date components allow the user to make a specific selection through a visual cal
 ### Month Range Picker
 
 <Demo src='pages/components/date-picker/MonthRangePickerDefault' />
+
+## Accessibility
+
+The calendar opens with a click on the field or on the calendar button, or with `Alt+ArrowDown`, which also moves the focus to the selected day, today or the first day that can be picked. The focus alone does not open it, so Tab goes through a form without covering the next fields. `Escape` closes it and gives the focus back to the field, and only the calendar closes when it is in a modal.
+
+From the open field, Tab goes to the month and year buttons and to a single day. The arrow keys move by day and by week, `Home` and `End` to the start and the end of the week, `PageUp` and `PageDown` to the previous and the next month, and with `Shift` to the previous and the next year, showing the month of the day. `Enter` or `Space` picks the day, or its week in the week range picker; disabled days take the focus but cannot be picked.

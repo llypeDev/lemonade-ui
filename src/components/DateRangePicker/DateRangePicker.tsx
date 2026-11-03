@@ -3,7 +3,10 @@ import React, { useEffect, useRef, useState } from 'react'
 
 import { usePopper } from 'react-popper'
 import { Theme, useStyles } from '../../styles'
+import { composeHandlers, composeRefs } from '../../util/react'
 
+import { focusTabbableDay } from '../Calendar/Calendar'
+import { usePickerPopup } from '../Calendar/usePickerPopup'
 import { isValidDate } from '../Calendar/util'
 import { disableByRange } from '../DateField/DateField'
 import { FocusManagerContainer } from '../FocusManagerContainer'
@@ -44,18 +47,31 @@ export function DateRangePicker(props: DateRangePickerProps) {
     onFocus,
     onBlur,
     onlyWeeks,
+    onIconClick,
+    onInputClick,
+    onInputKeyDown,
+    initialInputRef: externalInitialInputRef,
+    finalInputRef: externalFinalInputRef,
     ...rest
   } = props
 
   const [dateRangeInputFocus, setDateRangeInputFocus] = useState(1)
   const [visibleDate, setVisibleDate] = useState<Date>(new Date())
-  const [open, setOpen] = useState(false)
 
   const { classes, css } = useStyles(createStyles)
 
+  const initialInputRef = useRef<HTMLInputElement>()
   const finalInputRef = useRef<HTMLInputElement>()
   const [anchorRef, setAnchorRef] = useState<HTMLDivElement>()
   const [popupRef, setPopupRef] = useState<HTMLDivElement>()
+
+  const { open, setOpen, handleInputKeyDown } = usePickerPopup({
+    popup: popupRef,
+    focusTabStop: focusTabbableDay,
+    // The input of the date that the calendar picks
+    getInput: () => (dateRangeInputFocus === 2 ? finalInputRef.current : initialInputRef.current),
+    isOwnElement: (element) => !!anchorRef?.contains(element),
+  })
 
   useEffect(() => {
     const point = (): Date => {
@@ -77,7 +93,8 @@ export function DateRangePicker(props: DateRangePickerProps) {
       const date = point()
       return isValidDate(date) ? date : new Date()
     })
-  }, [dateRangeInputFocus, value])
+    // Each time the calendar opens or closes, it goes back to the month of the value
+  }, [dateRangeInputFocus, value, open])
 
   // The placement of popperProps wins over the default one
   const {
@@ -91,9 +108,21 @@ export function DateRangePicker(props: DateRangePickerProps) {
 
   const handleOnDayClick = () => finalInputRef.current.focus()
 
+  // The focus alone does not open the calendar, which would cover the next fields while Tab goes through a form
   const handleFocusIn = (event: React.FocusEvent<HTMLDivElement>) => {
     onFocus && onFocus(event)
+  }
+
+  const handleInputClick = () => setOpen(true)
+
+  // As before, the calendar button moves the focus to the first input, unless onIconClick does something else
+  const handleIconClick = () => {
     setOpen(true)
+    if (onIconClick) {
+      onIconClick()
+    } else {
+      initialInputRef.current?.focus()
+    }
   }
 
   const handleFocusOut = (event: React.FocusEvent<HTMLDivElement>) => {
@@ -124,8 +153,12 @@ export function DateRangePicker(props: DateRangePickerProps) {
         minDate={minDate}
         maxDate={maxDate}
         icon={icon}
-        finalInputRef={finalInputRef}
+        initialInputRef={composeRefs(initialInputRef, externalInitialInputRef)}
+        finalInputRef={composeRefs(finalInputRef, externalFinalInputRef)}
         onInputOnFocus={handleInputFocus}
+        onIconClick={handleIconClick}
+        onInputClick={composeHandlers(handleInputClick, onInputClick)}
+        onInputKeyDown={composeHandlers(handleInputKeyDown, onInputKeyDown)}
         {...rest}
       />
 

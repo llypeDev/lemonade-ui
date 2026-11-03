@@ -1,5 +1,5 @@
-import { fireEvent, render } from '@testing-library/react'
-import React from 'react'
+import { act, fireEvent, render } from '@testing-library/react'
+import React, { useState } from 'react'
 import { createTheme } from '../../styles'
 
 import { getMonthNames } from '../../util/locale'
@@ -8,7 +8,14 @@ import {
   normalizeCssClassNames,
 } from '../Calendar/RangeCalendar/DateRangeCalendar/DateRangeCalendar.test'
 import { hoverStyle } from '../MonthRangePicker/RangeMonthCalendar/GenericMonthRangeCalendar'
-import { createMonthStylesFn, defaultModifiers, defaultModifierStyles, MonthPicker } from './MonthPicker'
+import {
+  createMonthStylesFn,
+  defaultModifiers,
+  defaultModifierStyles,
+  MonthPicker,
+  MonthPickerProps,
+  ReferenceMonth,
+} from './MonthPicker'
 
 const date = new Date('2019-01-31')
 const visibleMonth = { month: date.getMonth(), year: date.getFullYear() }
@@ -129,6 +136,150 @@ describe('MonthPicker', () => {
         expect(defaultModifiers.selected(visibleMonth, {} as any)).toBeFalsy()
       })
     })
+  })
+})
+
+const monthButton = (root: Element, title: string) => root.querySelector<HTMLElement>(`button[title="${title}"]`)
+const tabbableMonths = (root: Element) =>
+  Array.from(root.querySelectorAll<HTMLButtonElement>('button')).filter(
+    (button) => !button.disabled && button.getAttribute('tabindex') !== '-1'
+  )
+
+// Follows the visible month, as the month fields do
+const ControlledMonthPicker = (props: Partial<MonthPickerProps> & { initialMonth: ReferenceMonth }) => {
+  const { initialMonth, ...rest } = props
+  const [visible, setVisible] = useState(initialMonth)
+  return <MonthPicker {...rest} visibleMonth={visible} onVisibleMonthChange={setVisible} />
+}
+
+describe('MonthPicker keyboard', () => {
+  it('should put the year buttons and a single month, the selected one, in the tab order', () => {
+    const { container } = render(
+      <MonthPicker
+        visibleMonth={{ month: 0, year: 2019 }}
+        onVisibleMonthChange={jest.fn()}
+        modifiers={{ selected: (month: ReferenceMonth) => month.month === 4 && month.year === 2019 }}
+      />
+    )
+    expect(tabbableMonths(container)).toEqual([
+      monthButton(container, 'Previous year'),
+      monthButton(container, 'Next year'),
+      monthButton(container, 'May'),
+    ])
+  })
+
+  it('should put the visible month in the tab order when no month is selected', () => {
+    const { container } = render(
+      <MonthPicker visibleMonth={{ month: 7, year: 2019 }} onVisibleMonthChange={jest.fn()} />
+    )
+    expect(tabbableMonths(container)).toEqual([
+      monthButton(container, 'Previous year'),
+      monthButton(container, 'Next year'),
+      monthButton(container, 'August'),
+    ])
+  })
+
+  it('should put the first enabled month in the tab order when the visible one is disabled', () => {
+    const { container } = render(
+      <MonthPicker
+        visibleMonth={{ month: 1, year: 2019 }}
+        onVisibleMonthChange={jest.fn()}
+        isDisabled={(month: ReferenceMonth) => month.month < 3}
+      />
+    )
+    expect(tabbableMonths(container)).toEqual([
+      monthButton(container, 'Previous year'),
+      monthButton(container, 'Next year'),
+      monthButton(container, 'April'),
+    ])
+  })
+
+  it('should move the focus with the arrow keys as in its grid of three columns, and with Home and End', () => {
+    const { container } = render(<ControlledMonthPicker initialMonth={{ month: 4, year: 2019 }} />)
+    act(() => monthButton(container, 'May').focus())
+
+    fireEvent.keyDown(document.activeElement, { key: 'ArrowRight' })
+    expect(monthButton(container, 'June')).toHaveFocus()
+    fireEvent.keyDown(document.activeElement, { key: 'ArrowLeft' })
+    fireEvent.keyDown(document.activeElement, { key: 'ArrowLeft' })
+    expect(monthButton(container, 'April')).toHaveFocus()
+    fireEvent.keyDown(document.activeElement, { key: 'ArrowDown' })
+    expect(monthButton(container, 'July')).toHaveFocus()
+    fireEvent.keyDown(document.activeElement, { key: 'ArrowUp' })
+    fireEvent.keyDown(document.activeElement, { key: 'ArrowUp' })
+    expect(monthButton(container, 'January')).toHaveFocus()
+    fireEvent.keyDown(document.activeElement, { key: 'End' })
+    expect(monthButton(container, 'December')).toHaveFocus()
+    fireEvent.keyDown(document.activeElement, { key: 'Home' })
+    expect(monthButton(container, 'January')).toHaveFocus()
+
+    // The focused month keeps the only tab stop of the months
+    expect(monthButton(container, 'January')).toHaveAttribute('tabindex', '0')
+    expect(container.querySelectorAll('button[tabindex="0"]')).toHaveLength(1)
+  })
+
+  it('should show the previous or the next year when the focus moves past the visible one', () => {
+    const { container, getByText } = render(<ControlledMonthPicker initialMonth={{ month: 0, year: 2019 }} />)
+    act(() => monthButton(container, 'January').focus())
+
+    fireEvent.keyDown(document.activeElement, { key: 'ArrowLeft' })
+    expect(getByText('2018')).toBeInTheDocument()
+    expect(monthButton(container, 'December')).toHaveFocus()
+
+    fireEvent.keyDown(document.activeElement, { key: 'ArrowDown' })
+    expect(getByText('2019')).toBeInTheDocument()
+    expect(monthButton(container, 'March')).toHaveFocus()
+
+    fireEvent.keyDown(document.activeElement, { key: 'ArrowUp' })
+    expect(getByText('2018')).toBeInTheDocument()
+    expect(monthButton(container, 'December')).toHaveFocus()
+  })
+
+  it('should move to the same month of the previous and the next year with PageUp and PageDown', () => {
+    const { container, getByText } = render(<ControlledMonthPicker initialMonth={{ month: 4, year: 2019 }} />)
+    act(() => monthButton(container, 'May').focus())
+
+    fireEvent.keyDown(document.activeElement, { key: 'PageDown' })
+    expect(getByText('2020')).toBeInTheDocument()
+    expect(monthButton(container, 'May')).toHaveFocus()
+
+    fireEvent.keyDown(document.activeElement, { key: 'PageUp' })
+    fireEvent.keyDown(document.activeElement, { key: 'PageUp' })
+    expect(getByText('2018')).toBeInTheDocument()
+    expect(monthButton(container, 'May')).toHaveFocus()
+  })
+
+  it('should skip the disabled months, which cannot take the focus', () => {
+    const { container, getByText } = render(
+      <ControlledMonthPicker
+        initialMonth={{ month: 4, year: 2019 }}
+        isDisabled={(month: ReferenceMonth) =>
+          month.month === 5 || month.month === 6 || month.month === 11 || month.year > 2019
+        }
+      />
+    )
+    act(() => monthButton(container, 'May').focus())
+
+    fireEvent.keyDown(document.activeElement, { key: 'ArrowRight' })
+    expect(monthButton(container, 'August')).toHaveFocus()
+    fireEvent.keyDown(document.activeElement, { key: 'End' })
+    expect(monthButton(container, 'November')).toHaveFocus()
+
+    // No enabled month that way: the focus stays
+    fireEvent.keyDown(document.activeElement, { key: 'ArrowRight' })
+    fireEvent.keyDown(document.activeElement, { key: 'PageDown' })
+    expect(getByText('2019')).toBeInTheDocument()
+    expect(monthButton(container, 'November')).toHaveFocus()
+  })
+
+  it('should cancel the default action of the keys it handles', () => {
+    const { container } = render(<ControlledMonthPicker initialMonth={{ month: 4, year: 2019 }} />)
+    act(() => monthButton(container, 'May').focus())
+
+    // The arrows and PageDown would scroll the page
+    expect(fireEvent.keyDown(document.activeElement, { key: 'ArrowDown' })).toBe(false)
+    expect(fireEvent.keyDown(document.activeElement, { key: 'PageDown' })).toBe(false)
+    expect(fireEvent.keyDown(document.activeElement, { key: 'a' })).toBe(true)
   })
 })
 

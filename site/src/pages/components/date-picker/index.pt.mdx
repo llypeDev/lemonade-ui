@@ -69,3 +69,9 @@ Componentes de data permitem que o usuário faça uma seleção específica atra
 ### Month Range Picker
 
 <Demo src='pages/components/date-picker/MonthRangePickerDefault' />
+
+## Acessibilidade
+
+O calendário abre com um clique no campo ou no botão de calendário, ou com `Alt+ArrowDown`, que também leva o foco ao dia selecionado, a hoje ou ao primeiro dia que pode ser escolhido. O foco sozinho não o abre, então o Tab percorre um formulário sem cobrir os próximos campos. `Escape` fecha o calendário e devolve o foco ao campo, e só o calendário fecha quando ele está em um modal.
+
+A partir do campo aberto, o Tab vai aos botões de mês e de ano e a um só dia. As setas movem por dia e por semana, `Home` e `End` para o início e o fim da semana, `PageUp` e `PageDown` para o mês anterior e o próximo, e com `Shift` para o ano anterior e o próximo, mostrando o mês do dia. `Enter` ou `Espaço` escolhe o dia, ou a sua semana no seletor de semanas; os dias desabilitados recebem o foco, mas não podem ser escolhidos.

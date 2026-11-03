@@ -79,7 +79,6 @@ exports[`should render correctly 1`] = `
   >
     <button
       class="emotion-1"
-      tabindex="-1"
       title="Previous year"
       type="button"
     >
@@ -103,7 +102,6 @@ exports[`should render correctly 1`] = `
     2018
     <button
       class="emotion-1"
-      tabindex="-1"
       title="Next year"
       type="button"
     >

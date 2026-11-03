@@ -79,7 +79,6 @@ exports[`should render correctly 1`] = `
   >
     <button
       class="emotion-1"
-      tabindex="-1"
       title="Previous month"
       type="button"
     >
@@ -103,7 +102,6 @@ exports[`should render correctly 1`] = `
     Oct
     <button
       class="emotion-1"
-      tabindex="-1"
       title="Next month"
       type="button"
     >

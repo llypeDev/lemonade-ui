@@ -1,5 +1,5 @@
 import { action } from '@storybook/addon-actions'
-import React from 'react'
+import React, { useState } from 'react'
 import { DateRange } from './BaseDateRangeInput'
 import { DateRangePicker } from './DateRangePicker'
 
@@ -31,12 +31,47 @@ export default {
   },
 }
 
-export const Default = (args) => <DateRangePicker {...args} value={period} />
+// The picker is controlled: the story keeps the value, so typing or picking dates changes it
+const useRange = (args, initial?: DateRange) => {
+  const [range, setRange] = useState<DateRange>(initial)
 
-export const MinMaxDate = (args) => <DateRangePicker {...args} minDate={todayMinus10} maxDate={new Date()} />
+  const handleChange = (next: DateRange) => {
+    setRange(next)
+    args.onChange(next)
+  }
 
-export const WeekPicker = (args) => <DateRangePicker {...args} onlyWeeks value={periodWeek} />
+  return [range, handleChange] as const
+}
 
-export const WeekPickerMinMaxDate = (args) => (
-  <DateRangePicker {...args} minDate={weekStart} maxDate={new Date()} onlyWeeks value={periodWeek} />
-)
+export const Default = (args) => {
+  const [range, handleChange] = useRange(args, period)
+
+  return <DateRangePicker {...args} value={range} onChange={handleChange} />
+}
+
+export const MinMaxDate = (args) => {
+  const [range, handleChange] = useRange(args)
+
+  return <DateRangePicker {...args} value={range} onChange={handleChange} minDate={todayMinus10} maxDate={new Date()} />
+}
+
+export const WeekPicker = (args) => {
+  const [range, handleChange] = useRange(args, periodWeek)
+
+  return <DateRangePicker {...args} onlyWeeks value={range} onChange={handleChange} />
+}
+
+export const WeekPickerMinMaxDate = (args) => {
+  const [range, handleChange] = useRange(args, periodWeek)
+
+  return (
+    <DateRangePicker
+      {...args}
+      minDate={weekStart}
+      maxDate={new Date()}
+      onlyWeeks
+      value={range}
+      onChange={handleChange}
+    />
+  )
+}

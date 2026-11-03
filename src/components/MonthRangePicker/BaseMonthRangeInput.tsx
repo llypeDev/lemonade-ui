@@ -45,6 +45,8 @@ export function BaseMonthRangeInput(props: BaseMonthRangeInputProps) {
     name,
     onChange,
     onIconClick,
+    onInputClick,
+    onInputKeyDown,
     onInputOnFocus,
     rangeSeparator,
     value,
@@ -141,6 +143,8 @@ export function BaseMonthRangeInput(props: BaseMonthRangeInputProps) {
             style={classes.monthField}
             value={value?.start}
             onFocus={onInputOnFocusInicial}
+            onClick={onInputClick}
+            onKeyDown={onInputKeyDown}
             {...rest}
           />
         </div>
@@ -160,6 +164,8 @@ export function BaseMonthRangeInput(props: BaseMonthRangeInputProps) {
             style={classes.monthField}
             value={value?.end}
             onFocus={onInputOnFocusFinal}
+            onClick={onInputClick}
+            onKeyDown={onInputKeyDown}
             {...rest}
           />
         </div>
