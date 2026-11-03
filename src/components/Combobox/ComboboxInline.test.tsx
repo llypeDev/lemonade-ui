@@ -656,3 +656,16 @@ describe('async loading', () => {
     await flush()
   })
 })
+
+describe('picked item', () => {
+  it('is marked in the list', async () => {
+    const { baseElement } = render(<ComboboxInlineTest value={fruits[2]} />)
+    fireEvent.click(baseElement.querySelector(`#${TOGGLE_BUTTON_ID}`))
+    await act(async () => {
+      await new Promise((resolve) => setTimeout(resolve, 50))
+    })
+
+    const marked = Array.from(baseElement.querySelectorAll('[role="option"]')).filter((o) => o.querySelector('svg'))
+    expect(marked.map((o) => o.textContent)).toEqual([fruits[2].label])
+  })
+})

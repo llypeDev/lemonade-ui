@@ -296,6 +296,10 @@ export function ComboboxInline<T>(props: ComboboxInlineProps<T>) {
               components={componentsInner}
               getItemProps={getItemProps}
               highlightedIndex={highlightedIndex}
+              // An item the loader built again is still the picked one when it has the same text
+              isItemSelected={(item) =>
+                selectedItem != null && (item === selectedItem || itemToString(item) === itemToString(selectedItem))
+              }
               itemToString={itemToString}
               items={loadedItems}
               loading={isLoading}

@@ -985,3 +985,71 @@ describe('label', () => {
     await flush()
   })
 })
+
+describe('toggling options from the menu', () => {
+  const open = async (baseElement: HTMLElement) => {
+    const input = baseElement.querySelector('input')
+    input.focus()
+    fireEvent.click(input)
+    await flush()
+    return input
+  }
+
+  const press = async (input: HTMLElement, key: string) => {
+    fireEvent.keyDown(input, { key })
+    await flush()
+  }
+
+  const option = (baseElement: HTMLElement, label: string) =>
+    Array.from(baseElement.querySelectorAll('[role="option"]')).find((o) => o.textContent === label)
+
+  it('keeps the focus in the field and the menu open when the last picked option is unchecked', async () => {
+    const { baseElement } = render(<ComboboxTest />)
+    const input = await open(baseElement)
+    fireEvent.click(option(baseElement, 'Apple'))
+    await flush()
+    fireEvent.click(option(baseElement, 'Avocado'))
+    await flush()
+    expect(baseElement.querySelectorAll('[role="option"][aria-checked="true"]')).toHaveLength(2)
+
+    // Unchecks the last one picked, while the first stays checked
+    fireEvent.click(option(baseElement, 'Avocado'))
+    await flush()
+
+    expect(baseElement.querySelectorAll('[role="option"][aria-checked="true"]')).toHaveLength(1)
+    expect(input).toHaveFocus()
+    expect(input).toHaveAttribute('aria-expanded', 'true')
+  })
+
+  it('opens the menu with a click when the field already has the focus', async () => {
+    const { baseElement } = render(<ComboboxTest />)
+    const input = await open(baseElement)
+    await press(input, 'Escape')
+    expect(input).toHaveAttribute('aria-expanded', 'false')
+
+    fireEvent.click(input)
+    await flush()
+
+    expect(input).toHaveAttribute('aria-expanded', 'true')
+  })
+
+  it('keeps the highlight on the option checked with Enter', async () => {
+    const { baseElement } = render(<ComboboxTest />)
+    const input = await open(baseElement)
+    await press(input, 'ArrowDown')
+    await press(input, 'ArrowDown')
+    await press(input, 'Enter')
+
+    expect(input).toHaveAttribute('aria-activedescendant', 'test-item-id-1')
+    await press(input, 'ArrowDown')
+    expect(input).toHaveAttribute('aria-activedescendant', 'test-item-id-2')
+  })
+
+  it('names the button that removes a picked item', async () => {
+    const { getByRole } = render(<ComboboxTest value={[fruits[0]]} />)
+    await flush()
+
+    const remove = getByRole('button', { name: `Remove ${fruits[0].label}` })
+    expect(remove).toHaveAttribute('tabindex', '-1')
+  })
+})
