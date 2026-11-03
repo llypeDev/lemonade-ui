@@ -1,10 +1,10 @@
 import React, { CSSProperties } from 'react'
 
+import { collapseStyles, useCollapse } from '../../hooks/useCollapse'
 import { ExternalStyles, Theme, useStyles } from '../../styles'
 import { Omit } from '../../util'
 
 import { ExpandableHeader, ExpandableHeadingLevel } from './ExpandableHeader'
-import { collapseStyles, useCollapse } from './useCollapse'
 import { useExpandable, UseExpandableProps } from './useExpandable'
 
 export interface AccordionItemProps

@@ -1,5 +1,6 @@
 import React, { CSSProperties, useMemo, useRef, useState } from 'react'
 
+import { useCollapse } from '../../hooks/useCollapse'
 import { ExternalStyles, focusBoxShadow, Theme, useStyles } from '../../styles'
 import { Omit } from '../../util'
 import { randomStr } from '../../util/string'
@@ -282,10 +283,14 @@ export function TreeView(props: TreeViewProps) {
               {node.label}
             </span>
           </div>
-          {isOpen && (
-            <ul role='group' className={classes.group}>
-              {renderNodes(node.children, level + 1)}
-            </ul>
+          {hasChildren && (
+            <TreeGroup
+              open={isOpen}
+              className={classes.group}
+              renderClosing={() => renderNodes(node.children, level + 1)}
+            >
+              {isOpen && renderNodes(node.children, level + 1)}
+            </TreeGroup>
           )}
         </li>
       )
@@ -294,6 +299,36 @@ export function TreeView(props: TreeViewProps) {
   return (
     <ul role='tree' className={css(classes.tree, style)} onKeyDown={handleKeyDown} onFocus={handleFocus} {...rest}>
       {renderNodes(items, 1)}
+    </ul>
+  )
+}
+
+interface TreeGroupProps {
+  open: boolean
+  className: string
+
+  /**
+   * The children, rendered with the tree while the node is open
+   */
+  children?: React.ReactNode
+
+  /**
+   * Renders the children while the node closes, since the tree leaves them out once it is collapsed
+   */
+  renderClosing(): React.ReactNode
+}
+
+/**
+ * The children of a node, which slide open and closed. A collapsed node renders none of them, so a large tree
+ * only puts in the page the nodes the user can reach, and the tab order and screen readers leave the others out.
+ */
+function TreeGroup(props: TreeGroupProps) {
+  const { open, className, children, renderClosing } = props
+  const collapse = useCollapse<HTMLUListElement>(open)
+
+  return collapse.hidden ? null : (
+    <ul ref={collapse.ref} role='group' className={className}>
+      {open ? children : renderClosing()}
     </ul>
   )
 }

@@ -16,6 +16,8 @@ A `TreeView` recebe os `items`, cada um com um `id`, um `label` e, se quiser, um
 
 <Demo src='pages/components/tree-view/TreeView' />
 
+Os filhos de um nó deslizam ao abrir e ao fechar, exceto quando o usuário pede movimento reduzido. Um nó recolhido não renderiza os filhos, então eles ficam fora da página, da ordem do Tab e dos leitores de tela, e uma árvore grande só renderiza os nós que o usuário alcança.
+
 ## Acessibilidade
 
 A árvore segue o padrão de _tree_ do ARIA. Ela é uma única parada da tecla Tab; dentro dela, as setas para cima e para baixo passam pelos nós visíveis, a seta para a direita expande um nó ou vai para o primeiro filho, e a seta para a esquerda recolhe ou vai para o pai. Home e End vão para o primeiro e o último nó, Enter e Espaço selecionam, e digitar uma letra leva ao próximo nó que começa com ela. Cada nó tem nível, posição e estado, e leva o nome do próprio rótulo. Dê nome à árvore com `aria-label`.
