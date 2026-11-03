@@ -27,7 +27,8 @@ export function ChartTooltip<XDomain>(props: ChartTooltipProps<XDomain>) {
     tooltip = renderer([{ seriesName: seriesName, x: label, y: value }]) as string
   }
   return (
-    <Tooltip text={showTooltip && tooltip} style={classes.tooltip}>
+    // The value of the bar is what the pointer is after, so it shows at once, without the delay of other tooltips
+    <Tooltip text={showTooltip && tooltip} style={classes.tooltip} openDelay={0}>
       {children}
     </Tooltip>
   )

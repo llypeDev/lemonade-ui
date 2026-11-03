@@ -77,6 +77,29 @@ describe('Chart', () => {
       await flush()
     })
 
+    it('should open at once, without the delay of other tooltips, as the value is what the pointer is after', async () => {
+      const { container } = await actRender(<ChartTest type={SeriesType.Column} />)
+      // A tooltip that closed less than 300ms ago, as the one of the test before, would open this one at once anyway
+      await act(async () => {
+        await new Promise((resolve) => setTimeout(resolve, 350))
+      })
+
+      jest.useFakeTimers()
+      try {
+        fireEvent.pointerOver(barsOf(container, 0)[0])
+        await act(async () => {
+          jest.advanceTimersByTime(50)
+        })
+        expect(tooltip()).toHaveTextContent('10 - Jan')
+        act(() => {
+          jest.runOnlyPendingTimers()
+        })
+      } finally {
+        jest.useRealTimers()
+      }
+      await flush()
+    })
+
     const stackedSeries = [
       { name: 'A', data: [10] },
       { name: 'B', data: [5] },
