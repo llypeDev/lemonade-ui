@@ -12,6 +12,13 @@ jest.mock('../../util/string')
 // Popper places the popover asynchronously, so each opening waits for it inside act
 const flush = () => act(async () => undefined)
 
+// Enter on a focused button clicks it, as in the browser
+const pressEnter = (element: HTMLElement) => {
+  element.focus()
+  fireEvent.keyDown(element, { key: 'Enter' })
+  fireEvent.click(element)
+}
+
 const Orders = (props: { onRemove?(id: string): void }) => {
   const [search, setSearch] = useState('')
   const [active, setActive] = useState<FilterBarChip[]>([
@@ -111,6 +118,98 @@ describe('FilterBar', () => {
     )
     expect(getByRole('button', { name: 'Limpar filtros' })).toBeInTheDocument()
     expect(getByRole('status')).toHaveTextContent('54 resultados')
+
+    fireEvent.click(getByRole('button', { name: 'Remover o filtro Status: Paid' }))
+    expect(getByRole('status')).toHaveTextContent('Filtro Status: Paid removido. 54 resultados')
+    fireEvent.click(getByRole('button', { name: 'Limpar filtros' }))
+    expect(getByRole('status')).toHaveTextContent('Filtros limpos. 54 resultados')
+  })
+})
+
+describe('FilterBar focus after removing', () => {
+  it('should move the focus to the next active filter, else to the previous one', () => {
+    const first = render(<Orders />)
+    pressEnter(first.getByRole('button', { name: 'Remove filter Status: Paid' }))
+    expect(first.getByRole('button', { name: 'Remove filter Date: Today' })).toHaveFocus()
+    first.unmount()
+
+    const second = render(<Orders />)
+    pressEnter(second.getByRole('button', { name: 'Remove filter Date: Today' }))
+    expect(second.getByRole('button', { name: 'Remove filter Status: Paid' })).toHaveFocus()
+  })
+
+  it('should move the focus to the first filter after removing the last active one or clearing them', () => {
+    const first = render(<Orders />)
+    pressEnter(first.getByRole('button', { name: 'Remove filter Status: Paid' }))
+    pressEnter(first.getByRole('button', { name: 'Remove filter Date: Today' }))
+    expect(first.getByRole('button', { name: 'Status 1' })).toHaveFocus()
+    first.unmount()
+
+    const second = render(<Orders />)
+    pressEnter(second.getByRole('button', { name: 'Clear filters' }))
+    expect(second.getByRole('button', { name: 'Status 1' })).toHaveFocus()
+  })
+
+  it('should move the focus to the search field when there are no filters', () => {
+    const Search = () => {
+      const [active, setActive] = useState<FilterBarChip[]>([{ id: 'paid', label: 'Status: Paid' }])
+      return (
+        <FilterBar
+          onSearchChange={jest.fn()}
+          activeFilters={active}
+          onRemoveFilter={(id) => setActive(active.filter((chip) => chip.id !== id))}
+        />
+      )
+    }
+    const { getByRole } = render(<Search />)
+
+    pressEnter(getByRole('button', { name: 'Remove filter Status: Paid' }))
+    expect(getByRole('textbox', { name: 'Search' })).toHaveFocus()
+  })
+
+  it('should wait for the application to remove the filter, and leave the focus alone if it keeps it', () => {
+    let removeLater: () => void
+    const Later = () => {
+      const [active, setActive] = useState<FilterBarChip[]>([
+        { id: 'paid', label: 'Status: Paid' },
+        { id: 'today', label: 'Date: Today' },
+      ])
+      return (
+        <FilterBar
+          activeFilters={active}
+          onRemoveFilter={(id) => {
+            removeLater = () => setActive(active.filter((chip) => chip.id !== id))
+          }}
+        />
+      )
+    }
+    const { getByRole } = render(<Later />)
+    const remove = getByRole('button', { name: 'Remove filter Status: Paid' })
+
+    pressEnter(remove)
+    expect(remove).toHaveFocus()
+    act(() => removeLater())
+    expect(getByRole('button', { name: 'Remove filter Date: Today' })).toHaveFocus()
+  })
+
+  it('should leave the focus alone when the remove button did not have it', () => {
+    const { getByRole } = render(<Orders />)
+    const search = getByRole('textbox', { name: 'Search' })
+
+    // A click that does not focus the button, as in Safari
+    search.focus()
+    fireEvent.click(getByRole('button', { name: 'Remove filter Status: Paid' }))
+    expect(search).toHaveFocus()
+  })
+
+  it('should announce the removed filter, with the number of results', () => {
+    const { getByRole } = render(<Orders />)
+
+    fireEvent.click(getByRole('button', { name: 'Remove filter Status: Paid' }))
+    expect(getByRole('status')).toHaveTextContent('Filter Status: Paid removed. 54 results')
+
+    fireEvent.click(getByRole('button', { name: 'Clear filters' }))
+    expect(getByRole('status')).toHaveTextContent('Filters cleared. 54 results')
   })
 })
 

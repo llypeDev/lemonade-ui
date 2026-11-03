@@ -19,3 +19,5 @@ The filter bar holds the search, the filters and the active filters of a list or
 ## Accessibility
 
 The search field is a search landmark. The number of results is a status message, announced when it changes. The tags are a group named "Active filters", and each remove button is named after its filter, such as "Remove filter Status: Paid".
+
+When a filter is removed with its button, the focus moves to the next filter, else to the previous one, else to the first filter button or the search field, and the removal is announced with the number of results, such as "Filter Status: Paid removed. 18 results". "Clear filters" works the same way. The focus moves only if it was on the button, once the application takes the filter out of `activeFilters`, also when it does that later.

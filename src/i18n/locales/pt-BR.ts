@@ -101,6 +101,7 @@ const locale: LocaleConfiguration = {
     uploading: 'Enviando',
     done: 'Enviado',
     failed: 'Falha no envio',
+    removed: '{file} removido.',
   },
   filterBar: {
     search: 'Pesquisar',
@@ -109,6 +110,8 @@ const locale: LocaleConfiguration = {
     clear: 'Limpar filtros',
     resultsOne: '1 resultado',
     resultsOther: '{count} resultados',
+    removed: 'Filtro {filter} removido.',
+    cleared: 'Filtros limpos.',
   },
   inlineEdit: {
     edit: 'Editar',
