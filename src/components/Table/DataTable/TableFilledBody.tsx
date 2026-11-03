@@ -1,6 +1,7 @@
-import React, { CSSProperties } from 'react'
+import React, { CSSProperties, useEffect, useLayoutEffect, useRef } from 'react'
 
 import { Theme, useStyles } from '../../../styles'
+import { leavingStyles } from '../../Transition/leaving'
 import { TableBody, TableCell, TableRow } from '../Table'
 
 import { DataTableProps, DataTableRowId, defaultColumnStyles } from './DataTable'
@@ -27,6 +28,18 @@ export interface TableFilledBodyProps extends Pick<DataTableProps, 'columns' | '
   getRowId?(row: any): DataTableRowId
 }
 
+// React knows `inert` as a boolean from version 19; before, it renders an unknown attribute only from a string
+const inert = parseInt(React.version, 10) >= 19 ? true : ''
+
+// A layout effect warns when it renders on a server, where it does nothing
+const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect
+
+// Browsers without `inert` still let the keyboard click an element of a row that had the focus
+const blockClick = (e: React.MouseEvent) => {
+  e.preventDefault()
+  e.stopPropagation()
+}
+
 export function TableFilledBody(props: TableFilledBodyProps) {
   const {
     columns,
@@ -43,7 +56,26 @@ export function TableFilledBody(props: TableFilledBodyProps) {
 
   const handleClick = (row) => (e) => onRowClick(row)
 
-  const isEmpty = () => !rows || rows.length === 0
+  const empty = !rows || rows.length === 0
+
+  // While new rows load, the rows that are there keep their place, dimmed and out of the reach of clicks, the
+  // keyboard and screen readers, under the loading message
+  const stale = loading && !empty
+  const staleProps = stale ? ({ inert, onClickCapture: blockClick } as React.HTMLAttributes<HTMLElement>) : {}
+
+  // An element of a row loses the focus when its row turns inert, so it gets it back when the rows are ready, unless
+  // the user moved the focus elsewhere in the meantime
+  const focused = useRef<HTMLElement>(null)
+  const focusedWhenLoading = useRef<HTMLElement>(null)
+  useIsomorphicLayoutEffect(() => {
+    const element = focusedWhenLoading.current
+    focusedWhenLoading.current = stale ? focused.current : null
+
+    const lost = !document.activeElement || document.activeElement === document.body
+    if (!stale && element && lost && document.body.contains(element)) {
+      element.focus()
+    }
+  }, [stale])
 
   const rowKey = (row: any, idx: number) => {
     const id = getRowId && getRowId(row)
@@ -51,16 +83,21 @@ export function TableFilledBody(props: TableFilledBodyProps) {
   }
 
   return (
-    <TableBody>
-      {loading && <TableLoadingRow colSpan={columns.length} />}
+    <TableBody
+      aria-busy={loading || undefined}
+      onFocus={(e) => (focused.current = e.target as HTMLElement)}
+      onBlur={() => (focused.current = null)}
+    >
+      {loading && <TableLoadingRow colSpan={columns.length} overlay={!empty} />}
 
-      {!loading && isEmpty() && <TablePlaceholderRow colSpan={columns.length} />}
+      {!loading && empty && <TablePlaceholderRow colSpan={columns.length} />}
 
       {(rows || []).map((row, idx) => (
         <React.Fragment key={rowKey(row, idx)}>
           <TableRow
-            onClick={onRowClick && handleClick(row)}
-            style={isRowSelected && isRowSelected(row) && classes.selected}
+            {...staleProps}
+            onClick={onRowClick && !stale ? handleClick(row) : undefined}
+            style={[isRowSelected && isRowSelected(row) && classes.selected, stale && classes.staleRow]}
           >
             {columns.map((col, colIdx) => (
               <TableCell key={colIdx} style={css(defaultColumnStyles(col), col.style)}>
@@ -69,7 +106,7 @@ export function TableFilledBody(props: TableFilledBodyProps) {
             ))}
           </TableRow>
           {renderExpanded && isRowExpanded && isRowExpanded(row) && (
-            <TableRow style={classes.detailsRow}>
+            <TableRow {...staleProps} style={[classes.detailsRow, stale && classes.staleRow]}>
               <TableCell colSpan={columns.length} id={getDetailsId && getDetailsId(row)} style={classes.details}>
                 {renderExpanded(row)}
               </TableCell>
@@ -82,6 +119,11 @@ export function TableFilledBody(props: TableFilledBodyProps) {
 }
 
 const createStyles = (theme: Theme) => ({
+  staleRow: {
+    opacity: 0.5,
+    // In browsers without `inert`, clicks go through the rows and their buttons to the table
+    ...leavingStyles,
+  } as CSSProperties,
   detailsRow: {
     // The details belong to the row above, so the hover of the table leaves them alone
     '&& td, &&:hover td': {

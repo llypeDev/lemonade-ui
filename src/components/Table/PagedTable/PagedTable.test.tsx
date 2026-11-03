@@ -1,4 +1,4 @@
-import { render } from '@testing-library/react'
+import { fireEvent, render } from '@testing-library/react'
 import React from 'react'
 
 import { PagedTable } from './PagedTable'
@@ -93,4 +93,31 @@ it('should render correctly when total elements is bigger than sizeOption', () =
     />
   )
   expect(container).toMatchSnapshot()
+})
+
+it('should keep the rows of the page while the next one loads, and the footer working', () => {
+  const pageHandler = jest.fn()
+  const { container, getByRole, getByText } = render(
+    <PagedTable
+      rows={rows}
+      loading
+      page={0}
+      size={2}
+      totalPages={2}
+      totalElements={3}
+      sizeOptions={[2]}
+      onPageChange={pageHandler}
+      onSizeChange={jest.fn()}
+      columns={[{ name: 'name', header: 'Name', render: (row: Row) => row.name }]}
+    />
+  )
+
+  expect(container.querySelector('tbody')).toHaveAttribute('aria-busy', 'true')
+  rows.forEach((row) => expect(getByText(row.name).closest('tr')).toHaveAttribute('inert'))
+  expect(getByText('Loading results').closest('tr')).not.toHaveAttribute('inert')
+
+  const next = getByRole('button', { name: 'Next page' })
+  expect(next.closest('[inert]')).toBeNull()
+  fireEvent.click(next)
+  expect(pageHandler).toHaveBeenCalledWith(1)
 })

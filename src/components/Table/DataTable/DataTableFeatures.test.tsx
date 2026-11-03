@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 
 import { LocaleContext } from '../../../i18n'
 import ptBR from '../../../i18n/locales/pt-BR'
-import { focusRingStates } from '../../../test/utils/resolveStyle'
+import { focusRingStates, resolveStyle } from '../../../test/utils/resolveStyle'
 
 import { DataTable, TableColumnConfig } from './DataTable'
 import { DataTableColumnsMenu } from './DataTableColumnsMenu'
@@ -105,6 +105,15 @@ describe('DataTable features', () => {
   it('should keep the header at the top', () => {
     const { getByRole } = render(<DataTable rows={orders} columns={columns} stickyHeader />)
     expect(getByRole('columnheader', { name: 'Order' })).toHaveStyleRule('position', 'sticky')
+  })
+
+  it('should keep the sticky header over the loading message of the rows that scroll under it', () => {
+    const { getByRole, getByText } = render(<DataTable rows={orders} columns={columns} stickyHeader loading />)
+    const header = Number(resolveStyle(getByRole('columnheader', { name: 'Order' }), 'z-index'))
+    const message = Number(resolveStyle(getByText('Loading results'), 'z-index'))
+
+    expect(message).toBeGreaterThan(0)
+    expect(header).toBeGreaterThan(message)
   })
 
   it('should show and hide columns from the menu, but not the last one', async () => {

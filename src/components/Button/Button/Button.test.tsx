@@ -2,8 +2,10 @@ import { act, fireEvent, render } from '@testing-library/react'
 import React from 'react'
 import waait from 'waait'
 
+import { LocaleContext } from '../../../i18n'
+import ptBR from '../../../i18n/locales/pt-BR'
 import { createTheme, focusBoxShadow } from '../../../styles'
-import { focusRingStates } from '../../../test/utils/resolveStyle'
+import { focusRingStates, resolveStyle } from '../../../test/utils/resolveStyle'
 import { Icon } from '../../Icon'
 
 import { Button } from './Button'
@@ -125,7 +127,7 @@ describe('focus ring', () => {
   })
 })
 
-it('should have a "loading" animation when onClick return is a Promise', () => {
+it('should have a "loading" animation when onClick return is a Promise', async () => {
   const delayedFunction = () => {
     return new Promise((resolve, reject) => {
       setTimeout(resolve, 10)
@@ -138,6 +140,10 @@ it('should have a "loading" animation when onClick return is a Promise', () => {
 
   fireEvent.click(button)
   expect(button.getAttribute('data-loading')).toEqual('true')
+
+  // The promise settles inside act, not while the test cleans up after a slow render
+  await act(() => waait(20))
+  expect(button.getAttribute('data-loading')).toBeFalsy()
 })
 
 it('shoud not emit a "setState while unmounted" react warning when component is unmounted while loading', async () => {
@@ -224,6 +230,74 @@ it('should disable click event when loading', () => {
   )
   fireEvent.click(container.querySelector('button'))
   expect(click).toHaveBeenCalledTimes(1)
+})
+
+describe('while loading', () => {
+  it('should tell screen readers it is busy and unavailable, and keep the focus', () => {
+    const { getByRole, rerender } = render(<Button loading>Save</Button>)
+    const button = getByRole('button')
+
+    expect(button).toHaveAttribute('aria-busy', 'true')
+    expect(button).toHaveAttribute('aria-disabled', 'true')
+    // The native disabled would take the focus away from the button
+    expect(button).not.toBeDisabled()
+    button.focus()
+    expect(button).toHaveFocus()
+
+    rerender(<Button loading={false}>Save</Button>)
+    expect(button).not.toHaveAttribute('aria-busy')
+    expect(button).not.toHaveAttribute('aria-disabled')
+    expect(button).toHaveFocus()
+  })
+
+  it('should tell it while the promise of onClick is pending', async () => {
+    let resolve: () => void
+    const { getByRole } = render(<Button onClick={() => new Promise<void>((r) => (resolve = r))}>Save</Button>)
+    const button = getByRole('button')
+
+    fireEvent.click(button)
+    expect(button).toHaveAttribute('aria-busy', 'true')
+    expect(button).toHaveAttribute('aria-disabled', 'true')
+    expect(getByRole('button', { name: 'Save Loading' })).toBe(button)
+
+    await act(async () => {
+      resolve()
+      await waait(0)
+    })
+    expect(button).not.toHaveAttribute('aria-busy')
+    expect(button).not.toHaveAttribute('aria-disabled')
+    expect(getByRole('button', { name: 'Save' })).toBe(button)
+  })
+
+  it('should say "Loading" to screen readers, from the locale strings, without showing it', () => {
+    const { getByRole, getByText, rerender } = render(<Button loading>Save</Button>)
+
+    expect(getByRole('button', { name: 'Save Loading' })).toBeInTheDocument()
+    expect(resolveStyle(getByText('Loading'), 'position')).toEqual('absolute')
+    expect(resolveStyle(getByText('Loading'), 'clip')).toEqual('rect(0,0,0,0)')
+    // The label keeps its place, so the button keeps its width
+    expect(resolveStyle(getByText('Save'), 'color')).toEqual('transparent')
+
+    rerender(
+      <LocaleContext.Provider value={ptBR}>
+        <Button loading>Salvar</Button>
+      </LocaleContext.Provider>
+    )
+    expect(getByRole('button', { name: 'Salvar Carregando' })).toBeInTheDocument()
+
+    rerender(<Button>Save</Button>)
+    expect(getByRole('button', { name: 'Save' })).toBeInTheDocument()
+  })
+
+  it('should keep the aria-disabled and aria-busy it is given when it is not loading', () => {
+    const { getByRole } = render(
+      <Button aria-disabled aria-busy={false}>
+        Save
+      </Button>
+    )
+    expect(getByRole('button')).toHaveAttribute('aria-disabled', 'true')
+    expect(getByRole('button')).toHaveAttribute('aria-busy', 'false')
+  })
 })
 
 it('shoud allow override of the "component" prop', () => {
