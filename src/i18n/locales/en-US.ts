@@ -18,6 +18,9 @@ const locale = {
   bottomNavigation: {
     label: 'Main',
   },
+  button: {
+    loading: 'Loading',
+  },
   calendar: {
     nextMonth: 'Next month',
     previousMonth: 'Previous month',

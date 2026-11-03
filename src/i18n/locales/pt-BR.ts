@@ -20,6 +20,9 @@ const locale: LocaleConfiguration = {
   bottomNavigation: {
     label: 'Principal',
   },
+  button: {
+    loading: 'Carregando',
+  },
   calendar: {
     nextMonth: 'Próximo mês',
     previousMonth: 'Mês anterior',

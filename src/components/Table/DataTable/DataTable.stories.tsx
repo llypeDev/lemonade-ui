@@ -82,6 +82,14 @@ export const Default = (args) => {
   )
 }
 
+// The rows stay in place while the next ones load, dimmed and out of reach, under the message. Without rows, a
+// row shows the message.
+export const Loading = (args) => <DataTable {...args} rows={args.empty ? [] : rows} />
+
+Loading.args = {
+  loading: true,
+}
+
 const people: Row[] = [
   ...rows,
   { id: 4, name: 'CARLOS EDUARDO LIMA', age: 51 },

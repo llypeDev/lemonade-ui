@@ -15,6 +15,8 @@ Uma tabela que gera automaticamente linhas com base na propriedade de `columns` 
 
 <Demo src='pages/components/table/DataTable' />
 
+Com `loading`, as linhas que já estão na tabela ficam no lugar enquanto as próximas carregam, como depois de uma ordenação ou de uma troca de página: elas ficam esmaecidas e não recebem cliques nem foco, e a mensagem "Carregando resultados" aparece sobre a primeira, sem mover as linhas. O corpo da tabela avisa aos leitores de tela que está ocupado. Um elemento de uma linha que tinha o foco o recebe de volta quando as linhas ficam prontas. Sem linhas, uma linha mostra a mensagem.
+
 ## Seleção de linhas
 
 Com `selectedRows` e `onSelectedRowsChange`, um checkbox no início de cada linha a seleciona, e o do cabeçalho seleciona todas as linhas da tela, ou mostra um traço quando só algumas estão selecionadas. Selecionar todas mantém as linhas de outras páginas que já estavam selecionadas. As linhas são identificadas pelo `id`, ou pelo `getRowId`. O `bulkActions` mostra uma barra acima da tabela enquanto há linhas selecionadas, com o número de linhas selecionadas, as suas ações e um botão para limpar a seleção.

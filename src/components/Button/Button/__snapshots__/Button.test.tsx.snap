@@ -87,7 +87,7 @@ exports[`should accept the loading prop 1`] = `
   }
 }
 
-.emotion-0 {
+.emotion-1 {
   font-family: "IBM Plex Sans",sans-serif;
   font-size: 0.8125rem;
   line-height: 1.5rem;
@@ -119,7 +119,7 @@ exports[`should accept the loading prop 1`] = `
   padding: calc(0.75rem - 1px) 1rem;
 }
 
-.emotion-0 > span {
+.emotion-1 > span {
   -webkit-align-items: center;
   -webkit-box-align: center;
   -ms-flex-align: center;
@@ -130,28 +130,28 @@ exports[`should accept the loading prop 1`] = `
   display: inline-flex;
 }
 
-.emotion-0:focus {
+.emotion-1:focus {
   outline: none;
   box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
 }
 
-.emotion-0:focus:not(:focus-visible) {
+.emotion-1:focus:not(:focus-visible) {
   box-shadow: none;
 }
 
-.emotion-0:not(:disabled):active {
+.emotion-1:not(:disabled):active {
   box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
-.emotion-0:not(:disabled):hover {
+.emotion-1:not(:disabled):hover {
   background-color: #F0F0F5;
 }
 
-.emotion-0 span {
+.emotion-1 span {
   color: transparent;
 }
 
-.emotion-0:after {
+.emotion-1:after {
   -webkit-animation: animation-0 500ms infinite linear;
   animation: animation-0 500ms infinite linear;
   border: 3px solid currentColor;
@@ -167,13 +167,33 @@ exports[`should accept the loading prop 1`] = `
   top: calc(50% - (1.5em / 2));
 }
 
+.emotion-0 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
 <div>
   <button
-    class="emotion-0"
+    aria-busy="true"
+    aria-disabled="true"
+    class="emotion-1"
     type="button"
   >
     <span>
       Button
+    </span>
+    <span
+      class="emotion-0"
+    >
+      Loading
     </span>
   </button>
 </div>

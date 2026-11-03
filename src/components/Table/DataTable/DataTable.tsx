@@ -26,7 +26,14 @@ export interface TableColumnConfig<T = any> {
 export interface DataTableProps<T = any> extends TableProps {
   rows: ReadonlyArray<T>
   columns: Array<TableColumnConfig<T>>
+
+  /**
+   * Shows that new rows are loading. The rows that are there stay in place, dimmed and out of the reach of clicks
+   * and the keyboard, under a "Loading results" message, and the body tells screen readers that it is busy. Without
+   * rows, a row shows the message.
+   */
   loading?: boolean
+
   sort?: ReadonlyArray<string>
   onSortChange?(sort: string[]): void
   render?(renderProps: DataTableRenderProps): React.ReactNode
@@ -391,7 +398,11 @@ export function DataTableDefault(props: DataTableRenderProps) {
               <TableHeader
                 key={col.name}
                 {...headerProps}
-                style={stickyHeader ? css(headerProps.style, classes.sticky) : headerProps.style}
+                style={
+                  stickyHeader
+                    ? css(headerProps.style, classes.sticky, loading && classes.stickyOverLoading)
+                    : headerProps.style
+                }
               >
                 {col.header}
               </TableHeader>
@@ -490,6 +501,10 @@ const createStyles = (theme: Theme) => ({
     background: theme.pallete.surface.main,
     // The border of a collapsed table does not stick, so a shadow draws the line under the header
     boxShadow: `inset 0 -1px 0 ${theme.pallete.divider}`,
+  } as CSSProperties,
+  // The loading message shows over the rows, which scroll under the header
+  stickyOverLoading: {
+    zIndex: 2,
   } as CSSProperties,
   bar: {
     display: 'flex',

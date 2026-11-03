@@ -15,6 +15,8 @@ A table that automatically generates rows based on `columns` prop and gives supp
 
 <Demo src='pages/components/table/DataTable' />
 
+With `loading`, the rows that are there stay in place while the next ones load, such as after a sort or a change of page: they are dimmed and take no clicks and no focus, and a "Loading results" message shows over the first one, without moving the rows. The body of the table tells screen readers that it is busy. An element of a row that had the focus gets it back when the rows are ready. Without rows, a row shows the message.
+
 ## Row selection
 
 With `selectedRows` and `onSelectedRowsChange`, a checkbox at the start of each row selects it, and the one in the header selects all the rows on the screen, or shows a dash when only some are selected. Selecting all keeps the rows of other pages that were already selected. Rows are identified by their `id`, or by `getRowId`. `bulkActions` shows a bar above the table while rows are selected, with the number of selected rows, your actions and a button to clear the selection.

@@ -68,4 +68,6 @@ Buttons express what action will occur when the user clicks it. Buttons are used
 
 The loading indicator can be manually toggled on/off with the `loading` prop or automatically by returning a promise to the `onClick` prop.
 
+While it loads, the button keeps its width and the focus, and ignores clicks. Screen readers hear that it is busy and unavailable, and "Loading" after its label. A button named by `aria-label`, such as one with only an icon, keeps that name.
+
 <Demo src='pages/components/button/ButtonLoading' />

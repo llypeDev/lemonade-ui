@@ -24,6 +24,17 @@ Default.args = {
   size: 'medium',
 }
 
+// The spinner takes the place of the label, and the button keeps its width and its focus
+export const Loading = (args) => <Button {...args} />
+
+Loading.args = {
+  children: 'Save',
+  kind: 'primary',
+  skin: 'default',
+  size: 'medium',
+  loading: true,
+}
+
 export const WithIcon = (args) => (
   <Button aria-label='Adjust' {...args}>
     <Icon icon='adjust' />
