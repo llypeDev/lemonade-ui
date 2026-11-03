@@ -9,6 +9,14 @@ Tooltips provide additional information upon hover or focus. They often contain 
 - They should contain read-only text. The use of interactive elements, such as Buttons or Links is discouraged.
 - The position must be flexible and change depending on how close the element is to the edge of the screen.
 
+## Usage
+
+The tooltip opens when the mouse rests on the element for `openDelay`, 400 ms by default, so the tooltips the pointer only crosses, such as the ones of a toolbar, do not flash. While another tooltip shows, or shortly after one closed, it opens at once, so moving along the toolbar does not wait at each button. A tap opens it at once, and a tap elsewhere closes it.
+
 ## Examples
 
 <Demo src='pages/components/tooltip/TooltipDefault' />
+
+## Accessibility
+
+The tooltip opens at once when the element gets the keyboard focus, and the element is described by the tooltip while it shows. Escape closes it.
