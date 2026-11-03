@@ -8,15 +8,22 @@ import { Tabs } from './Tabs'
 
 export default { title: 'Components/Tabs', component: Tabs }
 
-export const Default = () => (
-  <Tabs>
-    <TabItem>First item</TabItem>
-    <TabItem active>Second item</TabItem>
-    <TabItem>Third item</TabItem>
-    <TabItem>Fourth item</TabItem>
-    <TabItem disabled>Disabled item</TabItem>
-  </Tabs>
-)
+const items = ['First item', 'Second item', 'Third item', 'Fourth item']
+
+export const Default = () => {
+  const [active, setActive] = useState(1)
+
+  return (
+    <Tabs>
+      {items.map((item, index) => (
+        <TabItem key={item} active={active === index} onClick={() => setActive(index)}>
+          {item}
+        </TabItem>
+      ))}
+      <TabItem disabled>Disabled item</TabItem>
+    </Tabs>
+  )
+}
 
 const sections = [
   { id: 'profile', label: 'Profile', content: 'Your name, photo and the languages you speak.' },

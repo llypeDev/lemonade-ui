@@ -1,5 +1,5 @@
 import { action } from '@storybook/addon-actions'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { TableFooter } from './TableFooter'
 
@@ -17,4 +17,30 @@ export default {
   },
 }
 
-export const _TableFooter = (args) => <TableFooter {...args} />
+export const _TableFooter = (args) => {
+  // The story keeps the page and its size, as the parent of a table does. Their controls still set them.
+  const [page, setPage] = useState<number>(args.page)
+  const [pageSize, setPageSize] = useState<number>(args.pageSize)
+  useEffect(() => setPage(args.page), [args.page])
+  useEffect(() => setPageSize(args.pageSize), [args.pageSize])
+
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage)
+    args.onPageChange(newPage)
+  }
+
+  const handleSizeChange = (size: number) => {
+    setPageSize(size)
+    args.onSizeChange(size)
+  }
+
+  return (
+    <TableFooter
+      {...args}
+      page={page}
+      pageSize={pageSize}
+      onPageChange={handlePageChange}
+      onSizeChange={handleSizeChange}
+    />
+  )
+}

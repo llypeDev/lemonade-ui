@@ -1,5 +1,5 @@
 import { action } from '@storybook/addon-actions'
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 
 import { Button } from '../../Button'
 import { Icon } from '../../Icon'
@@ -50,4 +50,40 @@ export default {
   },
 }
 
-export const _PagedTable = (args) => <PagedTable {...args} rows={args.empty ? [] : rows} />
+export const _PagedTable = (args) => {
+  // The story keeps the sort, the page and its size, as the parent of a table does. Their controls still set them.
+  const [sort, setSort] = useState<string[]>(args.sort)
+  const [page, setPage] = useState<number>(args.page)
+  const [size, setSize] = useState<number>(args.size)
+  useEffect(() => setSort(args.sort), [args.sort])
+  useEffect(() => setPage(args.page), [args.page])
+  useEffect(() => setSize(args.size), [args.size])
+
+  const handleSortChange = (newSort: string[]) => {
+    setSort(newSort)
+    args.onSortChange(newSort)
+  }
+
+  const handlePageChange = (newPage: number) => {
+    setPage(newPage)
+    args.onPageChange(newPage)
+  }
+
+  const handleSizeChange = (newSize: number) => {
+    setSize(newSize)
+    args.onSizeChange(newSize)
+  }
+
+  return (
+    <PagedTable
+      {...args}
+      rows={args.empty ? [] : rows}
+      sort={sort}
+      page={page}
+      size={size}
+      onSortChange={handleSortChange}
+      onPageChange={handlePageChange}
+      onSizeChange={handleSizeChange}
+    />
+  )
+}

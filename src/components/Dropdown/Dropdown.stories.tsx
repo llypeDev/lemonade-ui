@@ -73,27 +73,36 @@ export const Menu = () => (
   </DropdownMenu>
 )
 
-export const RichItems = () => (
-  <DropdownMenu aria-label='File'>
-    <DropdownItem icon='copyOutline' shortcut={['Ctrl', 'C']}>
-      Copy
-    </DropdownItem>
-    <DropdownItem icon='penOutline' shortcut='F2'>
-      Rename
-    </DropdownItem>
-    <DropdownItem icon={null}>Duplicate</DropdownItem>
-    <DropdownDivider />
-    <DropdownCheckboxItem checked>Show hidden files</DropdownCheckboxItem>
-    <DropdownCheckboxItem checked={false}>Show file extensions</DropdownCheckboxItem>
-    <DropdownDivider />
-    <DropdownGroup label='Share'>
-      <DropdownItem icon='userOutline'>With people</DropdownItem>
-      <DropdownItem icon='link' disabled>
-        With a link
+export const RichItems = () => {
+  const [hidden, setHidden] = useState(true)
+  const [extensions, setExtensions] = useState(false)
+
+  return (
+    <DropdownMenu aria-label='File'>
+      <DropdownItem icon='copyOutline' shortcut={['Ctrl', 'C']}>
+        Copy
       </DropdownItem>
-    </DropdownGroup>
-  </DropdownMenu>
-)
+      <DropdownItem icon='penOutline' shortcut='F2'>
+        Rename
+      </DropdownItem>
+      <DropdownItem icon={null}>Duplicate</DropdownItem>
+      <DropdownDivider />
+      <DropdownCheckboxItem checked={hidden} onCheckedChange={setHidden}>
+        Show hidden files
+      </DropdownCheckboxItem>
+      <DropdownCheckboxItem checked={extensions} onCheckedChange={setExtensions}>
+        Show file extensions
+      </DropdownCheckboxItem>
+      <DropdownDivider />
+      <DropdownGroup label='Share'>
+        <DropdownItem icon='userOutline'>With people</DropdownItem>
+        <DropdownItem icon='link' disabled>
+          With a link
+        </DropdownItem>
+      </DropdownGroup>
+    </DropdownMenu>
+  )
+}
 
 export const CheckboxRadioAndSubmenu = () => {
   const [anchorRef, setAnchorRef] = useState<HTMLButtonElement>()
