@@ -13,3 +13,9 @@ it('should have min-width style', () => {
 
   expect(getByRole('button')).toHaveStyle('min-width: 9rem')
 })
+
+it('should be as narrow as its label on small screens', () => {
+  const { getByRole } = render(<ModalFooterButton>Label</ModalFooterButton>)
+
+  expect(getByRole('button')).toHaveStyleRule('min-width', 'auto', { media: '(max-width:600px)' })
+})

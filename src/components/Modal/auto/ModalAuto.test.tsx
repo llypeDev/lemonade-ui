@@ -1,4 +1,4 @@
-import { fireEvent, render } from '@testing-library/react'
+import { act, fireEvent, render } from '@testing-library/react'
 import React from 'react'
 
 import { ModalAuto } from './ModalAuto'
@@ -83,4 +83,47 @@ it('should pass render props', () => {
   const renderModal = jest.fn()
   render(<ModalAuto title='Modal auto' dispose={jest.fn()} render={renderModal} />)
   expect(renderModal.mock.calls[0][0].close).toEqual(expect.any(Function))
+})
+
+describe('dispose', () => {
+  const { matchMedia } = window
+  afterEach(() => {
+    window.matchMedia = matchMedia
+  })
+
+  const renderModal = (dispose: () => void) => {
+    const component = (
+      <ModalAuto title='Modal auto' dispose={dispose} render={() => <span>Body</span>} actions={[{ label: 'Ok' }]} />
+    )
+    const result = render(component)
+    result.rerender(component)
+    return result
+  }
+
+  it('should be called once the modal has faded out', () => {
+    // No reduced motion
+    window.matchMedia = (() => ({ matches: false })) as any
+    const dispose = jest.fn()
+    const { getByText } = renderModal(dispose)
+
+    fireEvent.click(getByText('Ok'))
+    act(() => {
+      jest.advanceTimersByTime(199)
+    })
+    expect(dispose).not.toHaveBeenCalled()
+    expect(document.body.querySelector('[role="dialog"]')).toBeTruthy()
+
+    act(() => {
+      jest.advanceTimersByTime(1)
+    })
+    expect(dispose).toHaveBeenCalledTimes(1)
+  })
+
+  it('should be called at once without motion', () => {
+    const dispose = jest.fn()
+    const { getByText } = renderModal(dispose)
+
+    fireEvent.click(getByText('Ok'))
+    expect(dispose).toHaveBeenCalledTimes(1)
+  })
 })

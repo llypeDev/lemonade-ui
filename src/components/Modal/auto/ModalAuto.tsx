@@ -28,7 +28,7 @@ export interface ModalAutoRenderProps {
 }
 
 export const ModalAuto = memo((props: ModalAutoProps) => {
-  const { actions, title, subtitle, icon, hasCloseButton, render, dispose, onClose, ...rest } = props
+  const { actions, title, subtitle, icon, hasCloseButton, render, dispose, onClose, onExited, ...rest } = props
 
   const [isOpen, setIsOpen] = useState(false)
 
@@ -39,9 +39,12 @@ export const ModalAuto = memo((props: ModalAutoProps) => {
   const close = () => {
     onClose && onClose()
     setIsOpen(false)
+  }
 
-    // Dispose with timeout to preserve closing transition
-    setTimeout(dispose, 500)
+  // Disposed only once the modal has faded out
+  const handleExited = () => {
+    onExited && onExited()
+    dispose()
   }
 
   const getHandleAction = (actionClick: ButtonAction['onClick']) => (e: React.MouseEvent<HTMLButtonElement>) => {
@@ -50,7 +53,7 @@ export const ModalAuto = memo((props: ModalAutoProps) => {
   }
 
   return (
-    <Modal open={isOpen} onClose={close} {...rest}>
+    <Modal open={isOpen} onClose={close} onExited={handleExited} {...rest}>
       <ModalHeader title={title} subtitle={subtitle} icon={icon} hasCloseButton={hasCloseButton} />
       <ModalBody>{render({ close })}</ModalBody>
       {actions && (

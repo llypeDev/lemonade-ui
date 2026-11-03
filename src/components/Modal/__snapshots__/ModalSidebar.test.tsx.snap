@@ -13,6 +13,22 @@ exports[`should accept "style" prop 1`] = `
   background: red;
 }
 
+@media (max-width:600px) {
+  .emotion-0 {
+    width: auto;
+    -webkit-order: 1;
+    -ms-flex-order: 1;
+    order: 1;
+    -webkit-flex-shrink: 0;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    max-height: 30vh;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 1px solid #D3D4DD;
+  }
+}
+
 <div>
   <div
     class="emotion-0"
@@ -32,6 +48,22 @@ exports[`should render correctly 1`] = `
   overflow-y: auto;
   grid-row: 1;
   grid-column: 1;
+}
+
+@media (max-width:600px) {
+  .emotion-0 {
+    width: auto;
+    -webkit-order: 1;
+    -ms-flex-order: 1;
+    order: 1;
+    -webkit-flex-shrink: 0;
+    -ms-flex-negative: 0;
+    flex-shrink: 0;
+    max-height: 30vh;
+    border-left: 0;
+    border-right: 0;
+    border-bottom: 1px solid #D3D4DD;
+  }
 }
 
 <div>

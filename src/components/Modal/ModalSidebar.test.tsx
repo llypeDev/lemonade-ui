@@ -53,6 +53,40 @@ it('should apply border left when side is right', () => {
   expect(getComputedStyle(sidebar).borderRight).toBe('0px')
 })
 
+describe('on small screens', () => {
+  const media = '(max-width:600px)'
+  const renderSidebar = (position: 'left' | 'right', scroll: 'body' | 'full' = 'body') =>
+    render(
+      <ModalContextProvider value={createMockModalContext({ scroll })}>
+        <ModalSidebar position={position}>Content</ModalSidebar>
+      </ModalContextProvider>
+    ).container.firstElementChild
+
+  it('should go above the body at full width when it is on the left', () => {
+    const sidebar = renderSidebar('left')
+
+    expect(sidebar).toHaveStyleRule('width', '300px')
+    expect(sidebar).toHaveStyleRule('width', 'auto', { media })
+    expect(sidebar).toHaveStyleRule('order', '1', { media })
+    expect(sidebar).toHaveStyleRule('border-right', '0', { media })
+    expect(sidebar).toHaveStyleRule('border-bottom', '1px solid #D3D4DD', { media })
+  })
+
+  it('should go below the body at full width when it is on the right', () => {
+    const sidebar = renderSidebar('right')
+
+    expect(sidebar).toHaveStyleRule('width', 'auto', { media })
+    expect(sidebar).toHaveStyleRule('order', '3', { media })
+    expect(sidebar).toHaveStyleRule('border-left', '0', { media })
+    expect(sidebar).toHaveStyleRule('border-top', '1px solid #D3D4DD', { media })
+  })
+
+  it('should leave most of the height to the body when only the body scrolls', () => {
+    expect(renderSidebar('left')).toHaveStyleRule('max-height', '30vh', { media })
+    expect(renderSidebar('left', 'full')).not.toHaveStyleRule('max-height', expect.anything(), { media })
+  })
+})
+
 it('should call setSectionState when modal has a left sidebar', () => {
   const mockSetSectionState = jest.fn()
 

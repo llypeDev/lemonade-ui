@@ -1,6 +1,6 @@
-import { keyframes } from 'emotion'
 import FocusTrap from 'focus-trap-react'
 import React, { CSSProperties, useEffect, useMemo, useRef } from 'react'
+import Transition, { TransitionStatus } from 'react-transition-group/Transition'
 
 import { useBodyScrollLock } from '../../hooks/useBodyScrollLock'
 import { useOverlayEscape } from '../../hooks/useOverlayEscape'
@@ -16,8 +16,14 @@ import { ModalBackdrop } from '../Modal/ModalBackdrop'
 import { ModalDepthLevel } from '../Modal/Modal'
 import { Portal } from '../Portal'
 import { Tooltip } from '../Tooltip'
+import { animates } from '../Transition/animates'
+import { leavingAttributes, leavingStyles } from '../Transition/leaving'
+import { useReturnFocus } from '../Transition/useReturnFocus'
 
 export type DrawerPlacement = 'left' | 'right' | 'top' | 'bottom'
+
+// Length of the slide, in milliseconds
+const DURATION = 200
 
 export interface DrawerProps extends Omit<React.HTMLAttributes<HTMLDivElement>, 'style' | 'title'> {
   open: boolean
@@ -118,68 +124,113 @@ export function Drawer(props: DrawerProps) {
   // Closes with Escape, unless a dialog or menu opened over it
   useOverlayEscape(open, () => onClose?.())
 
-  if (!open) {
-    return null
-  }
+  // The drawer stays on the page while it slides out, but the focus goes back to the page as soon as it closes
+  useReturnFocus(open)
+
+  // Without motion, the drawer shows and leaves the page at once
+  const motion = animates()
+
+  // The panel is laid out out of the screen before it moves, so the browser slides it from there
+  const handleEnter = () => panelRef.current?.getBoundingClientRect()
 
   const isHorizontal = placement === 'left' || placement === 'right'
   const sizeStyle = isHorizontal ? { width: size ?? '25rem' } : { height: size ?? 'auto' }
 
   return (
-    <Portal>
-      <FocusTrap focusTrapOptions={{ fallbackFocus: () => panelRef.current, escapeDeactivates: false }}>
-        <div>
-          <div
-            ref={panelRef}
-            role='dialog'
-            aria-modal='true'
-            aria-labelledby={title ? titleId : undefined}
-            tabIndex={-1}
-            className={css(classes.drawer, sizeStyle, style)}
-            {...rest}
-          >
-            {(title || hasCloseButton) && (
-              <div className={classes.header}>
-                <div className={classes.title}>
-                  {title && (
-                    <Heading id={titleId} level={2} fontWeight='bold' style={classes.heading}>
-                      {title}
-                    </Heading>
+    <Transition
+      in={open}
+      nodeRef={panelRef}
+      timeout={DURATION}
+      appear={motion}
+      enter={motion}
+      exit={motion}
+      onEnter={handleEnter}
+    >
+      {(state: TransitionStatus) =>
+        (open || state !== 'exited') && (
+          <Portal>
+            <FocusTrap
+              active={open}
+              focusTrapOptions={{
+                fallbackFocus: () => panelRef.current,
+                escapeDeactivates: false,
+                // Only when the drawer is removed while open: when it closes, useReturnFocus gives the focus back
+                returnFocusOnDeactivate: open,
+              }}
+            >
+              <div className={open ? undefined : classes.leaving} {...(open ? undefined : leavingAttributes)}>
+                <div
+                  ref={panelRef}
+                  role='dialog'
+                  aria-modal='true'
+                  aria-labelledby={title ? titleId : undefined}
+                  tabIndex={-1}
+                  className={css(
+                    classes.drawer,
+                    isHidden(state) && classes.hidden,
+                    state === 'exiting' && classes.exiting,
+                    sizeStyle,
+                    style
                   )}
+                  {...rest}
+                >
+                  {(title || hasCloseButton) && (
+                    <div className={classes.header}>
+                      <div className={classes.title}>
+                        {title && (
+                          <Heading id={titleId} level={2} fontWeight='bold' style={classes.heading}>
+                            {title}
+                          </Heading>
+                        )}
+                      </div>
+                      {hasCloseButton && (
+                        <Tooltip text={locale.modal.close}>
+                          <Button aria-label={locale.modal.close} size='small' skin='ghost' onClick={onClose}>
+                            <Icon icon='timesDefault' />
+                          </Button>
+                        </Tooltip>
+                      )}
+                    </div>
+                  )}
+
+                  <div className={classes.body}>{children}</div>
+
+                  {footer && <div className={classes.footer}>{footer}</div>}
                 </div>
-                {hasCloseButton && (
-                  <Tooltip text={locale.modal.close}>
-                    <Button aria-label={locale.modal.close} size='small' skin='ghost' onClick={onClose}>
-                      <Icon icon='timesDefault' />
-                    </Button>
-                  </Tooltip>
-                )}
+
+                <ModalBackdrop
+                  depthLevel={depthLevel}
+                  style={[
+                    classes.backdrop,
+                    isHidden(state) && classes.backdropHidden,
+                    state === 'exiting' && classes.backdropExiting,
+                    backdropStyle,
+                  ]}
+                  onClick={open && closeOnBackdropClick ? onClose : undefined}
+                />
               </div>
-            )}
-
-            <div className={classes.body}>{children}</div>
-
-            {footer && <div className={classes.footer}>{footer}</div>}
-          </div>
-
-          <ModalBackdrop
-            depthLevel={depthLevel}
-            style={backdropStyle}
-            onClick={closeOnBackdropClick ? onClose : undefined}
-          />
-        </div>
-      </FocusTrap>
-    </Portal>
+            </FocusTrap>
+          </Portal>
+        )
+      }
+    </Transition>
   )
 }
 
-const slideFrom = (transform: string) => keyframes({ from: { transform }, to: { transform: 'none' } })
+// Before it slides in, and while it slides out, the panel is out of the screen and the backdrop is transparent
+const isHidden = (state: TransitionStatus) => state === 'exited' || state === 'exiting'
 
-const enterAnimations: Record<DrawerPlacement, string> = {
-  left: slideFrom('translateX(-100%)'),
-  right: slideFrom('translateX(100%)'),
-  top: slideFrom('translateY(-100%)'),
-  bottom: slideFrom('translateY(100%)'),
+const hiddenTransforms: Record<DrawerPlacement, string> = {
+  left: 'translateX(-100%)',
+  right: 'translateX(100%)',
+  top: 'translateY(-100%)',
+  bottom: 'translateY(100%)',
+}
+
+// The panel can be laid out out of the screen before it shows, such as by the focus trap looking for what it can
+// focus, and it would slide from there
+const noTransition: CSSProperties = {
+  transition: 'none',
 }
 
 const placementStyles: Record<DrawerPlacement, CSSProperties> = {
@@ -203,12 +254,29 @@ const createStyles = (theme: Theme, placement: DrawerPlacement, depthLevel: numb
     borderWidth: 0,
     boxShadow: theme.shadows.outer[160],
     outline: 'none',
-    animation: `${enterAnimations[placement]} .2s ease-out`,
-    '@media (prefers-reduced-motion: reduce)': {
-      animation: 'none',
-    },
+    transform: 'none',
+    // It slows down at the end when it slides in, and speeds up when it slides out
+    transition: `transform ${DURATION}ms ease-out`,
+    '@media (prefers-reduced-motion: reduce)': noTransition,
     ...placementStyles[placement],
   } as CSSProperties,
+  hidden: {
+    transform: hiddenTransforms[placement],
+  } as CSSProperties,
+  exiting: {
+    transition: `transform ${DURATION}ms ease-in`,
+  } as CSSProperties,
+  backdrop: {
+    transition: `opacity ${DURATION}ms ease-out`,
+    '@media (prefers-reduced-motion: reduce)': noTransition,
+  } as CSSProperties,
+  backdropHidden: {
+    opacity: 0,
+  } as CSSProperties,
+  backdropExiting: {
+    transition: `opacity ${DURATION}ms ease-in`,
+  } as CSSProperties,
+  leaving: leavingStyles,
   header: {
     display: 'flex',
     alignItems: 'flex-start',

@@ -32,5 +32,11 @@ const createStyles = (theme: Theme, hasHeader: boolean) => ({
     borderTop: `1px solid ${theme.pallete.divider}`,
     gridColumn: '1 / -1',
     gridRow: hasHeader ? '3' : '2',
+    [theme.breakpoints.down('sm')]: {
+      // Grows when the labels of its buttons wrap
+      height: 'auto',
+      minHeight: '5rem',
+      order: 4,
+    },
   } as CSSProperties,
 })

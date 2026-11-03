@@ -9,6 +9,18 @@ exports[`should accept the "style" prop 1`] = `
   min-height: 0;
 }
 
+@media (max-width:600px) {
+  .emotion-0 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
+}
+
 .emotion-1 {
   max-height: 80vh;
   border: 1px solid #D3D4DD;
@@ -20,6 +32,15 @@ exports[`should accept the "style" prop 1`] = `
   overflow: hidden;
   display: grid;
   grid-template-rows: 1fr;
+}
+
+@media (max-width:600px) {
+  .emotion-1 {
+    max-height: 100%;
+  }
+}
+
+.emotion-1 {
   color: red;
 }
 
@@ -53,12 +74,30 @@ exports[`should render correctly 1`] = `
   grid-template-rows: 1fr;
 }
 
+@media (max-width:600px) {
+  .emotion-1 {
+    max-height: 100%;
+  }
+}
+
 .emotion-0 {
   display: grid;
   grid-template-columns: auto 1fr auto;
   grid-template-rows: 1fr auto;
   height: 100%;
   min-height: 0;
+}
+
+@media (max-width:600px) {
+  .emotion-0 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
 }
 
 <div>

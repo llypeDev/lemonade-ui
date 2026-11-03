@@ -12,12 +12,31 @@ exports[`Modal should accept "depthLevel" prop and pass down to ModalContainer 1
   opacity: 1;
 }
 
+@media (prefers-reduced-motion:reduce) {
+  .emotion-4 {
+    -webkit-transition: none;
+    transition: none;
+  }
+}
+
 .emotion-0 {
   display: grid;
   grid-template-columns: auto 1fr auto;
   grid-template-rows: 1fr auto;
   height: 100%;
   min-height: 0;
+}
+
+@media (max-width:600px) {
+  .emotion-0 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
 }
 
 .emotion-1 {
@@ -31,6 +50,15 @@ exports[`Modal should accept "depthLevel" prop and pass down to ModalContainer 1
   overflow: hidden;
   display: grid;
   grid-template-rows: 1fr;
+}
+
+@media (max-width:600px) {
+  .emotion-1 {
+    max-height: 100%;
+  }
+}
+
+.emotion-1 {
   width: 900px;
 }
 
@@ -56,6 +84,12 @@ exports[`Modal should accept "depthLevel" prop and pass down to ModalContainer 1
   align-items: center;
   padding: 2rem;
   outline: none;
+}
+
+@media (max-width:600px) {
+  .emotion-2 {
+    padding: 1rem;
+  }
 }
 
 .emotion-3 {
@@ -124,6 +158,12 @@ exports[`Modal should accept "style" prop and pass down to ModalContainer 1`] = 
   outline: none;
 }
 
+@media (max-width:600px) {
+  .emotion-2 {
+    padding: 1rem;
+  }
+}
+
 .emotion-5 {
   overflow: hidden;
 }
@@ -135,12 +175,31 @@ exports[`Modal should accept "style" prop and pass down to ModalContainer 1`] = 
   opacity: 1;
 }
 
+@media (prefers-reduced-motion:reduce) {
+  .emotion-4 {
+    -webkit-transition: none;
+    transition: none;
+  }
+}
+
 .emotion-0 {
   display: grid;
   grid-template-columns: auto 1fr auto;
   grid-template-rows: 1fr auto;
   height: 100%;
   min-height: 0;
+}
+
+@media (max-width:600px) {
+  .emotion-0 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
 }
 
 .emotion-3 {
@@ -164,6 +223,15 @@ exports[`Modal should accept "style" prop and pass down to ModalContainer 1`] = 
   overflow: hidden;
   display: grid;
   grid-template-rows: 1fr;
+}
+
+@media (max-width:600px) {
+  .emotion-1 {
+    max-height: 100%;
+  }
+}
+
+.emotion-1 {
   width: 900px;
   color: red;
 }
@@ -230,6 +298,12 @@ exports[`Modal should render correctly when opened 1`] = `
   outline: none;
 }
 
+@media (max-width:600px) {
+  .emotion-2 {
+    padding: 1rem;
+  }
+}
+
 .emotion-5 {
   overflow: hidden;
 }
@@ -241,12 +315,31 @@ exports[`Modal should render correctly when opened 1`] = `
   opacity: 1;
 }
 
+@media (prefers-reduced-motion:reduce) {
+  .emotion-4 {
+    -webkit-transition: none;
+    transition: none;
+  }
+}
+
 .emotion-0 {
   display: grid;
   grid-template-columns: auto 1fr auto;
   grid-template-rows: 1fr auto;
   height: 100%;
   min-height: 0;
+}
+
+@media (max-width:600px) {
+  .emotion-0 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
 }
 
 .emotion-1 {
@@ -260,6 +353,15 @@ exports[`Modal should render correctly when opened 1`] = `
   overflow: hidden;
   display: grid;
   grid-template-rows: 1fr;
+}
+
+@media (max-width:600px) {
+  .emotion-1 {
+    max-height: 100%;
+  }
+}
+
+.emotion-1 {
   width: 900px;
 }
 
@@ -329,11 +431,24 @@ exports[`Modal should'n add "overflow: hidden" property to document when manageO
   outline: none;
 }
 
+@media (max-width:600px) {
+  .emotion-2 {
+    padding: 1rem;
+  }
+}
+
 .emotion-4 {
   -webkit-transition: opacity 200ms ease-in-out;
   transition: opacity 200ms ease-in-out;
   opacity: 0;
   opacity: 1;
+}
+
+@media (prefers-reduced-motion:reduce) {
+  .emotion-4 {
+    -webkit-transition: none;
+    transition: none;
+  }
 }
 
 .emotion-0 {
@@ -342,6 +457,18 @@ exports[`Modal should'n add "overflow: hidden" property to document when manageO
   grid-template-rows: 1fr auto;
   height: 100%;
   min-height: 0;
+}
+
+@media (max-width:600px) {
+  .emotion-0 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
 }
 
 .emotion-1 {
@@ -355,6 +482,15 @@ exports[`Modal should'n add "overflow: hidden" property to document when manageO
   overflow: hidden;
   display: grid;
   grid-template-rows: 1fr;
+}
+
+@media (max-width:600px) {
+  .emotion-1 {
+    max-height: 100%;
+  }
+}
+
+.emotion-1 {
   width: 900px;
 }
 
@@ -424,6 +560,12 @@ exports[`Modal sizes should accept the "auto" size and render accordingly 1`] = 
   outline: none;
 }
 
+@media (max-width:600px) {
+  .emotion-2 {
+    padding: 1rem;
+  }
+}
+
 .emotion-5 {
   overflow: hidden;
 }
@@ -435,12 +577,31 @@ exports[`Modal sizes should accept the "auto" size and render accordingly 1`] = 
   opacity: 1;
 }
 
+@media (prefers-reduced-motion:reduce) {
+  .emotion-4 {
+    -webkit-transition: none;
+    transition: none;
+  }
+}
+
 .emotion-0 {
   display: grid;
   grid-template-columns: auto 1fr auto;
   grid-template-rows: 1fr auto;
   height: 100%;
   min-height: 0;
+}
+
+@media (max-width:600px) {
+  .emotion-0 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
 }
 
 .emotion-3 {
@@ -464,6 +625,15 @@ exports[`Modal sizes should accept the "auto" size and render accordingly 1`] = 
   overflow: hidden;
   display: grid;
   grid-template-rows: 1fr;
+}
+
+@media (max-width:600px) {
+  .emotion-1 {
+    max-height: 100%;
+  }
+}
+
+.emotion-1 {
   max-width: 100%;
 }
 
@@ -523,6 +693,12 @@ exports[`Modal sizes should accept the "large" size and render accordingly 1`] =
   outline: none;
 }
 
+@media (max-width:600px) {
+  .emotion-2 {
+    padding: 1rem;
+  }
+}
+
 .emotion-5 {
   overflow: hidden;
 }
@@ -534,12 +710,31 @@ exports[`Modal sizes should accept the "large" size and render accordingly 1`] =
   opacity: 1;
 }
 
+@media (prefers-reduced-motion:reduce) {
+  .emotion-4 {
+    -webkit-transition: none;
+    transition: none;
+  }
+}
+
 .emotion-0 {
   display: grid;
   grid-template-columns: auto 1fr auto;
   grid-template-rows: 1fr auto;
   height: 100%;
   min-height: 0;
+}
+
+@media (max-width:600px) {
+  .emotion-0 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
 }
 
 .emotion-1 {
@@ -553,6 +748,15 @@ exports[`Modal sizes should accept the "large" size and render accordingly 1`] =
   overflow: hidden;
   display: grid;
   grid-template-rows: 1fr;
+}
+
+@media (max-width:600px) {
+  .emotion-1 {
+    max-height: 100%;
+  }
+}
+
+.emotion-1 {
   width: 900px;
 }
 
@@ -622,6 +826,12 @@ exports[`Modal sizes should accept the "medium" size and render accordingly 1`] 
   outline: none;
 }
 
+@media (max-width:600px) {
+  .emotion-2 {
+    padding: 1rem;
+  }
+}
+
 .emotion-5 {
   overflow: hidden;
 }
@@ -633,12 +843,31 @@ exports[`Modal sizes should accept the "medium" size and render accordingly 1`] 
   opacity: 1;
 }
 
+@media (prefers-reduced-motion:reduce) {
+  .emotion-4 {
+    -webkit-transition: none;
+    transition: none;
+  }
+}
+
 .emotion-0 {
   display: grid;
   grid-template-columns: auto 1fr auto;
   grid-template-rows: 1fr auto;
   height: 100%;
   min-height: 0;
+}
+
+@media (max-width:600px) {
+  .emotion-0 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
 }
 
 .emotion-3 {
@@ -662,6 +891,15 @@ exports[`Modal sizes should accept the "medium" size and render accordingly 1`] 
   overflow: hidden;
   display: grid;
   grid-template-rows: 1fr;
+}
+
+@media (max-width:600px) {
+  .emotion-1 {
+    max-height: 100%;
+  }
+}
+
+.emotion-1 {
   width: 720px;
 }
 
@@ -721,6 +959,12 @@ exports[`Modal sizes should accept the "small" size and render accordingly 1`] =
   outline: none;
 }
 
+@media (max-width:600px) {
+  .emotion-2 {
+    padding: 1rem;
+  }
+}
+
 .emotion-5 {
   overflow: hidden;
 }
@@ -732,12 +976,31 @@ exports[`Modal sizes should accept the "small" size and render accordingly 1`] =
   opacity: 1;
 }
 
+@media (prefers-reduced-motion:reduce) {
+  .emotion-4 {
+    -webkit-transition: none;
+    transition: none;
+  }
+}
+
 .emotion-0 {
   display: grid;
   grid-template-columns: auto 1fr auto;
   grid-template-rows: 1fr auto;
   height: 100%;
   min-height: 0;
+}
+
+@media (max-width:600px) {
+  .emotion-0 {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+  }
 }
 
 .emotion-3 {
@@ -761,6 +1024,15 @@ exports[`Modal sizes should accept the "small" size and render accordingly 1`] =
   overflow: hidden;
   display: grid;
   grid-template-rows: 1fr;
+}
+
+@media (max-width:600px) {
+  .emotion-1 {
+    max-height: 100%;
+  }
+}
+
+.emotion-1 {
   width: 520px;
 }
 

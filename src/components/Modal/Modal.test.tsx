@@ -1,4 +1,4 @@
-import { fireEvent, getByRole, render, waitFor } from '@testing-library/react'
+import { act, fireEvent, getByRole, render, waitFor } from '@testing-library/react'
 import React from 'react'
 import { findDOMNode } from 'react-dom'
 import { createMockModalContext } from '../../test/utils/createMockModalContext'
@@ -350,5 +350,236 @@ describe('modal sections state', () => {
     )
 
     expect(mockSetSectionState).not.toHaveBeenCalled()
+  })
+})
+
+// Value of a property of an element on a screen `width` pixels wide, from the rules on the page in their order
+// (the rules of the modal all have the same specificity, so the last one wins)
+const styleOnScreen = (element: Element, property: string, width: number) => {
+  let value: string
+  const visit = (rules: CSSRuleList) =>
+    Array.from(rules).forEach((rule: any) => {
+      if (rule.media) {
+        const max = /max-width:\s*(\d+)px/.exec(rule.media.mediaText)
+        const min = /min-width:\s*(\d+)px/.exec(rule.media.mediaText)
+        if ((max && width <= Number(max[1])) || (min && width >= Number(min[1]))) {
+          visit(rule.cssRules)
+        }
+      } else if (rule.selectorText && element.matches(rule.selectorText)) {
+        value = rule.style.getPropertyValue(property) || value
+      }
+    })
+  Array.from(document.styleSheets).forEach((sheet: CSSStyleSheet) => visit(sheet.cssRules))
+  return value
+}
+
+describe('on small screens', () => {
+  it('should use less space around the dialog', () => {
+    render(<Modal open>Testing.</Modal>)
+    const wrapper = getByRole(document.body, 'dialog').parentElement
+
+    expect(wrapper).toHaveStyleRule('padding', '2rem')
+    expect(wrapper).toHaveStyleRule('padding', '1rem', { media: '(max-width:600px)' })
+    expect(styleOnScreen(wrapper, 'padding', 1366)).toBe('2rem')
+    expect(styleOnScreen(wrapper, 'padding', 390)).toBe('1rem')
+  })
+
+  it('should keep the styles given to the wrapper and the dialog', () => {
+    render(
+      <Modal open wrapperStyle={{ padding: 0 }} style={{ maxHeight: '90vh' }}>
+        Testing.
+      </Modal>
+    )
+    const dialog = getByRole(document.body, 'dialog')
+
+    expect(styleOnScreen(dialog.parentElement, 'padding', 390)).toBe('0')
+    expect(styleOnScreen(dialog, 'max-height', 390)).toBe('90vh')
+    expect(styleOnScreen(dialog, 'max-height', 1366)).toBe('90vh')
+  })
+})
+
+describe('when it closes', () => {
+  const { matchMedia } = window
+  const prefersReducedMotion = (reduce: boolean) => {
+    window.matchMedia = ((query: string) => ({ matches: reduce && query.includes('reduce') })) as any
+  }
+
+  beforeEach(() => {
+    jest.useFakeTimers()
+    prefersReducedMotion(false)
+  })
+
+  afterEach(() => {
+    act(() => {
+      jest.runOnlyPendingTimers()
+    })
+    window.matchMedia = matchMedia
+    jest.useRealTimers()
+  })
+
+  const createComponent = (open: boolean, props: Partial<ModalProps> = {}) => (
+    <>
+      <button>Open</button>
+      <button>Other</button>
+      <Modal open={open} {...props}>
+        <ModalBody>
+          <button>Inside</button>
+        </ModalBody>
+      </Modal>
+    </>
+  )
+
+  // The dialog leaves the accessibility tree as soon as it starts to close, so it is found by its role attribute
+  const queryDialog = () => document.body.querySelector('[role="dialog"]')
+  const getFade = () => queryDialog().parentElement.parentElement
+
+  it('should fade out before it leaves the page', () => {
+    const { rerender } = render(createComponent(true))
+    expect(getFade()).toHaveStyle('opacity: 1')
+
+    rerender(createComponent(false))
+    expect(queryDialog()).toBeInTheDocument()
+    expect(getFade()).toHaveStyle('opacity: 0')
+
+    act(() => {
+      jest.advanceTimersByTime(199)
+    })
+    expect(queryDialog()).toBeInTheDocument()
+
+    act(() => {
+      jest.advanceTimersByTime(1)
+    })
+    expect(queryDialog()).toBeNull()
+  })
+
+  it('should take no clicks, focus or Escape while it fades out', () => {
+    const onClose = jest.fn()
+    const { rerender, getByTestId } = render(createComponent(true, { onClose }))
+    expect(getFade()).not.toHaveAttribute('aria-hidden')
+    expect(getFade()).not.toHaveAttribute('inert')
+
+    rerender(createComponent(false, { onClose }))
+    expect(getFade()).toHaveAttribute('aria-hidden', 'true')
+    expect(getFade()).toHaveAttribute('inert')
+    expect(getFade()).toHaveStyleRule('pointer-events', 'none')
+
+    fireEvent.click(getByTestId('backdrop'))
+    fireEvent.keyDown(document.body, { key: 'Escape' })
+    expect(onClose).not.toHaveBeenCalled()
+  })
+
+  it('should give the focus and the page scroll back as soon as it starts to close', () => {
+    const { rerender, getByText } = render(createComponent(false))
+    getByText('Open').focus()
+
+    rerender(createComponent(true))
+    act(() => {
+      jest.runOnlyPendingTimers()
+    })
+    expect(getByText('Inside')).toHaveFocus()
+    expect(document.body.classList.length).toBe(1)
+
+    rerender(createComponent(false))
+    expect(queryDialog()).toBeInTheDocument()
+    expect(getByText('Open')).toHaveFocus()
+    expect(document.body.classList.length).toBe(0)
+
+    // The focus trap is released, and the focus does not move again when the dialog leaves the page
+    getByText('Other').focus()
+    act(() => {
+      jest.advanceTimersByTime(200)
+    })
+    expect(queryDialog()).toBeNull()
+    expect(getByText('Other')).toHaveFocus()
+  })
+
+  it('should give the focus back when it is removed while open', () => {
+    const { rerender, getByText } = render(createComponent(false))
+    getByText('Open').focus()
+    rerender(createComponent(true))
+    act(() => {
+      jest.runOnlyPendingTimers()
+    })
+
+    rerender(
+      <>
+        <button>Open</button>
+        <button>Other</button>
+      </>
+    )
+    expect(getByText('Open')).toHaveFocus()
+  })
+
+  it('should give the focus back to the modal under it', () => {
+    const createStack = (confirmOpen: boolean) => (
+      <Modal open>
+        <button>Delete</button>
+        <ConfirmDialog open={confirmOpen} title='Delete this order?' onConfirm={jest.fn()} onCancel={jest.fn()} />
+      </Modal>
+    )
+    const { rerender, getByText } = render(createStack(false))
+    act(() => {
+      jest.runOnlyPendingTimers()
+    })
+    getByText('Delete').focus()
+
+    rerender(createStack(true))
+    act(() => {
+      jest.runOnlyPendingTimers()
+    })
+    expect(getByText('Cancel').closest('button')).toHaveFocus()
+
+    rerender(createStack(false))
+    expect(getByText('Delete')).toHaveFocus()
+    act(() => {
+      jest.advanceTimersByTime(200)
+    })
+    expect(getByText('Delete')).toHaveFocus()
+  })
+
+  it('should open again while it fades out', () => {
+    const onClose = jest.fn()
+    const { rerender, getByRole } = render(createComponent(true, { onClose }))
+
+    rerender(createComponent(false, { onClose }))
+    act(() => {
+      jest.advanceTimersByTime(100)
+    })
+    rerender(createComponent(true, { onClose }))
+    act(() => {
+      jest.advanceTimersByTime(300)
+    })
+
+    expect(getByRole('dialog')).toBeInTheDocument()
+    expect(getFade()).not.toHaveAttribute('aria-hidden')
+    expect(getFade()).not.toHaveAttribute('inert')
+    expect(getFade()).toHaveStyle('opacity: 1')
+    expect(document.body.classList.length).toBe(1)
+
+    fireEvent.keyDown(document.body, { key: 'Escape' })
+    expect(onClose).toHaveBeenCalledTimes(1)
+  })
+
+  it('should call onExited once it has left the page', () => {
+    const onExited = jest.fn()
+    const { rerender } = render(createComponent(true, { onExited }))
+
+    rerender(createComponent(false, { onExited }))
+    expect(onExited).not.toHaveBeenCalled()
+
+    act(() => {
+      jest.advanceTimersByTime(200)
+    })
+    expect(onExited).toHaveBeenCalledTimes(1)
+  })
+
+  it('should leave the page at once with reduced motion', () => {
+    prefersReducedMotion(true)
+    const onExited = jest.fn()
+    const { rerender } = render(createComponent(true, { onExited }))
+
+    rerender(createComponent(false, { onExited }))
+    expect(queryDialog()).toBeNull()
+    expect(onExited).toHaveBeenCalledTimes(1)
   })
 })

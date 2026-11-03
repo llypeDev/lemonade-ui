@@ -55,6 +55,21 @@ it('should have gridRow 3 when has header', () => {
   expect(modalBody).toHaveStyle('grid-row: 3;')
 })
 
+it('should grow with its content and stay last on small screens', () => {
+  const { getByTestId } = render(
+    <ModalContextProvider value={createMockModalContext()}>
+      <ModalFooter data-testid='footer'>Footer</ModalFooter>
+    </ModalContextProvider>
+  )
+  const footer = getByTestId('footer')
+  const media = '(max-width:600px)'
+
+  expect(footer).toHaveStyleRule('height', '5rem')
+  expect(footer).toHaveStyleRule('height', 'auto', { media })
+  expect(footer).toHaveStyleRule('min-height', '5rem', { media })
+  expect(footer).toHaveStyleRule('order', '4', { media })
+})
+
 it('should forward ref to the underlying element', () => {
   const mockContextValue = createMockModalContext()
   const ref = React.createRef<HTMLDivElement>()

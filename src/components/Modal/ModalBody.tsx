@@ -23,11 +23,16 @@ export const ModalBody = React.forwardRef((props: ModalBodyProps, ref: Ref<HTMLD
   )
 })
 
-const createStyles = (_theme: Theme, scroll: ModalScroll, hasHeader: boolean) => ({
+const createStyles = (theme: Theme, scroll: ModalScroll, hasHeader: boolean) => ({
   body: {
     padding: '1rem 2rem 2rem 2rem',
     overflow: scroll === 'body' ? 'auto' : 'initial',
     gridColumn: '2',
     gridRow: hasHeader ? '2' : '1',
+    [theme.breakpoints.down('sm')]: {
+      // Between the sidebars, and with the height they leave
+      flex: '1 1 auto',
+      order: 2,
+    },
   } as CSSProperties,
 })
