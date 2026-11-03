@@ -24,3 +24,5 @@ Com `onClose`, o banner mostra um botão de fechar:
 ## Acessibilidade
 
 O botão de fechar se chama "Fechar aviso" (dos textos do _locale_). Um banner que já está na página quando ela carrega não precisa de _role_. Se ele aparecer depois, como após uma ação, passe `role='status'`, ou `role='alert'` para uma mensagem urgente, para os leitores de tela o anunciarem.
+
+Quando o banner sai da página com o foco nele, como depois do botão de fechar, o foco não se perde: ele volta para onde estava antes do banner, senão vai para o primeiro elemento depois de onde o banner estava, como o [App header](/components/app-header) ou o que a página mostra no lugar dele, senão para o último antes dele. O `returnFocus`, uma ref ou uma função que retorna um elemento, escolhe outro. O foco só muda se estava no banner, quando a aplicação tira o banner da página, então um banner que fecha depois, como após uma requisição, também funciona.

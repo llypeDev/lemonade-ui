@@ -1,11 +1,13 @@
-import React, { CSSProperties, useState } from 'react'
+import React, { CSSProperties, useCallback, useEffect, useLayoutEffect, useRef, useState } from 'react'
 
 import { useLocale } from '../../i18n'
 import { ExternalStyles, focusBoxShadow, Theme, useStyles } from '../../styles'
+import { setRef } from '../../util/react'
 import { Button } from '../Button'
 import { Icon } from '../Icon'
 import { Popover } from '../Popover'
 import { TextInput } from '../TextField/TextInput'
+import { VisuallyHidden } from '../VisuallyHidden'
 
 export interface FilterBarFilter {
   /**
@@ -81,15 +83,34 @@ export interface FilterBarProps {
 const fill = (text: string, values: Record<string, string | number>) =>
   text.replace(/\{(\w+)\}/g, (match, name) => (name in values ? String(values[name]) : match))
 
-function FilterButton(props: { filter: FilterBarFilter }) {
-  const { filter } = props
+// The layout effect does nothing in server rendering, and React warns about it there
+const useIsomorphicLayoutEffect = typeof window !== 'undefined' ? useLayoutEffect : useEffect
+
+// A removal the bar waits for: the application takes the filters out of `activeFilters`, now or later
+interface PendingRemoval {
+  removed: string[]
+  ids: string[]
+  index: number
+  announcement: string
+  hadFocus: boolean
+}
+
+function FilterButton(props: { filter: FilterBarFilter; buttonRef?: React.Ref<HTMLButtonElement> }) {
+  const { filter, buttonRef } = props
   const { classes, css } = useStyles(createStyles)
   const [anchor, setAnchor] = useState<HTMLButtonElement>(null)
   const [open, setOpen] = useState(false)
+  const ref = useCallback(
+    (element: HTMLButtonElement) => {
+      setAnchor(element)
+      setRef(buttonRef, element)
+    },
+    [buttonRef]
+  )
 
   return (
     <>
-      <Button innerRef={setAnchor} size='small' skin='outline' onClick={() => setOpen(!open)}>
+      <Button innerRef={ref} size='small' skin='outline' onClick={() => setOpen(!open)}>
         <span className={classes.buttonLabel}>
           {filter.label}
           {!!filter.count && <span className={classes.count}>{filter.count}</span>}
@@ -123,6 +144,54 @@ export function FilterBar(props: FilterBarProps) {
 
   const locale = useLocale()
   const { classes, css } = useStyles(createStyles)
+  const [announcement, setAnnouncement] = useState('')
+  const pending = useRef<PendingRemoval>(null)
+  const removeButtons = useRef<Record<string, HTMLButtonElement>>({})
+  const firstFilterRef = useRef<HTMLButtonElement>(null)
+  const searchRef = useRef<HTMLInputElement>(null)
+
+  const ids = activeFilters.map((chip) => chip.id)
+
+  const startRemoval = (e: React.MouseEvent<HTMLElement>, removed: string[], message: string) => {
+    pending.current = {
+      removed,
+      ids,
+      index: ids.indexOf(removed[0]),
+      announcement: message,
+      // A click focuses the button in most browsers, but not in Safari: the focus moves only if it was there
+      hadFocus: e.currentTarget === document.activeElement,
+    }
+  }
+
+  // Once the application takes the filter out, its removal is announced, and the focus, lost with its button,
+  // moves to the next filter, else to the previous one, else to the first filter button or the search field
+  useIsomorphicLayoutEffect(() => {
+    const removal = pending.current
+    if (!removal || removal.removed.some((id) => ids.includes(id))) {
+      return
+    }
+    pending.current = null
+    setAnnouncement(removal.announcement)
+
+    const active = document.activeElement
+    if (!removal.hadFocus || (active && active !== document.body)) {
+      return
+    }
+    const nearby = [...removal.ids.slice(removal.index + 1), ...removal.ids.slice(0, removal.index).reverse()]
+    const id = nearby.find((other) => removeButtons.current[other])
+    const target = id ? removeButtons.current[id] : firstFilterRef.current ?? searchRef.current
+    target && target.focus()
+  })
+
+  const handleRemove = (chip: FilterBarChip) => (e: React.MouseEvent<HTMLButtonElement>) => {
+    startRemoval(e, [chip.id], fill(locale.filterBar.removed, { filter: chip.label }))
+    onRemoveFilter(chip.id)
+  }
+
+  const handleClear = (e: React.MouseEvent<HTMLButtonElement>) => {
+    startRemoval(e, ids, locale.filterBar.cleared)
+    return onClearFilters()
+  }
 
   const results =
     resultCount === undefined
@@ -137,6 +206,7 @@ export function FilterBar(props: FilterBarProps) {
         {onSearchChange && (
           <div role='search' className={classes.search}>
             <TextInput
+              inputRef={searchRef}
               icon='zoomOutline'
               aria-label={locale.filterBar.search}
               placeholder={searchPlaceholder}
@@ -147,11 +217,12 @@ export function FilterBar(props: FilterBarProps) {
             />
           </div>
         )}
-        {filters.map((filter) => (
-          <FilterButton key={filter.id} filter={filter} />
+        {filters.map((filter, index) => (
+          <FilterButton key={filter.id} filter={filter} buttonRef={index === 0 ? firstFilterRef : undefined} />
         ))}
         <span className={classes.spacer} />
         <span role='status' className={classes.results}>
+          {!!announcement && <VisuallyHidden>{announcement} </VisuallyHidden>}
           {results}
         </span>
         {actions}
@@ -164,11 +235,14 @@ export function FilterBar(props: FilterBarProps) {
               {chip.label}
               {onRemoveFilter && (
                 <button
+                  ref={(element) => {
+                    removeButtons.current[chip.id] = element
+                  }}
                   type='button'
                   className={classes.remove}
                   aria-label={fill(locale.filterBar.remove, { filter: chip.label })}
                   title={fill(locale.filterBar.remove, { filter: chip.label })}
-                  onClick={() => onRemoveFilter(chip.id)}
+                  onClick={handleRemove(chip)}
                 >
                   <Icon icon='timesDefault' size={1} />
                 </button>
@@ -176,7 +250,7 @@ export function FilterBar(props: FilterBarProps) {
             </span>
           ))}
           {onClearFilters && (
-            <Button size='small' skin='ghost' onClick={onClearFilters}>
+            <Button size='small' skin='ghost' onClick={handleClear}>
               {locale.filterBar.clear}
             </Button>
           )}

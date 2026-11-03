@@ -19,3 +19,5 @@ O `FilterBar` mostra um campo de busca quando recebe `onSearchChange`, com `sear
 ## Acessibilidade
 
 O campo de busca é um landmark de busca. O número de resultados é uma mensagem de status, anunciada quando muda. As tags formam um grupo chamado "Filtros ativos", e cada botão de remover tem o nome do seu filtro, como "Remover filtro Status: Pago".
+
+Quando um filtro é removido pelo seu botão, o foco vai para o filtro seguinte, senão para o anterior, senão para o primeiro botão de filtro ou para o campo de busca, e a remoção é anunciada com o número de resultados, como "Filtro Status: Pago removido. 18 resultados". O "Limpar filtros" funciona do mesmo jeito. O foco só muda se estava no botão, quando a aplicação tira o filtro de `activeFilters`, também se ela fizer isso depois.

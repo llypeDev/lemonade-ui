@@ -54,3 +54,5 @@ Files the uploader rejects, such as a file larger than `maxSize` or of a type no
 ## Accessibility
 
 The uploader is a button that opens the file picker with the keyboard. The rejected files are announced when they appear. In the `FileList`, the status of each file is written, not only shown by its icon, and the buttons are named after their file, such as "Remove contract.pdf".
+
+When a file is removed with its button, the focus moves to the next file, else to the previous one, else to the element before the list, such as the uploader, and the removal is announced, such as "contract.pdf removed.". After "Try again", the focus stays on the file. The focus moves only if it was on the button, once the application updates `files`, also when it does that later.

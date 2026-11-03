@@ -57,3 +57,5 @@ Os arquivos que o uploader recusa, como um arquivo maior que o `maxSize` ou de u
 ## Acessibilidade
 
 O uploader é um botão que abre o seletor de arquivos pelo teclado. Os arquivos recusados são anunciados quando aparecem. No `FileList`, o status de cada arquivo é escrito, não só indicado pelo ícone, e os botões têm o nome do seu arquivo, como "Remover contract.pdf".
+
+Quando um arquivo é removido pelo seu botão, o foco vai para o arquivo seguinte, senão para o anterior, senão para o elemento antes da lista, como o uploader, e a remoção é anunciada, como "contract.pdf removido.". Depois de "Tentar de novo", o foco continua no arquivo. O foco só muda se estava no botão, quando a aplicação atualiza `files`, também se ela fizer isso depois.

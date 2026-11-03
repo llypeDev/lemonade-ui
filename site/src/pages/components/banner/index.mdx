@@ -24,3 +24,5 @@ With `onClose`, the banner shows a close button:
 ## Accessibility
 
 The close button is named "Close announcement" (from the locale strings). A banner that is on the page when it loads needs no role. If it shows up later, such as after an action, pass `role='status'`, or `role='alert'` for an urgent message, so screen readers announce it.
+
+When the banner leaves the page while it has the focus, such as after its close button, the focus does not get lost: it goes back to where it was before the banner, else to the first element after where the banner was, such as the [App header](/components/app-header) or what the page shows in its place, else to the last one before it. `returnFocus`, a ref or a function that returns an element, chooses another one. The focus moves only if it was in the banner, once the application has taken the banner out, so a banner that closes later, such as after a request, works too.

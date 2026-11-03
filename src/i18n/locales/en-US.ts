@@ -99,6 +99,7 @@ const locale = {
     uploading: 'Uploading',
     done: 'Uploaded',
     failed: 'Upload failed',
+    removed: '{file} removed.',
   },
   filterBar: {
     search: 'Search',
@@ -107,6 +108,8 @@ const locale = {
     clear: 'Clear filters',
     resultsOne: '1 result',
     resultsOther: '{count} results',
+    removed: 'Filter {filter} removed.',
+    cleared: 'Filters cleared.',
   },
   inlineEdit: {
     edit: 'Edit',

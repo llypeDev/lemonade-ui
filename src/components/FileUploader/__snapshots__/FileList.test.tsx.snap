@@ -186,6 +186,19 @@ exports[`FileList should render correctly 1`] = `
   transition: all .3s;
 }
 
+.emotion-31 {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  -webkit-clip: rect(0,0,0,0);
+  clip: rect(0,0,0,0);
+  white-space: nowrap;
+  border: 0;
+}
+
 <div>
   <ul
     class="emotion-30"
@@ -399,5 +412,9 @@ exports[`FileList should render correctly 1`] = `
       </button>
     </li>
   </ul>
+  <span
+    class="emotion-31"
+    role="status"
+  />
 </div>
 `;
