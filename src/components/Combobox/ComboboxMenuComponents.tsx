@@ -3,6 +3,7 @@ import { useLocale } from '../../i18n'
 import { ExternalStyles, focusBoxShadow, Theme, useStyles } from '../../styles'
 import { Spinner } from '../Spinner'
 import Times from '../Icon/generated/TimesDefault'
+import Check from '../Icon/generated/CheckDefault'
 import { HFlow } from '../HFlow'
 import { CheckboxMark } from '../Checkbox/Checkbox'
 import { ComboboxProps } from './Combobox'
@@ -67,8 +68,14 @@ export const ComboboxMenuItem = React.forwardRef((props: ComboboxItemProps<any>,
   const { classes, css } = useStyles(createStyles)
 
   return (
-    <li ref={ref} className={css(classes.item, (selected || highlighted) && classes.selected, style)} {...rest}>
+    <li
+      ref={ref}
+      className={css(classes.item, highlighted && classes.selected, selected && classes.picked, style)}
+      {...rest}
+    >
       {children ?? itemToString(item)}
+      {/* The field shows the text of the picked item; in the list, the check tells it apart from the highlighted one */}
+      {selected && <Check aria-hidden='true' focusable='false' className={classes.pickedIcon} />}
     </li>
   )
 })
@@ -113,9 +120,17 @@ export const ComboboxMultiselectSelectedItem = forwardRef(
       <span ref={ref} className={css(classes.multiItemContainer, style)} {...rest}>
         <span className={disabled ? classes.multiItemTextDisabled : classes.multiItemText}>{children}</span>
         {!disabled && (
-          <span className={classes.multiItemButton} onClick={onRemove} title={locale.combobox.removeItem}>
-            <Times />
-          </span>
+          // Out of the tab order, as the chips are: the keyboard removes them with Backspace or Delete
+          <button
+            type='button'
+            tabIndex={-1}
+            className={classes.multiItemButton}
+            onClick={onRemove}
+            title={locale.combobox.removeItem}
+            aria-label={typeof children === 'string' ? `${locale.combobox.removeItem} ${children}` : undefined}
+          >
+            <Times aria-hidden='true' focusable='false' />
+          </button>
         )}
       </span>
     )
@@ -228,6 +243,17 @@ const createStyles = (theme: Theme) => ({
     background: theme.pallete.surface.background,
   },
 
+  picked: {
+    fontWeight: 'bold',
+  } as CSSProperties,
+
+  pickedIcon: {
+    float: 'right',
+    marginLeft: '0.5rem',
+    fontSize: '1.25rem',
+    fill: theme.pallete.primary.main,
+  } as CSSProperties,
+
   multiItemContainer: {
     border: `1px solid ${theme.pallete.divider}`,
     borderRadius: theme.radius.button,
@@ -245,6 +271,13 @@ const createStyles = (theme: Theme) => ({
   } as CSSProperties,
 
   multiItemButton: {
+    // Looks like the span it was, without the margin, border and font of a button
+    margin: 0,
+    border: 0,
+    borderRadius: 0,
+    color: 'inherit',
+    font: 'inherit',
+    lineHeight: 'inherit',
     background: theme.pallete.surface.background,
     cursor: 'pointer',
     fontSize: '1.25rem',

@@ -1,4 +1,11 @@
-import { useCombobox, UseComboboxState, UseComboboxStateChangeOptions, useMultipleSelection } from 'downshift'
+import {
+  useCombobox,
+  UseComboboxState,
+  UseComboboxStateChangeOptions,
+  useMultipleSelection,
+  UseMultipleSelectionState,
+  UseMultipleSelectionStateChangeOptions,
+} from 'downshift'
 import matchSorter from 'match-sorter'
 import React, { CSSProperties, useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import { usePopper } from 'react-popper'
@@ -95,6 +102,7 @@ export function ComboboxMultiselect<T = DefaultComboboxItemType>(props: Combobox
     reset,
   } = useMultipleSelection<T>({
     defaultSelectedItems: EMPTY_ARRAY as [],
+    stateReducer: multipleSelectionStateReducer,
     onSelectedItemsChange: ({ selectedItems }) => {
       onChange?.(selectedItems)
     },
@@ -143,7 +151,7 @@ export function ComboboxMultiselect<T = DefaultComboboxItemType>(props: Combobox
     selectedItem: null,
     items: loadedItems,
 
-    stateReducer: comboboxMultiselectStateReducer,
+    stateReducer: comboboxMultiselectStateReducer(openOnFocus),
     itemToString,
     onInputValueChange: ({ inputValue }) => composeHandlers(loadItems, onFilterChange)(inputValue),
     onSelectedItemChange: ({ selectedItem }) => {
@@ -286,10 +294,25 @@ function hasSameItems<T>(a: readonly T[], b: readonly T[], itemIsEqual: (a: T, b
   return a.length === b.length && a.every((item, index) => itemIsEqual(item, b[index]))
 }
 
-function comboboxMultiselectStateReducer<T>(
+function multipleSelectionStateReducer<T>(
+  state: UseMultipleSelectionState<T>,
+  actionAndChanges: UseMultipleSelectionStateChangeOptions<T>
+): Partial<UseMultipleSelectionState<T>> {
+  const { type, changes } = actionAndChanges
+  switch (type) {
+    case useMultipleSelection.stateChangeTypes.FunctionRemoveSelectedItem:
+      // Unchecking an option of the menu keeps the focus in the field: downshift would make the chip next to the
+      // removed one active, which takes the focus and closes the menu. A chip that has the focus keeps that behavior
+      return state.activeIndex === -1 ? { ...changes, activeIndex: -1 } : changes
+    default:
+      return changes
+  }
+}
+
+const comboboxMultiselectStateReducer = <T,>(openOnFocus: boolean) => (
   state: UseComboboxState<T>,
   actionAndChanges: UseComboboxStateChangeOptions<T>
-): Partial<UseComboboxState<T>> {
+): Partial<UseComboboxState<T>> => {
   const { type, changes } = actionAndChanges
   switch (type) {
     case useCombobox.stateChangeTypes.InputKeyDownEnter:
@@ -297,11 +320,14 @@ function comboboxMultiselectStateReducer<T>(
         ...changes,
         isOpen: true, // keep the menu open after selection.
         inputValue: state.inputValue, // and the typed filter, as a click does
+        // and the highlight, so the arrows go on from the option just checked
+        highlightedIndex: state.highlightedIndex,
       }
     case useCombobox.stateChangeTypes.ItemClick:
       return {
         ...changes,
         isOpen: true, // keep the menu open after selection.
+        highlightedIndex: state.highlightedIndex,
       }
     case useCombobox.stateChangeTypes.InputBlur:
       return {
@@ -320,7 +346,9 @@ function comboboxMultiselectStateReducer<T>(
     case useCombobox.stateChangeTypes.InputClick:
       return {
         ...changes,
-        isOpen: state.isOpen,
+        // The click opens a field that opens on focus, so a field that already had the focus opens too. It never
+        // closes the menu: the focus of the same click has just opened it
+        isOpen: openOnFocus || state.isOpen,
       }
     default:
       return changes

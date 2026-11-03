@@ -489,10 +489,14 @@ it.each`
   const dropdownButton = baseElement.querySelector('button')!
   fireEvent.click(dropdownButton)
 
-  const option = await waitForOption(baseElement)
-
-  expect(option.textContent).toEqual(itemToString(fruits[1]))
+  await waitForOption(baseElement)
   await flush()
+
+  // Every item is shown, and the value is the highlighted and marked one
+  expect(baseElement.querySelectorAll('[role="option"]')).toHaveLength(fruits.length)
+  const highlighted = baseElement.querySelector('[role="option"][aria-selected="true"]')
+  expect(highlighted).toHaveTextContent(itemToString(fruits[1]))
+  expect(highlighted.querySelector('svg')).toBeInTheDocument()
 })
 
 it('should accept actions inside children component', async () => {
@@ -862,5 +866,88 @@ describe('label', () => {
     expect(input).not.toHaveAttribute('label')
     expect(input).not.toHaveAttribute('error')
     await flush()
+  })
+})
+
+describe('reopening with a picked item', () => {
+  const options = (baseElement: HTMLElement) =>
+    Array.from(baseElement.querySelectorAll('[role="option"]')).map((option) => option.textContent)
+
+  const pickMango = async (baseElement: HTMLElement) => {
+    fireEvent.click(baseElement.querySelector(`#${TOGGLE_BUTTON_ID}`))
+    await flush()
+    fireEvent.click(Array.from(baseElement.querySelectorAll('[role="option"]')).find((o) => o.textContent === 'Mango'))
+    await flush()
+  }
+
+  it.each([false, true])('shows every item, with the picked one highlighted (async: %s)', async (async) => {
+    const { baseElement } = render(<ComboboxTest async={async} />)
+    await pickMango(baseElement)
+    expect(baseElement.querySelector('input')).toHaveValue('Mango')
+
+    fireEvent.click(baseElement.querySelector(`#${TOGGLE_BUTTON_ID}`))
+    await flush()
+
+    expect(options(baseElement)).toHaveLength(fruits.length)
+    expect(baseElement.querySelector('[role="option"][aria-selected="true"]')).toHaveTextContent('Mango')
+  })
+
+  it('shows every item when it opens with a value given by the parent', async () => {
+    const { baseElement } = render(<ComboboxTest value={fruits[7]} />)
+    fireEvent.click(baseElement.querySelector(`#${TOGGLE_BUTTON_ID}`))
+    await flush()
+
+    expect(options(baseElement)).toHaveLength(fruits.length)
+  })
+
+  it('filters by the text typed over the picked item', async () => {
+    const { baseElement } = render(<ComboboxTest />)
+    await pickMango(baseElement)
+    const input = baseElement.querySelector('input')
+
+    fireEvent.change(input, { target: { value: 'Pea' } })
+    await flush()
+
+    expect(options(baseElement)).toEqual(['Peach', 'Pear'])
+  })
+
+  it('marks the picked item, apart from the highlighted one', async () => {
+    const { baseElement } = render(<ComboboxTest />)
+    await pickMango(baseElement)
+    fireEvent.click(baseElement.querySelector(`#${TOGGLE_BUTTON_ID}`))
+    await flush()
+    fireEvent.keyDown(baseElement.querySelector('input'), { key: 'ArrowDown' })
+
+    const mango = Array.from(baseElement.querySelectorAll('[role="option"]')).find((o) => o.textContent === 'Mango')
+    expect(mango).toHaveAttribute('aria-selected', 'false')
+    expect(mango.querySelector('svg')).toBeInTheDocument()
+    expect(baseElement.querySelectorAll('[role="option"] svg')).toHaveLength(1)
+  })
+})
+
+describe('clicking the field', () => {
+  it('opens the menu when the field already has the focus', async () => {
+    const { baseElement } = render(<ComboboxTest />)
+    const input = baseElement.querySelector('input')
+    fireEvent.focus(input)
+    fireEvent.click(input)
+    await flush()
+    fireEvent.keyDown(input, { key: 'Escape' })
+    expect(input).toHaveAttribute('aria-expanded', 'false')
+
+    fireEvent.click(input)
+    await flush()
+
+    expect(input).toHaveAttribute('aria-expanded', 'true')
+  })
+
+  it('does not open a suggestion field, which opens when the user types', async () => {
+    const { baseElement } = render(<ComboboxTest openOnFocus={false} />)
+    const input = baseElement.querySelector('input')
+    fireEvent.focus(input)
+    fireEvent.click(input)
+    await flush()
+
+    expect(input).toHaveAttribute('aria-expanded', 'false')
   })
 })
