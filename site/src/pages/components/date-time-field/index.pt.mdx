@@ -19,3 +19,5 @@ O `DateTimeField` recebe um `label` e o momento como um único `Date` em `value`
 ## Acessibilidade
 
 Os dois campos são um grupo com o nome do rótulo, e cada um tem o nome "Data" e "Hora", dos textos de locale. O erro fica ligado aos dois campos e os marca como inválidos.
+
+O calendário abre com um clique na data ou no seu botão, ou com `Alt+ArrowDown`, e não quando a data recebe o foco, então o Tab vai da data para a hora. `Escape` fecha o calendário e devolve o foco à data.

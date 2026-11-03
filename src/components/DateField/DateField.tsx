@@ -4,8 +4,10 @@ import { usePopper } from 'react-popper'
 import { useLocale } from '../../i18n'
 import { Theme } from '../../styles'
 import { useStyles } from '../../styles/hooks/useStyles'
-import { composeHandlers } from '../../util/react'
+import { composeHandlers, composeRefs } from '../../util/react'
 import { Calendar, CalendarProps } from '../Calendar'
+import { focusTabbableDay } from '../Calendar/Calendar'
+import { usePickerPopup } from '../Calendar/usePickerPopup'
 import { isSameDay, isValidDate } from '../Calendar/util'
 import { FocusManagerContainer } from '../FocusManagerContainer'
 import { DateInput, DateInputProps } from './DateInput'
@@ -33,20 +35,39 @@ export interface DateFieldProps extends DateInputProps {
 }
 
 export function DateField(props: DateFieldProps) {
-  const { calendarProps, popperProps, minDate, maxDate, value, onClick, icon, onIconClick, ...rest } = props
+  const {
+    calendarProps,
+    popperProps,
+    minDate,
+    maxDate,
+    value,
+    onClick,
+    onKeyDown,
+    icon,
+    iconRef,
+    onIconClick,
+    ...rest
+  } = props
 
   const { css, classes } = useStyles(createStyles)
   const locale = useLocale()
 
   const [inputRef, setInputRef] = useState<HTMLInputElement>()
   const [popupRef, setPopupRef] = useState<HTMLDivElement>()
+  const [iconButton, setIconButton] = useState<HTMLButtonElement>()
 
-  const [open, setOpen] = useState(false)
+  const { open, setOpen, handleInputKeyDown } = usePickerPopup({
+    popup: popupRef,
+    focusTabStop: focusTabbableDay,
+    getInput: () => inputRef,
+    isOwnElement: (element) => !!iconButton?.contains(element),
+  })
 
+  // Each time the calendar opens or closes, it goes back to the month of the value
   const [visibleDate, setVisibleDate] = useState(new Date())
   useEffect(() => {
     setVisibleDate(isValidDate(value) ? value : new Date())
-  }, [value])
+  }, [value, open])
 
   // The placement of popperProps wins over the default one
   const {
@@ -62,22 +83,24 @@ export function DateField(props: DateFieldProps) {
     return props.onChange(day)
   }
 
-  const handleIconClick = () => setOpen(true)
+  // The focus alone does not open the calendar, which would cover the next fields while Tab goes through a form
+  const handleInputClick = () => setOpen(true)
   const handleInputIconClick = () => setOpen(true)
-  const handleFocusIn = () => setOpen(true)
   const handleFocusOut = () => setOpen(false)
 
   const handleVisibleDateChange = (newVisibleDate: Date) => setVisibleDate(newVisibleDate)
 
   return (
-    <FocusManagerContainer onFocusIn={handleFocusIn} onFocusOut={handleFocusOut}>
+    <FocusManagerContainer onFocusOut={handleFocusOut}>
       <DateInput
         inputRef={setInputRef}
         value={value}
         icon={icon}
+        iconRef={composeRefs(setIconButton, iconRef)}
         iconAriaLabel={locale.calendar.open}
         onIconClick={composeHandlers(handleInputIconClick, onIconClick)}
-        onClick={composeHandlers(handleIconClick, onClick)}
+        onClick={composeHandlers(handleInputClick, onClick)}
+        onKeyDown={composeHandlers(handleInputKeyDown, onKeyDown)}
         {...rest}
       />
 

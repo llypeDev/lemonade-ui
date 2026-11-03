@@ -1,11 +1,11 @@
 import { Interpolation } from 'emotion'
 import React, { CSSProperties, useCallback, useMemo } from 'react'
 
-import { Theme, useStyles } from '../../styles'
+import { focusBoxShadow, Theme, useStyles } from '../../styles'
 import { getUserLocale } from '../../util/locale'
 import { Week } from '../DateRangePicker/DateRangePicker'
 
-import { createMonthMatrix } from './util'
+import { createMonthMatrix, isSameDay } from './util'
 
 export interface MonthViewProps {
   /**
@@ -31,6 +31,21 @@ export interface MonthViewProps {
   onWeekHover?(week: Week): void
 
   onlyWeeks?: boolean
+
+  /**
+   * The only day in the tab order, as in a roving tabindex. Without it, the days do not take the focus.
+   */
+  tabbableDay?: Date
+
+  /**
+   * Called on a key down in a day, to move the focus or pick it
+   */
+  onDayKeyDown?(day: Date, e: React.KeyboardEvent<HTMLElement>): void
+
+  /**
+   * Called when a day gets the focus
+   */
+  onDayFocus?(day: Date): void
 }
 
 export function MonthView(props: MonthViewProps) {
@@ -44,6 +59,9 @@ export function MonthView(props: MonthViewProps) {
     onWeekClick,
     onWeekHover,
     createDateStyles,
+    tabbableDay,
+    onDayKeyDown,
+    onDayFocus,
   } = props
   const { classes, css } = useStyles(createStyles)
 
@@ -53,6 +71,9 @@ export function MonthView(props: MonthViewProps) {
 
   const handleWeekClick = useCallback((week: Week) => () => onWeekClick(week), [onWeekClick])
   const handleWeekHover = useCallback((week: Week) => () => onWeekHover(week), [onWeekHover])
+
+  const handleDayKeyDown = (day: Date) => (e: React.KeyboardEvent<HTMLElement>) => onDayKeyDown(day, e)
+  const handleDayFocus = (day: Date) => () => onDayFocus(day)
 
   return (
     <table className={classes.table}>
@@ -79,9 +100,12 @@ export function MonthView(props: MonthViewProps) {
             {week.map((day, d) => (
               <td key={d} data-date={onlyWeeks ? undefined : formatLocalDate(day)}>
                 <span
-                  className={onlyWeeks ? undefined : css(classes.day, createDateStyles(day, props))}
+                  className={onlyWeeks ? classes.weekDay : css(classes.day, createDateStyles(day, props))}
                   onClick={onlyWeeks ? undefined : handleDayClick(day)}
                   onMouseOver={onlyWeeks ? undefined : handleDayHover(day)}
+                  onKeyDown={onDayKeyDown && handleDayKeyDown(day)}
+                  onFocus={onDayFocus && handleDayFocus(day)}
+                  tabIndex={tabbableDay ? (isSameDay(day, tabbableDay) ? 0 : -1) : undefined}
                   role='button'
                   aria-selected={onlyWeeks ? undefined : props.isDaySelected && props.isDaySelected(day)}
                   aria-disabled={(!onlyWeeks && props.isDayDisabled && props.isDayDisabled(day)) || undefined}
@@ -158,9 +182,23 @@ export const createStyles = (theme: Theme) => ({
     display: 'inline-block',
     borderRadius: '50%',
 
+    outline: 'none',
+
     ':hover': {
       cursor: 'pointer',
       background: theme.pallete.surface.background,
+    },
+
+    '&:focus-visible': {
+      boxShadow: focusBoxShadow(theme),
+    },
+  } as CSSProperties,
+  weekDay: {
+    borderRadius: '50%',
+    outline: 'none',
+
+    '&:focus-visible': {
+      boxShadow: focusBoxShadow(theme),
     },
   } as CSSProperties,
   week: {

@@ -1,5 +1,7 @@
 import { action } from '@storybook/addon-actions'
-import React from 'react'
+import React, { useState } from 'react'
+
+import { ReferenceMonth } from '../MonthPicker'
 
 import { MonthField } from './MonthField'
 import { MonthInput } from './MonthInput'
@@ -29,10 +31,36 @@ export default {
   },
 }
 
-export const Default = (args) => <MonthField {...args} value={{ month: 0, year: 2019 }} />
+// The field is controlled: the story keeps the value, so typing or picking a month changes it
+const useMonth = (args, initial: ReferenceMonth) => {
+  const [month, setMonth] = useState<ReferenceMonth>(initial)
 
-export const MinMax = (args) => (
-  <MonthField {...args} value={value} minMonth={{ month: 0, year: 2026 }} maxMonth={{ month: 3, year: 2027 }} />
-)
+  const handleChange = (next: ReferenceMonth) => {
+    setMonth(next)
+    args.onChange(next)
+  }
+
+  return [month, handleChange] as const
+}
+
+export const Default = (args) => {
+  const [month, handleChange] = useMonth(args, { month: 0, year: 2019 })
+
+  return <MonthField {...args} value={month} onChange={handleChange} />
+}
+
+export const MinMax = (args) => {
+  const [month, handleChange] = useMonth(args, value)
+
+  return (
+    <MonthField
+      {...args}
+      value={month}
+      onChange={handleChange}
+      minMonth={{ month: 0, year: 2026 }}
+      maxMonth={{ month: 3, year: 2027 }}
+    />
+  )
+}
 
 export const BaseInput = (args) => <MonthInput {...args} />

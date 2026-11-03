@@ -29,11 +29,16 @@ exports[`should render correctly 1`] = `
   padding: 0.25rem 0;
   display: inline-block;
   border-radius: 50%;
+  outline: none;
 }
 
 .emotion-0:hover {
   cursor: pointer;
   background: #F0F0F5;
+}
+
+.emotion-0:focus-visible {
+  box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
 }
 
 <div>
@@ -460,12 +465,17 @@ exports[`should use createDateStyles function to create styles for days 1`] = `
   padding: 0.25rem 0;
   display: inline-block;
   border-radius: 50%;
+  outline: none;
   color: red;
 }
 
 .emotion-0:hover {
   cursor: pointer;
   background: #F0F0F5;
+}
+
+.emotion-0:focus-visible {
+  box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
 }
 
 <div>

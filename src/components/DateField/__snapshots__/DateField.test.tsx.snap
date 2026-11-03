@@ -843,6 +843,7 @@ exports[`DateField should render correctly when opened 1`] = `
   padding: 0.25rem 0;
   display: inline-block;
   border-radius: 50%;
+  outline: none;
 }
 
 .emotion-20:hover {
@@ -850,17 +851,26 @@ exports[`DateField should render correctly when opened 1`] = `
   background: #F0F0F5;
 }
 
+.emotion-20:focus-visible {
+  box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
 .emotion-19 {
   width: 2rem;
   padding: 0.25rem 0;
   display: inline-block;
   border-radius: 50%;
+  outline: none;
   color: #696979;
 }
 
 .emotion-19:hover {
   cursor: pointer;
   background: #F0F0F5;
+}
+
+.emotion-19:focus-visible {
+  box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
 }
 
 <div>
@@ -928,7 +938,6 @@ exports[`DateField should render correctly when opened 1`] = `
           >
             <button
               class="emotion-9"
-              tabindex="-1"
               title="Previous month"
               type="button"
             >
@@ -952,7 +961,6 @@ exports[`DateField should render correctly when opened 1`] = `
             Oct
             <button
               class="emotion-9"
-              tabindex="-1"
               title="Next month"
               type="button"
             >
@@ -979,7 +987,6 @@ exports[`DateField should render correctly when opened 1`] = `
           >
             <button
               class="emotion-9"
-              tabindex="-1"
               title="Previous year"
               type="button"
             >
@@ -1003,7 +1010,6 @@ exports[`DateField should render correctly when opened 1`] = `
             2018
             <button
               class="emotion-9"
-              tabindex="-1"
               title="Next year"
               type="button"
             >
@@ -1062,6 +1068,7 @@ exports[`DateField should render correctly when opened 1`] = `
                 <span
                   class="emotion-19"
                   role="button"
+                  tabindex="-1"
                 >
                   30
                 </span>
@@ -1072,6 +1079,7 @@ exports[`DateField should render correctly when opened 1`] = `
                 <span
                   class="emotion-20"
                   role="button"
+                  tabindex="0"
                 >
                   01
                 </span>
@@ -1082,6 +1090,7 @@ exports[`DateField should render correctly when opened 1`] = `
                 <span
                   class="emotion-20"
                   role="button"
+                  tabindex="-1"
                 >
                   02
                 </span>
@@ -1092,6 +1101,7 @@ exports[`DateField should render correctly when opened 1`] = `
                 <span
                   class="emotion-20"
                   role="button"
+                  tabindex="-1"
                 >
                   03
                 </span>
@@ -1102,6 +1112,7 @@ exports[`DateField should render correctly when opened 1`] = `
                 <span
                   class="emotion-20"
                   role="button"
+                  tabindex="-1"
                 >
                   04
                 </span>
@@ -1112,6 +1123,7 @@ exports[`DateField should render correctly when opened 1`] = `
                 <span
                   class="emotion-20"
                   role="button"
+                  tabindex="-1"
                 >
                   05
                 </span>
@@ -1122,6 +1134,7 @@ exports[`DateField should render correctly when opened 1`] = `
                 <span
                   class="emotion-20"
                   role="button"
+                  tabindex="-1"
                 >
                   06
                 </span>
@@ -1134,6 +1147,7 @@ exports[`DateField should render correctly when opened 1`] = `
                 <span
                   class="emotion-20"
                   role="button"
+                  tabindex="-1"
                 >
                   07
                 </span>
@@ -1144,6 +1158,7 @@ exports[`DateField should render correctly when opened 1`] = `
                 <span
                   class="emotion-20"
                   role="button"
+                  tabindex="-1"
                 >
                   08
                 </span>
@@ -1154,6 +1169,7 @@ exports[`DateField should render correctly when opened 1`] = `
                 <span
                   class="emotion-20"
                   role="button"
+                  tabindex="-1"
                 >
                   09
                 </span>
@@ -1164,6 +1180,7 @@ exports[`DateField should render correctly when opened 1`] = `
                 <span
                   class="emotion-20"
                   role="button"
+                  tabindex="-1"
                 >
                   10
                 </span>
@@ -1174,6 +1191,7 @@ exports[`DateField should render correctly when opened 1`] = `
                 <span
                   class="emotion-20"
                   role="button"
+                  tabindex="-1"
                 >
                   11
                 </span>
@@ -1184,6 +1202,7 @@ exports[`DateField should render correctly when opened 1`] = `
                 <span
                   class="emotion-20"
                   role="button"
+                  tabindex="-1"
                 >
                   12
                 </span>
@@ -1194,6 +1213,7 @@ exports[`DateField should render correctly when opened 1`] = `
                 <span
                   class="emotion-20"
                   role="button"
+                  tabindex="-1"
                 >
                   13
                 </span>
@@ -1206,6 +1226,7 @@ exports[`DateField should render correctly when opened 1`] = `
                 <span
                   class="emotion-20"
                   role="button"
+                  tabindex="-1"
                 >
                   14
                 </span>
@@ -1216,6 +1237,7 @@ exports[`DateField should render correctly when opened 1`] = `
                 <span
                   class="emotion-20"
                   role="button"
+                  tabindex="-1"
                 >
                   15
                 </span>
@@ -1226,6 +1248,7 @@ exports[`DateField should render correctly when opened 1`] = `
                 <span
                   class="emotion-20"
                   role="button"
+                  tabindex="-1"
                 >
                   16
                 </span>
@@ -1236,6 +1259,7 @@ exports[`DateField should render correctly when opened 1`] = `
                 <span
                   class="emotion-20"
                   role="button"
+                  tabindex="-1"
                 >
                   17
                 </span>
@@ -1246,6 +1270,7 @@ exports[`DateField should render correctly when opened 1`] = `
                 <span
                   class="emotion-20"
                   role="button"
+                  tabindex="-1"
                 >
                   18
                 </span>
@@ -1256,6 +1281,7 @@ exports[`DateField should render correctly when opened 1`] = `
                 <span
                   class="emotion-20"
                   role="button"
+                  tabindex="-1"
                 >
                   19
                 </span>
@@ -1266,6 +1292,7 @@ exports[`DateField should render correctly when opened 1`] = `
                 <span
                   class="emotion-20"
                   role="button"
+                  tabindex="-1"
                 >
                   20
                 </span>
@@ -1278,6 +1305,7 @@ exports[`DateField should render correctly when opened 1`] = `
                 <span
                   class="emotion-20"
                   role="button"
+                  tabindex="-1"
                 >
                   21
                 </span>
@@ -1288,6 +1316,7 @@ exports[`DateField should render correctly when opened 1`] = `
                 <span
                   class="emotion-20"
                   role="button"
+                  tabindex="-1"
                 >
                   22
                 </span>
@@ -1298,6 +1327,7 @@ exports[`DateField should render correctly when opened 1`] = `
                 <span
                   class="emotion-20"
                   role="button"
+                  tabindex="-1"
                 >
                   23
                 </span>
@@ -1308,6 +1338,7 @@ exports[`DateField should render correctly when opened 1`] = `
                 <span
                   class="emotion-20"
                   role="button"
+                  tabindex="-1"
                 >
                   24
                 </span>
@@ -1318,6 +1349,7 @@ exports[`DateField should render correctly when opened 1`] = `
                 <span
                   class="emotion-20"
                   role="button"
+                  tabindex="-1"
                 >
                   25
                 </span>
@@ -1328,6 +1360,7 @@ exports[`DateField should render correctly when opened 1`] = `
                 <span
                   class="emotion-20"
                   role="button"
+                  tabindex="-1"
                 >
                   26
                 </span>
@@ -1338,6 +1371,7 @@ exports[`DateField should render correctly when opened 1`] = `
                 <span
                   class="emotion-20"
                   role="button"
+                  tabindex="-1"
                 >
                   27
                 </span>
@@ -1350,6 +1384,7 @@ exports[`DateField should render correctly when opened 1`] = `
                 <span
                   class="emotion-20"
                   role="button"
+                  tabindex="-1"
                 >
                   28
                 </span>
@@ -1360,6 +1395,7 @@ exports[`DateField should render correctly when opened 1`] = `
                 <span
                   class="emotion-20"
                   role="button"
+                  tabindex="-1"
                 >
                   29
                 </span>
@@ -1370,6 +1406,7 @@ exports[`DateField should render correctly when opened 1`] = `
                 <span
                   class="emotion-20"
                   role="button"
+                  tabindex="-1"
                 >
                   30
                 </span>
@@ -1380,6 +1417,7 @@ exports[`DateField should render correctly when opened 1`] = `
                 <span
                   class="emotion-20"
                   role="button"
+                  tabindex="-1"
                 >
                   31
                 </span>
@@ -1390,6 +1428,7 @@ exports[`DateField should render correctly when opened 1`] = `
                 <span
                   class="emotion-19"
                   role="button"
+                  tabindex="-1"
                 >
                   01
                 </span>
@@ -1400,6 +1439,7 @@ exports[`DateField should render correctly when opened 1`] = `
                 <span
                   class="emotion-19"
                   role="button"
+                  tabindex="-1"
                 >
                   02
                 </span>
@@ -1410,6 +1450,7 @@ exports[`DateField should render correctly when opened 1`] = `
                 <span
                   class="emotion-19"
                   role="button"
+                  tabindex="-1"
                 >
                   03
                 </span>

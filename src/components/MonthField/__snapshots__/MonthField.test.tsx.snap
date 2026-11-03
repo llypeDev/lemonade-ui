@@ -535,6 +535,7 @@ exports[`Component presentation should render correctly when opened 1`] = `
 
 .emotion-44 {
   z-index: 1200;
+  outline: none;
   position: absolute;
   left: 0;
   top: 0;
@@ -843,6 +844,7 @@ exports[`Component presentation should render correctly when opened 1`] = `
     <div
       class="emotion-44"
       data-testid="MonthField.popup"
+      tabindex="-1"
     >
       <div
         class="emotion-43"
@@ -916,6 +918,7 @@ exports[`Component presentation should render correctly when opened 1`] = `
           >
             <button
               class="emotion-18"
+              tabindex="-1"
               title="January"
               type="button"
             >
@@ -929,6 +932,7 @@ exports[`Component presentation should render correctly when opened 1`] = `
           >
             <button
               class="emotion-20"
+              tabindex="0"
               title="February"
               type="button"
             >
@@ -942,6 +946,7 @@ exports[`Component presentation should render correctly when opened 1`] = `
           >
             <button
               class="emotion-18"
+              tabindex="-1"
               title="March"
               type="button"
             >
@@ -955,6 +960,7 @@ exports[`Component presentation should render correctly when opened 1`] = `
           >
             <button
               class="emotion-18"
+              tabindex="-1"
               title="April"
               type="button"
             >
@@ -968,6 +974,7 @@ exports[`Component presentation should render correctly when opened 1`] = `
           >
             <button
               class="emotion-18"
+              tabindex="-1"
               title="May"
               type="button"
             >
@@ -981,6 +988,7 @@ exports[`Component presentation should render correctly when opened 1`] = `
           >
             <button
               class="emotion-18"
+              tabindex="-1"
               title="June"
               type="button"
             >
@@ -994,6 +1002,7 @@ exports[`Component presentation should render correctly when opened 1`] = `
           >
             <button
               class="emotion-18"
+              tabindex="-1"
               title="July"
               type="button"
             >
@@ -1007,6 +1016,7 @@ exports[`Component presentation should render correctly when opened 1`] = `
           >
             <button
               class="emotion-18"
+              tabindex="-1"
               title="August"
               type="button"
             >
@@ -1020,6 +1030,7 @@ exports[`Component presentation should render correctly when opened 1`] = `
           >
             <button
               class="emotion-18"
+              tabindex="-1"
               title="September"
               type="button"
             >
@@ -1033,6 +1044,7 @@ exports[`Component presentation should render correctly when opened 1`] = `
           >
             <button
               class="emotion-18"
+              tabindex="-1"
               title="October"
               type="button"
             >
@@ -1046,6 +1058,7 @@ exports[`Component presentation should render correctly when opened 1`] = `
           >
             <button
               class="emotion-18"
+              tabindex="-1"
               title="November"
               type="button"
             >
@@ -1059,6 +1072,7 @@ exports[`Component presentation should render correctly when opened 1`] = `
           >
             <button
               class="emotion-18"
+              tabindex="-1"
               title="December"
               type="button"
             >

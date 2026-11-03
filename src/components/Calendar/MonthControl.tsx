@@ -24,11 +24,11 @@ export function MonthControl(props: MonthControlProps) {
 
   return (
     <HFlow alignItems='center' hSpacing={0.5}>
-      <Button title={locale.calendar.previousMonth} size='small' skin='ghost' onClick={handlePrev} tabIndex={-1}>
+      <Button title={locale.calendar.previousMonth} size='small' skin='ghost' onClick={handlePrev}>
         <Icon icon='angleLeft' />
       </Button>
       {renderMonth(visibleDate)}
-      <Button title={locale.calendar.nextMonth} size='small' skin='ghost' onClick={handleNext} tabIndex={-1}>
+      <Button title={locale.calendar.nextMonth} size='small' skin='ghost' onClick={handleNext}>
         <Icon icon='angleRight' />
       </Button>
     </HFlow>

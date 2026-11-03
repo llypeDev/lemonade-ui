@@ -12,7 +12,7 @@ O month field é um campo de texto para um mês de um ano, como o mês de refer�
 
 ## Month field
 
-O `MonthField` recebe as props de um `TextField`. O `value` é um objeto com o `month`, de `0` para janeiro a `11` para dezembro, e o `year`, e o `onChange` recebe o novo objeto, ou `null` quando o campo é limpo. O usuário digita o mês como `mm/aaaa` (mês e ano), ou o escolhe no seletor que abre quando o campo recebe o foco ou o ícone de calendário é clicado. `minMonth` e `maxMonth` desabilitam no seletor os meses fora dos limites.
+O `MonthField` recebe as props de um `TextField`. O `value` é um objeto com o `month`, de `0` para janeiro a `11` para dezembro, e o `year`, e o `onChange` recebe o novo objeto, ou `null` quando o campo é limpo. O usuário digita o mês como `mm/aaaa` (mês e ano), ou o escolhe no seletor que abre com um clique no campo ou no ícone de calendário, ou com `Alt+ArrowDown`. `minMonth` e `maxMonth` desabilitam no seletor os meses fora dos limites.
 
 <Demo src='pages/components/month-field/MonthField' />
 
@@ -25,3 +25,5 @@ O `MonthPicker` mostra os doze meses de um ano, com botões para ir ao ano anter
 ## Acessibilidade
 
 O campo mostra o formato como placeholder, como `mm/aaaa`, dos textos de locale, e digitar funciona sem o seletor. O botão de calendário tem o nome "Abrir calendário". No seletor, cada mês é um botão com o nome do mês, e os botões de ano têm os nomes "Ano anterior" e "Próximo ano", dos textos de locale. O mês selecionado é indicado só pela cor, então mostre também o mês escolhido em texto, como o campo faz.
+
+O foco sozinho não abre o seletor, então o Tab percorre um formulário sem cobrir os próximos campos. `Alt+ArrowDown` abre o seletor e leva o foco ao mês selecionado, e o Tab vai do campo aos botões de ano e a um só mês. As setas movem entre os meses como na grade, `Home` e `End` vão para janeiro e dezembro, `PageUp` e `PageDown` para o ano anterior e o próximo, e `Enter` ou `Espaço` escolhe o mês. `Escape` fecha o seletor e devolve o foco ao campo.

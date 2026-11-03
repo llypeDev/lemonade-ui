@@ -101,6 +101,16 @@ export interface BaseDateRangeInputProps {
   onIconClick?(): void
 
   /**
+   * Called on a click in one of the inputs
+   */
+  onInputClick?(e: React.MouseEvent<HTMLInputElement>): void
+
+  /**
+   * Called on a key down in one of the inputs
+   */
+  onInputKeyDown?(e: React.KeyboardEvent<HTMLInputElement>): void
+
+  /**
    * Function to control what input is on focus
    *
    * @param isOnFocus
@@ -129,6 +139,8 @@ export function BaseDateRangeInput(props: BaseDateRangeInputProps) {
     name,
     onChange,
     onIconClick,
+    onInputClick,
+    onInputKeyDown,
     onInputOnFocus,
     rangeSeparator,
     value,
@@ -221,6 +233,8 @@ export function BaseDateRangeInput(props: BaseDateRangeInputProps) {
             style={classes.dateField}
             value={value?.startDate}
             onFocus={onInputOnFocusInicial}
+            onClick={onInputClick}
+            onKeyDown={onInputKeyDown}
             {...rest}
           />
         </div>
@@ -240,6 +254,8 @@ export function BaseDateRangeInput(props: BaseDateRangeInputProps) {
             style={classes.dateField}
             value={value?.endDate}
             onFocus={onInputOnFocusFinal}
+            onClick={onInputClick}
+            onKeyDown={onInputKeyDown}
             {...rest}
           />
         </div>

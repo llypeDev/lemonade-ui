@@ -237,6 +237,7 @@ exports[`MonthPicker should render correctly with month and year 1`] = `
       >
         <button
           class="emotion-8"
+          tabindex="0"
           title="January"
           type="button"
         >
@@ -250,6 +251,7 @@ exports[`MonthPicker should render correctly with month and year 1`] = `
       >
         <button
           class="emotion-8"
+          tabindex="-1"
           title="February"
           type="button"
         >
@@ -263,6 +265,7 @@ exports[`MonthPicker should render correctly with month and year 1`] = `
       >
         <button
           class="emotion-8"
+          tabindex="-1"
           title="March"
           type="button"
         >
@@ -276,6 +279,7 @@ exports[`MonthPicker should render correctly with month and year 1`] = `
       >
         <button
           class="emotion-8"
+          tabindex="-1"
           title="April"
           type="button"
         >
@@ -289,6 +293,7 @@ exports[`MonthPicker should render correctly with month and year 1`] = `
       >
         <button
           class="emotion-8"
+          tabindex="-1"
           title="May"
           type="button"
         >
@@ -302,6 +307,7 @@ exports[`MonthPicker should render correctly with month and year 1`] = `
       >
         <button
           class="emotion-8"
+          tabindex="-1"
           title="June"
           type="button"
         >
@@ -315,6 +321,7 @@ exports[`MonthPicker should render correctly with month and year 1`] = `
       >
         <button
           class="emotion-8"
+          tabindex="-1"
           title="July"
           type="button"
         >
@@ -328,6 +335,7 @@ exports[`MonthPicker should render correctly with month and year 1`] = `
       >
         <button
           class="emotion-8"
+          tabindex="-1"
           title="August"
           type="button"
         >
@@ -341,6 +349,7 @@ exports[`MonthPicker should render correctly with month and year 1`] = `
       >
         <button
           class="emotion-8"
+          tabindex="-1"
           title="September"
           type="button"
         >
@@ -354,6 +363,7 @@ exports[`MonthPicker should render correctly with month and year 1`] = `
       >
         <button
           class="emotion-8"
+          tabindex="-1"
           title="October"
           type="button"
         >
@@ -367,6 +377,7 @@ exports[`MonthPicker should render correctly with month and year 1`] = `
       >
         <button
           class="emotion-8"
+          tabindex="-1"
           title="November"
           type="button"
         >
@@ -380,6 +391,7 @@ exports[`MonthPicker should render correctly with month and year 1`] = `
       >
         <button
           class="emotion-8"
+          tabindex="-1"
           title="December"
           type="button"
         >

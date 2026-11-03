@@ -30,6 +30,17 @@ export const Default = (args) => {
   return <DateField {...args} value={value} onChange={handleChange} />
 }
 
-export const MinMaxDate = (args) => <DateField {...args} minDate={todayMinus10} maxDate={new Date()} required />
+export const MinMaxDate = (args) => {
+  const [value, setValue] = useState<Date>()
+
+  const handleChange = (selectedDate: Date) => {
+    setValue(selectedDate)
+    args.onChange(selectedDate)
+  }
+
+  return (
+    <DateField {...args} value={value} onChange={handleChange} minDate={todayMinus10} maxDate={new Date()} required />
+  )
+}
 
 export const BaseInput = (args) => <DateInput {...args} value={new Date()} />

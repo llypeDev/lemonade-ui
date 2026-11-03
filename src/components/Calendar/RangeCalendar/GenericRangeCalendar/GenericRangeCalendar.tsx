@@ -54,6 +54,8 @@ export function GenericRangeCalendar({
         {...rest}
         onMouseLeave={onMouseLeave}
         onWeekHover={setHoverWeek}
+        // Puts a day of the selected weeks in the tab order
+        isDaySelected={isInTheRange}
         modifiers={{
           ...rest.modifiers,
           inHoverWeekRange: inHoverWeekRange,

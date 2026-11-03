@@ -122,6 +122,7 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
   padding: 0.25rem 0;
   display: inline-block;
   border-radius: 50%;
+  outline: none;
 }
 
 .emotion-16:hover {
@@ -129,17 +130,26 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
   background: #F0F0F5;
 }
 
+.emotion-16:focus-visible {
+  box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
 .emotion-11 {
   width: 2rem;
   padding: 0.25rem 0;
   display: inline-block;
   border-radius: 50%;
+  outline: none;
   color: #696979;
 }
 
 .emotion-11:hover {
   cursor: pointer;
   background: #F0F0F5;
+}
+
+.emotion-11:focus-visible {
+  box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
 }
 
 <div>
@@ -154,7 +164,6 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
       >
         <button
           class="emotion-1"
-          tabindex="-1"
           title="Previous month"
           type="button"
         >
@@ -178,7 +187,6 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
         Feb
         <button
           class="emotion-1"
-          tabindex="-1"
           title="Next month"
           type="button"
         >
@@ -205,7 +213,6 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
       >
         <button
           class="emotion-1"
-          tabindex="-1"
           title="Previous year"
           type="button"
         >
@@ -229,7 +236,6 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
         2019
         <button
           class="emotion-1"
-          tabindex="-1"
           title="Next year"
           type="button"
         >
@@ -289,6 +295,7 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
               aria-selected="false"
               class="emotion-11"
               role="button"
+              tabindex="-1"
             >
               27
             </span>
@@ -300,6 +307,7 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
               aria-selected="false"
               class="emotion-11"
               role="button"
+              tabindex="-1"
             >
               28
             </span>
@@ -311,6 +319,7 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
               aria-selected="false"
               class="emotion-11"
               role="button"
+              tabindex="-1"
             >
               29
             </span>
@@ -322,6 +331,7 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
               aria-selected="false"
               class="emotion-11"
               role="button"
+              tabindex="-1"
             >
               30
             </span>
@@ -333,6 +343,7 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
               aria-selected="false"
               class="emotion-11"
               role="button"
+              tabindex="-1"
             >
               31
             </span>
@@ -344,6 +355,7 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="0"
             >
               01
             </span>
@@ -355,6 +367,7 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               02
             </span>
@@ -368,6 +381,7 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               03
             </span>
@@ -379,6 +393,7 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               04
             </span>
@@ -390,6 +405,7 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               05
             </span>
@@ -401,6 +417,7 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               06
             </span>
@@ -412,6 +429,7 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               07
             </span>
@@ -423,6 +441,7 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               08
             </span>
@@ -434,6 +453,7 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               09
             </span>
@@ -447,6 +467,7 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               10
             </span>
@@ -458,6 +479,7 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               11
             </span>
@@ -469,6 +491,7 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               12
             </span>
@@ -480,6 +503,7 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               13
             </span>
@@ -491,6 +515,7 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               14
             </span>
@@ -502,6 +527,7 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               15
             </span>
@@ -513,6 +539,7 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               16
             </span>
@@ -526,6 +553,7 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               17
             </span>
@@ -537,6 +565,7 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               18
             </span>
@@ -548,6 +577,7 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               19
             </span>
@@ -559,6 +589,7 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               20
             </span>
@@ -570,6 +601,7 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               21
             </span>
@@ -581,6 +613,7 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               22
             </span>
@@ -592,6 +625,7 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               23
             </span>
@@ -605,6 +639,7 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               24
             </span>
@@ -616,6 +651,7 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               25
             </span>
@@ -627,6 +663,7 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               26
             </span>
@@ -638,6 +675,7 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               27
             </span>
@@ -649,6 +687,7 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               28
             </span>
@@ -660,6 +699,7 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
               aria-selected="false"
               class="emotion-11"
               role="button"
+              tabindex="-1"
             >
               01
             </span>
@@ -671,6 +711,7 @@ exports[`ControlledDateRangeCalendar Should render correclty 1`] = `
               aria-selected="false"
               class="emotion-11"
               role="button"
+              tabindex="-1"
             >
               02
             </span>
@@ -804,6 +845,7 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
   padding: 0.25rem 0;
   display: inline-block;
   border-radius: 50%;
+  outline: none;
 }
 
 .emotion-16:hover {
@@ -811,17 +853,26 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
   background: #F0F0F5;
 }
 
+.emotion-16:focus-visible {
+  box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
 .emotion-11 {
   width: 2rem;
   padding: 0.25rem 0;
   display: inline-block;
   border-radius: 50%;
+  outline: none;
   color: #696979;
 }
 
 .emotion-11:hover {
   cursor: pointer;
   background: #F0F0F5;
+}
+
+.emotion-11:focus-visible {
+  box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
 }
 
 <div>
@@ -836,7 +887,6 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
       >
         <button
           class="emotion-1"
-          tabindex="-1"
           title="Previous month"
           type="button"
         >
@@ -860,7 +910,6 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
         Feb
         <button
           class="emotion-1"
-          tabindex="-1"
           title="Next month"
           type="button"
         >
@@ -887,7 +936,6 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
       >
         <button
           class="emotion-1"
-          tabindex="-1"
           title="Previous year"
           type="button"
         >
@@ -911,7 +959,6 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
         2019
         <button
           class="emotion-1"
-          tabindex="-1"
           title="Next year"
           type="button"
         >
@@ -971,6 +1018,7 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
               aria-selected="false"
               class="emotion-11"
               role="button"
+              tabindex="-1"
             >
               27
             </span>
@@ -982,6 +1030,7 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
               aria-selected="false"
               class="emotion-11"
               role="button"
+              tabindex="-1"
             >
               28
             </span>
@@ -993,6 +1042,7 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
               aria-selected="false"
               class="emotion-11"
               role="button"
+              tabindex="-1"
             >
               29
             </span>
@@ -1004,6 +1054,7 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
               aria-selected="false"
               class="emotion-11"
               role="button"
+              tabindex="-1"
             >
               30
             </span>
@@ -1015,6 +1066,7 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
               aria-selected="false"
               class="emotion-11"
               role="button"
+              tabindex="-1"
             >
               31
             </span>
@@ -1026,6 +1078,7 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="0"
             >
               01
             </span>
@@ -1037,6 +1090,7 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               02
             </span>
@@ -1050,6 +1104,7 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               03
             </span>
@@ -1061,6 +1116,7 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               04
             </span>
@@ -1072,6 +1128,7 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               05
             </span>
@@ -1083,6 +1140,7 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               06
             </span>
@@ -1094,6 +1152,7 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               07
             </span>
@@ -1105,6 +1164,7 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               08
             </span>
@@ -1116,6 +1176,7 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               09
             </span>
@@ -1129,6 +1190,7 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               10
             </span>
@@ -1140,6 +1202,7 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               11
             </span>
@@ -1151,6 +1214,7 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               12
             </span>
@@ -1162,6 +1226,7 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               13
             </span>
@@ -1173,6 +1238,7 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               14
             </span>
@@ -1184,6 +1250,7 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               15
             </span>
@@ -1195,6 +1262,7 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               16
             </span>
@@ -1208,6 +1276,7 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               17
             </span>
@@ -1219,6 +1288,7 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               18
             </span>
@@ -1230,6 +1300,7 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               19
             </span>
@@ -1241,6 +1312,7 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               20
             </span>
@@ -1252,6 +1324,7 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               21
             </span>
@@ -1263,6 +1336,7 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               22
             </span>
@@ -1274,6 +1348,7 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               23
             </span>
@@ -1287,6 +1362,7 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               24
             </span>
@@ -1298,6 +1374,7 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               25
             </span>
@@ -1309,6 +1386,7 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               26
             </span>
@@ -1320,6 +1398,7 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               27
             </span>
@@ -1331,6 +1410,7 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
               aria-selected="false"
               class="emotion-16"
               role="button"
+              tabindex="-1"
             >
               28
             </span>
@@ -1342,6 +1422,7 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
               aria-selected="false"
               class="emotion-11"
               role="button"
+              tabindex="-1"
             >
               01
             </span>
@@ -1353,6 +1434,7 @@ exports[`ControlledDateRangeCalendar Should render correctly without receiving a
               aria-selected="false"
               class="emotion-11"
               role="button"
+              tabindex="-1"
             >
               02
             </span>
