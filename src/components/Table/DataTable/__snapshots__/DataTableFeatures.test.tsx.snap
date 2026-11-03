@@ -34,6 +34,10 @@ exports[`DataTable features should render correctly with details and a sticky he
   box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
 }
 
+.emotion-8:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
 .emotion-10 {
   text-align: left;
   padding: 0 1rem;

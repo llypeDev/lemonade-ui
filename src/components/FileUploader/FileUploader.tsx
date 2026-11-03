@@ -180,6 +180,10 @@ export const createStyles = (theme: Theme) => ({
       position: 'relative',
       boxShadow: focusBoxShadow(theme),
     },
+    // Only the keyboard shows the ring, not a click. Browsers without :focus-visible drop this rule and show it.
+    '&:focus:not(:focus-visible)': {
+      boxShadow: 'none',
+    },
   } as CSSProperties,
   buttonWrapper: {
     border: `1px solid` + theme.pallete.gray.c40,

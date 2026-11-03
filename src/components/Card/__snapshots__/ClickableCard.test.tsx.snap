@@ -42,8 +42,20 @@ exports[`should accept "style" prop 1`] = `
   box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2),0 1px 10px 0 rgba(0,0,0,0.12),0 4px 5px 0 rgba(0,0,0,0.14),0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
 }
 
+.emotion-1:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-1:focus:not(:focus-visible)[data-variant="float"] {
+  box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2),0 1px 10px 0 rgba(0,0,0,0.12),0 4px 5px 0 rgba(0,0,0,0.14);
+}
+
 .emotion-1:not(:disabled):not(:active):hover:focus[data-variant="float"] {
   box-shadow: 0 8px 10px -5px rgba(0,0,0,0.2),0 6px 30px 5px rgba(0,0,0,0.12),0 16px 24px 2px rgba(0,0,0,0.14),0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
+.emotion-1:not(:disabled):not(:active):hover:focus:not(:focus-visible)[data-variant="float"] {
+  box-shadow: 0 8px 10px -5px rgba(0,0,0,0.2),0 6px 30px 5px rgba(0,0,0,0.12),0 16px 24px 2px rgba(0,0,0,0.14);
 }
 
 .emotion-1:not(:disabled):active {
@@ -80,12 +92,24 @@ exports[`should accept "style" prop 1`] = `
   box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #D01E29;
 }
 
+.emotion-1[data-invalid="true"]:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-1[data-invalid="true"]:focus:not(:focus-visible):not(:active)[data-variant="float"] {
+  box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2),0 1px 10px 0 rgba(0,0,0,0.12),0 4px 5px 0 rgba(0,0,0,0.14);
+}
+
 .emotion-1[data-invalid="true"]:not(:disabled):active {
   box-shadow: inset 0 1px 4px 0 rgba(0,0,0,0.14),inset 0 2px 4px 0 rgba(0,0,0,0.08);
 }
 
 .emotion-1[data-invalid="true"]:not(:disabled):not(:active):hover:focus[data-variant="float"] {
   box-shadow: 0 8px 10px -5px rgba(0,0,0,0.2),0 6px 30px 5px rgba(0,0,0,0.12),0 16px 24px 2px rgba(0,0,0,0.14),0 0 0 2px #F0F0F5,0 0 0 4px #D01E29;
+}
+
+.emotion-1[data-invalid="true"]:not(:disabled):not(:active):hover:focus:not(:focus-visible)[data-variant="float"] {
+  box-shadow: 0 8px 10px -5px rgba(0,0,0,0.2),0 6px 30px 5px rgba(0,0,0,0.12),0 16px 24px 2px rgba(0,0,0,0.14);
 }
 
 .emotion-1:disabled {
@@ -161,8 +185,20 @@ exports[`should render correctly 1`] = `
   box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2),0 1px 10px 0 rgba(0,0,0,0.12),0 4px 5px 0 rgba(0,0,0,0.14),0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
 }
 
+.emotion-1:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-1:focus:not(:focus-visible)[data-variant="float"] {
+  box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2),0 1px 10px 0 rgba(0,0,0,0.12),0 4px 5px 0 rgba(0,0,0,0.14);
+}
+
 .emotion-1:not(:disabled):not(:active):hover:focus[data-variant="float"] {
   box-shadow: 0 8px 10px -5px rgba(0,0,0,0.2),0 6px 30px 5px rgba(0,0,0,0.12),0 16px 24px 2px rgba(0,0,0,0.14),0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
+.emotion-1:not(:disabled):not(:active):hover:focus:not(:focus-visible)[data-variant="float"] {
+  box-shadow: 0 8px 10px -5px rgba(0,0,0,0.2),0 6px 30px 5px rgba(0,0,0,0.12),0 16px 24px 2px rgba(0,0,0,0.14);
 }
 
 .emotion-1:not(:disabled):active {
@@ -199,12 +235,24 @@ exports[`should render correctly 1`] = `
   box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #D01E29;
 }
 
+.emotion-1[data-invalid="true"]:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-1[data-invalid="true"]:focus:not(:focus-visible):not(:active)[data-variant="float"] {
+  box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2),0 1px 10px 0 rgba(0,0,0,0.12),0 4px 5px 0 rgba(0,0,0,0.14);
+}
+
 .emotion-1[data-invalid="true"]:not(:disabled):active {
   box-shadow: inset 0 1px 4px 0 rgba(0,0,0,0.14),inset 0 2px 4px 0 rgba(0,0,0,0.08);
 }
 
 .emotion-1[data-invalid="true"]:not(:disabled):not(:active):hover:focus[data-variant="float"] {
   box-shadow: 0 8px 10px -5px rgba(0,0,0,0.2),0 6px 30px 5px rgba(0,0,0,0.12),0 16px 24px 2px rgba(0,0,0,0.14),0 0 0 2px #F0F0F5,0 0 0 4px #D01E29;
+}
+
+.emotion-1[data-invalid="true"]:not(:disabled):not(:active):hover:focus:not(:focus-visible)[data-variant="float"] {
+  box-shadow: 0 8px 10px -5px rgba(0,0,0,0.2),0 6px 30px 5px rgba(0,0,0,0.12),0 16px 24px 2px rgba(0,0,0,0.14);
 }
 
 .emotion-1:disabled {

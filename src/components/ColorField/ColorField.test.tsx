@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 
 import { LocaleContext } from '../../i18n'
 import ptBR from '../../i18n/locales/pt-BR'
+import { focusRingStates } from '../../test/utils/resolveStyle'
 
 import { ColorField, ColorFieldProps, normalizeHex } from './ColorField'
 
@@ -165,4 +166,14 @@ describe('ColorField', () => {
     expect(getByRole('radiogroup', { name: 'Cores' })).toBeInTheDocument()
     expect(getByRole('textbox', { name: 'Código hexadecimal' })).toBeInTheDocument()
   })
+})
+
+it('should show the focus ring of the swatches and the picker for the keyboard, not after a click', () => {
+  const { getByRole, container } = render(<ColorField label='Tag color' defaultValue='#0069D0' swatches={swatches} />)
+  const swatch = focusRingStates(getByRole('radio', { name: 'Blue' }))
+  expect(swatch.received).toEqual(swatch.expected)
+
+  const native = container.querySelector('input[type="color"]')
+  const picker = focusRingStates(native.closest('label'), { on: native })
+  expect(picker.received).toEqual(picker.expected)
 })

@@ -208,6 +208,10 @@ exports[`TransferList should render correctly 1`] = `
   box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
 }
 
+.emotion-0:focus:not(:focus-visible) + .emotion-1 {
+  box-shadow: none;
+}
+
 .emotion-0:disabled + .emotion-1 {
   opacity: 0.4;
   cursor: not-allowed;
@@ -388,13 +392,17 @@ exports[`TransferList should render correctly 1`] = `
   display: inline-flex;
 }
 
-.emotion-33:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-33:focus {
   outline: none;
   box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
+.emotion-33:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-33:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-33:not(:disabled):hover {
@@ -457,13 +465,17 @@ exports[`TransferList should render correctly 1`] = `
   display: inline-flex;
 }
 
-.emotion-35:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-35:focus {
   outline: none;
   box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
+.emotion-35:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-35:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-35:not(:disabled):hover {

@@ -284,13 +284,17 @@ exports[`Wizard should render correctly 1`] = `
   display: inline-flex;
 }
 
-.emotion-41:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-41:focus {
   outline: none;
   box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
+.emotion-41:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-41:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-41:not(:disabled):hover {

@@ -1,6 +1,8 @@
 import { fireEvent, render } from '@testing-library/react'
 import React from 'react'
 
+import { focusRingStates } from '../../test/utils/resolveStyle'
+
 import { TreeNode, TreeView } from './TreeView'
 
 jest.mock('../../util/string')
@@ -143,5 +145,14 @@ describe('TreeView', () => {
     rerender(<TreeView aria-label='Files' items={items} expanded={['photos']} selected='beach' />)
     expect(item(getByRole, 'Beach.png')).toHaveAttribute('aria-selected', 'true')
     expect(item(getByRole, 'Beach.png')).toHaveAttribute('tabindex', '0')
+  })
+})
+
+it('should show the focus ring of a node for the keyboard, not after a click', () => {
+  const { getByRole } = renderTree({ defaultSelected: 'photos' })
+
+  ;[item(getByRole, 'Documents'), item(getByRole, 'Photos')].forEach((node) => {
+    const { received, expected } = focusRingStates(node.firstElementChild, { on: node })
+    expect(received).toEqual(expected)
   })
 })

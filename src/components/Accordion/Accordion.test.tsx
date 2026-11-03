@@ -1,6 +1,8 @@
 import { fireEvent, render } from '@testing-library/react'
 import React from 'react'
 
+import { focusRingStates } from '../../test/utils/resolveStyle'
+
 import { Accordion } from './Accordion'
 import { AccordionItem } from './AccordionItem'
 
@@ -179,4 +181,10 @@ describe('Accordion', () => {
       })
     })
   })
+})
+
+it('should show the focus ring on the header for the keyboard, not after a click', () => {
+  const { getByRole } = render(<AccordionItem title='Second'>Second content</AccordionItem>)
+  const { received, expected } = focusRingStates(getByRole('button', { name: 'Second' }))
+  expect(received).toEqual(expected)
 })

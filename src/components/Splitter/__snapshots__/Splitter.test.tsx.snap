@@ -56,8 +56,15 @@ exports[`Splitter should render correctly 1`] = `
 }
 
 .emotion-2:focus > span {
-  border-color: #5E7300;
   box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
+.emotion-2:focus:not(:focus-visible) > span {
+  box-shadow: none;
+}
+
+.emotion-2:focus-visible > span {
+  border-color: #5E7300;
 }
 
 @media (prefers-reduced-motion:reduce) {

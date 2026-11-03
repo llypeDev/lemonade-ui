@@ -242,13 +242,17 @@ exports[`MonthRangePicker render should render correctly 1`] = `
   display: inline-flex;
 }
 
-.emotion-14:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-14:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-14:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-14:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-14:not(:disabled):hover {
@@ -625,13 +629,17 @@ exports[`MonthRangePicker render should render correctly when disabled 1`] = `
   display: inline-flex;
 }
 
-.emotion-14:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-14:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-14:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-14:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-14:not(:disabled):hover {
@@ -872,13 +880,17 @@ exports[`MonthRangePicker render should render correctly when invalid 1`] = `
   display: inline-flex;
 }
 
-.emotion-14:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-14:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-14:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-14:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-14:not(:disabled):hover {
@@ -1385,13 +1397,17 @@ exports[`MonthRangePicker render should render correctly when opened 1`] = `
   display: inline-flex;
 }
 
-.emotion-14:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-14:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-14:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-14:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-14:not(:disabled):hover {
@@ -1482,13 +1498,17 @@ exports[`MonthRangePicker render should render correctly when opened 1`] = `
   display: inline-flex;
 }
 
-.emotion-21:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-21:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-21:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-21:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-21:not(:disabled):hover {
@@ -1551,13 +1571,17 @@ exports[`MonthRangePicker render should render correctly when opened 1`] = `
   display: inline-flex;
 }
 
-.emotion-28:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-28:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-28:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-28:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-28:not(:disabled):hover {
@@ -1952,13 +1976,17 @@ exports[`MonthRangePicker render should show month picker correctly when inputs 
   display: inline-flex;
 }
 
-.emotion-0:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-0:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-0:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-0:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-0:not(:disabled):hover {
@@ -2024,13 +2052,17 @@ exports[`MonthRangePicker render should show month picker correctly when only en
   display: inline-flex;
 }
 
-.emotion-0:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-0:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-0:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-0:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-0:not(:disabled):hover {
@@ -2098,13 +2130,17 @@ exports[`MonthRangePicker render should show month picker correctly when only en
   display: inline-flex;
 }
 
-.emotion-0:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-0:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-0:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-0:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-0:not(:disabled):hover {
@@ -2175,13 +2211,17 @@ exports[`MonthRangePicker render should show month picker correctly when only en
   display: inline-flex;
 }
 
-.emotion-0:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-0:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-0:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-0:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-0:not(:disabled):hover {
@@ -2249,13 +2289,17 @@ exports[`MonthRangePicker render should show month picker correctly when only en
   display: inline-flex;
 }
 
-.emotion-0:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-0:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-0:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-0:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-0:not(:disabled):hover {
@@ -2326,13 +2370,17 @@ exports[`MonthRangePicker render should show month picker correctly when only st
   display: inline-flex;
 }
 
-.emotion-0:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-0:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-0:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-0:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-0:not(:disabled):hover {
@@ -2400,13 +2448,17 @@ exports[`MonthRangePicker render should show month picker correctly when only st
   display: inline-flex;
 }
 
-.emotion-0:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-0:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-0:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-0:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-0:not(:disabled):hover {
@@ -2477,13 +2529,17 @@ exports[`MonthRangePicker render should show month picker correctly when only st
   display: inline-flex;
 }
 
-.emotion-0:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-0:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-0:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-0:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-0:not(:disabled):hover {
@@ -2551,13 +2607,17 @@ exports[`MonthRangePicker render should show month picker correctly when only st
   display: inline-flex;
 }
 
-.emotion-0:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-0:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-0:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-0:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-0:not(:disabled):hover {
@@ -2630,13 +2690,17 @@ exports[`MonthRangePicker render should show month picker correctly when start m
   display: inline-flex;
 }
 
-.emotion-0:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-0:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-0:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-0:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-0:not(:disabled):hover {
@@ -2709,13 +2773,17 @@ exports[`MonthRangePicker render should show month picker correctly when start m
   display: inline-flex;
 }
 
-.emotion-0:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-0:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-0:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-0:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-0:not(:disabled):hover {
@@ -2788,13 +2856,17 @@ exports[`MonthRangePicker render should show month picker correctly when start m
   display: inline-flex;
 }
 
-.emotion-0:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-0:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-0:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-0:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-0:not(:disabled):hover {
@@ -2867,13 +2939,17 @@ exports[`MonthRangePicker render should show month picker correctly when start m
   display: inline-flex;
 }
 
-.emotion-0:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-0:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-0:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-0:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-0:not(:disabled):hover {

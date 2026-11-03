@@ -2,6 +2,7 @@ import { fireEvent, render } from '@testing-library/react'
 import React from 'react'
 
 import { Link } from '../Link'
+import { focusRingStates } from '../../test/utils/resolveStyle'
 
 import { DropdownItem } from './DropdownItem'
 
@@ -59,5 +60,22 @@ describe('onClick', () => {
     fireEvent.focus(container.querySelector('li'))
     fireEvent.keyDown(container.querySelector('li'), { key: ' ' })
     expect(handleClick).toHaveBeenCalled()
+  })
+})
+
+it('should show the focus ring for the keyboard and keep the square corners after a click', () => {
+  const { getByText } = render(
+    <ul>
+      <DropdownItem>Edit</DropdownItem>
+      <DropdownItem type='danger'>Delete</DropdownItem>
+    </ul>
+  )
+
+  ;[getByText('Edit'), getByText('Delete')].forEach((text) => {
+    const item = text.closest('li')
+    ;['box-shadow', 'border-radius'].forEach((property) => {
+      const { received, expected } = focusRingStates(item, { property })
+      expect(received).toEqual(expected)
+    })
   })
 })

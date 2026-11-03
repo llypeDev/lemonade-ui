@@ -99,14 +99,24 @@ const createStyles = (theme: Theme) => ({
       background: theme.pallete.gray.c80,
     },
 
+    '&:focus': {
+      boxShadow: `inset 0 0 0 2px ${theme.pallete.primary.main}`,
+    },
+
+    // Only the keyboard shows the ring, not a click. Browsers without :focus-visible drop this rule and show it.
+    // It comes before the press, which keeps its shadow.
+    '&:focus:not(:focus-visible)': {
+      boxShadow: 'none',
+    },
+
+    // The corners round with the ring only, so a click leaves them as they are
+    '&:focus-visible': {
+      borderRadius: 4,
+    },
+
     '&:not(.disabled):active': {
       background: theme.pallete.gray.c80,
       boxShadow: theme.shadows.inner['10'],
-    },
-
-    '&:focus': {
-      boxShadow: `inset 0 0 0 2px ${theme.pallete.primary.main}`,
-      borderRadius: 4,
     },
   } as CSSProperties,
   active: {

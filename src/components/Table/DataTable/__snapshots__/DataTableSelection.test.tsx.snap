@@ -91,13 +91,17 @@ exports[`DataTable selection should render correctly 1`] = `
   display: inline-flex;
 }
 
-.emotion-2:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-2:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-2:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-2:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-2:not(:disabled):hover {
@@ -226,6 +230,10 @@ exports[`DataTable selection should render correctly 1`] = `
 
 .emotion-5:focus + .emotion-6 {
   box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
+.emotion-5:focus:not(:focus-visible) + .emotion-6 {
+  box-shadow: none;
 }
 
 .emotion-5:disabled + .emotion-6 {

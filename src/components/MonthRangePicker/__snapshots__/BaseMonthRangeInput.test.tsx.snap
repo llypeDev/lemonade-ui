@@ -242,13 +242,17 @@ exports[`BaseMonthRangeInput customization should allow a custom string in range
   display: inline-flex;
 }
 
-.emotion-14:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-14:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-14:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-14:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-14:not(:disabled):hover {
@@ -602,13 +606,17 @@ exports[`BaseMonthRangeInput customization should allow enUS placeholder customi
   display: inline-flex;
 }
 
-.emotion-14:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-14:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-14:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-14:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-14:not(:disabled):hover {
@@ -962,13 +970,17 @@ exports[`BaseMonthRangeInput customization should allow enUs i18n in range separ
   display: inline-flex;
 }
 
-.emotion-14:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-14:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-14:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-14:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-14:not(:disabled):hover {
@@ -1322,13 +1334,17 @@ exports[`BaseMonthRangeInput customization should allow ptBR placeholder customi
   display: inline-flex;
 }
 
-.emotion-14:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-14:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-14:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-14:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-14:not(:disabled):hover {
@@ -1682,13 +1698,17 @@ exports[`BaseMonthRangeInput customization should allow ptBr i18n in range separ
   display: inline-flex;
 }
 
-.emotion-14:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-14:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-14:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-14:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-14:not(:disabled):hover {
@@ -2042,13 +2062,17 @@ exports[`BaseMonthRangeInput render should render correctly 1`] = `
   display: inline-flex;
 }
 
-.emotion-14:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-14:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-14:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-14:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-14:not(:disabled):hover {
@@ -2411,13 +2435,17 @@ exports[`BaseMonthRangeInput render should render correctly when disabled 1`] = 
   display: inline-flex;
 }
 
-.emotion-14:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-14:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-14:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-14:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-14:not(:disabled):hover {
@@ -2644,13 +2672,17 @@ exports[`BaseMonthRangeInput render should render correctly when invalid 1`] = `
   display: inline-flex;
 }
 
-.emotion-14:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-14:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
+}
+
+.emotion-14:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-14:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-14:not(:disabled):hover {

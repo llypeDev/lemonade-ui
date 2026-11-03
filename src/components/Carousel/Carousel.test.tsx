@@ -3,6 +3,7 @@ import React from 'react'
 
 import { LocaleContext } from '../../i18n'
 import ptBR from '../../i18n/locales/pt-BR'
+import { focusRingStates } from '../../test/utils/resolveStyle'
 
 import { Carousel } from './Carousel'
 
@@ -175,5 +176,22 @@ describe('Carousel', () => {
     )
     expect(getByRole('button', { name: 'Próximo slide' })).toBeInTheDocument()
     expect(getByRole('button', { name: 'Pausar a troca de slides' })).toBeInTheDocument()
+  })
+})
+
+it('should show the focus ring of the buttons for the keyboard and keep the shadow of the arrows after a click', () => {
+  const { getByRole } = render(
+    <Carousel label='Featured products' autoPlay>
+      {slides}
+    </Carousel>
+  )
+
+  ;[
+    getByRole('button', { name: 'Pause slide rotation' }),
+    getByRole('button', { name: 'Next slide' }),
+    getByRole('button', { name: 'Show slide 2 of 3' }),
+  ].forEach((button) => {
+    const { received, expected } = focusRingStates(button)
+    expect(received).toEqual(expected)
   })
 })

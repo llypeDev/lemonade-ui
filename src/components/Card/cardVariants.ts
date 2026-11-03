@@ -81,9 +81,22 @@ export const createClickableStyles = (theme: Theme): ExternalStyles => ({
       boxShadow: `${theme.shadows.outer[40]}, ${focusBoxShadow(theme)}`,
     },
   },
+  // Only the keyboard shows the ring, not a click: these rules put back the shadow the card has without the focus.
+  // Browsers without :focus-visible drop them and show it. They come before the press, which keeps its shadow.
+  ':focus:not(:focus-visible)': {
+    boxShadow: 'none',
+    '&[data-variant="float"]': {
+      boxShadow: theme.shadows.outer[40],
+    },
+  },
   ':not(:disabled):not(:active):hover:focus': {
     '&[data-variant="float"]': {
       boxShadow: `${theme.shadows.outer[160]}, ${focusBoxShadow(theme)}`,
+    },
+  },
+  ':not(:disabled):not(:active):hover:focus:not(:focus-visible)': {
+    '&[data-variant="float"]': {
+      boxShadow: theme.shadows.outer[160],
     },
   },
   ':not(:disabled):active': {
@@ -112,12 +125,26 @@ export const createClickableStyles = (theme: Theme): ExternalStyles => ({
       outline: 'none',
       boxShadow: focusBoxShadow(theme, 'danger'),
     },
+    ':focus:not(:focus-visible)': {
+      boxShadow: 'none',
+    },
+    // A float card keeps its shadow. The rule leaves the press out, as it weighs more than the press below.
+    ':focus:not(:focus-visible):not(:active)': {
+      '&[data-variant="float"]': {
+        boxShadow: theme.shadows.outer[40],
+      },
+    },
     ':not(:disabled):active': {
       boxShadow: theme.shadows.inner['10'],
     },
     ':not(:disabled):not(:active):hover:focus': {
       '&[data-variant="float"]': {
         boxShadow: `${theme.shadows.outer[160]}, ${focusBoxShadow(theme, 'danger')}`,
+      },
+    },
+    ':not(:disabled):not(:active):hover:focus:not(:focus-visible)': {
+      '&[data-variant="float"]': {
+        boxShadow: theme.shadows.outer[160],
       },
     },
   },

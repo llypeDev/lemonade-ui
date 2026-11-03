@@ -3,6 +3,7 @@ import React from 'react'
 
 import { LocaleContext } from '../../i18n'
 import ptBR from '../../i18n/locales/pt-BR'
+import { focusRingStates } from '../../test/utils/resolveStyle'
 
 import { FileList, FileListItem } from './FileList'
 
@@ -57,4 +58,15 @@ describe('FileList', () => {
     )
     expect(getByRole('button', { name: 'Remover contract.pdf' })).toBeInTheDocument()
   })
+})
+
+it('should show the focus ring of the buttons for the keyboard, not after a click', () => {
+  const { getByRole } = render(<FileList files={files} onRemove={jest.fn()} onRetry={jest.fn()} />)
+
+  ;[getByRole('button', { name: 'Remove photo.jpg' }), getByRole('button', { name: 'Try again: notes.docx' })].forEach(
+    (button) => {
+      const { received, expected } = focusRingStates(button)
+      expect(received).toEqual(expected)
+    }
+  )
 })

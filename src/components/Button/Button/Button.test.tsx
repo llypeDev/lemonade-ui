@@ -2,6 +2,8 @@ import { act, fireEvent, render } from '@testing-library/react'
 import React from 'react'
 import waait from 'waait'
 
+import { createTheme, focusBoxShadow } from '../../../styles'
+import { focusRingStates } from '../../../test/utils/resolveStyle'
 import { Icon } from '../../Icon'
 
 import { Button } from './Button'
@@ -95,6 +97,32 @@ it('should render the outline skin', () => {
       </Button>
     ).container
   ).toMatchSnapshot()
+})
+
+describe('focus ring', () => {
+  const theme = createTheme()
+  const skins = ['default', 'ghost', 'outline'] as const
+  const kinds = ['normal', 'primary', 'danger'] as const
+
+  skins.forEach((skin) =>
+    kinds.forEach((kind) =>
+      it(`should show it for the keyboard, not after a click, on the ${skin} skin of the ${kind} kind`, () => {
+        const { getByRole } = render(
+          <Button skin={skin} kind={kind}>
+            Save
+          </Button>
+        )
+        const { received, expected } = focusRingStates(getByRole('button'))
+        expect(received).toEqual(expected)
+      })
+    )
+  )
+
+  it('should keep the ring it shows for the keyboard', () => {
+    const { getByRole } = render(<Button kind='danger'>Delete</Button>)
+    // Without the spaces after the commas, as emotion writes it
+    expect(focusRingStates(getByRole('button')).keyboard).toEqual(focusBoxShadow(theme, 'danger').replace(/, /g, ','))
+  })
 })
 
 it('should have a "loading" animation when onClick return is a Promise', () => {

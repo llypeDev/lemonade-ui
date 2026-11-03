@@ -3,6 +3,7 @@ import React from 'react'
 
 import { LocaleContext } from '../../i18n'
 import ptBR from '../../i18n/locales/pt-BR'
+import { focusRingStates } from '../../test/utils/resolveStyle'
 
 import { Toggletip } from './Toggletip'
 
@@ -63,4 +64,10 @@ describe('Toggletip', () => {
     )
     expect(getByRole('button', { name: 'Mais informações' })).toBeInTheDocument()
   })
+})
+
+it('should show the focus ring for the keyboard, not after a click', () => {
+  const { getByRole } = render(<Toggletip label='About the plans'>Plans can change.</Toggletip>)
+  const { received, expected } = focusRingStates(getByRole('button', { name: 'About the plans' }))
+  expect(received).toEqual(expected)
 })

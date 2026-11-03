@@ -75,6 +75,10 @@ export const createInputStyles = (theme: Theme, classes: ClassNames<'radio' | 'l
     [`&:focus + .${classes.radio}`]: {
       boxShadow: focusBoxShadow(theme),
     },
+    // Only the keyboard shows the ring, not a click. Browsers without :focus-visible drop this rule and show it.
+    [`&:focus:not(:focus-visible) + .${classes.radio}`]: {
+      boxShadow: 'none',
+    },
     [`&:disabled + .${classes.radio}`]: {
       opacity: 0.4,
       cursor: 'not-allowed',

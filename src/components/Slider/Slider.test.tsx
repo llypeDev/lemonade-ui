@@ -1,6 +1,8 @@
 import { fireEvent, render } from '@testing-library/react'
 import React, { useState } from 'react'
 
+import { focusRingStates } from '../../test/utils/resolveStyle'
+
 import { Slider } from './Slider'
 
 jest.mock('../../util/string')
@@ -273,5 +275,17 @@ describe('Slider', () => {
     const { getByRole, getByText } = render(<Slider label='Volume' />)
     fireEvent.click(getByText('Volume'))
     expect(getByRole('slider')).toHaveFocus()
+  })
+})
+
+it('should show the focus ring of the thumb for the keyboard and keep its shadow after a click', () => {
+  ;[undefined, 'Pick a narrower range'].forEach((error) => {
+    const { getAllByRole, unmount } = render(<Slider label='Price' defaultValue={[20, 80]} error={error} />)
+
+    getAllByRole('slider').forEach((thumb) => {
+      const { received, expected } = focusRingStates(thumb)
+      expect(received).toEqual(expected)
+    })
+    unmount()
   })
 })

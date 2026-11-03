@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 
 import { LocaleContext } from '../../i18n'
 import ptBR from '../../i18n/locales/pt-BR'
+import { focusRingStates } from '../../test/utils/resolveStyle'
 
 import { SortableList, SortableListProps } from './SortableList'
 
@@ -320,4 +321,10 @@ describe('SortableList', () => {
     fireEvent.keyDown(handle, { key: 'ArrowUp' })
     expect(getByRole('status')).toHaveTextContent('Ship it movido para a posição 2 de 3.')
   })
+})
+
+it('should show the focus ring of the handle for the keyboard, not after a click', () => {
+  const { getByRole } = render(<SortableList aria-label='Tasks' items={tasks} onChange={jest.fn()} />)
+  const { received, expected } = focusRingStates(getByRole('button', { name: 'Move Review the layout' }))
+  expect(received).toEqual(expected)
 })

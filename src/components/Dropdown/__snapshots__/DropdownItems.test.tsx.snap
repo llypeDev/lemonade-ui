@@ -38,6 +38,13 @@ exports[`Dropdown items should render correctly 1`] = `
 
 .emotion-16:focus {
   box-shadow: inset 0 0 0 2px #5E7300;
+}
+
+.emotion-16:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-16:focus-visible {
   border-radius: 4px;
 }
 
@@ -90,6 +97,13 @@ exports[`Dropdown items should render correctly 1`] = `
 
 .emotion-7:focus {
   box-shadow: inset 0 0 0 2px #5E7300;
+}
+
+.emotion-7:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-7:focus-visible {
   border-radius: 4px;
 }
 

@@ -179,6 +179,11 @@ const createStyles = (theme: Theme, size: RatingSize) => ({
     '&:focus-within': {
       boxShadow: focusBoxShadow(theme),
     },
+    // Only the keyboard shows the ring, not a click. Browsers without :focus-visible or :has() drop this rule and
+    // show it.
+    '&:has(:focus:not(:focus-visible))': {
+      boxShadow: 'none',
+    },
   } as CSSProperties,
   input: visuallyHiddenStyle,
   empty: {

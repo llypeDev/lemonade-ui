@@ -780,6 +780,10 @@ exports[`should render correctly when opened 1`] = `
   box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
 }
 
+.emotion-2:focus:not(:focus-visible) + .emotion-3 {
+  box-shadow: none;
+}
+
 .emotion-2:disabled + .emotion-3 {
   opacity: 0.4;
   cursor: not-allowed;

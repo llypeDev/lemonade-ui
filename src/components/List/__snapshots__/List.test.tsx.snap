@@ -154,6 +154,10 @@ exports[`List should render correctly 1`] = `
   box-shadow: inset 0 0 0 2px #5E7300;
 }
 
+.emotion-9:focus:not(:focus-visible)::after {
+  box-shadow: none;
+}
+
 .emotion-9:disabled,
 .emotion-9[aria-disabled="true"] {
   cursor: not-allowed;

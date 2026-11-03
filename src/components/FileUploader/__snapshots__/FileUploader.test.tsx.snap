@@ -14,6 +14,10 @@ exports[`should render correct without extension 1`] = `
   box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
 }
 
+.emotion-5:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
 .emotion-4 {
   border: 1px solid#696979;
   border-radius: 4px;
@@ -230,6 +234,10 @@ exports[`should render correctly at initial state 1`] = `
   box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
 }
 
+.emotion-5:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
 .emotion-4 {
   border: 1px solid#696979;
   border-radius: 4px;
@@ -333,6 +341,10 @@ exports[`should render correctly at uploading state 1`] = `
   outline: none;
   position: relative;
   box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
+.emotion-5:focus:not(:focus-visible) {
+  box-shadow: none;
 }
 
 .emotion-4 {
@@ -564,6 +576,10 @@ exports[`should render correctly complete state 1`] = `
   outline: none;
   position: relative;
   box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
+.emotion-5:focus:not(:focus-visible) {
+  box-shadow: none;
 }
 
 .emotion-4 {

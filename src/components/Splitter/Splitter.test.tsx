@@ -3,6 +3,7 @@ import React from 'react'
 
 import { LocaleContext } from '../../i18n'
 import ptBR from '../../i18n/locales/pt-BR'
+import { focusRingStates } from '../../test/utils/resolveStyle'
 
 import { Splitter } from './Splitter'
 
@@ -156,5 +157,16 @@ describe('Splitter', () => {
       </LocaleContext.Provider>
     )
     expect(getByRole('separator', { name: 'Redimensionar painéis' })).toBeInTheDocument()
+  })
+})
+
+it('should show the focus ring of the grip for the keyboard, not after a click or a drag', () => {
+  const { getByRole } = render(<Splitter defaultSize={30}>{panels}</Splitter>)
+  const separator = getByRole('separator')
+  const grip = separator.querySelector('span')
+
+  ;['box-shadow', 'border-color'].forEach((property) => {
+    const { received, expected } = focusRingStates(grip, { on: separator, property })
+    expect(received).toEqual(expected)
   })
 })

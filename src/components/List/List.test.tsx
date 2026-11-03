@@ -1,6 +1,8 @@
 import { fireEvent, render } from '@testing-library/react'
 import React from 'react'
 
+import { focusRingStates } from '../../test/utils/resolveStyle'
+
 import { List } from './List'
 import { ListItem } from './ListItem'
 
@@ -125,5 +127,19 @@ describe('List', () => {
     expect(link).toHaveAttribute('aria-disabled', 'true')
     expect(link).toHaveAttribute('tabindex', '-1')
     expect(fireEvent.click(link)).toBe(false)
+  })
+})
+
+it('should show the focus ring of an item for the keyboard, not after a click', () => {
+  const { getByRole } = render(
+    <List aria-label='Team'>
+      <ListItem title='Bruno Lima' href='/people/bruno' />
+      <ListItem title='Carla Dias' onClick={jest.fn()} />
+    </List>
+  )
+
+  ;[getByRole('link', { name: 'Bruno Lima' }), getByRole('button', { name: 'Carla Dias' })].forEach((item) => {
+    const { received, expected } = focusRingStates(item, { pseudoElement: '::after' })
+    expect(received).toEqual(expected)
   })
 })

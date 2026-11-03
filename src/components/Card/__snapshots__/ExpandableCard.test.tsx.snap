@@ -71,6 +71,10 @@ exports[`should render correctly 1`] = `
   box-shadow: inset 0 0 0 2px #5E7300;
 }
 
+.emotion-2:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
 .emotion-2:disabled {
   color: #AAAAB9;
   cursor: not-allowed;

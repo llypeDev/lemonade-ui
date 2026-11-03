@@ -69,6 +69,10 @@ exports[`should render correctly 1`] = `
   box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
 }
 
+.emotion-0:focus:not(:focus-visible) + .emotion-2 {
+  box-shadow: none;
+}
+
 .emotion-0:disabled + .emotion-2 {
   opacity: 0.4;
   cursor: not-allowed;
@@ -170,6 +174,10 @@ exports[`should render correctly when disabled 1`] = `
 
 .emotion-0:focus + .emotion-2 {
   box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
+.emotion-0:focus:not(:focus-visible) + .emotion-2 {
+  box-shadow: none;
 }
 
 .emotion-0:disabled + .emotion-2 {
@@ -279,6 +287,10 @@ exports[`should render correctly with label 1`] = `
 
 .emotion-0:focus + .emotion-2 {
   box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
+.emotion-0:focus:not(:focus-visible) + .emotion-2 {
+  box-shadow: none;
 }
 
 .emotion-0:disabled + .emotion-2 {

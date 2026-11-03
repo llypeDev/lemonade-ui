@@ -42,6 +42,10 @@ exports[`BackToTop should render correctly 1`] = `
   box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2),0 1px 10px 0 rgba(0,0,0,0.12),0 4px 5px 0 rgba(0,0,0,0.14),0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
 }
 
+.emotion-1:focus:not(:focus-visible) {
+  box-shadow: 0 2px 4px -1px rgba(0,0,0,0.2),0 1px 10px 0 rgba(0,0,0,0.12),0 4px 5px 0 rgba(0,0,0,0.14);
+}
+
 @media (max-width:600px) {
   .emotion-1 {
     right: 1rem;

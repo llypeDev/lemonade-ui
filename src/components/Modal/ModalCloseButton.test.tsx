@@ -57,13 +57,17 @@ it('should render correctly', () => {
       display: inline-flex;
     }
 
-    .emotion-1:not(:disabled):active {
-      box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-    }
-
     .emotion-1:focus {
       outline: none;
       box-shadow: 0 0 0 2px #5E7300;
+    }
+
+    .emotion-1:focus:not(:focus-visible) {
+      box-shadow: none;
+    }
+
+    .emotion-1:not(:disabled):active {
+      box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
     }
 
     .emotion-1:not(:disabled):hover {

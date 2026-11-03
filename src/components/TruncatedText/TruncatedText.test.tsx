@@ -1,6 +1,8 @@
 import { render } from '@testing-library/react'
 import React from 'react'
 
+import { focusRingStates } from '../../test/utils/resolveStyle'
+
 import { TruncatedText } from './TruncatedText'
 
 const mockSize = (size: {
@@ -75,4 +77,12 @@ describe('TruncatedText', () => {
     )
     expect(container.querySelector('p')).toHaveTextContent('Paragraph')
   })
+})
+
+it('should show the focus ring of a cut text for the keyboard, not after a click', () => {
+  const restore = mockSize({ scrollWidth: 300, clientWidth: 100 })
+  const { getByText } = render(<TruncatedText>Annual report 2024 final version.pdf</TruncatedText>)
+  const { received, expected } = focusRingStates(getByText('Annual report 2024 final version.pdf'))
+  expect(received).toEqual(expected)
+  restore()
 })

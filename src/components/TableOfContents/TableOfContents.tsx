@@ -233,8 +233,15 @@ const createStyles = (theme: Theme) => ({
       textDecoration: 'underline',
     },
     '&:focus': {
-      borderRadius: theme.radius.input,
       boxShadow: focusBoxShadow(theme, 'primary', 'inset'),
+    },
+    // Only the keyboard shows the ring, not a click. Browsers without :focus-visible drop this rule and show it.
+    '&:focus:not(:focus-visible)': {
+      boxShadow: 'none',
+    },
+    // The corners round with the ring only, so a click leaves them as they are
+    '&:focus-visible': {
+      borderRadius: theme.radius.input,
     },
     '@media (prefers-reduced-motion: reduce)': {
       transition: 'none',

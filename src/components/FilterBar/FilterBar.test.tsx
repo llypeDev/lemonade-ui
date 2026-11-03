@@ -3,6 +3,7 @@ import React, { useState } from 'react'
 
 import { LocaleContext } from '../../i18n'
 import ptBR from '../../i18n/locales/pt-BR'
+import { focusRingStates } from '../../test/utils/resolveStyle'
 
 import { FilterBar, FilterBarChip } from './FilterBar'
 
@@ -111,4 +112,10 @@ describe('FilterBar', () => {
     expect(getByRole('button', { name: 'Limpar filtros' })).toBeInTheDocument()
     expect(getByRole('status')).toHaveTextContent('54 resultados')
   })
+})
+
+it('should show the focus ring of the remove button for the keyboard, not after a click', () => {
+  const { getByRole } = render(<Orders />)
+  const { received, expected } = focusRingStates(getByRole('button', { name: 'Remove filter Status: Paid' }))
+  expect(received).toEqual(expected)
 })

@@ -1,5 +1,6 @@
 import React from 'react'
 import { fireEvent, render } from '@testing-library/react'
+import { focusRingStates } from '../../test/utils/resolveStyle'
 import { ClickableCard, CardVariant } from '../Card'
 
 it('should render correctly', () => {
@@ -189,6 +190,30 @@ describe('states', () => {
       expect(getComputedStyle(card).cursor).toBe('not-allowed')
       expect(getComputedStyle(card).borderColor).toBe('#e2f0a0')
       expect(getComputedStyle(card).background).toBe('rgb(245, 250, 219)')
+    }
+  )
+})
+
+describe('focus ring', () => {
+  const cases: Array<[CardVariant, boolean]> = [
+    ['outline', false],
+    ['float', false],
+    ['plain', false],
+    ['outline', true],
+    ['float', true],
+    ['plain', true],
+  ]
+
+  it.each(cases)(
+    'should show for the keyboard and keep the shadow of the card after a click, %s variant, invalid %s',
+    (variant, invalid) => {
+      const { getByRole } = render(
+        <ClickableCard variant={variant} invalid={invalid}>
+          Content
+        </ClickableCard>
+      )
+      const { received, expected } = focusRingStates(getByRole('button'))
+      expect(received).toEqual(expected)
     }
   )
 })

@@ -3,6 +3,7 @@ import React from 'react'
 
 import { LocaleContext } from '../../i18n'
 import ptBR from '../../i18n/locales/pt-BR'
+import { focusRingStates } from '../../test/utils/resolveStyle'
 
 import { FileUploader } from './FileUploader'
 
@@ -68,4 +69,10 @@ it('should list the files that were not added and why', async () => {
   const alert = await findByRole('alert')
   expect(alert).toHaveTextContent('big.pdf · Not added: Larger than 1 KB')
   expect(alert).toHaveTextContent('photo.png · Not added: This type of file is not accepted')
+})
+
+it('should show the focus ring for the keyboard, not after a click', () => {
+  const { getByRole } = render(<FileUploader />)
+  const { received, expected } = focusRingStates(getByRole('button', { name: 'Click or drag files here to upload' }))
+  expect(received).toEqual(expected)
 })

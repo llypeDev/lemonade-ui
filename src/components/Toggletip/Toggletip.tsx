@@ -91,6 +91,10 @@ const createStyles = (theme: Theme) => ({
     '&:focus': {
       boxShadow: focusBoxShadow(theme),
     },
+    // Only the keyboard shows the ring, not a click. Browsers without :focus-visible drop this rule and show it.
+    '&:focus:not(:focus-visible)': {
+      boxShadow: 'none',
+    },
   } as CSSProperties,
   popover: {
     maxWidth: 'min(18rem, calc(100vw - 2rem))',

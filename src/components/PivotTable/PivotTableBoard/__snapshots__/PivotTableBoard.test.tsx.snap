@@ -227,6 +227,10 @@ exports[`PivotTable - PivotTableBoard should render correctly 1`] = `
   box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
 }
 
+.emotion-34:focus:not(:focus-visible) + .emotion-35 {
+  box-shadow: none;
+}
+
 .emotion-34:disabled + .emotion-35 {
   opacity: 0.4;
   cursor: not-allowed;
@@ -347,13 +351,17 @@ exports[`PivotTable - PivotTableBoard should render correctly 1`] = `
   display: inline-flex;
 }
 
-.emotion-55:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-55:focus {
   outline: none;
   box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
+.emotion-55:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-55:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-55:not(:disabled):hover {
@@ -422,13 +430,17 @@ exports[`PivotTable - PivotTableBoard should render correctly 1`] = `
   display: inline-flex;
 }
 
-.emotion-60:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-60:focus {
   outline: none;
   box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
+.emotion-60:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-60:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-60:not(:disabled):hover {
@@ -481,13 +493,17 @@ exports[`PivotTable - PivotTableBoard should render correctly 1`] = `
   display: inline-flex;
 }
 
-.emotion-61:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-61:focus {
   outline: none;
   box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
+.emotion-61:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-61:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-61:not(:disabled):hover {
@@ -568,17 +584,25 @@ exports[`PivotTable - PivotTableBoard should render correctly 1`] = `
   display: inline-flex;
 }
 
-.emotion-5:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-5:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
 }
 
+.emotion-5:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-5:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
+}
+
 .emotion-5:not(:disabled):hover {
   background-color: rgba(58,58,71,0.1);
+}
+
+.emotion-5:focus:not(:focus-visible):not(:active) {
+  box-shadow: 0 1px 5px 0 rgba(0,0,0,0.12),0 2px 1px 0 rgba(0,0,0,0.04);
 }
 
 .emotion-4 {
@@ -1205,6 +1229,10 @@ exports[`PivotTable - PivotTableBoard should render with initial fields 1`] = `
   box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
 }
 
+.emotion-33:focus:not(:focus-visible) + .emotion-34 {
+  box-shadow: none;
+}
+
 .emotion-33:disabled + .emotion-34 {
   opacity: 0.4;
   cursor: not-allowed;
@@ -1353,13 +1381,17 @@ exports[`PivotTable - PivotTableBoard should render with initial fields 1`] = `
   display: inline-flex;
 }
 
-.emotion-72:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-72:focus {
   outline: none;
   box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
+.emotion-72:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-72:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-72:not(:disabled):hover {
@@ -1428,13 +1460,17 @@ exports[`PivotTable - PivotTableBoard should render with initial fields 1`] = `
   display: inline-flex;
 }
 
-.emotion-77:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-77:focus {
   outline: none;
   box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
+.emotion-77:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-77:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-77:not(:disabled):hover {
@@ -1487,13 +1523,17 @@ exports[`PivotTable - PivotTableBoard should render with initial fields 1`] = `
   display: inline-flex;
 }
 
-.emotion-78:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-78:focus {
   outline: none;
   box-shadow: 0 0 0 2px #F0F0F5,0 0 0 4px #5E7300;
+}
+
+.emotion-78:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-78:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
 }
 
 .emotion-78:not(:disabled):hover {
@@ -1574,17 +1614,25 @@ exports[`PivotTable - PivotTableBoard should render with initial fields 1`] = `
   display: inline-flex;
 }
 
-.emotion-13:not(:disabled):active {
-  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
-}
-
 .emotion-13:focus {
   outline: none;
   box-shadow: 0 0 0 2px #5E7300;
 }
 
+.emotion-13:focus:not(:focus-visible) {
+  box-shadow: none;
+}
+
+.emotion-13:not(:disabled):active {
+  box-shadow: inset 0 2px 8px 0 rgba(0,0,0,0.1);
+}
+
 .emotion-13:not(:disabled):hover {
   background-color: rgba(58,58,71,0.1);
+}
+
+.emotion-13:focus:not(:focus-visible):not(:active) {
+  box-shadow: 0 1px 5px 0 rgba(0,0,0,0.12),0 2px 1px 0 rgba(0,0,0,0.04);
 }
 
 .emotion-12 {

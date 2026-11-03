@@ -242,8 +242,15 @@ const createStyles = (theme: Theme) => ({
       borderColor: theme.pallete.primary.main,
     },
     '&:focus > span': {
-      borderColor: theme.pallete.primary.main,
       boxShadow: focusBoxShadow(theme),
+    },
+    // Only the keyboard shows the ring, not a click or a drag. Browsers without :focus-visible drop this rule and
+    // show it.
+    '&:focus:not(:focus-visible) > span': {
+      boxShadow: 'none',
+    },
+    '&:focus-visible > span': {
+      borderColor: theme.pallete.primary.main,
     },
     '@media (prefers-reduced-motion: reduce)': {
       transition: 'none',

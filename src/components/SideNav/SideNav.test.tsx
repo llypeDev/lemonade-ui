@@ -1,6 +1,8 @@
 import { fireEvent, render } from '@testing-library/react'
 import React from 'react'
 
+import { focusRingStates } from '../../test/utils/resolveStyle'
+
 import { SideNav } from './SideNav'
 import { SideNavGroup } from './SideNavGroup'
 import { SideNavItem } from './SideNavItem'
@@ -104,5 +106,28 @@ describe('SideNav', () => {
       </SideNav>
     )
     expect(getByText('4')).toBeInTheDocument()
+  })
+})
+
+it('should show the focus ring for the keyboard and keep the mark of the current item after a click', () => {
+  const { getByRole } = render(
+    <SideNav aria-label='Main'>
+      <SideNavItem href='/orders' active>
+        Orders
+      </SideNavItem>
+      <SideNavItem href='/users'>Users</SideNavItem>
+      <SideNavGroup title='Reports'>
+        <SideNavItem href='/sales'>Sales</SideNavItem>
+      </SideNavGroup>
+    </SideNav>
+  )
+
+  ;[
+    getByRole('link', { name: 'Orders' }),
+    getByRole('link', { name: 'Users' }),
+    getByRole('button', { name: 'Reports' }),
+  ].forEach((item) => {
+    const { received, expected } = focusRingStates(item)
+    expect(received).toEqual(expected)
   })
 })
